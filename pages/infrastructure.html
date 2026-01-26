@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jelmer Poelstra">
+<meta name="dcterms.date" content="2026-01-30">
+
+<title>Computational Infrastructure – ENTMLGY6703-SP26 - Jelmer's lectures</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../img/favicon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-57476271c5f0467c372e20ff5d25630e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-315fdf77af9df3389e506d97b91a2191.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-6.7.2/latex-fontsize.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">ENTMLGY6703-SP26 - Jelmer’s lectures</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> <i class="bi bi-house" role="img" aria-label="This site's homepage">
+</i> 
+<span class="menu-text"> </span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-3-hts" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Week 3: HTS</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-week-3-hts">    
+        <li>
+    <a class="dropdown-item" href="../pages/sequencing.html">
+ <span class="dropdown-text">Lecture: High-throughput Sequencing &amp; Genomes</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../pages/infrastructure.html">
+ <span class="dropdown-text">Lab part 1: Computational Infrastructure</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../pages/data.html">
+ <span class="dropdown-text">Lab part 2: Working with genome and HTS Data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-week-4-rna-seq" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Week 4: RNA-seq</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
+        <li>
+    <a class="dropdown-item" href="../pages/rnaseq.html">
+ <span class="dropdown-text">Lecture: RNA-seq</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../pages/DE.html">
+ <span class="dropdown-text">Lab: Differential expression analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/r_homework.html"> 
+<span class="menu-text">R Homework</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://ondemand.osc.edu"> 
+<span class="menu-text"><i class="fa-solid fa-desktop" aria-label="desktop"></i></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <div class="dropdown">
+      <a href="" title="" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="The GitHub repo for this website"><i class="bi bi-github"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/ENTMLGY6703-SP26">
+            Source Code
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item quarto-navbar-tools-item" href="https://github.com/jelmerp/ENTMLGY6703-SP26/issues/new">
+            Report an Issue
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#todays-lab" id="toc-todays-lab" class="nav-link" data-scroll-target="#todays-lab"><span class="header-section-number">1.1</span> Today’s lab</a></li>
+  <li><a href="#goals-for-this-part" id="toc-goals-for-this-part" class="nav-link" data-scroll-target="#goals-for-this-part"><span class="header-section-number">1.2</span> Goals for this part</a></li>
+  </ul></li>
+  <li><a href="#computational-infrastructure-overview" id="toc-computational-infrastructure-overview" class="nav-link" data-scroll-target="#computational-infrastructure-overview"><span class="header-section-number">2</span> Computational infrastructure overview</a></li>
+  <li><a href="#the-ohio-supercomputer-center-osc" id="toc-the-ohio-supercomputer-center-osc" class="nav-link" data-scroll-target="#the-ohio-supercomputer-center-osc"><span class="header-section-number">3</span> The Ohio Supercomputer Center (OSC)</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-supercomputers" id="toc-introduction-to-supercomputers" class="nav-link" data-scroll-target="#introduction-to-supercomputers"><span class="header-section-number">3.1</span> Introduction to supercomputers</a></li>
+  <li><a href="#introduction-to-osc" id="toc-introduction-to-osc" class="nav-link" data-scroll-target="#introduction-to-osc"><span class="header-section-number">3.2</span> Introduction to OSC</a></li>
+  <li><a href="#the-osc-ondemand-web-portal" id="toc-the-osc-ondemand-web-portal" class="nav-link" data-scroll-target="#the-osc-ondemand-web-portal"><span class="header-section-number">3.3</span> The OSC OnDemand web portal</a></li>
+  </ul></li>
+  <li><a href="#the-vs-code-text-editor" id="toc-the-vs-code-text-editor" class="nav-link" data-scroll-target="#the-vs-code-text-editor"><span class="header-section-number">4</span> The VS Code text editor</a>
+  <ul class="collapse">
+  <li><a href="#what-is-vs-code" id="toc-what-is-vs-code" class="nav-link" data-scroll-target="#what-is-vs-code"><span class="header-section-number">4.1</span> What is VS Code?</a></li>
+  <li><a href="#starting-a-vs-code-session" id="toc-starting-a-vs-code-session" class="nav-link" data-scroll-target="#starting-a-vs-code-session"><span class="header-section-number">4.2</span> Starting a VS Code session</a></li>
+  <li><a href="#the-vs-code-user-interface" id="toc-the-vs-code-user-interface" class="nav-link" data-scroll-target="#the-vs-code-user-interface"><span class="header-section-number">4.3</span> The VS Code User Interface</a></li>
+  </ul></li>
+  <li><a href="#the-unix-shell" id="toc-the-unix-shell" class="nav-link" data-scroll-target="#the-unix-shell"><span class="header-section-number">5</span> The Unix shell</a>
+  <ul class="collapse">
+  <li><a href="#what-is-the-unix-shell-and-why-use-it" id="toc-what-is-the-unix-shell-and-why-use-it" class="nav-link" data-scroll-target="#what-is-the-unix-shell-and-why-use-it"><span class="header-section-number">5.1</span> What is the Unix shell and why use it?</a></li>
+  <li><a href="#first-steps-in-the-unix-shell" id="toc-first-steps-in-the-unix-shell" class="nav-link" data-scroll-target="#first-steps-in-the-unix-shell"><span class="header-section-number">5.2</span> First steps in the Unix shell</a></li>
+  <li><a href="#cd-and-command-actions-arguments" id="toc-cd-and-command-actions-arguments" class="nav-link" data-scroll-target="#cd-and-command-actions-arguments"><span class="header-section-number">5.3</span> <code>cd</code> and command actions &amp; arguments</a></li>
+  <li><a href="#ls-and-command-options" id="toc-ls-and-command-options" class="nav-link" data-scroll-target="#ls-and-command-options"><span class="header-section-number">5.4</span> <code>ls</code> and command options</a></li>
+  <li><a href="#a-few-more-general-shell-tips" id="toc-a-few-more-general-shell-tips" class="nav-link" data-scroll-target="#a-few-more-general-shell-tips"><span class="header-section-number">5.5</span> A few more general shell tips</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="sequencing.html"><i class="bi bi-bookmarks"></i>Week 3 lecture</a></li><li><a href="data.html"><i class="bi bi-pencil"></i>Week 3 lab - part 2</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Computational Infrastructure<br>for Genomics Analyses</h1>
+<p class="subtitle lead">Week 3 lab – part 1</p>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Jelmer Poelstra <a href="mailto:poelstra.1@osu.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3514-7462" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://mcic.osu.edu/bioinformatics">
+            CFAES Bioinformatics Core, Ohio State University
+            </a>
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 30, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<p><br></p>
+<section id="introduction" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
+<section id="todays-lab" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="todays-lab"><span class="header-section-number">1.1</span> Today’s lab</h3>
+<ul>
+<li><p>You will first learn about a typical “computational infrastructure” to analyze high-throughput sequencing (HTS) data – <strong>this page, part I</strong>.</p></li>
+<li><p>You will then use that infrastructure to start the exploration of an HTS dataset. You’ll check out HTS read and reference genome files, and perform read quality control – <a href="../pages/data.html"><strong>part II</strong></a>.</p></li>
+</ul>
+</section>
+<section id="goals-for-this-part" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="goals-for-this-part"><span class="header-section-number">1.2</span> Goals for this part</h3>
+<ul>
+<li>Learn what a typical computational infrastructure for genomics analyses looks like</li>
+<li>Learn the basics of supercomputers, and using the Ohio Supercomputer Center (OSC)</li>
+<li>Become familiar with a text editor (VS Code)</li>
+<li>Take your first steps in the command-line interface of the Unix shell</li>
+</ul>
+</section>
+</section>
+<section id="computational-infrastructure-overview" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="computational-infrastructure-overview"><span class="header-section-number">2</span> Computational infrastructure overview</h2>
+<p>Due in large part to the amount of data involved, a laptop or desktop computer is often not sufficient to work with HTS data. Additionally, most of the specialized programs that help you analyze your data can only be run through a “command-line interface”, in which you type commands rather than point-and-click.</p>
+<p>For these reasons, a typical computational infrastructure -the computer hardware and software- to do genomics analyses involves:</p>
+<ol type="1">
+<li>A <strong>supercomputer</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> – in our case, the Ohio Supercomputer Center (OSC)</li>
+<li>A <strong>text editor</strong> – in our case, VS Code</li>
+<li>The <strong>Unix shell</strong> (terminal) and command-line programs that run in it</li>
+<li><strong>R</strong> (or perhaps Python) for statistical analysis and visualization.</li>
+</ol>
+<p>Today, you will see the first three of these components in action. In this first part, you’ll get a little familiar with them, and in <a href="../pages/data.html">the next part</a>, you’ll apply what you learned to reference genome and HTS read data. (In next week’s lab, we will cover the fourth item in the context of RNA-Seq differential expression analysis.)</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>If you will often be doing HTS/genomics projects like the ones mentioned above, it’s hard to avoid using this (kind of) infrastructure. But especially if you’re only doing a single project like this, you might avoid it by:</p>
+<ul>
+<li>Outsourcing part of the analysis: companies or service cores can often do the more standardized, compute-heavy parts for you</li>
+<li>Trying a platform like <a href="https://usegalaxy.org"><strong><em>Galaxy</em></strong></a>, which has a web browser interface and doesn’t require coding</li>
+</ul>
+<p>Finally, generative AI tools are becoming increasingly capable of writing code for you based on your instructions, and may spurn additional no-code or low-code solutions in the future.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-ohio-supercomputer-center-osc" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="the-ohio-supercomputer-center-osc"><span class="header-section-number">3</span> The Ohio Supercomputer Center (OSC)</h2>
+<section id="introduction-to-supercomputers" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="introduction-to-supercomputers"><span class="header-section-number">3.1</span> Introduction to supercomputers</h3>
+<p>A <strong>supercomputer</strong> (also known as a “<strong>cluster</strong>”) consists of many computers that are connected by a high-speed network, and can be accessed remotely by its users. You can think of it simply as a <em>network of computers</em> — with individual computers called “<strong>nodes</strong>”.</p>
+<p>Supercomputers provide two main types of resources:</p>
+<ul>
+<li><strong>Compute</strong>: computing power to run your data processing and analysis</li>
+<li><strong>File storage</strong>: space for storage of your data and results</li>
+</ul>
+<p>Why might you need a supercomputer?</p>
+<ul>
+<li>Often, your HTS <strong>dataset is too large</strong> to be handled efficiently, or at all, by a laptop/desktop computer</li>
+<li>To <strong>speed up</strong> analyses by using more computing power and/or running them in parallel</li>
+<li>It’s also a great place to <strong>store</strong> large amounts of data — and genomics data is often very large</li>
+</ul>
+</section>
+<section id="introduction-to-osc" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="introduction-to-osc"><span class="header-section-number">3.2</span> Introduction to OSC</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/osc_logo.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../img/osc_logo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="The Ohio Supercomputer Center logo."></a></p>
+</figure>
+</div>
+<p>The <strong>Ohio Supercomputer Center (OSC)</strong> provides computing resources to researchers and others across Ohio. Research usage is charged at subsidized rates, and in our case at CFAES, these costs are absorbed at the college level.</p>
+<p>This is what “Cardinal”, one of the OSC supercomputers, physically looks like:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/cardinal_photo.jpeg" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="The Cardinal OSC cluster: it’s just some cabinets with many connected computers inside!"><img src="../img/cardinal_photo.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%" alt="A photo of the Cardinal OSC cluster"></a></p>
+</figure>
+</div>
+<figcaption><em>The Cardinal OSC cluster: it’s just some cabinets with many connected computers inside!</em></figcaption>
+</figure>
+</div>
+<section id="the-structure-of-an-osc-supercomputer" class="level4">
+<h4 class="anchored" data-anchor-id="the-structure-of-an-osc-supercomputer">The structure of an OSC supercomputer</h4>
+<p>You can think of a supercomputer as having three main parts:</p>
+<ul>
+<li><strong>Login Nodes</strong>: The handful of computers users end up on after logging in</li>
+<li><strong>Compute Nodes</strong>: The many computers you can reserve to run your analyses</li>
+<li><strong>File Systems</strong>: Where files are stored (these are shared between the OSC clusters)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/cluster_overview_ed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="The structure of a supercomputer with three main components: file systems, login nodes, and compute nodes"><img src="../img/cluster_overview_ed.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%" alt="A diagram showing the structure of a supercomputer with three main components: file systems, login nodes, and compute nodes"></a></p>
+</figure>
+</div>
+<figcaption><em>The structure of a supercomputer with three main components: file systems, login nodes, and compute nodes</em></figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="the-osc-ondemand-web-portal" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="the-osc-ondemand-web-portal"><span class="header-section-number">3.3</span> The OSC OnDemand web portal</h3>
+<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Go to <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a> and use the username + password login option on the left-hand side to log in with your OSC (not OSU!) credentials.</p>
+<p>Once logged in, you should see a landing page similar to the one below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_home.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="The OSC OnDemand landing page"><img src="../img/ondemand_home.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%" alt="A screenshot of the OSC OnDemand landing page"></a></p>
+</figure>
+</div>
+<figcaption><em>The OSC OnDemand landing page</em></figcaption>
+</figure>
+</div>
+<p>We will now go through some of the dropdown menus in the <strong>blue bar along the top</strong>.</p>
+<section id="files-menu" class="level4">
+<h4 class="anchored" data-anchor-id="files-menu">Files menu</h4>
+<p>Hovering over the <strong>Files</strong> dropdown menu gives a list of folders you have access to. If your account is brand new, you should only see three listed:</p>
+<ol type="1">
+<li>A <strong>Home</strong> folder for miscellaneous personal files (starts with <code>/users/</code>)</li>
+<li>The <code>PAS2880</code> project’s “<strong>project</strong>” folder for permanent storage (<code>/fs/ess/PAS2880</code>)</li>
+<li>The <code>PAS2880</code> project’s “<strong>scratch</strong>” folder for temporary storage (<code>/fs/scratch/PAS2880</code>)</li>
+</ol>
+<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Click on the <code>PAS2880</code> scratch folder, <code>/fs/scratch/PAS2880</code>. You should see the folders and files present there, and click on folders to explore their contents. Click on the <code>ENT6703</code> folder, which we’ll be using for these labs, and you should see the following:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_files_PAS2880.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="The OnDemand file browser"><img src="../img/ondemand_files_PAS2880.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%" alt="A screenshot of the OSC OnDemand file browser."></a></p>
+</figure>
+</div>
+<figcaption><em>The OnDemand file browser</em></figcaption>
+</figure>
+</div>
+<p>This interface is <strong>much like the file browser on your own computer</strong>, so you can create, delete, move, copy files and folders. Additionally, you can upload (from your computer to OSC) and download (from OSC your computer) files – see the buttons across the top.</p>
+<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Create your own folder</strong> by clicking the <code>New Directory</code> button at the top. Give it the <em>exact same name as your OSC username</em>, including any capitalization. <em>(I’ll refer to this folder as your <strong>personal folder</strong> from now on.)</em></p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><em>If in doubt, you can see what your username is by looking at the right side of the blue top bar:</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/username.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-understanding-filefolder-locations" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-understanding-filefolder-locations"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Understanding file/folder locations</h4>
+<ol type="1">
+<li><p>Click on your personal folder to enter it.</p></li>
+<li><p>Take a look at the so-called “<strong>path</strong>” (file/folder location) shown at the top of the file browser, next to “Change directory”. How do you interpret this notation: what do the forward slashes <kbd>/</kbd> indicate, and what does each part in between represent? You can click back-and-forth to see how the path changes.</p>
+<details>
+<summary>
+<p><em>Click for the solution</em></p>
+</summary>
+<p>The forward slashes <kbd>/</kbd> separate folder in a path. Each part in between represents a folder name. For example, in <code>/fs/scratch/PAS2880/ENT6703</code>:</p>
+<ul>
+<li><code>/fs</code> is a top-level folder – you can always distinguish a top-level folder because the path starts with a forward slash <kbd>/</kbd></li>
+<li>inside that is the <code>scratch</code> folder</li>
+<li>inside that is the <code>PAS2880</code> folder</li>
+<li>inside that is the <code>ENT6703</code> folder</li>
+</ul>
+<p>Taking a step back, the OSC file system is a single hierarchical structure. File systems on personal computers are structured very similarly, though in Windows, among some other differences, backslashes <kbd>&lt;/kbd&gt; are used instead of forward slashes <kbd>/</kbd>.</kbd></p>
+</details>
+<details>
+<summary>
+<p><em>Click to see a diagram of the OSC file system</em></p>
+</summary>
+<hr style="height:1pt; visibility:hidden;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/paths2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../img/paths2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A diagram showing the hierarchical structure of a file system with folders and subfolders."></a></p>
+</figure>
+</div>
+</details></li>
+<li><p>If user <code>miranda</code> made a folder inside the <code>ENT6703</code> folder, what would be the path to that folder?</p>
+<details>
+<summary>
+<p><em>Click for the solution</em></p>
+</summary>
+<p>The path would be <code>/fs/scratch/PAS2880/ENT6703/miranda</code>.</p>
+</details></li>
+</ol>
+</section>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Side note: OSC System Status overview<em>(click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In the “<strong>Clusters</strong>” dropdown menu, click on the item at the bottom, “<strong><code>System Status</code></strong>”:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_systemstatus_select.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="The Clusters dropdown menu"><img src="../img/ondemand_systemstatus_select.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%" alt="A screenshot of the options in the OSC OnDemand Clusters dropdown menu."></a></p>
+</figure>
+</div>
+<figcaption><em>The Clusters dropdown menu</em></figcaption>
+</figure>
+</div>
+<p>This page shows an overview of the live, current usage of the two clusters – just to give you an idea of the scale of the supercomputer center and its usage.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_systemstatus.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="A screenshot of the “System Status” page showing live cluster usage."><img src="../img/ondemand_systemstatus.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="A screenshot of the OSC Ondemand System Status page showing live cluster usage."></a></p>
+</figure>
+</div>
+<figcaption>A screenshot of the “System Status” page showing live cluster usage.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<section id="interactive-apps" class="level4">
+<h4 class="anchored" data-anchor-id="interactive-apps">Interactive Apps</h4>
+<p>You can access a bunch of software via the <strong>Interactive Apps</strong> dropdown menu – go ahead and click on the “Code Server” button – that will allow us to use the VS Code text editor on OSC, as explained below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_vscode_select.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../img/ondemand_vscode_select.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:24.0%" alt="A screenshot of the options in the OSC OnDemand Interactive Apps dropdown menu."></a></p>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="the-vs-code-text-editor" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="the-vs-code-text-editor"><span class="header-section-number">4</span> The VS Code text editor</h2>
+<section id="what-is-vs-code" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="what-is-vs-code"><span class="header-section-number">4.1</span> What is VS Code?</h3>
+<p>VS Code is basically a fancy text editor, with an integrated terminal that runs a Unix shell. In these labs:</p>
+<ul>
+<li>VS Code will be our editor for Unix shell code (this week)</li>
+<li>RStudio will be our editor for R (next week’s lab)</li>
+</ul>
+</section>
+<section id="starting-a-vs-code-session" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="starting-a-vs-code-session"><span class="header-section-number">4.2</span> Starting a VS Code session</h3>
+<p>Interactive Apps like VS Code and RStudio <strong>run on compute nodes</strong> (not login nodes). Because compute nodes always need to be “reserved” to be used, you have to fill out a form and specify the following details:</p>
+<ul>
+<li>The <strong>Cluster</strong> we want to use: <code>pitzer</code></li>
+<li>The <strong>Account</strong>, the OSC Project to be billed for the compute node usage: <code>PAS2880</code></li>
+<li>The <strong>Number of hours</strong> we want to make a reservation for: <code>4</code></li>
+<li>The <strong>Working Directory</strong> (starting point) for the program: <code>/fs/scratch/PAS2880/ENT6703</code></li>
+<li><span style="color:#969696">The <strong>App Code Server version</strong>: <code>4.8.3</code> (this should be the only available option)</span></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_vscode_form.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="This is how you should fill out the form to start a VS Code session"><img src="../img/ondemand_vscode_form.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="A screenshot of OSC OnDemand VS Code form."></a></p>
+</figure>
+</div>
+<figcaption>This is how you should fill out the form to start a VS Code session</figcaption>
+</figure>
+</div>
+<p>Click <code>Launch</code> and you’ll be sent to the <em>My Interactive Sessions</em> page with a card for your job at the top. First, your job may be <em>Queued</em> for some seconds (i.e., waiting for computing resources to be assigned to it), but it should soon switch to <em>Starting</em> and then to <em>Running</em>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_vscode_running2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../img/ondemand_vscode_running2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%" alt="A screenshot of the OSC OnDemand page shown when the Code Server job has started running."></a></p>
+</figure>
+</div>
+<p>Once the blue <strong>Connect to VS Code</strong> button appears, click that and VS Code will open in a new browser tab. When VS Code opens, you may get these two pop-ups (and possibly some others):</p>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/vscode-trust2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Here, click “Yes, …” and check the “Trust” box"><img src="../img/vscode-trust2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%" alt="A screenshot of a popup you may get when first opening a folder in VS Code."></a></p>
+</figure>
+</div>
+<figcaption>Here, click “Yes, …” and check the “Trust” box</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/vscode-git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Here, click “Don’t Show Again”"><img src="../img/vscode-git.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%" alt="A screenshot of a popup you may get when first opening VS Code."></a></p>
+</figure>
+</div>
+<figcaption>Here, click “Don’t Show Again”</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-vs-code-user-interface" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="the-vs-code-user-interface"><span class="header-section-number">4.3</span> The VS Code User Interface</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/vscode-welcome_ed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="An annotated overview of the VS Code User Interface"><img src="../img/vscode-welcome_ed.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="An annotated screenshot of the VS Code user interace"></a></p>
+</figure>
+</div>
+<figcaption>An annotated overview of the VS Code User Interface</figcaption>
+</figure>
+</div>
+<section id="editor-pane-and-get-started-document" class="level4">
+<h4 class="anchored" data-anchor-id="editor-pane-and-get-started-document">Editor pane and “Get Started” document</h4>
+<p>The main part of the VS Code is the <strong>editor pane</strong>. Here, you can open files like scripts and other types of text files, and images. Right now, you should see a Get Started page – you don’t have to go through any steps that may be suggested there.</p>
+</section>
+<section id="side-bars" class="level4">
+<h4 class="anchored" data-anchor-id="side-bars">Side bars</h4>
+<p>The <strong>Activity Bar</strong> (narrow side bar) on the far left has:</p>
+<ul>
+<li>A <i class="fa-solid fa-bars" aria-label="bars"></i> (“hamburger menu”), which has menu items like <code>File</code> that you often find in a top bar</li>
+<li>A <i class="fa-solid fa-cog" aria-label="cog"></i> (cog wheel icon) in the bottom, through which you can mainly access <em>settings</em></li>
+<li>Icons to toggle <strong>(wide) Side Bar</strong> options – but we’ll only use the default selection, the <em>Explorer</em> (file browser)</li>
+</ul>
+</section>
+<section id="terminal-with-a-unix-shell" class="level4">
+<h4 class="anchored" data-anchor-id="terminal-with-a-unix-shell">Terminal (with a Unix shell)</h4>
+<p><strong>Open a terminal</strong> by clicking &nbsp;<i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; <code>Terminal</code> =&gt; <code>New Terminal</code>. We’ll start using this in the next section!</p>
+</section>
+<section id="exercise-try-a-few-color-themes" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-try-a-few-color-themes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Try a few color themes</h4>
+<ol type="1">
+<li>Access the “Color Themes” option by clicking <i class="fa fa-cog"></i> &nbsp; =&gt; <code>Color Theme</code>.</li>
+<li>Try out a few themes and see what you like!</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="the-unix-shell" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="the-unix-shell"><span class="header-section-number">5</span> The Unix shell</h2>
+<section id="what-is-the-unix-shell-and-why-use-it" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="what-is-the-unix-shell-and-why-use-it"><span class="header-section-number">5.1</span> What is the Unix shell and why use it?</h3>
+<p>A computer’s <strong>shell</strong> is an interface inside a Terminal window that allows you to interact with your computer by typing commands. More specifically, the <strong>Unix shell</strong> is the shell of Unix-based operating systems, which include Mac and Linux (but not Windows). Supercomputers like OSC run on Linux, so the default shell here -and for scientific computing in general- is a Unix shell.</p>
+<p>Using the Unix shell is often a necessity when working with HTS data, in order to run the <strong>specialized software</strong> needed for data processing. But there are other good reasons to use the shell, including:</p>
+<ul>
+<li><strong>Automation and efficiency</strong><br>
+The shell allows you to repeat and automate tasks easily and without introducing errors.</li>
+<li><strong>Reproducibility</strong><br>
+When working in the shell, it’s straightforward to keep a detailed record of what you have done.</li>
+<li><strong>Viewing and processing large files</strong><br>
+Shell commands are excellent at viewing and processing <em>large, plain-text files</em>, which are common in omics data.</li>
+</ul>
+</section>
+<section id="first-steps-in-the-unix-shell" class="level3" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="first-steps-in-the-unix-shell"><span class="header-section-number">5.2</span> First steps in the Unix shell</h3>
+<section id="the-shell-prompt" class="level4">
+<h4 class="anchored" data-anchor-id="the-shell-prompt">The shell prompt</h4>
+<p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. Your prompt at OSC should show the following pieces of information:</p>
+<p><code>[&lt;username&gt;@&lt;node-name&gt; &lt;current-folder&gt;]$</code></p>
+<p>For example, below, user <code>jelmer</code> is on node <code>p0080</code> in folder <code>ENT6703</code>:</p>
+<pre class="bash-in-nocolor"><code>[jelmer@p0080 ENT6703]$ </code></pre>
+<p>You type commands <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute them. When it has finished executing, you’ll get your prompt back and can type a new command.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+How shell code is shown on this website
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>The <strong>pale gray boxes</strong> like the ones shown above are used to show the commands you should type.</li>
+<li>From now on, the prompt itself (<code>[...]$</code>) won’t be shown, only the commands you type. This saves space and allows you to copy-paste code from the boxes (but I recommend typing!).</li>
+<li><strong>Darker gray boxes</strong> (with italic text, below the boxes with commands) show the <em>output</em> of commands.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="a-few-simple-commands-date-whoami-pwd" class="level4">
+<h4 class="anchored" data-anchor-id="a-few-simple-commands-date-whoami-pwd">A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></h4>
+<p>The Unix shell comes with hundreds of “commands”: small programs that perform specific actions. (If you’re familiar with R or Python, a Unix command is like an R/Python function.) Let’s start with a few simple commands:</p>
+<ul>
+<li><p>The <code>date</code> command prints the current date and time:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Fri Jan 26 14:31:51 EST 2024</code></pre></li>
+<li><p>The <code>whoami</code> (who-am-i) command prints your username:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>jelmer</code></pre></li>
+<li><p>The <code>pwd</code> -Print Working Directory- command prints the “path” (location) of the folder you are currently located in:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/jelmer</code></pre></li>
+</ul>
+<p>All those commands provided us with some output. That output was <strong>printed to screen</strong>, which is the default behavior for nearly every Unix command.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Some terminology
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Recall that “directory” / “dir” is just a synonym for “folder” – we’ll use “<strong>dir</strong>” from now on</li>
+<li>When working in a Unix shell, you are always “in” a specific directory, which is called your <strong>working dir</strong></li>
+<li>Recall from earlier that a “<strong>path</strong>”, such as that output by <code>pwd</code>, specifies the location of a file or dir in a computer’s file system</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="cd-and-command-actions-arguments" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="cd-and-command-actions-arguments"><span class="header-section-number">5.3</span> <code>cd</code> and command actions &amp; arguments</h3>
+<p>In the above three examples:</p>
+<ul>
+<li>You merely typed a command and nothing else</li>
+<li>The command provided some information, which was printed to screen</li>
+</ul>
+<p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory, i.e.&nbsp;change your working dir.</p>
+<p>Let’s use <code>cd</code> to move to another dir by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that <code>cd</code> had <strong>no output</strong> at all. But it did perform the desired action, which we can see by checking the working directory again with <code>pwd</code>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/share</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+I will demonstrate a neat feature called “tab completion”!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<p>In more abstract terms, you provided <code>cd</code> with an <strong>argument</strong> above, namely the path of the dir to move to. Arguments generally tell commands what file or directory to operate on.</p>
+<p>So, <code>cd</code> gives no output when it succesfully changed the working directory. But let’s also see what happens when it does not succeed — it gives an error:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/Scratch/PAS2880</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>bash: cd: /fs/Scratch/PAS2880: No such file or directory</code></pre>
+<details>
+<summary>
+<i class="fa-solid fa-comments" aria-label="comments"></i> What was the problem with the path we specified? <em>(Click to see the answer)</em>
+</summary>
+<p>We used a capital S in <code>/Scratch/</code> — this should have been <code>/scratch/</code>.</p>
+Everything in the shell is <strong>case-sensitive</strong>, including commands and file names. So if a directory is called <code>scratch</code>, typing <code>Scratch</code> will not work!
+</details>
+</section>
+<section id="ls-and-command-options" class="level3" data-number="5.4">
+<h3 data-number="5.4" class="anchored" data-anchor-id="ls-and-command-options"><span class="header-section-number">5.4</span> <code>ls</code> and command options</h3>
+<section id="the-default-behavior-of-ls" class="level4">
+<h4 class="anchored" data-anchor-id="the-default-behavior-of-ls">The default behavior of <code>ls</code></h4>
+<p>The <code>ls</code> command, short for “list”, will list files and directories – by default those present in your current working dir:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>data  README.md</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Side note: <code>ls</code> output colors <em>(click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>ls</code> output shown above does not show the different colors you should see in your shell, where:</p>
+<ul>
+<li>Entries in <strong><span style="color: #0328fc">blue</span></strong> are directories (like <code>data</code> and <code>metadata</code> above)</li>
+<li>Entries in <strong>black</strong> are regular files (like <code>README.md</code> above)</li>
+<li>Entries in <strong><span style="color: #d92118">red</span></strong> are compressed files (we’ll see an example soon).</li>
+</ul>
+<p><em>(Though colors may vary depending on your terminal and color scheme settings.)</em></p>
+</div>
+</div>
+</div>
+</section>
+<section id="options-to-ls" class="level4">
+<h4 class="anchored" data-anchor-id="options-to-ls">Options (to <code>ls</code>)</h4>
+<p>The way that <code>ls</code> shows the output can be changed using options. In general, while arguments tell a command <em>what to operate on</em>, options will <em>modify its behavior</em>. For example, we can call <code>ls</code> with the <strong>option <code>-l</code></strong> (a dash followed by a lowercase L):</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 17
+drwxr-xr-x 5 jelmer PAS0471 4096 Jan 21 12:39 data
+-rw-r--r-- 1 jelmer PAS0471 1502 Jan 22 11:04 README.md</code></pre>
+<p>Notice that it lists the same items as our first <code>ls</code> call above, but <strong>printed in a different format</strong>: one item per line, with additional information such as the last-modified date and time, and the file sizes in bytes (to the left of the date).</p>
+<p>Let’s add another option, <code>-h</code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 17K
+drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
+-rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md</code></pre>
+<details>
+<summary>
+<i class="fa-solid fa-comments" aria-label="comments"></i> What is different about the output, and what do you think that means? <em>(Click to see the answer)</em>
+</summary>
+<p>The only difference is in the format of the column reporting the sizes of the items listed.</p>
+You now have “Human-readable filesizes” (hence <code>-h</code>), where sizes on the scale of kilobytes will be shown with <code>K</code>s, of megabytes with <code>M</code>s, and of gigabytes with <code>G</code>s. Minor detail, but this can be quite useful especially for large files.
+</details>
+<p>Conveniently, options can be “pasted together”; <code>ls -lh</code> is equivalent to <code>ls -l -h</code>:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 17K
+drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
+-rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md</code></pre>
+</section>
+<section id="combining-options-and-arguments" class="level4">
+<h4 class="anchored" data-anchor-id="combining-options-and-arguments">Combining options and arguments</h4>
+<p>Arguments to <code>ls</code> should be <strong>dirs or files to operate on</strong>. For example, if you wanted to see what’s inside the <code>data</code> dir, instead of inside your working dir, we could type:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>fastq  meta  ref</code></pre>
+<p>The <code>data</code> dir appears to contain three dirs with different kinds of data. We’ll talk in detail about that later, but for now, take a look inside the <code>fastq</code> dir:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>ERR10802863_R1.fastq.gz  ERR10802865_R2.fastq.gz  ERR10802868_R1.fastq.gz  ERR10802870_R2.fastq.gz  ERR10802875_R1.fastq.gz  ERR10802877_R2.fastq.gz  ERR10802880_R1.fastq.gz  ERR10802882_R2.fastq.gz  ERR10802885_R1.fastq.gz
+ERR10802863_R2.fastq.gz  ERR10802866_R1.fastq.gz  ERR10802868_R2.fastq.gz  ERR10802871_R1.fastq.gz  ERR10802875_R2.fastq.gz  ERR10802878_R1.fastq.gz  ERR10802880_R2.fastq.gz  ERR10802883_R1.fastq.gz  ERR10802885_R2.fastq.gz
+ERR10802864_R1.fastq.gz  ERR10802866_R2.fastq.gz  ERR10802869_R1.fastq.gz  ERR10802871_R2.fastq.gz  ERR10802876_R1.fastq.gz  ERR10802878_R2.fastq.gz  ERR10802881_R1.fastq.gz  ERR10802883_R2.fastq.gz  ERR10802886_R1.fastq.gz
+ERR10802864_R2.fastq.gz  ERR10802867_R1.fastq.gz  ERR10802869_R2.fastq.gz  ERR10802874_R1.fastq.gz  ERR10802876_R2.fastq.gz  ERR10802879_R1.fastq.gz  ERR10802881_R2.fastq.gz  ERR10802884_R1.fastq.gz  ERR10802886_R2.fastq.gz
+ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10802874_R2.fastq.gz  ERR10802877_R1.fastq.gz  ERR10802879_R2.fastq.gz  ERR10802882_R1.fastq.gz  ERR10802884_R2.fastq.gz</code></pre>
+<p>Ah, FASTQ files! These contain the HTS reads you’ll work with, and you’ll explore them in the second part of this lab.</p>
+<p>Finally, you can <strong>combine options and arguments</strong>, and let’s do so take a closer look at the dir with FASTQ files — now, the <code>-h</code> option is especially useful and allows you see that the FASTQ files are 21-22 Mb in size:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 941M
+-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802863_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802863_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802864_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802864_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R2.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802866_R1.fastq.gz
+-rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802866_R2.fastq.gz
+[...output truncated...]</code></pre>
+</section>
+<section id="exercise-practice-with-ls" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-practice-with-ls"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Practice with <code>ls</code></h4>
+<p>List the files in the <code>data/ref</code> dir. What are the file sizes?</p>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 670M
+-rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
+-rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf</code></pre>
+The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) is 547 Mb (not bases but bytes!), and the <code>.gtf</code> file (this is the annotation file) is 123 Mb.
+</details>
+</section>
+<section id="bonus-exercise-paths" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="bonus-exercise-paths"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Paths</h4>
+<p>Earlier with <code>cd</code>, you used long paths like <code>/fs/scratch/PAS2880/ENT6703/share</code>. Here, you used short ones like <code>data</code> and <code>data/fastq</code>. What is the difference between these kinds of paths?</p>
+<ol type="A">
+<li>When you use <code>cd</code>, you have to use long paths, but with <code>ls</code> you can use short ones.</li>
+<li><code>data</code> and <code>data/fastq</code> are just shorter because they are closer to the root of the filesystem, so there are fewer dirs to travel through.</li>
+<li>The long paths start from the root of the file system, while the short paths start from your current working dir.</li>
+<li>The long paths are for directories, while the short paths are for files.</li>
+</ol>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<p>The correct answer is <code>C</code>.</p>
+<p>The long paths are called <strong>absolute paths</strong>, and start from the root of the file system (recognized by a leading slash like in <code>/fs/ess</code>). Making an analogy with geographic locations, you can think of these as GPS coordinates: they always point to the same location, no matter where you currently are.</p>
+<p>The short paths are <strong>relative paths</strong>, starting from your current working dir. So, if your working dir is <code>/fs/scratch/PAS2880/ENT6703</code>, then <code>data</code> is equivalent to <code>/fs/scratch/PAS2880/ENT6703/data</code>. Continuing the geographic analogy, these are like giving directions starting from your current location such as “take the second left”.</p>
+</details>
+</section>
+</section>
+<section id="a-few-more-general-shell-tips" class="level3" data-number="5.5">
+<h3 data-number="5.5" class="anchored" data-anchor-id="a-few-more-general-shell-tips"><span class="header-section-number">5.5</span> A few more general shell tips</h3>
+<ul>
+<li><p><strong>Command history:</strong> If you hit the <kbd>⇧</kbd> (up arrow) once, you’ll retrieve your most recent command, and if you keep hitting it, you’ll go further back. The<kbd>⇩</kbd> (down arrow) will go the other way: towards the present.</p></li>
+<li><p>Your <strong>cursor</strong> can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!</p></li>
+<li><p>Anything that comes after a <code>#</code> is considered a <strong>comment</strong> instead of code!</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/jelmer</code></pre></li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<section id="exercise-shell-navigation-practice" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-shell-navigation-practice"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Shell navigation practice</h4>
+<ol type="1">
+<li><p>Move into your personal directory (the one you created a little while back), and then back into the <code>share</code> dir.</p>
+<details>
+<summary>
+<p><em>Click for the solution</em></p>
+</summary>
+<ul>
+<li><p>Move into your personal dir (replace <code>jelmer</code> with <em>your</em> username):</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/jelmer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Move back to <code>ENT6703</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</details></li>
+<li><p>Use command history (arrows) to repeat the previous exercise without typing commands.</p></li>
+</ol>
+</section>
+<section id="bonus-exercise-advanced-navigation" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="bonus-exercise-advanced-navigation"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Advanced navigation</h4>
+<p>In the first question, did you perhaps find yourself wondering how you can move up a level in the file system? In a path, <code>..</code> denotes one level up, so <code>../bla</code> means one level up and <em>then</em> down into the <code>bla</code> directory.</p>
+<p>Try to make use of this construct to move into your personal dir and back to <code>share</code> again, instead of using the “full paths” like above. <em>Hint: Tab completion after typing <code>../</code> can help you to orient yourself!</em></p>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<ul>
+<li><p>Into your personal dir (replace <code>jelmer</code> with your own username):</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Back to <code>share</code>:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
+</details>
+<details>
+<summary>
+<em>Click to see a diagram of using <code>..</code></em>
+</summary>
+<hr style="height:1pt; visibility:hidden;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/paths3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="../img/paths3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%" alt="A diagram showing the hierarchical structure of a file system with folders and subfolders."></a></p>
+</figure>
+</div>
+</details>
+</section>
+
+
+</section>
+</section>
+
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Cloud computing is an alternative, but won’t be covered here.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/jelmerp\.github\.io\/ENTMLGY6703-SP26");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>2026, Jelmer Poelstra, <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> &nbsp; <img src="http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png" class="img-fluid" style="width:10.0%"></p>
+</div>   
+    <div class="nav-footer-center">
+<p><img src="../img/CFAES-Horiz-RGBHEX.svg" class="img-fluid" style="width:40.0%"></p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jelmerp/ENTMLGY6703-SP26">
+      <i class="bi bi-github" role="img" aria-label="The GitHub repo for this website">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
