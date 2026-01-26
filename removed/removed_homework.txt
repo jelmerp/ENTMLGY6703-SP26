@@ -1,0 +1,29 @@
+### `arrange()` to sort data frames
+
+The `arrange()` function is like sorting functionality in Excel:
+it changes the order of rows based on the values in one or more columns^[
+It will always rearrange the order of rows as a whole,
+never just of individual columns since that would scramble the data.
+].
+
+The `meta` dataframe is currently first sorted by `time` and then by `treatment`,
+whereas `sample_id`s within these groups are not sorted.
+You may, for example, want to sort by `sample_id` instead:
+
+```{r}
+meta |>
+  arrange(sample_id)
+```
+
+
+Let's see a few more examples.
+As vectors can consist of just a single item,
+each of the two lines of code below creates a vector:
+
+```{r}
+vector1 <- 8
+vector2 <- "panda"
+```
+
+`"panda"` is a single item (not 5 - its number of letters,
+and because it's a non-numeric value, has to be quoted.

@@ -1,0 +1,28 @@
+---
+title: "Resources for further learning"
+---
+
+-   **OSC**
+    -   <https://mcic-osu.github.io/rnaseq-intro/modules/A01_osc.html>
+    -   [OSC's online asynchronous courses](https://www.osc.edu/supercomputing/training)
+    -   [OSC's new User Resource Guide](https://www.osc.edu/resources/getting_started/new_user_resource_guide)
+-   **VS Code**
+    -   <https://mcic-osu.github.io/rnaseq-intro/modules/A02_vscode.html>
+-   **Unix shell**
+    -   [OSC's UNIX Basics](https://www.osc.edu/documentation/tutorials/unix_basics)
+    -   <https://mcic-osu.github.io/rnaseq-intro/modules/A03_shell1.html>
+    -   <https://mcic-osu.github.io/rnaseq-intro/modules/A04_shell2.html>
+    -   <https://www.learnenough.com/command-line-tutorial>
+    -   <https://cvw.cac.cornell.edu/Linux/>
+-   **OSU courses**
+    -   Genome Analytics course (`HCS 7004`)
+    -   Microbiome Informatics course (`MICRBIO 8161`)
+    -   Computing Skills for Omics Data (`PLNTPTH 5006`, taught as IS in SP24 2nd session as `PLNTPTH 6193`)
+-   **Online workshop/course material**
+    -   Workshop "[Command line basics for genomic analysis at OSC](https://mcic-osu.github.io/cl-workshop-22)" (Mike Sovic & Jelmer Poelstra, 2022)
+    -   Course ["Practical Computing Skills for Biologists"](https://mcic-osu.github.io/pracs-sp21/) (Jelmer Poelstra, 2021)
+-   **Books**
+    -   [A Primer for Computational Biology](https://open.oregonstate.education/computationalbiology) (Shawn T. O' Neil, 2019) *(available online!)*
+    -   Computing Skills for Biologists: A Toolbox (Wilmes & Allesino, 2019)
+    -   Bioinformatics Data Skills (Vince Buffalo, 2015)
+    -   The Linux Command Line (William Shotts, 2019)

@@ -1,0 +1,81 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "ENTMLGY6703-SP26 - Jelmer's lectures"
+  favicon: img/favicon.png
+  site-url: https://jelmerp.github.io/ENTMLGY6703-SP26
+  repo-url: https://github.com/jelmerp/ENTMLGY6703-SP26
+  page-navigation: true
+  back-to-top-navigation: true
+  navbar:
+    background: "#BB0000" # "#666666"
+    left:
+      - href: index.qmd
+        icon: house
+        text: " "
+        aria-label: "This site's homepage"
+      - text: "Week 3: HTS"
+        menu: 
+          - text: "Lecture: High-throughput Sequencing & Genomes"
+            href: pages/sequencing.qmd
+          - text: "Lab part 1: Computational Infrastructure"
+            href: pages/infrastructure.qmd
+          - text: "Lab part 2: Working with genome and HTS Data"
+            href: pages/data.qmd
+      - text: "Week 4: RNA-seq"
+        menu: 
+          - text: "Lecture: RNA-seq"
+            href: pages/rnaseq.qmd
+          - text: "Lab: Differential expression analysis"
+            href: pages/DE.qmd
+      - text: "R Homework"
+        href: pages/r_homework.qmd
+    right:
+      - text: About
+        href: about.qmd
+      - text: "{{< fa desktop >}}"
+        href: https://ondemand.osc.edu
+        aria-label: "The OSC OnDemand website"
+    tools:
+      - icon: github
+        aria-label: "The GitHub repo for this website"
+        menu:
+          - text: Source Code
+            url:  https://github.com/jelmerp/ENTMLGY6703-SP26
+          - text: Report an Issue
+            url:  https://github.com/jelmerp/ENTMLGY6703-SP26/issues/new
+  page-footer:
+    left: |
+      2026, Jelmer Poelstra, [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)   ![](http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png){width="10%"}
+    center: |
+      ![](/img/CFAES-Horiz-RGBHEX.svg){width="40%"}
+    right:
+      - icon: github
+        href: https://github.com/jelmerp/ENTMLGY6703-SP26
+        aria-label: "The GitHub repo for this website"
+        
+format:
+  html:
+    theme: cosmo # yeti
+    highlight-style: atom-one
+    css: styles.css
+    toc: true
+    number-sections: true
+    number-depth: 3
+    grid:
+      body-width: 850px
+
+execute:
+  freeze: auto
+  engine: knitr
+  eval: true
+editor: source
+
+knitr:
+  opts_chunk:
+    class-output: regular-r-output
+    class-message: regular-r-output
+    class-warning: warning-r-output
+    class-error: error-r-output

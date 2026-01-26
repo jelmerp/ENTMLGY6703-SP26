@@ -1,0 +1,711 @@
+---
+title: "R homework for the week 4 lab"
+date: 2026-01-29
+author:
+  - name: Jelmer Poelstra
+    orcid: 0000-0002-3514-7462
+    email: poelstra.1@osu.edu
+    affiliation: 
+      - name: CFAES Bioinformatics Core, Ohio State University
+        url: https://mcic.osu.edu/bioinformatics
+editor_options: 
+  chunk_output_type: console
+---
+
+-------
+
+<br>
+
+## Introduction
+
+This homework is intended to get you familiar with R & RStudio.
+Most of the content is intended for those of you who have little to no experience with R,
+but:
+
+- Everyone will need to install several R packages in RStudio at the
+  Ohio Supercomputer Center (OSC) -- section 8 of this page.
+  
+- If you have some familiarity with R already,
+  make sure to at least glance over all material to make sure you're familiar
+  with all of it.
+
+If you run into any issues when going through this material,
+or have questions, don't hesitate to [email Jelmer](poelstra.1@osu.edu).
+
+### Learning objectives
+
+In this session, you will learn:
+
+- The RStudio layout and the functions of the different panes and tabs
+- The basics of interacting with R by using R as a calculator
+- Defining a variables/objects in R, and assigning values/data to them
+- Calling functions
+- Getting help
+- Installing and loading R packages
+- Data structures like vectors and data frames
+- The basics of the tidyverse packages, including piping with `|>`
+
+## R and RStudio
+
+### Why use R?
+
+The R language is probably the best environment for the "downstream" analysis^[
+I.e., after summarizing/processing data with command-line tools in the Unix shell]
+of genomics and other omics data.
+
+On top of that, R is a great all-round tool for exploratory and statistical analysis
+and visualization of any kind of data.
+Because it is free, open-source, cross-platform,
+and works with code rather than a graphical user interface (GUI),
+it is likely the best choice for reproducible data analysis all around.
+
+### R vs. RStudio
+
+To run R, all you need is the R program.
+However, we will be running R inside a fancy editor
+called [RStudio](https://www.rstudio.com/products/rstudio),
+which makes working with R much more pleasant!
+
+Similar to VS Code, you can run a version of RStudio within your
+browser by starting an Interactive App through OSC OnDemand.
+
+## Start an RStudio session at OSC
+
+While you can install and use R and RStudio on your own computer,
+for this course, you will use RStudio at OSC:
+
+1. Log in to OSC’s OnDemand portal at <https://ondemand.osc.edu>
+2. In the blue top bar, select **`Interactive Apps`** at the bottom,
+   click **`RStudio Server`**
+3. Fill out the form as follows:
+   - Cluster: **`pitzer`**
+   - R version: **`4.4.0`**
+   - Project: **`PAS2880`**
+   - Number of hours: **`2`**
+   - Node type: **`any`**
+   - Number of cores: **`2`**
+4. Click **`Launch`**
+5. Click the **`Connect to RStudio Server`** button once it appears
+
+## Orienting to RStudio (basic layout)
+
+When you first open RStudio, you will be greeted by four panes,
+each of which have multiple tabs:
+
+- **Top left:** The editor/source pane, where you can open and edit documents like scripts
+  _(This may be missing if you don't have docemunts open -- if so, we'll make it appear later)_
+
+- **Bottom left:** the default and most useful tab in this pane is your R 
+  "Console", where you can type and execute R code
+
+- **Top right:** the default and most useful tab in this pane this is your
+  "Environment",
+  which shows you what you have loaded in your R environment
+
+- **Bottom right:** the default tab in this pane is "Files",
+  which is a file explorer starting in your initial working directory
+  (more about that next).
+  The additional tabs are also commonly used, such as those to show plots and help.
+
+![](../img/R_studio_panes.png){width="90%" fig-align="center"}
+
+## R basics
+
+### R as calculator
+
+To get some familiarity with working in R,
+you will start by simply using R as calculator.
+Type `5 + 5` in the console and press <kbd>Enter</kbd>:
+
+```{r}
+5 + 5
+```
+
+R will print the result of the calculation, `10`.
+The result is prefaced by `[1]`, which is simply an index/count of output items --
+this can be helpful when many items are printed.
+
+A couple more examples:
+
+```{r}
+# Multiplication
+6 * 8
+
+# Division
+40 / 5
+```
+
+::: {.callout-tip appearance="simple"}
+This code will work with (like shown above) or without spaces between numbers
+and around operators like `+`.
+However, it is good practice to leave space between the number to
+improve the readability of your code.
+:::
+
+### The R prompt
+
+The `>` sign in your console is the R prompt,
+indicating that that R is ready for you to type something.
+In other words, this is equivalent to the `$` Shell prompt you've seen in the week 3 lab.
+
+Also just like in Unix shell, when you are not seeing the prompt,
+R is either **busy** (because you asked it to do a longer-running computation)
+or **waiting** for you to complete an incomplete command.
+
+If you notice that your prompt turned into a `+`,
+you typed an incomplete command -- for example:
+
+```{r, eval=FALSE}
+10 /
+```
+```r-out
++
+```
+
+You can either try to finish the command or abort it by pressing
+<kbd>Ctrl</kbd>+<kbd>C</kbd> or <kbd>Esc</kbd> --
+go ahead and practice the latter now to get your prompt back after the above command.
+
+::: callout-note
+#### Adding comments to your code
+
+Comments in R are also just like in the Unix shell:
+you can use `#` signs to comment your code, both inline and on separate lines:
+
+```{r}
+# This line is entirely ignored by R
+10 / 5  # This line contains code but everything after the '#' is ignored
+```
+
+:::
+
+### Comparing things
+
+In R, you can use comparison operators to compare numbers.
+When you do this, R will return either `FALSE` or `TRUE`
+(the so-called `logical` data type). For example:
+
+- Greater than and less than:
+  
+  ```{r}
+  8 > 3
+  2 < 1
+  ```
+
+- Equal to or not equal to --
+  note that you need to use **two** equals signs `==` for the former:
+
+  ```{r}
+  7 == 7
+  # The exclamation mark in general is a "negator"
+  10 != 5
+  ```
+
+## Functions in R
+
+To do almost anything in R, you will use "**functions**",
+which are the equivalent of Unix commands.
+R has over 3,000 functions that serve many different purposes.
+
+### Basics of functions
+
+You can recognize function calls by the parentheses. For example:
+
+- The equivalent to the Shell's `pwd` is `getwd()` for "get working dir":
+
+  ```{r, eval=FALSE}
+  # You will see a different output depending on your working directory
+  getwd()
+  ```
+  ```r-out
+  /users/PAS2880/jelmer
+  ```
+
+- Inside those parentheses, you can provide **arguments** to a function.
+  For example, using `setwd()`, the equivalent to the Shell's `cd`,
+  to set your working dir, the argument is the file path to set as working dir:
+
+  ```{r, eval=FALSE}
+  setwd("/fs/scratch/PAS2880/ENT6703")
+  ```
+  
+  ::: {.callout-warning appearance="simple"}
+  Note that unlike in the Shell, you need to *quote (`".."`) the file path*!
+  This is because in R,
+  anything non-numeric that is not quoted is supposed to be a pre-existing
+  "object" -- more on those in a bit.
+  :::
+
+### Function arguments
+
+Consider the example below,
+where you pass the argument `6.53` to the function `round()`:
+
+```{r}
+round(6.53)
+```
+
+In most functions, including `round()`, arguments have **names** that can be used.
+For example, the argument to `round()` represents the number to be rounded has
+the name `x`, so you can also use:
+
+```{r}
+round(x = 6.53)
+```
+
+Naming arguments is helpful in particular to avoid confusion when you pass
+multiple arguments to a function.
+For example, `round()` accepts a second argument,
+which is the number of digits to round to:
+
+```{r}
+round(x = 6.53, digits = 1)
+```
+
+You could choose not to name these arguments,
+but that is not as easy to understand.
+
+::: {.callout-note appearance="simple"}
+You can usually see which arguments a function takes by pausing after your
+type the function and its parenthesis, e.g. `round()`:
+
+![](../img/round_1.png){width="75%" fig-align="center"}
+
+Below, you'll also learn about ways to get more extensive help information about a function.
+:::
+
+## R Help: `help()` and `?`
+
+The `help()` function and `?` help operator in R offer access to documentation pages
+for R functions, data sets, and other objects.
+They provide access to both packages in the standard R distribution and contributed packages.
+
+For example:
+
+```r
+?getwd
+```
+
+The output should appear in the Help tab of the bottom-left panel in RStudio
+and should look something like this:
+
+![](../img/R_help_setwd){width="65%" fig-align="center"}
+
+## R packages
+
+R packages are basically add-ons or extensions to the functionality of the R language.
+
+- The function `install.packages()` **installs** an R package.
+  This is a one-time operation -- you won't need to reinstall a package
+  when you start a new R session later.
+  
+- The function `library()` will **load** an R package in your current R session.
+  Every time you want to use a package in R, you need to load it,
+  just like everytime you want to use MS Word on your computer, you need to open it.
+
+To practice with this,
+you will now install several packages you'll need in next week's lab.
+Note that:
+
+- Unfortunately, on OSC, packages installation can take a while, especially for
+  large packages like these, so please be patient^[
+  This should be _much_ faster on your own computer.].
+
+- A lot of messages may be printed to the console when installation is ongoing.
+  Installation of a package is done when you get your prompt back.
+  Unless you see clear messages that include words like "Error" and "Failed",
+  it should have succeeded.
+  
+- Besides `install.packages()`, you'll also use the `BiocManager::install()` function
+  from to install some packages from Bioconductor,
+  which hosts many bioinformatics/omics-related R packages.
+  
+```{r eval=FALSE}
+# Run these lines one-by-one to install the needed packages:
+install.packages("tidyverse")
+install.packages("BiocManager")
+BiocManager::install("DESeq2")
+BiocManager::install("EnhancedVolcano")
+```
+
+Test that you can load the packages -- see the expected output below: 
+
+```{r}
+library(EnhancedVolcano)
+```
+
+```{r, eval=FALSE}
+library(DESeq2)
+```
+
+<details><summary>*Click here to see the expected output when loading the 'DESeq2' package*</summary>
+
+```{r}
+library(DESeq2)
+```
+</details>
+
+```{r}
+library(tidyverse)
+```
+
+::: {.callout-note appearance="simple"} 
+Don't worry about the "conflict" warnings shown above.
+::::
+
+## R scripts
+
+Moving forward, you will mostly write and save your R code in so-called "R scripts",
+which are text files that contain R code.
+
+It's a good idea to write and save most of your (important) code in scripts,
+to help *keep track of what you've been doing* and make it easier to modify and
+rerun things.
+
+1. Create and open a new R script by clicking
+   **`File`** (top menu bar) \> **`New File`** \> **`R Script`**.
+
+2. Save this new script right away by clicking **`File`** \> **`Save As`**.
+   In the dialog box,
+   you can save it right in the suggested folder, 
+   or you can make a new folder for this course.
+   Regardless, save the script as **`homework.R`**
+   (the extension for R scripts is `.R`).
+   
+To send code from the script in the editor to the console,
+where it will be executed by R,
+press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> on Windows,
+or <kbd>Cmd</kbd> + <kbd>Return</kbd> on a Mac.
+Practice that after typing the following in the script:
+
+```{r}
+# Type this in the script, then run it with Ctrl + Enter (or Cmd + Return)
+5 + 5
+```
+
+## R objects
+
+### Assigning stuff to objects
+
+You can assign one or more values to a so-called "object"
+with the **assignment operator** `<-`.
+A few examples:
+
+```{r}
+# Assign the value 250 the object 'length_cm'
+length_cm <- 250
+length_cm
+# Assign the value 2.54 to the object 'conversion'
+conversion <- 2.54
+conversion
+```
+
+Importantly, you can use objects as if you had typed their values directly:
+
+```{r}
+length_cm / conversion
+```
+
+### Object names
+
+Some pointers on object names:
+
+- Because R is case sensitive, `length_inch` is different from `Length_Inch`!
+- An object name cannot contain spaces — so for readability, you can for example
+  separate words using underscores, as in `length_cm`.
+- Object names can contain but cannot start with a number:
+  `x2` is valid but `2x` is not.
+- Make object names descriptive yet not too long — this is not always easy!
+
+::: exercise
+#### {{< fa user-edit >}} Exercise: Assigning objects in R
+
+1. Assign the value 20 to the object `num_1`, and the value 15 to `num_2`
+
+   <details><summary>*Click to see the solution*</summary>
+     
+   ```{r}
+   num_1 <- 20
+   num_2 <- 15
+   ```
+   </details>
+  
+2. Compute the sum of `num_1` and `num_2`
+
+   <details><summary>*Click to see the solution*</summary>
+     
+   ```{r}
+   num_1 + num_2
+   ```
+   </details>
+  
+3. Assign the result of `num_1` minus `num_2` to a new object called `difference`.
+   What is the value of `difference`?
+
+   <details><summary>*Click to see a solution*</summary>
+     
+   ```{r}
+   difference <- num_1 - num_2
+   difference
+   ```
+   </details>
+  
+4. Which of the following are valid object names in R?
+
+   a) `2nd_value`  
+   b) `value_2`  
+   c) `total value  `
+   d) `TotalValue`  
+
+   <details><summary>*Click to see a solution*</summary>
+     
+   The valid object names are:  
+   
+   b) `value_2`
+   d) `TotalValue ` 
+   
+   Object names cannot start with a number and cannot contain spaces
+   (so a and c options are invalid).
+   
+  </details>
+:::
+
+## Vectors
+
+R has several so-called "data structures",
+which are different types of objects to store different types of data.
+Vectors are the most basic data structure in R, and are
+**collections of one or more items**.
+
+### Creating vectors
+
+You've already created a few vectors, as the single-item `num_1` etc. objects above
+were vectors!
+But let's see somethin new:
+a common way to make vectors with **multiple elements** is with the
+`c` (combine) function:
+
+```{r}
+# longer_vector will contain 3 items:
+longer_vector <- c(10, 20, 30)
+longer_vector
+```
+
+For ranges of integers (whole numbers), you can also use the colon operator `:`:
+
+```{r}
+# longer_vector will contain 10 items:
+sequence_vector <- 1:10
+sequence_vector
+```
+
+### Exploring vectors
+
+R has many functions that provide information about vectors and other
+types of objects, such as to get the number of items, or the mean or sum
+of the values of these items^[The latter two only with numeric vectors - as vectors
+can also contain text.]:
+
+```{r}
+# Get the number of items:
+length(longer_vector)
+
+# Get the the mean (average) across all elements:
+mean(longer_vector)
+    
+# Get the sum of all elements:
+sum(longer_vector)
+```
+
+### Extracting elements from vectors
+
+You can extract items from objects like vectors using "bracket notation" --
+get the second item with `[2]`:
+
+```{r}
+longer_vector[2]
+```
+
+Or get the first and third items with `[c(1, 3)]`:
+
+```{r}
+longer_vector[c(1, 3)]
+```
+
+## Data frames
+
+Data frames are a key R data structure that contain **tabular data** --
+data organized in rows and columns, similar to spreadsheets.
+
+An example is the `iris` data frame, which is an dataset that comes shipped with R.
+You can take a look at the first few rows of this data frame
+using the `head()` function:
+
+```{r}
+head(iris)
+```
+
+For data frames, the `View()` function is also quite neat,
+as it will open the data frame in a spreadsheet-like viewer -- try it!:
+
+```{r, eval=FALSE}
+View(iris)
+```
+
+You can extract individual columns from a data frame using the `$` operator:
+
+```{r}
+iris$Sepal.Width
+```
+
+This kind of operation will return a vector -- which can be subsetted as well:
+
+```{r}
+iris$Sepal.Width[2:5]
+```
+
+## A brief intro to the tidyverse and pipes
+
+Finally, you'll learn a little about a versatily family of R packages designed for
+data science called the ["tidyverse"](https://www.tidyverse.org).
+The tidyverse is quite large and includes the famous _ggplot2_ package to create
+all sorts of data visualizations --
+we'll barely scratch the surface here but this should already give you some useful tools.
+
+### `read_tsv()` to read tabular data
+
+The `read_tsv()` function reads a TSV (Tab-Separated Values) file into a
+dataframe, taking the path to the file as its main argument --
+here, read the sample metadata file used in next week's lab:
+
+```{r, eval=FALSE}
+meta <- read_tsv("/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv")
+```
+
+```{r, echo=FALSE}
+metadata_file <- here::here("data/meta/metadata_ed2.tsv")
+meta <- read_tsv(metadata_file)
+```
+
+Take a look at the resulting data frame `meta`:
+
+```{r}
+meta
+```
+
+::: callout-tip
+#### Tibble??
+The output above is a so-called "tibble", as the top of the output above mentions.
+This is a modern take on data frames provided by the tidyverse.
+Tibbles behave mostly like data frames,
+but have some nice features mostly in the way they are printed to screen.
+:::
+
+### `select()` to pick columns
+
+`select()` subsets a data frame by including/excluding certain columns.
+By default, it only includes the columns you specify:
+
+```{r}
+select(.data = meta, sample_id, treatment)
+```
+
+Above, the first argument was the data frame,
+whereas the other arguments were the (unquoted!) names of columns to be kept.
+
+The output is a new, modified dataframe (same for the following functions),
+which in the example above, you simply printed to the screen --
+but as you'll see later, you can store the output too.
+
+### `filter()` to pick rows (observations)
+
+The `filter()` function outputs only those rows that satisfy one or more conditions.
+It is similar to Filter functionality in Excel.
+For example, to only keep rows for the `10d` timepoint:
+
+```{r}
+filter(.data = meta, time == "10d")
+```
+
+### The pipe (`|>`)
+
+It's common to want to use several consecutive functions to wrangle a dataframe
+into the format you want.
+For example, you may want to first `select()` one or more columns,
+then `filter()` the resulting dataframe.
+You could do that as follows:
+
+```{r}
+meta_sel <- select(.data = meta, sample_id, time)
+filter(.data = meta_sel, time == "10d")
+```
+
+You could go on along these lines,
+successively creating new objects that you then use for the next step.
+But there is a more elegant way of dong this,
+directly sending ("piping") output from one function into the next function
+with the **pipe operator** `|>`
+(a vertical bar <kbd>|</kbd> followed by a greater-than sign <kbd>></kbd>).
+
+Let's start by seeing a reformulation of the code above with pipes:
+
+```{r}
+meta |>
+  select(sample_id, time) |>
+  filter(time == "10d")
+```
+
+What happened here? You took the `meta` data frame,
+sent ("piped") it into the `select()` function,
+whose output in turn was piped into the `filter()` function.
+
+You can think of the pipe as **"then"**:
+take `meta`, _then_ select, _then_ rename.
+
+When using the pipe,
+you no longer specify the input with the `.data` argument,
+because the function now gets its input data via the pipe.
+Using pipes involves less typing and is more readable than successive assignments.
+
+::: {.callout-tip appearance='simple'}
+For code readability, 
+it is good practice to start a new line after a pipe `|>`,
+and to keep the subsequent line(s) _indented_ as RStudio will automatically do.
+:::
+
+::: {.callout-note collapse="true"}
+### Optional: Using the pipe keyboard shortcut _(Click to expand)_
+
+The following RStudio keyboard shortcut will insert a pipe symbol:
+<kbd>Ctrl/Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>.
+
+However, by default this (still) inserts an older pipe symbol, `%>%`.
+To make RStudio insert the `|>` pipe symbol with this keyboard shortcut:
+
+1. Click `Tools` > `Global Options` > `Code` tab on the right
+2. Check the box "Use native pipe operator" as shown below
+3. Click `OK` at the bottom of the options dialog box to apply the change and
+   close the box.  
+
+![](../img/pipe-shortcut.png){fig-align="center"}
+:::
+
+::: exercise
+#### {{< fa user-edit >}} Exercise: Tidyverse functions and pipes
+
+Use a "pipeline" like above to output a data frame with two
+columns (`sample_id` and `treatment`) only for the _cathemerium_ treatment.
+How many rows does your output data frame have?
+
+<details><summary>Click for the solution</summary>
+```{r}
+meta |>
+  select(sample_id, treatment) |>
+  filter(treatment == "cathemerium")
+```
+
+The output data frame has 7 rows and 2 columns:
+note that "7 x 2" is helpfully shown at the top of the output in the console.
+
+</details>
+:::

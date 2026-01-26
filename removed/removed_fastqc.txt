@@ -1,0 +1,105 @@
+---
+title: "More FastQC modules"
+author: Jelmer Poelstra
+date: 2024-01-26
+editor: visual
+number-depth: 3
+editor_options: 
+  chunk_output_type: console
+---
+
+#### Per base sequence content
+
+The frequencies of each of the 4 nucleotides (y-axis) should be stable when 
+going along the reads from start to end (x-axis),
+because these are averages across many different reads from across the genome
+or transcriptome.
+
+However, for RNA-seq data, see the note below.
+
+::: {.columns}
+::: {.column width="55%"}
+**Good:**
+<p align="center"><img src=img_HTS/fastqc_mod05_per-base-content_good.png width="90%"></p>
+:::
+
+::: {.column width="45%"}
+**Bad:**
+<p align="center"><img src=img_HTS/fastqc_mod05_per-base-content_bad.png width="90%"></p>
+:::
+:::
+
+> It's worth noting that some types of library will always produce biased sequence composition, normally at the start of the read. Libraries produced by priming using random hexamers (including nearly all RNA-Seq libraries) and those which were fragmented using transposases inherit an intrinsic bias in the positions at which reads start. Whilst this is a true technical bias, it isn't something which can be corrected by trimming and in most cases doesn't seem to adversely affect the downstream analysis. It will however produce a warning or error in this module.
+> &mdash; [source](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/4%20Per%20Base%20Sequence%20Content.html)
+
+#### Per sequence GC content
+
+This is a density plot of the per-read average GC content
+(= the percentage of bases that are G or C). Note that:
+
+- An unusual distribution could indicate contamination.
+- The expected distribution is for whole-genome shotgun sequencing ---
+  it is normal for RNA-seq data to have a narrower distribution.
+
+_TODO - replace the Bad plot!_
+
+::: {.columns}
+::: {.column width="50%"}
+**Good:**
+<p align="center"><img src=img_HTS/fastqc_mod06_GC_good.png width="100%"></p>
+:::
+
+::: {.column width="50%"}
+**Bad:**
+<p align="center"><img src=img_HTS/fastqc_mod06_GC_bad.png width="100%"></p>
+:::
+:::
+
+
+#### Sequence duplication levels
+
+Checks how many duplicates (= identical sequences) are present.
+
+- Often throws a warning for RNA-seq data, which can be ignored,
+  as these represent highly expressed transcripts.
+- Pay attention to the blue line (red line can mostly be ignored).
+
+::: {.columns}
+::: {.column width="50%"}
+**Good:**
+<p align="center"><img src=img_HTS/fastqc_mod09_seqdup_good.png width="90%"></p>
+:::
+
+::: {.column width="50%"}
+**Bad:**
+<p align="center"><img src=img_HTS/fastqc_mod09_seqdup_bad.png width="90%"></p>
+:::
+:::
+
+#### Per base N content
+
+Quantifies the percentage of uncalled bases (N) across the read. Note that:
+
+- Ns may become more common at the end of the read,
+  and at the start of the read for highly biased libraries.
+- A peak like in the figure on the right indicates a problem with a specific
+  cycle in the Illumina run.
+  
+::: {.columns}
+::: {.column width="50%"}
+**Good:**
+<p align="center"><img src=img_HTS/fastqc_mod07_N_good.png width="90%"></p>
+:::
+
+::: {.column width="50%"}
+**Bad:**
+<p align="center"><img src=img_HTS/fastqc_mod07_N_bad.png width="90%"></p>
+:::
+:::
+
+#### Overrepresented sequences
+
+- Returns a *Warning* if any sequence is >0.1% of total.
+- Returns *Failure* if any sequence is >1% of total.
+
+<p align="center"><img src=img_HTS/fastqc_mod10_overrepresented.png width="70%"></p>

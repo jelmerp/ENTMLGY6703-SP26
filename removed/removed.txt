@@ -1,0 +1,41 @@
+---
+title: "Removed bits"
+---
+
+::: {.callout-note collapse="true"}
+## Here is how you could use commands download the files to OSC directly (Click to expand)
+
+-   First you download the files. This is copied from the code provided on the NCBI website when you click `curl` — however, that code needs to be preceded by the `curl` and followed by `> ncbi_dataset.zip`:
+
+``` bash
+curl https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/accession/GCF_945859705.1/download?include_annotation_type=GENOME_FASTA,GENOME_GFF,RNA_FASTA,CDS_FASTA,PROT_FASTA,SEQUENCE_REPORT > ncbi_dataset.zip
+```
+
+-   Next, you'll want to extract the ZIP archive that you downloaded:
+
+``` bash
+unzip ncbi_dataset.zip
+```
+
+-   Now the files should be there — you can use the `tree` command instead of `ls` to get a nice recursive overview:
+
+``` bash
+tree ncbi_dataset
+```
+
+``` bash-out
+ncbi_dataset/
+└── data
+    ├── assembly_data_report.jsonl
+    ├── dataset_catalog.json
+    └── GCF_945859705.1
+        ├── cds_from_genomic.fna
+        ├── GCF_945859705.1_idEpiBalt1.1_genomic.fna
+        ├── genomic.gff
+        ├── protein.faa
+        ├── rna.fna
+        └── sequence_report.jsonl
+
+2 directories, 8 files
+```
+:::

@@ -1,0 +1,94 @@
+---
+title: "DE_removed"
+execute: 
+  eval: false
+---
+
+::: {.callout-note collapse="true"}
+#### Printing the `dds` object *(Click to expand)*
+
+We can also simply print the `dds` object, which will give a summary of its contents:
+
+```{r}
+dds
+```
+:::
+
+::: {.callout-note collapse="true"}
+#### Histograms of gene counts *(Click to expand)*
+
+To plot a histogram of mean gene counts across samples, we'll first create a data frame with these mean gene counts:
+
+```{r}
+mean_counts <- rowSums(count_mat) / ncol(count_mat)
+mean_counts_df <- data.frame(mean_counts) |> 
+  rownames_to_column("gene_id")
+```
+
+Now we can make the histogram:
+
+```{r}
+ggplot(mean_counts_df, aes(x = mean_counts)) +
+  geom_histogram() +
+  scale_y_log10() +
+  theme_minimal()
+```
+
+Zoom in a bit:
+
+```{r}
+ggplot(mean_counts_df, aes(x = mean_counts)) +
+  geom_histogram() +
+  scale_y_log10() +
+  scale_x_continuous(limits = c(0, 100000)) +
+  theme_minimal()
+```
+
+Which genes have the highest mean counts, and what are those counts?
+
+```{r}
+sort(rowSums(count_mat) / ncol(count_mat), decreasing = TRUE)[1:10]
+```
+:::
+
+
+### `NA` values in the results table
+
+Some values in the results table can be set to `NA` for one of the following reasons:
+
+- If a gene contains a sample with a count **outlier**,
+  both the p-value and adjusted p-value will be set to `NA`.
+
+- If all samples have **zero counts** for a given gene,
+  the `baseMean` column will be zero, and the log2-fold change estimates,
+  p-value and adjusted p-value will all be set to `NA`.
+
+- DESeq2 also automatically filters genes with a **low mean count** in the sense
+  that it does not include them in the multiple testing correction.
+  Therefore, in such cases, the p-value will not be `NA`,
+  but the *adjusted* p-value will be.
+
+  Because we have very low power to detect differential expression for such
+  low-count genes, it is beneficial to remove them prior to the multiple
+  testing correction: that way,
+  the correction becomes less severe for the remaining genes.
+
+Let's see how many genes have `NA` p-values:
+
+```{r}
+# Number of genes with NA p-value:
+sum(is.na(res_rc24$pvalue))
+
+# As a proportion of the total number of genes in the test:
+sum(is.na(res_rc24$pvalue)) / nrow(res_rc24)
+```
+
+And `NA` adjusted p-values:
+
+```{r}
+# Number of genes with NA p-value:
+sum(is.na(res_rc24$padj))
+
+# As a proportion of the total number of genes in the test:
+sum(is.na(res_rc24$padj)) / nrow(res_rc24)
+```
