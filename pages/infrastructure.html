@@ -9,7 +9,7 @@
 <meta name="author" content="Jelmer Poelstra">
 <meta name="dcterms.date" content="2026-01-30">
 
-<title>Computational Infrastructure – ENTMLGY6703-SP26 - Jelmer's lectures</title>
+<title>Computing Environment – ENTMLGY6703-SP26 - Jelmer's lectures</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../pages/infrastructure.html">
- <span class="dropdown-text">Lab part 1: Computational Infrastructure</span></a>
+ <span class="dropdown-text">Lab part 1: Computing Environment</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../pages/data.html">
@@ -160,6 +160,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
         <li>
+    <a class="dropdown-item" href="../pages/r_homework.html">
+ <span class="dropdown-text">R Homework</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../pages/rnaseq.html">
  <span class="dropdown-text">Lecture: RNA-seq</span></a>
   </li>  
@@ -169,10 +173,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../pages/r_homework.html"> 
-<span class="menu-text">R Homework</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -219,18 +219,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#todays-lab" id="toc-todays-lab" class="nav-link" data-scroll-target="#todays-lab"><span class="header-section-number">1.1</span> Today’s lab</a></li>
   <li><a href="#goals-for-this-part" id="toc-goals-for-this-part" class="nav-link" data-scroll-target="#goals-for-this-part"><span class="header-section-number">1.2</span> Goals for this part</a></li>
   </ul></li>
-  <li><a href="#computational-infrastructure-overview" id="toc-computational-infrastructure-overview" class="nav-link" data-scroll-target="#computational-infrastructure-overview"><span class="header-section-number">2</span> Computational infrastructure overview</a></li>
+  <li><a href="#overview-of-the-computing-environment-for-hts-analysis" id="toc-overview-of-the-computing-environment-for-hts-analysis" class="nav-link" data-scroll-target="#overview-of-the-computing-environment-for-hts-analysis"><span class="header-section-number">2</span> Overview of the computing environment for HTS analysis</a></li>
   <li><a href="#the-ohio-supercomputer-center-osc" id="toc-the-ohio-supercomputer-center-osc" class="nav-link" data-scroll-target="#the-ohio-supercomputer-center-osc"><span class="header-section-number">3</span> The Ohio Supercomputer Center (OSC)</a>
   <ul class="collapse">
   <li><a href="#introduction-to-supercomputers" id="toc-introduction-to-supercomputers" class="nav-link" data-scroll-target="#introduction-to-supercomputers"><span class="header-section-number">3.1</span> Introduction to supercomputers</a></li>
   <li><a href="#introduction-to-osc" id="toc-introduction-to-osc" class="nav-link" data-scroll-target="#introduction-to-osc"><span class="header-section-number">3.2</span> Introduction to OSC</a></li>
-  <li><a href="#the-osc-ondemand-web-portal" id="toc-the-osc-ondemand-web-portal" class="nav-link" data-scroll-target="#the-osc-ondemand-web-portal"><span class="header-section-number">3.3</span> The OSC OnDemand web portal</a></li>
   </ul></li>
-  <li><a href="#the-vs-code-text-editor" id="toc-the-vs-code-text-editor" class="nav-link" data-scroll-target="#the-vs-code-text-editor"><span class="header-section-number">4</span> The VS Code text editor</a>
+  <li><a href="#the-osc-ondemand-web-portal" id="toc-the-osc-ondemand-web-portal" class="nav-link" data-scroll-target="#the-osc-ondemand-web-portal"><span class="header-section-number">4</span> The OSC OnDemand web portal</a>
   <ul class="collapse">
-  <li><a href="#what-is-vs-code" id="toc-what-is-vs-code" class="nav-link" data-scroll-target="#what-is-vs-code"><span class="header-section-number">4.1</span> What is VS Code?</a></li>
-  <li><a href="#starting-a-vs-code-session" id="toc-starting-a-vs-code-session" class="nav-link" data-scroll-target="#starting-a-vs-code-session"><span class="header-section-number">4.2</span> Starting a VS Code session</a></li>
-  <li><a href="#the-vs-code-user-interface" id="toc-the-vs-code-user-interface" class="nav-link" data-scroll-target="#the-vs-code-user-interface"><span class="header-section-number">4.3</span> The VS Code User Interface</a></li>
+  <li><a href="#files-menu" id="toc-files-menu" class="nav-link" data-scroll-target="#files-menu"><span class="header-section-number">4.1</span> Files menu</a></li>
+  <li><a href="#interactive-apps" id="toc-interactive-apps" class="nav-link" data-scroll-target="#interactive-apps"><span class="header-section-number">4.2</span> Interactive Apps</a></li>
+  <li><a href="#clusters-menu-shell-access" id="toc-clusters-menu-shell-access" class="nav-link" data-scroll-target="#clusters-menu-shell-access"><span class="header-section-number">4.3</span> Clusters menu: Shell access</a></li>
   </ul></li>
   <li><a href="#the-unix-shell" id="toc-the-unix-shell" class="nav-link" data-scroll-target="#the-unix-shell"><span class="header-section-number">5</span> The Unix shell</a>
   <ul class="collapse">
@@ -248,7 +247,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Computational Infrastructure<br>for Genomics Analyses</h1>
+<h1 class="title">Computing Environment for HTS Analysis</h1>
 <p class="subtitle lead">Week 3 lab – part 1</p>
 </div>
 
@@ -293,59 +292,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
 <section id="todays-lab" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="todays-lab"><span class="header-section-number">1.1</span> Today’s lab</h3>
+<p>In today’s lab:</p>
 <ul>
-<li><p>You will first learn about a typical “computational infrastructure” to analyze high-throughput sequencing (HTS) data – <strong>this page, part I</strong>.</p></li>
-<li><p>You will then use that infrastructure to start the exploration of an HTS dataset. You’ll check out HTS read and reference genome files, and perform read quality control – <a href="../pages/data.html"><strong>part II</strong></a>.</p></li>
+<li><p>You will first learn about what kind of computing environment is commonly used for analyzing high-throughput sequencing (HTS) data – <strong>this page, part I</strong>.</p></li>
+<li><p>Then, you’ll work in this environment to explore an HTS dataset. You’ll check out HTS read and reference genome files, and perform read quality control – <a href="../pages/data.html"><strong>part II</strong></a>.</p></li>
 </ul>
 </section>
 <section id="goals-for-this-part" class="level3" data-number="1.2">
 <h3 data-number="1.2" class="anchored" data-anchor-id="goals-for-this-part"><span class="header-section-number">1.2</span> Goals for this part</h3>
-<ul>
-<li>Learn what a typical computational infrastructure for genomics analyses looks like</li>
-<li>Learn the basics of supercomputers, and using the Ohio Supercomputer Center (OSC)</li>
-<li>Become familiar with a text editor (VS Code)</li>
-<li>Take your first steps in the command-line interface of the Unix shell</li>
-</ul>
-</section>
-</section>
-<section id="computational-infrastructure-overview" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="computational-infrastructure-overview"><span class="header-section-number">2</span> Computational infrastructure overview</h2>
-<p>Due in large part to the amount of data involved, a laptop or desktop computer is often not sufficient to work with HTS data. Additionally, most of the specialized programs that help you analyze your data can only be run through a “command-line interface”, in which you type commands rather than point-and-click.</p>
-<p>For these reasons, a typical computational infrastructure -the computer hardware and software- to do genomics analyses involves:</p>
 <ol type="1">
-<li>A <strong>supercomputer</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> – in our case, the Ohio Supercomputer Center (OSC)</li>
-<li>A <strong>text editor</strong> – in our case, VS Code</li>
-<li>The <strong>Unix shell</strong> (terminal) and command-line programs that run in it</li>
-<li><strong>R</strong> (or perhaps Python) for statistical analysis and visualization.</li>
+<li>Learn what computing environment is commonly used for genomics analyses</li>
+<li>Understand the basics of supercomputers</li>
+<li>Learn how to access Ohio Supercomputer Center (OSC) resources</li>
+<li>Take your first steps in the command-line interface of the Unix shell</li>
 </ol>
-<p>Today, you will see the first three of these components in action. In this first part, you’ll get a little familiar with them, and in <a href="../pages/data.html">the next part</a>, you’ll apply what you learned to reference genome and HTS read data. (In next week’s lab, we will cover the fourth item in the context of RNA-Seq differential expression analysis.)</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Click to expand)</em>
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>If you will often be doing HTS/genomics projects like the ones mentioned above, it’s hard to avoid using this (kind of) infrastructure. But especially if you’re only doing a single project like this, you might avoid it by:</p>
-<ul>
-<li>Outsourcing part of the analysis: companies or service cores can often do the more standardized, compute-heavy parts for you</li>
-<li>Trying a platform like <a href="https://usegalaxy.org"><strong><em>Galaxy</em></strong></a>, which has a web browser interface and doesn’t require coding</li>
-</ul>
-<p>Finally, generative AI tools are becoming increasingly capable of writing code for you based on your instructions, and may spurn additional no-code or low-code solutions in the future.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+<section id="overview-of-the-computing-environment-for-hts-analysis" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="overview-of-the-computing-environment-for-hts-analysis"><span class="header-section-number">2</span> Overview of the computing environment for HTS analysis</h2>
+<p>Due in large part to <em>the amount of data involved</em>, a personal computer is often not sufficient to work with HTS data. Additionally, most of the <em>specialized programs</em> that help you analyze your data can only be run through a “command-line interface”, in which you type commands rather than point-and-click.</p>
+<p>Therefore, a typical computing environment -the computer hardware and software- for HTS data analysis includes:</p>
+<ol type="1">
+<li>A <strong>supercomputer</strong> — here, the Ohio Supercomputer Center (OSC)</li>
+<li>The <strong>Unix shell</strong> (terminal) and command-line programs that run in it</li>
+<li><strong>R</strong> (or Python) for statistical analysis and visualization.</li>
+</ol>
+<p>Today, you will see the first two of these components in action. In today’s first part, you’ll build some familiarity with them, and in <a href="../pages/data.html">the next part</a>, you’ll use them to explore reference genome and HTS read data. (In next week’s lab, we will cover the third item in the context of RNA-Seq differential expression analysis.)</p>
 </section>
 <section id="the-ohio-supercomputer-center-osc" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="the-ohio-supercomputer-center-osc"><span class="header-section-number">3</span> The Ohio Supercomputer Center (OSC)</h2>
 <section id="introduction-to-supercomputers" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="introduction-to-supercomputers"><span class="header-section-number">3.1</span> Introduction to supercomputers</h3>
-<p>A <strong>supercomputer</strong> (also known as a “<strong>cluster</strong>”) consists of many computers that are connected by a high-speed network, and can be accessed remotely by its users. You can think of it simply as a <em>network of computers</em> — with individual computers called “<strong>nodes</strong>”.</p>
+<p>A <strong>supercomputer</strong> (also known as a “<strong>cluster</strong>”) consists of many computers that are connected by a high-speed network and can be accessed remotely by its users. You can think of it simply as a <em>network of computers</em> — with individual computers called “<strong>nodes</strong>”.</p>
 <p>Supercomputers provide two main types of resources:</p>
 <ul>
 <li><strong>Compute</strong>: computing power to run your data processing and analysis</li>
@@ -353,9 +331,9 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 </ul>
 <p>Why might you need a supercomputer?</p>
 <ul>
-<li>Often, your HTS <strong>dataset is too large</strong> to be handled efficiently, or at all, by a laptop/desktop computer</li>
-<li>To <strong>speed up</strong> analyses by using more computing power and/or running them in parallel</li>
-<li>It’s also a great place to <strong>store</strong> large amounts of data — and genomics data is often very large</li>
+<li>Often, your HTS <em>dataset is too large</em> to be handled efficiently, or at all, by a laptop/desktop computer</li>
+<li>To <em>speed up</em> analyses by using more computing power and/or running them in parallel</li>
+<li>It’s also a great place to <em>store large amounts of data</em> — and HTS data is often very large</li>
 </ul>
 </section>
 <section id="introduction-to-osc" class="level3" data-number="3.2">
@@ -365,8 +343,7 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 <p><a href="../img/osc_logo.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="../img/osc_logo.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="The Ohio Supercomputer Center logo."></a></p>
 </figure>
 </div>
-<p>The <strong>Ohio Supercomputer Center (OSC)</strong> provides computing resources to researchers and others across Ohio. Research usage is charged at subsidized rates, and in our case at CFAES, these costs are absorbed at the college level.</p>
-<p>This is what “Cardinal”, one of the OSC supercomputers, physically looks like:</p>
+<p>The <strong>Ohio Supercomputer Center (OSC)</strong> provides computing resources to researchers and others across Ohio<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. It currently has three supercomputers – this is what “Cardinal”, one of those, physically looks like:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
@@ -381,9 +358,9 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 <h4 class="anchored" data-anchor-id="the-structure-of-an-osc-supercomputer">The structure of an OSC supercomputer</h4>
 <p>You can think of a supercomputer as having three main parts:</p>
 <ul>
-<li><strong>Login Nodes</strong>: The handful of computers users end up on after logging in</li>
+<li><strong>Login Nodes</strong>: The handful of computers that you end up on after logging in</li>
 <li><strong>Compute Nodes</strong>: The many computers you can reserve to run your analyses</li>
-<li><strong>File Systems</strong>: Where files are stored (these are shared between the OSC clusters)</li>
+<li><strong>File Systems</strong>: Where files are stored<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -397,10 +374,10 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 </div>
 </section>
 </section>
-<section id="the-osc-ondemand-web-portal" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="the-osc-ondemand-web-portal"><span class="header-section-number">3.3</span> The OSC OnDemand web portal</h3>
-<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Go to <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a> and use the username + password login option on the left-hand side to log in with your OSC (not OSU!) credentials.</p>
-<p>Once logged in, you should see a landing page similar to the one below:</p>
+</section>
+<section id="the-osc-ondemand-web-portal" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="the-osc-ondemand-web-portal"><span class="header-section-number">4</span> The OSC OnDemand web portal</h2>
+<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Go to <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a>. Use the username + password login option on the left-hand side to log in with your OSC (not OSU!) credentials. Once logged in, you should see a landing page similar to the one below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
@@ -411,28 +388,39 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 <figcaption><em>The OSC OnDemand landing page</em></figcaption>
 </figure>
 </div>
-<p>We will now go through some of the dropdown menus in the <strong>blue bar along the top</strong>.</p>
-<section id="files-menu" class="level4">
-<h4 class="anchored" data-anchor-id="files-menu">Files menu</h4>
-<p>Hovering over the <strong>Files</strong> dropdown menu gives a list of folders you have access to. If your account is brand new, you should only see three listed:</p>
+<p>Let’s go through some of the dropdown menus in the <strong>blue bar along the top</strong>.</p>
+<section id="files-menu" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="files-menu"><span class="header-section-number">4.1</span> Files menu</h3>
+<p>Hovering over the <strong>Files</strong> dropdown menu gives a list of “top-level” folders you have access to:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand-files-dropdown.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="The Files dropdown menu. You will see different folders listed."><img src="../img/ondemand-files-dropdown.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:28.0%" alt="A screenshot of the options in the OSC OnDemand Files dropdown menu."></a></p>
+</figure>
+</div>
+<figcaption>The Files dropdown menu. You will see different folders listed.</figcaption>
+</figure>
+</div>
+<p>If your account is brand new, you should only see three folders listed, two of which are related to the OSC project we are using in these labs, which is called <code>PAS2880</code>:</p>
 <ol type="1">
-<li>A <strong>Home</strong> folder for miscellaneous personal files (starts with <code>/users/</code>)</li>
-<li>The <code>PAS2880</code> project’s “<strong>project</strong>” folder for permanent storage (<code>/fs/ess/PAS2880</code>)</li>
-<li>The <code>PAS2880</code> project’s “<strong>scratch</strong>” folder for temporary storage (<code>/fs/scratch/PAS2880</code>)</li>
+<li><strong>Home Directory</strong> – for miscellaneous personal files</li>
+<li><code>/fs/scratch/PAS2880</code> – The “<strong>scratch</strong>” folder for temporary storage for project <code>PAS2880</code></li>
+<li><code>/fs/ess/PAS2880</code> – The “<strong>project</strong>” folder for permanent storage for project <code>PAS2880</code></li>
 </ol>
-<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Click on the <code>PAS2880</code> scratch folder, <code>/fs/scratch/PAS2880</code>. You should see the folders and files present there, and click on folders to explore their contents. Click on the <code>ENT6703</code> folder, which we’ll be using for these labs, and you should see the following:</p>
+<p>Click on the <code>PAS2880</code> scratch folder, <code>/fs/scratch/PAS2880</code>: you should see the folders and files present there, and be able to click on folders to explore their contents. Then, click on the <code>ENT6703</code> folder, which we’ll be using for these labs, and you should see something like the following:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../img/ondemand_files_PAS2880.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="The OnDemand file browser"><img src="../img/ondemand_files_PAS2880.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%" alt="A screenshot of the OSC OnDemand file browser."></a></p>
+<p><a href="../img/ondemand_files_PAS2880.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="The OnDemand file browser"><img src="../img/ondemand_files_PAS2880.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%" alt="A screenshot of the OSC OnDemand file browser."></a></p>
 </figure>
 </div>
 <figcaption><em>The OnDemand file browser</em></figcaption>
 </figure>
 </div>
-<p>This interface is <strong>much like the file browser on your own computer</strong>, so you can create, delete, move, copy files and folders. Additionally, you can upload (from your computer to OSC) and download (from OSC your computer) files – see the buttons across the top.</p>
-<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Create your own folder</strong> by clicking the <code>New Directory</code> button at the top. Give it the <em>exact same name as your OSC username</em>, including any capitalization. <em>(I’ll refer to this folder as your <strong>personal folder</strong> from now on.)</em></p>
+<p>This interface is <em>much like the file browser on your own computer</em>, so you can create, delete, move, copy files and folders. Additionally, you can upload (from your computer to OSC) and download (from OSC your computer) files – see the buttons across the top.</p>
+<p><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> <strong>Create your own folder</strong> by clicking the <code>New Directory</code> button at the top. Give it the <em>exact same name as your OSC username</em>, including any capitalization. <em>(I’ll refer to this folder as your <strong>personal</strong> folder from now on.)</em></p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -448,24 +436,24 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 </div>
 </div>
 </div>
-</section>
 <section id="exercise-understanding-filefolder-locations" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-understanding-filefolder-locations"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Understanding file/folder locations</h4>
 <ol type="1">
 <li><p>Click on your personal folder to enter it.</p></li>
-<li><p>Take a look at the so-called “<strong>path</strong>” (file/folder location) shown at the top of the file browser, next to “Change directory”. How do you interpret this notation: what do the forward slashes <kbd>/</kbd> indicate, and what does each part in between represent? You can click back-and-forth to see how the path changes.</p>
+<li><p>Take a look at the so-called “<strong>path</strong>” (file/folder location) shown at the top of the file browser, next to “Change directory”. How do you interpret this notation: what do the forward slashes <kbd>/</kbd> indicate, and what does each part in between represent? <em>(It may help to click back-and-forth between folders to see how the path changes.)</em> Does this seem fundamentally different from the file system on your own computer?</p>
 <details>
 <summary>
 <p><em>Click for the solution</em></p>
 </summary>
-<p>The forward slashes <kbd>/</kbd> separate folder in a path. Each part in between represents a folder name. For example, in <code>/fs/scratch/PAS2880/ENT6703</code>:</p>
+<p>The forward slashes <kbd>/</kbd> separate folders in a path. Each part in between, then, represents a folder.</p>
+<p>The path is hierarchical and you should read it from left (top-level folder) to right (subfolders): For example, in <code>/fs/scratch/PAS2880/ENT6703</code>:</p>
 <ul>
 <li><code>/fs</code> is a top-level folder – you can always distinguish a top-level folder because the path starts with a forward slash <kbd>/</kbd></li>
 <li>inside that is the <code>scratch</code> folder</li>
 <li>inside that is the <code>PAS2880</code> folder</li>
 <li>inside that is the <code>ENT6703</code> folder</li>
 </ul>
-<p>Taking a step back, the OSC file system is a single hierarchical structure. File systems on personal computers are structured very similarly, though in Windows, among some other differences, backslashes <kbd>&lt;/kbd&gt; are used instead of forward slashes <kbd>/</kbd>.</kbd></p>
+<p>File systems on personal computers are structured very similarly. But on Windows, among some other differences, backslashes <kbd>\</kbd> are used instead of forward slashes <kbd>/</kbd> to separate folders.</p>
 </details>
 <details>
 <summary>
@@ -474,11 +462,11 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 <hr style="height:1pt; visibility:hidden;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../img/paths2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="../img/paths2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A diagram showing the hierarchical structure of a file system with folders and subfolders."></a></p>
+<p><a href="../img/paths2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="../img/paths2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%" alt="A diagram showing the hierarchical structure of a file system with folders and subfolders."></a></p>
 </figure>
 </div>
 </details></li>
-<li><p>If user <code>miranda</code> made a folder inside the <code>ENT6703</code> folder, what would be the path to that folder?</p>
+<li><p>If someone made a folder <code>miranda</code> inside the <code>ENT6703</code> folder, what would be the path to that folder?</p>
 <details>
 <summary>
 <p><em>Click for the solution</em></p>
@@ -487,35 +475,53 @@ Side note: “I don’t think I like coding. Can I avoid all of this?” <em>(Cl
 </details></li>
 </ol>
 </section>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Side note: OSC System Status overview<em>(click to expand)</em>
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>In the “<strong>Clusters</strong>” dropdown menu, click on the item at the bottom, “<strong><code>System Status</code></strong>”:</p>
+</section>
+<section id="interactive-apps" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="interactive-apps"><span class="header-section-number">4.2</span> Interactive Apps</h3>
+<p>You can access a bunch of software via the <strong>Interactive Apps</strong> dropdown menu. In next week’s lab, you will use RStudio (“RStudio Server”) from this menu.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../img/ondemand_systemstatus_select.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="The Clusters dropdown menu"><img src="../img/ondemand_systemstatus_select.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%" alt="A screenshot of the options in the OSC OnDemand Clusters dropdown menu."></a></p>
+<p><a href="../img/ondemand_vscode_select.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Some of the options at the bottom of the Interactive Apps dropdown menu, such as RStudio."><img src="../img/ondemand_vscode_select.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:24.0%" alt="A screenshot of the options in the OSC OnDemand Interactive Apps dropdown menu."></a></p>
+</figure>
+</div>
+<figcaption>Some of the options at the bottom of the Interactive Apps dropdown menu, such as RStudio.</figcaption>
+</figure>
+</div>
+</section>
+<section id="clusters-menu-shell-access" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="clusters-menu-shell-access"><span class="header-section-number">4.3</span> Clusters menu: Shell access</h3>
+<p>We’ll now open a Unix shell, which you’ll get introduced to in the next section. Under the <strong>Clusters</strong> dropdown menu, you can access a Unix shell on each of the three OSC supercomputers (clusters) – Ascend, Cardinal, or Pitzer:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_systemstatus_select.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="The Clusters dropdown menu"><img src="../img/ondemand_systemstatus_select.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%" alt="A screenshot of the options in the OSC OnDemand Clusters dropdown menu."></a></p>
 </figure>
 </div>
 <figcaption><em>The Clusters dropdown menu</em></figcaption>
 </figure>
 </div>
-<p>This page shows an overview of the live, current usage of the two clusters – just to give you an idea of the scale of the supercomputer center and its usage.</p>
+<p>Click on “Cardinal Shell Access”, which will open a new browser tab with a black terminal window.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Side note: System Status<em>(click to expand)</em>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You can also check out the <strong>System Status</strong> page from the Clusters menu. This page shows an overview of the live, current usage of the two clusters – just to give you an idea of the scale of the supercomputer center and its usage.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../img/ondemand_systemstatus.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="A screenshot of the “System Status” page showing live cluster usage."><img src="../img/ondemand_systemstatus.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="A screenshot of the OSC Ondemand System Status page showing live cluster usage."></a></p>
+<p><a href="../img/ondemand_systemstatus.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="A screenshot of the “System Status” page showing live cluster usage."><img src="../img/ondemand_systemstatus.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%" alt="A screenshot of the OSC Ondemand System Status page showing live cluster usage."></a></p>
 </figure>
 </div>
 <figcaption>A screenshot of the “System Status” page showing live cluster usage.</figcaption>
@@ -524,123 +530,13 @@ Side note: OSC System Status overview<em>(click to expand)</em>
 </div>
 </div>
 </div>
-<section id="interactive-apps" class="level4">
-<h4 class="anchored" data-anchor-id="interactive-apps">Interactive Apps</h4>
-<p>You can access a bunch of software via the <strong>Interactive Apps</strong> dropdown menu – go ahead and click on the “Code Server” button – that will allow us to use the VS Code text editor on OSC, as explained below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../img/ondemand_vscode_select.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="../img/ondemand_vscode_select.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:24.0%" alt="A screenshot of the options in the OSC OnDemand Interactive Apps dropdown menu."></a></p>
-</figure>
-</div>
-</section>
-</section>
-</section>
-<section id="the-vs-code-text-editor" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="the-vs-code-text-editor"><span class="header-section-number">4</span> The VS Code text editor</h2>
-<section id="what-is-vs-code" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="what-is-vs-code"><span class="header-section-number">4.1</span> What is VS Code?</h3>
-<p>VS Code is basically a fancy text editor, with an integrated terminal that runs a Unix shell. In these labs:</p>
-<ul>
-<li>VS Code will be our editor for Unix shell code (this week)</li>
-<li>RStudio will be our editor for R (next week’s lab)</li>
-</ul>
-</section>
-<section id="starting-a-vs-code-session" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="starting-a-vs-code-session"><span class="header-section-number">4.2</span> Starting a VS Code session</h3>
-<p>Interactive Apps like VS Code and RStudio <strong>run on compute nodes</strong> (not login nodes). Because compute nodes always need to be “reserved” to be used, you have to fill out a form and specify the following details:</p>
-<ul>
-<li>The <strong>Cluster</strong> we want to use: <code>pitzer</code></li>
-<li>The <strong>Account</strong>, the OSC Project to be billed for the compute node usage: <code>PAS2880</code></li>
-<li>The <strong>Number of hours</strong> we want to make a reservation for: <code>4</code></li>
-<li>The <strong>Working Directory</strong> (starting point) for the program: <code>/fs/scratch/PAS2880/ENT6703</code></li>
-<li><span style="color:#969696">The <strong>App Code Server version</strong>: <code>4.8.3</code> (this should be the only available option)</span></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../img/ondemand_vscode_form.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="This is how you should fill out the form to start a VS Code session"><img src="../img/ondemand_vscode_form.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%" alt="A screenshot of OSC OnDemand VS Code form."></a></p>
-</figure>
-</div>
-<figcaption>This is how you should fill out the form to start a VS Code session</figcaption>
-</figure>
-</div>
-<p>Click <code>Launch</code> and you’ll be sent to the <em>My Interactive Sessions</em> page with a card for your job at the top. First, your job may be <em>Queued</em> for some seconds (i.e., waiting for computing resources to be assigned to it), but it should soon switch to <em>Starting</em> and then to <em>Running</em>:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../img/ondemand_vscode_running2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../img/ondemand_vscode_running2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%" alt="A screenshot of the OSC OnDemand page shown when the Code Server job has started running."></a></p>
-</figure>
-</div>
-<p>Once the blue <strong>Connect to VS Code</strong> button appears, click that and VS Code will open in a new browser tab. When VS Code opens, you may get these two pop-ups (and possibly some others):</p>
-<div class="columns">
-<div class="column" style="width:52%;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../img/vscode-trust2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Here, click “Yes, …” and check the “Trust” box"><img src="../img/vscode-trust2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%" alt="A screenshot of a popup you may get when first opening a folder in VS Code."></a></p>
-</figure>
-</div>
-<figcaption>Here, click “Yes, …” and check the “Trust” box</figcaption>
-</figure>
-</div>
-</div><div class="column" style="width:48%;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../img/vscode-git.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Here, click “Don’t Show Again”"><img src="../img/vscode-git.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%" alt="A screenshot of a popup you may get when first opening VS Code."></a></p>
-</figure>
-</div>
-<figcaption>Here, click “Don’t Show Again”</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="the-vs-code-user-interface" class="level3" data-number="4.3">
-<h3 data-number="4.3" class="anchored" data-anchor-id="the-vs-code-user-interface"><span class="header-section-number">4.3</span> The VS Code User Interface</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="../img/vscode-welcome_ed.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="An annotated overview of the VS Code User Interface"><img src="../img/vscode-welcome_ed.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="An annotated screenshot of the VS Code user interace"></a></p>
-</figure>
-</div>
-<figcaption>An annotated overview of the VS Code User Interface</figcaption>
-</figure>
-</div>
-<section id="editor-pane-and-get-started-document" class="level4">
-<h4 class="anchored" data-anchor-id="editor-pane-and-get-started-document">Editor pane and “Get Started” document</h4>
-<p>The main part of the VS Code is the <strong>editor pane</strong>. Here, you can open files like scripts and other types of text files, and images. Right now, you should see a Get Started page – you don’t have to go through any steps that may be suggested there.</p>
-</section>
-<section id="side-bars" class="level4">
-<h4 class="anchored" data-anchor-id="side-bars">Side bars</h4>
-<p>The <strong>Activity Bar</strong> (narrow side bar) on the far left has:</p>
-<ul>
-<li>A <i class="fa-solid fa-bars" aria-label="bars"></i> (“hamburger menu”), which has menu items like <code>File</code> that you often find in a top bar</li>
-<li>A <i class="fa-solid fa-cog" aria-label="cog"></i> (cog wheel icon) in the bottom, through which you can mainly access <em>settings</em></li>
-<li>Icons to toggle <strong>(wide) Side Bar</strong> options – but we’ll only use the default selection, the <em>Explorer</em> (file browser)</li>
-</ul>
-</section>
-<section id="terminal-with-a-unix-shell" class="level4">
-<h4 class="anchored" data-anchor-id="terminal-with-a-unix-shell">Terminal (with a Unix shell)</h4>
-<p><strong>Open a terminal</strong> by clicking &nbsp;<i class="fa-solid fa-bars" aria-label="bars"></i> &nbsp; =&gt; <code>Terminal</code> =&gt; <code>New Terminal</code>. We’ll start using this in the next section!</p>
-</section>
-<section id="exercise-try-a-few-color-themes" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="exercise-try-a-few-color-themes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Try a few color themes</h4>
-<ol type="1">
-<li>Access the “Color Themes” option by clicking <i class="fa fa-cog"></i> &nbsp; =&gt; <code>Color Theme</code>.</li>
-<li>Try out a few themes and see what you like!</li>
-</ol>
-</section>
 </section>
 </section>
 <section id="the-unix-shell" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="the-unix-shell"><span class="header-section-number">5</span> The Unix shell</h2>
 <section id="what-is-the-unix-shell-and-why-use-it" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="what-is-the-unix-shell-and-why-use-it"><span class="header-section-number">5.1</span> What is the Unix shell and why use it?</h3>
-<p>A computer’s <strong>shell</strong> is an interface inside a Terminal window that allows you to interact with your computer by typing commands. More specifically, the <strong>Unix shell</strong> is the shell of Unix-based operating systems, which include Mac and Linux (but not Windows). Supercomputers like OSC run on Linux, so the default shell here -and for scientific computing in general- is a Unix shell.</p>
+<p>A computer’s <strong>shell</strong> is an interface inside a Terminal window that allows you to interact with your computer by typing commands. More specifically, the <strong>Unix shell</strong> is the shell of Unix-based operating systems (Mac and Linux but not Windows). Supercomputers like OSC run on Linux, so the default shell here -and for scientific computing in general- is a Unix shell.</p>
 <p>Using the Unix shell is often a necessity when working with HTS data, in order to run the <strong>specialized software</strong> needed for data processing. But there are other good reasons to use the shell, including:</p>
 <ul>
 <li><strong>Automation and efficiency</strong><br>
@@ -653,13 +549,33 @@ Shell commands are excellent at viewing and processing <em>large, plain-text fil
 </section>
 <section id="first-steps-in-the-unix-shell" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="first-steps-in-the-unix-shell"><span class="header-section-number">5.2</span> First steps in the Unix shell</h3>
+<section id="the-terminal-interface" class="level4">
+<h4 class="anchored" data-anchor-id="the-terminal-interface">The terminal interface</h4>
+<p>The terminal interface you see after opening the Cardinal Shell Access should look something like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/ondemand_shell2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img src="../img/ondemand_shell2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%" alt="A screenshot of the OSC OnDemand shell interface."></a></p>
+</figure>
+</div>
+<p>OSC is printing some welcome messages and information about your account. At the bottom is the <em>prompt</em>, where you can type commands. To start with:</p>
+<ul>
+<li><p>I will go ahead and <em>clear the screen</em>, so the prompt is at the top, and will continue to occasionally do that throughout this session. The screen can be cleared with <kbd>Ctrl</kbd> + <kbd>L</kbd> (both Windows and Mac).</p></li>
+<li><p>In the top-right corner of the terminal window is a <code>Themes:</code> dropdown menu, where you can select a different color scheme for the terminal. I prefer light themes and will select <code>GitHub</code>; you may choose whatever you like.</p></li>
+</ul>
+<p>With a light theme and a cleared screen, the terminal window should now look something like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../img/shell-light.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img src="../img/shell-light.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%" alt="A screenshot of the OSC OnDemand shell interface."></a></p>
+</figure>
+</div>
+</section>
 <section id="the-shell-prompt" class="level4">
 <h4 class="anchored" data-anchor-id="the-shell-prompt">The shell prompt</h4>
 <p>Inside your terminal, the “prompt” indicates that the shell is ready for a command. Your prompt at OSC should show the following pieces of information:</p>
 <p><code>[&lt;username&gt;@&lt;node-name&gt; &lt;current-folder&gt;]$</code></p>
-<p>For example, below, user <code>jelmer</code> is on node <code>p0080</code> in folder <code>ENT6703</code>:</p>
-<pre class="bash-in-nocolor"><code>[jelmer@p0080 ENT6703]$ </code></pre>
-<p>You type commands <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute them. When it has finished executing, you’ll get your prompt back and can type a new command.</p>
+<p>For example, below, user <code>jelmer</code> is on node <code>cardinal-login01</code> in folder <code>~</code> (the tilde <code>~</code> is shorthand for the user’s home folder):</p>
+<pre class="bash-in-nocolor"><code>[jelmer@cardinal-login01 ~]$ </code></pre>
+<p>To use the shell, you type a command <strong>after the dollar sign</strong> <code>$</code>, and then press <kbd>Enter</kbd> to execute it. When it has finished running, you’ll get your prompt back and can type a new command. <em>Easy!</em> 😃</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -671,28 +587,28 @@ How shell code is shown on this website
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>The <strong>pale gray boxes</strong> like the ones shown above are used to show the commands you should type.</li>
-<li>From now on, the prompt itself (<code>[...]$</code>) won’t be shown, only the commands you type. This saves space and allows you to copy-paste code from the boxes (but I recommend typing!).</li>
-<li><strong>Darker gray boxes</strong> (with italic text, below the boxes with commands) show the <em>output</em> of commands.</li>
+<li>The <strong>pale gray boxes</strong> like the ones shown above are used to show the commands you should type</li>
+<li>From now on, the prompt itself (<code>[...]$</code>) won’t be shown, only the commands you type</li>
+<li><strong>Darker gray boxes</strong> (with italic text, below the boxes with commands) show the <em>output</em> of commands</li>
 </ul>
 </div>
 </div>
 </section>
 <section id="a-few-simple-commands-date-whoami-pwd" class="level4">
 <h4 class="anchored" data-anchor-id="a-few-simple-commands-date-whoami-pwd">A few simple commands: <code>date</code>, <code>whoami</code>, <code>pwd</code></h4>
-<p>The Unix shell comes with hundreds of “commands”: small programs that perform specific actions. (If you’re familiar with R or Python, a Unix command is like an R/Python function.) Let’s start with a few simple commands:</p>
+<p>The Unix shell comes with hundreds of “commands”: small programs that perform specific actions (if you’ve used R, a Unix command is like an R function). Let’s start with a few simple commands:</p>
 <ul>
 <li><p>The <code>date</code> command prints the current date and time:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>Fri Jan 26 14:31:51 EST 2024</code></pre></li>
+<pre class="bash-out"><code>Fri Jan 30 14:31:51 EST 2026</code></pre></li>
 <li><p>The <code>whoami</code> (who-am-i) command prints your username:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">whoami</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>jelmer</code></pre></li>
-<li><p>The <code>pwd</code> -Print Working Directory- command prints the “path” (location) of the folder you are currently located in:</p>
+<li><p>The <code>pwd</code> -Print Working Directory- command prints the path of the folder you are currently located in – yours will be different than mine.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/jelmer</code></pre></li>
+<pre class="bash-out"><code>/users/PAS0471/jelmer</code></pre></li>
 </ul>
-<p>All those commands provided us with some output. That output was <strong>printed to screen</strong>, which is the default behavior for nearly every Unix command.</p>
+<p>All those commands provided us with some output. That output was <strong>printed to screen</strong>, which is the default behavior for most Unix commands.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -704,8 +620,8 @@ Some terminology
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Recall that “directory” / “dir” is just a synonym for “folder” – we’ll use “<strong>dir</strong>” from now on</li>
-<li>When working in a Unix shell, you are always “in” a specific directory, which is called your <strong>working dir</strong></li>
+<li>“Directory” or “dir” for short is just a synonym for “folder” – we’ll mostly use “<strong>dir</strong>” from now on</li>
+<li>When working in a Unix shell, you are always “in” a specific dir, which is called your <strong>working dir</strong></li>
 <li>Recall from earlier that a “<strong>path</strong>”, such as that output by <code>pwd</code>, specifies the location of a file or dir in a computer’s file system</li>
 </ul>
 </div>
@@ -720,11 +636,11 @@ Some terminology
 <li>The command provided some information, which was printed to screen</li>
 </ul>
 <p>But many commands perform an <strong>action</strong> other than providing information. For example, you can use the command <strong><code>cd</code></strong> to Change Directory, i.e.&nbsp;change your working dir.</p>
-<p>Let’s use <code>cd</code> to move to another dir by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s use <code>cd</code> to navigate to another dir by specifying the <em>path</em> to that directory after the <code>cd</code> command:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that <code>cd</code> had <strong>no output</strong> at all. But it did perform the desired action, which we can see by checking the working directory again with <code>pwd</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/share</code></pre>
+<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/data</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -738,16 +654,16 @@ I will demonstrate a neat feature called “tab completion”!
 
 </div>
 </div>
-<p>In more abstract terms, you provided <code>cd</code> with an <strong>argument</strong> above, namely the path of the dir to move to. Arguments generally tell commands what file or directory to operate on.</p>
-<p>So, <code>cd</code> gives no output when it succesfully changed the working directory. But let’s also see what happens when it does not succeed — it gives an error:</p>
+<p>In more abstract terms, you provided <code>cd</code> with an <strong>argument</strong> above, namely the path of the dir to navigate to. <em>Arguments generally tell commands what file or directory to operate on</em>.</p>
+<p>So, <code>cd</code> gives no output when it succesfully changed the working directory. But let’s also see what happens when it does not succeed — an error appears:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/Scratch/PAS2880</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>bash: cd: /fs/Scratch/PAS2880: No such file or directory</code></pre>
 <details>
 <summary>
-<i class="fa-solid fa-comments" aria-label="comments"></i> What was the problem with the path we specified? <em>(Click to see the answer)</em>
+<i class="fa-solid fa-comments" aria-label="comments"></i> What was the problem with the path we specified? Does that surprise you? <em>(Click to see the answer)</em>
 </summary>
 <p>We used a capital S in <code>/Scratch/</code> — this should have been <code>/scratch/</code>.</p>
-Everything in the shell is <strong>case-sensitive</strong>, including commands and file names. So if a directory is called <code>scratch</code>, typing <code>Scratch</code> will not work!
+This hints at the fact that everything in the shell is <strong>case-sensitive</strong>, including commands and file names. So if a directory is called <code>scratch</code>, typing <code>Scratch</code> will not work!
 </details>
 </section>
 <section id="ls-and-command-options" class="level3" data-number="5.4">
@@ -756,9 +672,9 @@ Everything in the shell is <strong>case-sensitive</strong>, including commands a
 <h4 class="anchored" data-anchor-id="the-default-behavior-of-ls">The default behavior of <code>ls</code></h4>
 <p>The <code>ls</code> command, short for “list”, will list files and directories – by default those present in your current working dir:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>data  README.md</code></pre>
+<pre class="bash-out"><code>fastq  meta  README.md  ref</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -767,15 +683,15 @@ Side note: <code>ls</code> output colors <em>(click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <code>ls</code> output shown above does not show the different colors you should see in your shell, where:</p>
 <ul>
-<li>Entries in <strong><span style="color: #0328fc">blue</span></strong> are directories (like <code>data</code> and <code>metadata</code> above)</li>
+<li>Entries in <strong><span style="color: #0328fc">blue</span></strong> are directories (like <code>fastq</code> and <code>meta</code> above)</li>
 <li>Entries in <strong>black</strong> are regular files (like <code>README.md</code> above)</li>
-<li>Entries in <strong><span style="color: #d92118">red</span></strong> are compressed files (we’ll see an example soon).</li>
+<li>Entries in <strong><span style="color: #d92118">red</span></strong> are compressed files (you’ll see an example soon)</li>
 </ul>
-<p><em>(Though colors may vary depending on your terminal and color scheme settings.)</em></p>
+<p><em>(Though note that some color schemes may show different colors for these.)</em></p>
 </div>
 </div>
 </div>
@@ -784,15 +700,19 @@ Side note: <code>ls</code> output colors <em>(click to expand)</em>
 <h4 class="anchored" data-anchor-id="options-to-ls">Options (to <code>ls</code>)</h4>
 <p>The way that <code>ls</code> shows the output can be changed using options. In general, while arguments tell a command <em>what to operate on</em>, options will <em>modify its behavior</em>. For example, we can call <code>ls</code> with the <strong>option <code>-l</code></strong> (a dash followed by a lowercase L):</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>total 17
-drwxr-xr-x 5 jelmer PAS0471 4096 Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1502 Jan 22 11:04 README.md</code></pre>
+<pre class="bash-out"><code>total 2
+drwxr-x--- 2 jelmer PAS0471 4096 Jan 27 08:37 fastq
+drwxr-x--- 2 jelmer PAS0471 4096 Jan 27 08:37 meta
+-rw-r----- 1 jelmer PAS0471 1539 Jan 27 08:37 README.md
+drwxr-x--- 2 jelmer PAS0471 4096 Jan 27 08:37 ref</code></pre>
 <p>Notice that it lists the same items as our first <code>ls</code> call above, but <strong>printed in a different format</strong>: one item per line, with additional information such as the last-modified date and time, and the file sizes in bytes (to the left of the date).</p>
 <p>Let’s add another option, <code>-h</code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-l</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>total 17K
-drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md</code></pre>
+<pre class="bash-out"><code>total 2.0K
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 fastq
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 meta
+-rw-r----- 1 jelmer PAS0471 1.6K Jan 27 08:37 README.md
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 ref</code></pre>
 <details>
 <summary>
 <i class="fa-solid fa-comments" aria-label="comments"></i> What is different about the output, and what do you think that means? <em>(Click to see the answer)</em>
@@ -803,16 +723,16 @@ You now have “Human-readable filesizes” (hence <code>-h</code>), where sizes
 <p>Conveniently, options can be “pasted together”; <code>ls -lh</code> is equivalent to <code>ls -l -h</code>:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>total 17K
-drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md</code></pre>
+total 2.0K
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 fastq
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 meta
+-rw-r----- 1 jelmer PAS0471 1.6K Jan 27 08:37 README.md
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 ref</code></pre>
 </section>
 <section id="combining-options-and-arguments" class="level4">
 <h4 class="anchored" data-anchor-id="combining-options-and-arguments">Combining options and arguments</h4>
-<p>Arguments to <code>ls</code> should be <strong>dirs or files to operate on</strong>. For example, if you wanted to see what’s inside the <code>data</code> dir, instead of inside your working dir, we could type:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>fastq  meta  ref</code></pre>
-<p>The <code>data</code> dir appears to contain three dirs with different kinds of data. We’ll talk in detail about that later, but for now, take a look inside the <code>fastq</code> dir:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Arguments to <code>ls</code> should be <strong>dirs or files to operate on</strong>. For example, if you wanted to see what’s inside the <code>fastq</code> dir, instead of inside your working dir, we could type:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>ERR10802863_R1.fastq.gz  ERR10802865_R2.fastq.gz  ERR10802868_R1.fastq.gz  ERR10802870_R2.fastq.gz  ERR10802875_R1.fastq.gz  ERR10802877_R2.fastq.gz  ERR10802880_R1.fastq.gz  ERR10802882_R2.fastq.gz  ERR10802885_R1.fastq.gz
 ERR10802863_R2.fastq.gz  ERR10802866_R1.fastq.gz  ERR10802868_R2.fastq.gz  ERR10802871_R1.fastq.gz  ERR10802875_R2.fastq.gz  ERR10802878_R1.fastq.gz  ERR10802880_R2.fastq.gz  ERR10802883_R1.fastq.gz  ERR10802885_R2.fastq.gz
 ERR10802864_R1.fastq.gz  ERR10802866_R2.fastq.gz  ERR10802869_R1.fastq.gz  ERR10802871_R2.fastq.gz  ERR10802876_R1.fastq.gz  ERR10802878_R2.fastq.gz  ERR10802881_R1.fastq.gz  ERR10802883_R2.fastq.gz  ERR10802886_R1.fastq.gz
@@ -820,48 +740,79 @@ ERR10802864_R2.fastq.gz  ERR10802867_R1.fastq.gz  ERR10802869_R2.fastq.gz  ERR10
 ERR10802865_R1.fastq.gz  ERR10802867_R2.fastq.gz  ERR10802870_R1.fastq.gz  ERR10802874_R2.fastq.gz  ERR10802877_R1.fastq.gz  ERR10802879_R2.fastq.gz  ERR10802882_R1.fastq.gz  ERR10802884_R2.fastq.gz</code></pre>
 <p>Ah, FASTQ files! These contain the HTS reads you’ll work with, and you’ll explore them in the second part of this lab.</p>
 <p>Finally, you can <strong>combine options and arguments</strong>, and let’s do so take a closer look at the dir with FASTQ files — now, the <code>-h</code> option is especially useful and allows you see that the FASTQ files are 21-22 Mb in size:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>total 941M
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802863_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802863_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802864_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802864_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802866_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802866_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 21M Jan 27 08:37 ERR10802863_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802863_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 21M Jan 27 08:37 ERR10802864_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802864_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802865_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802865_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 21M Jan 27 08:37 ERR10802866_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802866_R2.fastq.gz
 [...output truncated...]</code></pre>
 </section>
 <section id="exercise-practice-with-ls" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-practice-with-ls"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Practice with <code>ls</code></h4>
-<p>List the files in the <code>data/ref</code> dir. What are the file sizes?</p>
+<p>List the files in the <code>ref</code> dir. What are the file sizes?</p>
 <details>
 <summary>
 <em>Click for the solution</em>
 </summary>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>total 670M
--rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
--rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf</code></pre>
-The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) is 547 Mb (not bases but bytes!), and the <code>.gtf</code> file (this is the annotation file) is 123 Mb.
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 659M
+-rw-r----- 1 jelmer PAS0471 547M Jan 27 08:37 GCF_016801865.2.fna
+-rw-r----- 1 jelmer PAS0471 123M Jan 27 08:37 GCF_016801865.2.gtf</code></pre>
+The <code>.fna</code> file (the genome assembly nucleotide FASTA file) is 547 Mb, and the <code>.gtf</code> file (the annotation GTF file) is 123 Mb.
 </details>
 </section>
 <section id="bonus-exercise-paths" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="bonus-exercise-paths"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Paths</h4>
-<p>Earlier with <code>cd</code>, you used long paths like <code>/fs/scratch/PAS2880/ENT6703/share</code>. Here, you used short ones like <code>data</code> and <code>data/fastq</code>. What is the difference between these kinds of paths?</p>
+<p>Earlier with <code>cd</code>, you used long paths like <code>/fs/scratch/PAS2880/ENT6703/data</code>. Here, you used short ones like <code>data</code> and <code>fastq</code>. What is the difference between these kinds of paths – which of the following statements is correct (only one is correct)?</p>
+<blockquote class="blockquote">
 <ol type="A">
 <li>When you use <code>cd</code>, you have to use long paths, but with <code>ls</code> you can use short ones.</li>
-<li><code>data</code> and <code>data/fastq</code> are just shorter because they are closer to the root of the filesystem, so there are fewer dirs to travel through.</li>
+<li><code>data</code> and <code>fastq</code> are just shorter because they are closer to the root of the filesystem, so there are fewer dirs to travel through.</li>
 <li>The long paths start from the root of the file system, while the short paths start from your current working dir.</li>
 <li>The long paths are for directories, while the short paths are for files.</li>
 </ol>
+</blockquote>
 <details>
 <summary>
 <em>Click for the solution</em>
 </summary>
 <p>The correct answer is <code>C</code>.</p>
 <p>The long paths are called <strong>absolute paths</strong>, and start from the root of the file system (recognized by a leading slash like in <code>/fs/ess</code>). Making an analogy with geographic locations, you can think of these as GPS coordinates: they always point to the same location, no matter where you currently are.</p>
-<p>The short paths are <strong>relative paths</strong>, starting from your current working dir. So, if your working dir is <code>/fs/scratch/PAS2880/ENT6703</code>, then <code>data</code> is equivalent to <code>/fs/scratch/PAS2880/ENT6703/data</code>. Continuing the geographic analogy, these are like giving directions starting from your current location such as “take the second left”.</p>
+<p>The short paths are <strong>relative paths</strong>, starting from your current working dir. Continuing the geographic analogy, these are like giving directions starting from your current location such as “take the second left”.</p>
+<p>See the table below for two examples:</p>
+<div class="column" style="font-size: 90%">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 52%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Working dir</th>
+<th>Absolute path to another folder</th>
+<th>Relative path</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/fs/scratch/PAS2880/ENT6703/data</code></td>
+<td><code>/fs/scratch/PAS2880/ENT6703/data/fastq</code></td>
+<td><code>fastq</code></td>
+</tr>
+<tr class="even">
+<td><code>/fs/scratch/PAS2880/ENT6703</code></td>
+<td><code>/fs/scratch/PAS2880/ENT6703/data/fastq</code></td>
+<td><code>data/fastq</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 </details>
 </section>
 </section>
@@ -871,42 +822,43 @@ The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) i
 <li><p><strong>Command history:</strong> If you hit the <kbd>⇧</kbd> (up arrow) once, you’ll retrieve your most recent command, and if you keep hitting it, you’ll go further back. The<kbd>⇩</kbd> (down arrow) will go the other way: towards the present.</p></li>
 <li><p>Your <strong>cursor</strong> can be anywhere on a line (not just at the end) when you press <kbd>Enter</kbd> to execute a command!</p></li>
 <li><p>Anything that comes after a <code>#</code> is considered a <strong>comment</strong> instead of code!</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/jelmer</code></pre></li>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This entire line is a comment - you can run it and nothing will happen</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span>    <span class="co"># 'pwd' will be executed but everything after the '#' is ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>/fs/scratch/PAS2880/ENT6703/data</code></pre></li>
 </ul>
 <hr style="height:1pt; visibility:hidden;">
 <section id="exercise-shell-navigation-practice" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-shell-navigation-practice"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Shell navigation practice</h4>
 <ol type="1">
-<li><p>Move into your personal directory (the one you created a little while back), and then back into the <code>share</code> dir.</p>
+<li><p>Navigate into your personal dir (the one you created a little while back), and then back into the <code>data</code> dir.</p>
 <details>
 <summary>
 <p><em>Click for the solution</em></p>
 </summary>
 <ul>
-<li><p>Move into your personal dir (replace <code>jelmer</code> with <em>your</em> username):</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/jelmer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Move back to <code>ENT6703</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Navigate to your personal folder (replace <code>jelmer</code> with <em>your</em> username):</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/jelmer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Navigate back to <code>data</code>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </details></li>
 <li><p>Use command history (arrows) to repeat the previous exercise without typing commands.</p></li>
 </ol>
 </section>
-<section id="bonus-exercise-advanced-navigation" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="bonus-exercise-advanced-navigation"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Advanced navigation</h4>
-<p>In the first question, did you perhaps find yourself wondering how you can move up a level in the file system? In a path, <code>..</code> denotes one level up, so <code>../bla</code> means one level up and <em>then</em> down into the <code>bla</code> directory.</p>
-<p>Try to make use of this construct to move into your personal dir and back to <code>share</code> again, instead of using the “full paths” like above. <em>Hint: Tab completion after typing <code>../</code> can help you to orient yourself!</em></p>
+<section id="bonus-exercise-navigating-up" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="bonus-exercise-navigating-up"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Navigating up</h4>
+<p>In the first question, did you perhaps find yourself wondering how you can navigate <strong>up</strong> a level in the file system?</p>
+<p>Well: in a path, <code>..</code> denotes one level up. And <code>../bla</code>, for example, means one level up and <em>then</em> down into the <code>bla</code> directory.</p>
+<p>Try to make use of this construct to navigate into your personal dir and back to <code>data</code> again, instead of using the “full paths” like above. <em>Hint: Tab completion after typing <code>../</code> can help you to orient yourself!</em></p>
 <details>
 <summary>
 <em>Click for the solution</em>
 </summary>
 <ul>
 <li><p>Into your personal dir (replace <code>jelmer</code> with your own username):</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Back to <code>share</code>:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../jelmer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Back to <code>data</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </details>
 <details>
@@ -916,13 +868,17 @@ The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) i
 <hr style="height:1pt; visibility:hidden;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../img/paths3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15"><img src="../img/paths3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%" alt="A diagram showing the hierarchical structure of a file system with folders and subfolders."></a></p>
+<p><a href="../img/paths3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img src="../img/paths3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%" alt="A diagram showing the hierarchical structure of a file system with folders and subfolders."></a></p>
 </figure>
 </div>
 </details>
 </section>
+<p><br></p>
+<section id="continue-to-part-ii-of-this-lab" class="level4">
+<h4 class="anchored" data-anchor-id="continue-to-part-ii-of-this-lab"><em><a href="../pages/data.html">Continue to part II of this lab</a> =&gt;</em></h4>
 
 
+</section>
 </section>
 </section>
 
@@ -930,7 +886,8 @@ The <code>.fna</code> file (this is the genome assembly nucleotide FASTA file) i
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Cloud computing is an alternative, but won’t be covered here.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p> Research usage is charged at subsidized rates, and in our case at CFAES, these costs are absorbed at the college level.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p> These are shared between the OSC supercomputers, so you can access the same files from each one.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

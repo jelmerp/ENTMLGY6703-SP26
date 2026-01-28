@@ -195,7 +195,7 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="../pages/infrastructure.html">
- <span class="dropdown-text">Lab part 1: Computational Infrastructure</span></a>
+ <span class="dropdown-text">Lab part 1: Computing Environment</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../pages/data.html">
@@ -209,6 +209,10 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
         <li>
+    <a class="dropdown-item" href="../pages/r_homework.html">
+ <span class="dropdown-text">R Homework</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../pages/rnaseq.html">
  <span class="dropdown-text">Lecture: RNA-seq</span></a>
   </li>  
@@ -218,10 +222,6 @@ window.Quarto = {
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="../pages/r_homework.html"> 
-<span class="menu-text">R Homework</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -265,7 +265,7 @@ window.Quarto = {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#this-parts-goals" id="toc-this-parts-goals" class="nav-link" data-scroll-target="#this-parts-goals"><span class="header-section-number">1.1</span> This part’s goals</a></li>
+  <li><a href="#goals-for-this-part-of-the-lab" id="toc-goals-for-this-part-of-the-lab" class="nav-link" data-scroll-target="#goals-for-this-part-of-the-lab"><span class="header-section-number">1.1</span> Goals for this part of the lab</a></li>
   <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset"><span class="header-section-number">1.2</span> The dataset</a></li>
   </ul></li>
   <li><a href="#the-files-youll-work-with" id="toc-the-files-youll-work-with" class="nav-link" data-scroll-target="#the-files-youll-work-with"><span class="header-section-number">2</span> The files you’ll work with</a>
@@ -274,14 +274,14 @@ window.Quarto = {
   </ul></li>
   <li><a href="#reference-genome-files" id="toc-reference-genome-files" class="nav-link" data-scroll-target="#reference-genome-files"><span class="header-section-number">3</span> Reference genome files</a>
   <ul class="collapse">
-  <li><a href="#finding-your-reference-genome" id="toc-finding-your-reference-genome" class="nav-link" data-scroll-target="#finding-your-reference-genome"><span class="header-section-number">3.1</span> Finding your reference genome</a></li>
+  <li><a href="#finding-a-reference-genome" id="toc-finding-a-reference-genome" class="nav-link" data-scroll-target="#finding-a-reference-genome"><span class="header-section-number">3.1</span> Finding a reference genome</a></li>
   <li><a href="#the-genome-assembly-fasta-file" id="toc-the-genome-assembly-fasta-file" class="nav-link" data-scroll-target="#the-genome-assembly-fasta-file"><span class="header-section-number">3.2</span> The genome assembly FASTA file</a></li>
   <li><a href="#annotation-files" id="toc-annotation-files" class="nav-link" data-scroll-target="#annotation-files"><span class="header-section-number">3.3</span> Annotation files</a></li>
   </ul></li>
   <li><a href="#fastq-files" id="toc-fastq-files" class="nav-link" data-scroll-target="#fastq-files"><span class="header-section-number">4</span> FASTQ files</a>
   <ul class="collapse">
   <li><a href="#the-fastq-format" id="toc-the-fastq-format" class="nav-link" data-scroll-target="#the-fastq-format"><span class="header-section-number">4.1</span> The FASTQ format</a></li>
-  <li><a href="#listing-the-fastq-files" id="toc-listing-the-fastq-files" class="nav-link" data-scroll-target="#listing-the-fastq-files"><span class="header-section-number">4.2</span> Listing the FASTQ files</a></li>
+  <li><a href="#fastq-file-sizes-and-organization" id="toc-fastq-file-sizes-and-organization" class="nav-link" data-scroll-target="#fastq-file-sizes-and-organization"><span class="header-section-number">4.2</span> FASTQ file sizes and organization</a></li>
   <li><a href="#viewing-fastq-files" id="toc-viewing-fastq-files" class="nav-link" data-scroll-target="#viewing-fastq-files"><span class="header-section-number">4.3</span> Viewing FASTQ files</a></li>
   </ul></li>
   <li><a href="#fastqc-for-quality-control-of-hts-reads" id="toc-fastqc-for-quality-control-of-hts-reads" class="nav-link" data-scroll-target="#fastqc-for-quality-control-of-hts-reads"><span class="header-section-number">5</span> FastQC for quality control of HTS reads</a>
@@ -289,12 +289,19 @@ window.Quarto = {
   <li><a href="#running-fastqc" id="toc-running-fastqc" class="nav-link" data-scroll-target="#running-fastqc"><span class="header-section-number">5.1</span> Running FastQC</a></li>
   <li><a href="#fastqc-output-files" id="toc-fastqc-output-files" class="nav-link" data-scroll-target="#fastqc-output-files"><span class="header-section-number">5.2</span> FastQC output files</a></li>
   </ul></li>
-  <li><a href="#interpreting-fastqcs-output" id="toc-interpreting-fastqcs-output" class="nav-link" data-scroll-target="#interpreting-fastqcs-output"><span class="header-section-number">6</span> Interpreting FastQC’s output</a></li>
+  <li><a href="#interpreting-fastqcs-output" id="toc-interpreting-fastqcs-output" class="nav-link" data-scroll-target="#interpreting-fastqcs-output"><span class="header-section-number">6</span> Interpreting FastQC’s output</a>
+  <ul class="collapse">
+  <li><a href="#overview-of-module-results" id="toc-overview-of-module-results" class="nav-link" data-scroll-target="#overview-of-module-results"><span class="header-section-number">6.1</span> Overview of module results</a></li>
+  <li><a href="#basic-statistics-module" id="toc-basic-statistics-module" class="nav-link" data-scroll-target="#basic-statistics-module"><span class="header-section-number">6.2</span> Basic statistics module</a></li>
+  <li><a href="#per-base-quality-graph" id="toc-per-base-quality-graph" class="nav-link" data-scroll-target="#per-base-quality-graph"><span class="header-section-number">6.3</span> Per base quality graph</a></li>
+  <li><a href="#adapter-content-graph" id="toc-adapter-content-graph" class="nav-link" data-scroll-target="#adapter-content-graph"><span class="header-section-number">6.4</span> Adapter content graph</a></li>
+  </ul></li>
   <li><a href="#prep-for-next-weeks-lab" id="toc-prep-for-next-weeks-lab" class="nav-link" data-scroll-target="#prep-for-next-weeks-lab"><span class="header-section-number">7</span> Prep for next week’s lab</a></li>
   <li><a href="#in-closing" id="toc-in-closing" class="nav-link" data-scroll-target="#in-closing"><span class="header-section-number">8</span> In closing</a></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="header-section-number">9</span> Appendix</a>
+  <li><a href="#appendix-gtf-files" id="toc-appendix-gtf-files" class="nav-link" data-scroll-target="#appendix-gtf-files"><span class="header-section-number">9</span> Appendix: GTF files</a>
   <ul class="collapse">
-  <li><a href="#gtf-genome-annotation-files" id="toc-gtf-genome-annotation-files" class="nav-link" data-scroll-target="#gtf-genome-annotation-files"><span class="header-section-number">9.1</span> GTF genome annotation files</a></li>
+  <li><a href="#the-gtf-format" id="toc-the-gtf-format" class="nav-link" data-scroll-target="#the-gtf-format"><span class="header-section-number">9.1</span> The GTF format</a></li>
+  <li><a href="#the-culex-pipiens-gtf-file" id="toc-the-culex-pipiens-gtf-file" class="nav-link" data-scroll-target="#the-culex-pipiens-gtf-file"><span class="header-section-number">9.2</span> The <em>Culex pipiens</em> GTF file</a></li>
   </ul></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="sequencing.html"><i class="bi bi-bookmarks"></i>Week 3 lecture</a></li><li><a href="infrastructure.html"><i class="bi bi-pencil"></i>Week 3 lab - part 1</a></li></ul></div></nav>
@@ -347,50 +354,58 @@ window.Quarto = {
 <p><br></p>
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<section id="this-parts-goals" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="this-parts-goals"><span class="header-section-number">1.1</span> This part’s goals</h3>
+<section id="goals-for-this-part-of-the-lab" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="goals-for-this-part-of-the-lab"><span class="header-section-number">1.1</span> Goals for this part of the lab</h3>
+<p>In this second part of the lab, you will learn how to:</p>
 <ol type="1">
-<li>Learn how to find a reference genome and the associated files</li>
-<li>Explore the reference genome files</li>
-<li>Explore HTS reads</li>
-<li>Perform quality-control on reads with a command-line tool, FastQC</li>
+<li>Look at files in the Unix shell</li>
+<li>Find a reference genome and the associated files</li>
+<li>Explore and understand reference genome files</li>
+<li>Explore and understand HTS files</li>
+<li>Perform quality-control on HTS reads with a command-line tool, FastQC</li>
 </ol>
 </section>
 <section id="the-dataset" class="level3" data-number="1.2">
 <h3 data-number="1.2" class="anchored" data-anchor-id="the-dataset"><span class="header-section-number">1.2</span> The dataset</h3>
-<p>As discussed in the lecture, today’s and next week’s labs will work with RNA-Seq data from <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#ref-garrigós2025" role="doc-biblioref">2025</a>)</span>:</p>
+<p>As discussed in the lecture, you’ll work with RNA-Seq data from <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#ref-garrigós2025" role="doc-biblioref">2025</a>)</span> in today’s and next week’s labs:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/paper.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
-<p>To recap, this paper used RNA-Seq data to study gene expression in <em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans.</p>
-<p>Next week, you will learn about RNA-Seq methodology and experimental design, and we’ll discuss this paper’s experimental design in more detail.</p>
+<p>This paper used RNA-Seq data to study gene expression in <em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans. Next week, you will learn about RNA-Seq methodology and experimental design, and we’ll discuss the paper’s experimental design in more detail. Here, we’ll explore the paper’s HTS data files.</p>
 </section>
 </section>
 <section id="the-files-youll-work-with" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="the-files-youll-work-with"><span class="header-section-number">2</span> The files you’ll work with</h2>
 <p>The main data files in a reference-based HTS project<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> are sequence reads (usually produced for the focal project) and reference genome files (usually already available).</p>
-<p>You’ve seen some of these files in the first part of this lab, but we didn’t pay much attention to what they represent. Let’s get an overview of the full set of files using the <code>tree</code> command (with the option <code>-C</code> to show colors):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make sure you're in the right dir (you may already be there)</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703/share</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For this project –our re-analysis of the <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#ref-garrigós2025" role="doc-biblioref">2025</a>)</span> data– I have downloaded those files for you and placed them in <code>/fs/scratch/PAS2880/ENT6703/data</code> on OSC. You’ve seen some of these files in the first part of this lab, but we didn’t pay much attention to what they represent.</p>
+<p>First, we’ll actually move one level up to the <code>ENT6703</code> dir:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s get an overview of the full set of files using the <code>tree</code> command (with the option <code>-C</code> to show colors):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unlike ls, tree will show the full directory structure</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-C</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-C</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code># (The colors you should see in the terminal aren't shown here)
-  .
-  └── data
-      ├── fastq
-      │   ├── ERR10802863_R1.fastq.gz
-      │   ├── ERR10802863_R2.fastq.gz
-      │   ├── ERR10802864_R1.fastq.gz
-      │   ├── ERR10802864_R2.fastq.gz
-      │   ├── [...truncated - more FASTQ files...]
-      ├── meta
-      │   └── metadata.tsv
-      └── ref
-          ├── GCF_016801865.2.fna
-          └── GCF_016801865.2.gtf
-  4 directories, 47 files</code></pre>
+data
+├── fastq
+│   ├── ERR10802863_R1.fastq.gz
+│   ├── ERR10802863_R2.fastq.gz
+│   ├── ERR10802864_R1.fastq.gz
+│   ├── ERR10802864_R2.fastq.gz
+│   ├── ERR10802865_R1.fastq.gz
+│   ├── ERR10802865_R2.fastq.gz
+│   ├── ERR10802866_R1.fastq.gz
+│   ├── ERR10802866_R2.fastq.gz
+│   ├── ERR10802867_R1.fastq.gz
+│   ├── ERR10802867_R2.fastq.gz
+|   ├── [...truncated - more FASTQ files...]
+├── meta
+│   └── metadata.tsv
+├── README.md
+└── ref
+    ├── GCF_016801865.2.fna
+    └── GCF_016801865.2.gtf
+3 directories, 48 files</code></pre>
 <p>So, we have:</p>
 <ul>
 <li>A whole bunch of FASTQ files (<code>.fastq.gz</code> extension) which contain the HTS reads</li>
@@ -398,13 +413,19 @@ window.Quarto = {
 <li>A sample metadata file with treatment information for each sample</li>
 </ul>
 <p><strong>All these files are plain-text files</strong>, which is one reason why the Unix shell excells at working with them. You’ll take a closer look at each below.</p>
+<details>
+<summary>
+<i class="fa-solid fa-comments" aria-label="comments"></i> Looking at the <code>tree</code> output, what is the (full) path to the file <code>metadata.tsv</code>? <em>(Click to expand)</em>
+</summary>
+The path is <code>/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv</code>.
+</details>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Side note: How would you go about to retrieve this data? <em>(Click to expand)</em>
+Side note: How you could retrieve this data yourself <em>(Click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -424,62 +445,67 @@ Side note: How would you go about to retrieve this data? <em>(Click to expand)</
 <p>Let’s start by taking a quick look at a table with information about the samples analyzed in this paper, which we’ll call the sample metadata. This file, <code>metadata.tsv</code>, is a small tabular plain-text file, with columns separated by Tabs (TSV/<code>.tsv</code> is short for “Tab-Separated Values”):</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 644 Jan 21 09:15 metadata.tsv</code></pre>
-<p>You can find this file in the file explorer in the VS Code side bar, and click on it to open it in the editor. Alternatively, you can use the <code>cat</code> command to show the file contents in the shell:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> data/meta/metadata.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>sample_id    time   treatment
-ERR10802882  10_d   cathemerium
-ERR10802875  10_d   cathemerium
-ERR10802879  10_d   cathemerium
-ERR10802883  10_d   cathemerium
-ERR10802878  10_d   control
-ERR10802884  10_d   control
-ERR10802877  10_d   control
-ERR10802881  10_d   control
-ERR10802876  10_d   relictum
-ERR10802880  10_d   relictum
-ERR10802885  10_d   relictum
-ERR10802886  10_d   relictum
-ERR10802864  24_h   cathemerium
-ERR10802867  24_h   cathemerium
-ERR10802870  24_h   cathemerium
-ERR10802866  24_h   control
-ERR10802869  24_h   control
-ERR10802863  24_h   control
-ERR10802871  24_h   relictum
-ERR10802874  24_h   relictum
-ERR10802865  24_h   relictum
-ERR10802868  24_h   relictum</code></pre>
-<p>There are 22 samples in total, with two variables of interest: <code>time</code> of sampling after infection, and <code>treatment</code> group (infection status). Each treatment-time combination has replicates to allow for statistical comparisons. Again, we’ll discuss these aspects in more detail next week.</p>
+<p>Use the <code>cat</code> command (short for catenate/concatenate) to show the file contents in the shell:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> meta/metadata.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>sample_id       dpi     treatment
+ERR10802864     1       cathemerium
+ERR10802867     1       cathemerium
+ERR10802870     1       cathemerium
+ERR10802866     1       control
+ERR10802869     1       control
+ERR10802863     1       control
+ERR10802871     1       relictum
+ERR10802874     1       relictum
+ERR10802865     1       relictum
+ERR10802868     1       relictum
+ERR10802882     10      cathemerium
+ERR10802875     10      cathemerium
+ERR10802879     10      cathemerium
+ERR10802883     10      cathemerium
+ERR10802878     10      control
+ERR10802884     10      control
+ERR10802877     10      control
+ERR10802881     10      control
+ERR10802876     10      relictum
+ERR10802880     10      relictum
+ERR10802885     10      relictum
+ERR10802886     10      relictum</code></pre>
+<p>There are 22 samples in total, with two variables of interest:</p>
+<ul>
+<li><code>dpi</code> — time of sampling in Days Post-Infection</li>
+<li><code>treatment</code> — treatment group: infection status</li>
+</ul>
+<p>Each <code>treatment</code>-<code>dpi</code> combination has replicates to allow for statistical comparisons. As mentioned, we’ll discuss these aspects of the experimental design in more detail next week.</p>
 </section>
 </section>
 <section id="reference-genome-files" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="reference-genome-files"><span class="header-section-number">3</span> Reference genome files</h2>
-<p>The two main types of reference genome files needed for a HTS project like reference-based RNA-Seq are:</p>
+<p>There are two main types of reference genome files needed for a HTS project like reference-based RNA-Seq:</p>
 <ol type="1">
-<li><p>The genome assembly, i.e.&nbsp;the nucleotide sequence of each chromosome/scaffold. These are stored in the simple <strong>FASTA</strong> format.</p></li>
-<li><p>The genome annotation, i.e.&nbsp;a table with the positions of genes and other genomic features on each chromosome/scaffold. These are commonly stored in <strong>GTF</strong> or similar formats.</p></li>
+<li><p>The <strong>genome assembly</strong>, i.e.&nbsp;the nucleotide sequence of each chromosome/scaffold. These are stored in the simple <strong>FASTA</strong> format.</p></li>
+<li><p>The <strong>genome annotation</strong>, i.e.&nbsp;a table with the positions of genes and other so-called genomic features on each chromosome/scaffold. These are commonly stored in <strong>GTF</strong> or similar formats.</p></li>
 </ol>
-<p>Both of these are plain-text file formats. Below, after seeing how you can obtain such files, we’ll focus on exploring the genome assembly FASTA file.</p>
-<section id="finding-your-reference-genome" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="finding-your-reference-genome"><span class="header-section-number">3.1</span> Finding your reference genome</h3>
-<p>Imagine you are one of the researchers involved in the <em>Culex</em> study. You would want to see if there’s a <em>Cx. pipiens</em> reference genome available, and if so, download the relevant files. The authors state the following in the paper (section 2.3, “Data analysis”):</p>
+<p>Below, after seeing how you can obtain such files, we’ll focus on exploring the genome assembly FASTA file.</p>
+<section id="finding-a-reference-genome" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="finding-a-reference-genome"><span class="header-section-number">3.1</span> Finding a reference genome</h3>
+<p>Imagine you are one of the researchers involved in the <em>Culex</em> study. You’d want to find out if a <em>Culex pipiens</em> reference genome is available, and if so, download the relevant files. The authors state the following in the paper:</p>
 <blockquote class="blockquote">
 <p>Because the reference genome and annotations of <em>Cx. pipiens</em> are not published yet, we used the reference genome and annotations of phylogenetically closest species that were available in Ensembl, <em>Cx. quinquefasciatus</em>.</p>
 </blockquote>
-<p>But perhaps that genome of <em>Cx. pipiens</em> has been published in the meantime?</p>
+<p>As discussed in the lecture, reference genomes of closely related species can generally be used if no genome is available for the focal species, but it’s always best to use a genome of the exact species if possible. We also saw that new reference genomes are rapidly being published. So perhaps a reference genome of <em>Culex pipiens</em> has become available in the meantime?</p>
 <p>Generally, the first place to look for reference genome data is at NCBI, <a href="https://ncbi.nlm.nih.gov" class="uri">https://ncbi.nlm.nih.gov</a>, where you can start by simply typing the name of your organism in the search box at the home page. By means of example, let’s first search for the hoverfly <em>Episyrphus balteatus</em>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/refgenome_search.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
-<p>For this species, we get the following “card” at the top of the results:</p>
+<p>You should get the following box at the top of the results:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/refgenome_result1b.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
-<p>If you next click on “Genomes” in the result page above, you should get the following<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<p>If you then click on “Genomes”, you should see the following table<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/refgenome_result2b.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
@@ -490,30 +516,36 @@ ERR10802868  24_h   relictum</code></pre>
 <li>Has a green check mark next to it, which means that this genome has been designated the primary reference genome for the focal organism.</li>
 <li>Is the only one with an entry in the <code>RefSeq</code> column, which means it has an (NCBI) annotation available.</li>
 </ul>
-<p>Therefore, that top assembly, <code>idEpiBalt1.1</code>, would be the one to go with.</p>
+<p>That top assembly, <code>idEpiBalt1.1</code>, would therefore be the one to choose, unless you have project-specific reasons to use one of the other assemblies (e.g., a genome from a specific population/lineage).</p>
 <section id="exercise-a-culex-pipiens-reference-genome" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-a-culex-pipiens-reference-genome"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: A <em>Culex pipiens</em> reference genome</h4>
 <ol type="1">
-<li><p>Now search for <em>Culex pipiens</em>, and do a genus-wide search. How many <em>Culex pipiens</em> are on NCBI, and if so, which would you pick?</p>
+<li><p>Now search for <em>Culex pipiens</em>. How many <em>Culex pipiens</em> genomes are on NCBI, and if so, which would you pick?</p>
 <details>
 <summary>
 <p><em>Click for the solution</em></p>
 </summary>
-<p>Go through the same process as shown above for the fruitfly, now entering <code>Culex</code> in the search box.</p>
+<p>Go through the same process as shown above for the fruitfly, now entering <code>Culex pipiens</code> in the search box.</p>
 <p>You should find that there are 5 <em>Culex pipiens</em> assemblies. Very much like for the fruitfly, as it happens, the first one (<code>TS_CPP_V2</code>) is the only with a reference checkmark next to it and an entry in the <code>RefSeq</code> column:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/refgenome_culex_pipiens.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
 </figure>
 </div>
-<p>So, there <em>is</em> currently a reference genome for <em>Cx. pipiens</em> available, and we’ll be using that one: the files you saw earlier in <code>data/ref</code> are for that genome.</p>
+<p>So, there <em>is</em> currently a reference genome for <em>Cx. pipiens</em> available, and we’ll be using that one: the files you’ve seen in the <code>ref</code> dir are for that genome.</p>
 </details></li>
 <li><p>You can click on each assembly to get more information, including statistics like the number of scaffolds. Take a closer look at our focal genome on the NCBI website. What is the size of the genome assembly? How many chromosomes and scaffolds does it contain? And how many protein-coding genes?</p>
 <details>
 <summary>
 <p><em>Click for the solution</em></p>
 </summary>
-<p>On the <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/">genome’s page at NCBI</a>, some of the information includes the following stats on the assembly and the annotation:</p>
+<p>On the <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/">genome’s page at NCBI</a>, it says that the genome assembly has:</p>
+<ul>
+<li>A size of 566.3 Mb (Megabases)</li>
+<li>3 chromosomes and 289 unplaced scaffolds</li>
+<li>16,297 protein-coding genes annotated</li>
+</ul>
+<p>See these screenshots:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/refgenome_stats.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
@@ -523,13 +555,7 @@ ERR10802868  24_h   relictum</code></pre>
 <figure class="figure">
 <p><img src="../img/refannot_stats.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
 </figure>
-</div>
-<p>So, the genome…</p>
-<ul>
-<li>has a size of 566.3 Mb (Megabases)</li>
-<li>contains 3 chromosomes and 289 unplaced scaffolds</li>
-<li>has 16,297 protein-coding genes annotated</li>
-</ul></details></li>
+</div></details></li>
 </ol>
 
 </section>
@@ -539,7 +565,7 @@ ERR10802868  24_h   relictum</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Side note: Downloading reference genome files <em>(Click to expand)</em>
+Side note: How you can download reference genome files <em>(Click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -591,18 +617,19 @@ ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAAAA
 ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG</code></pre>
 <p>Each FASTA entry consists of:</p>
 <ol type="1">
-<li>A <strong>header</strong> line that starts with a <code>&gt;</code> (greater-than sign) and provides an identifier and optionally additional information about the sequence.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
-<li>A nucleotide or amino acid <strong>sequence</strong> (which can take 1 or several/many lines)</li>
+<li>A <strong>header</strong> line that starts with a <code>&gt;</code> (greater-than sign) and provides an identifier and optionally additional information about the sequence<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
+<li>A nucleotide or amino acid <strong>sequence</strong> (which can span 1 or several/many lines)</li>
 </ol>
 </section>
 <section id="the-culex-genome-assembly-fasta-file" class="level4">
 <h4 class="anchored" data-anchor-id="the-culex-genome-assembly-fasta-file">The <em>Culex</em> genome assembly FASTA file</h4>
-<p>The <em>Culex</em> reference genome files are in the <code>data/ref</code> directory:</p>
+<p>The <em>Culex pipiens</em> reference genome files are in the <code>ref</code> directory:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/ref</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw------- 1 jelmer PAS0471 547M Jan 22 12:34 GCF_016801865.2.fna
 -rw------- 1 jelmer PAS0471 123M Jan 22 12:34 GCF_016801865.2.gtf</code></pre>
-<p>The FASTA file is <code>GCF_016801865.2.fna</code> and is quite large (547 Mb).</p>
-<p>While you can easily open small to medium-size files in the editor pane, this doesn’t work well for larger files like these. A handy command to view text files of any size is <strong><code>less</code></strong>, which opens them up in a “pager” within your shell – you’ll see what that means if you try it with one of the assembly FASTA file:</p>
+<p>The FASTA file is <code>GCF_016801865.2.fna</code> and is quite large (547 Mb). <code>cat</code> isn’t a great command to take a peek at such a large file, because it will print all of it to screen 😳.</p>
+<p>Yet the Unix shell more broadly is actually excellent for exploring such files, because visual text editors (say, Notepad or TextEdit) would have lots of trouble opening these large files<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>A great command to easily view text files of any size is <strong><code>less</code></strong>, which opens them up in a “pager” within your shell – you’ll see what that means if you try it with one of the assembly FASTA file:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/ref/GCF_016801865.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>&gt;NC_068937.1 Culex pipiens pallens isolate TS chromosome 1, TS_CPP_V2, whole genome shotgun sequence
 aagcccttttatggtcaaaaatatcgtttaacttgaatatttttccttaaaaaataaataaatttaagcaaacagctgag
@@ -621,8 +648,18 @@ aaaatattgaTAGAATGAAAGATGCAAGTCccaaaaattttaagtaaatgaATAGTAATCATAAAGATAActgatgatga
 <section id="exercise-explore-the-file-with-less" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-explore-the-file-with-less"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Explore the file with <code>less</code></h4>
 <p>After running the above command, the file should have “opened” inside the <code>less</code> pager.</p>
-<p>You can move around in the file in several ways: by scrolling with your mouse, with up and down arrows, or, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> keys (also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> will move down half a page).</p>
+<p>Move around in the file and explore it a bit, which you can do in several ways: by scrolling with your mouse, with up and down arrows, or, if you have them, <kbd>PgUp</kbd> and <kbd>PgDn</kbd> keys (also, <kbd>u</kbd> will move up half a page and <kbd>d</kbd> will move down half a page).</p>
+<p>How many FASTA entries are you seeing in the part of the file you explored?</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
 <p>Notice that you are “inside” this pager and won’t have your shell prompt back until you <strong>press</strong> <kbd>q</kbd> to quit <code>less</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
@@ -656,7 +693,7 @@ Side note: Several file extensions are used for FASTA files (<em>Click to expand
 <ul>
 <li>You may see files with any of the following file extensions: <code>.fa</code>, <code>.fasta</code>, <code>.fna</code>, <code>.faa</code></li>
 <li>Of these, “generic” extensions are <code>.fasta</code> and <code>.fa</code> (e.g: <code>culex_assembly.fasta</code>)</li>
-<li>While the other extensions explicitly indicate whether sequences are <em>nucleotides</em> (<code>.fna</code>) or <em>amino acids</em> (<code>.faa</code>)</li>
+<li>The other extensions explicitly indicate whether sequences are <em>nucleotides</em> (<code>.fna</code>) or <em>amino acids</em> (<code>.faa</code>)</li>
 </ul>
 <p>These extensions are mainly used to help users quickly identify the sequence type: the underlying format is the same in all cases.</p>
 </div>
@@ -665,37 +702,38 @@ Side note: Several file extensions are used for FASTA files (<em>Click to expand
 </section>
 <section id="annotation-files" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="annotation-files"><span class="header-section-number">3.3</span> Annotation files</h3>
-<p>As you saw, the genome assembly FASTA file merely contains the sequences of the chromosomes/scaffolds. How do you know where the genes are located on these sequences? That’s where the annotation file comes in, which in this case is a GTF file (<code>GCF_016801865.2.gtf</code>).</p>
-<p>We won’t explore the GTF annotation file, but it is basically a large table with information about the positions of genes and other genomic features. This is the basic idea (the actual format isn’t quite as simple as this – see the <a href="#appendix">Appendix</a> for more):</p>
+<p>As you’ve seen, the genome assembly FASTA file merely contains the sequences of the chromosomes/scaffolds. How do you know where on these sequences genes are located? That’s where the <em>annotation</em> comes in, which in this case is stored in a GTF file (<code>GCF_016801865.2.gtf</code>).</p>
+<p>We won’t explore the GTF annotation file (but check the <a href="#appendix">Appendix</a> in your own time if you’re interested), but it is basically a large table with information about the positions of genes and other genomic features. While the actual format isn’t quite as simple as this, the basic idea is as follows:</p>
 <pre class="bash-out-solo"><code>chromosome      feature  start  end   strand
 --------------------------------------------
 chromosome1     gene1    17     1356   +
 chromosome1     gene2    4902   5041   +</code></pre>
+<p>Among other things, this information allows you (and tools that can do it for you) to <em>extract</em> gene sequences from the genome assembly FASTA file.</p>
 </section>
 </section>
 <section id="fastq-files" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="fastq-files"><span class="header-section-number">4</span> FASTQ files</h2>
 <section id="the-fastq-format" class="level3" data-number="4.1">
 <h3 data-number="4.1" class="anchored" data-anchor-id="the-fastq-format"><span class="header-section-number">4.1</span> The FASTQ format</h3>
-<p>FASTQ is the standard HTS read data file format. Just like FASTA files, they contain sequences, but unlike in FASTA files, the sequences in FASTQ files are accomponiedied by quality scores (hence FASTQ as in “Q” for “quality”).</p>
-<p>Each read is represented by <strong>four lines</strong>::</p>
+<p>FASTQ is the standard HTS read data file format. Just like the FASTA format, it contains sequences, but in FASTQ, these are accompanied by <em>quality scores</em> (hence FASTQ as in “Q” for “quality”).</p>
+<p>Each read is represented by <strong>four lines</strong>:</p>
 <ol type="1">
 <li>A <strong>header</strong> that starts with <strong><code>@</code></strong> and e.g.&nbsp;uniquely identifies the read</li>
 <li>The <strong>sequence</strong> itself</li>
 <li>A plus sign, <strong><code>+</code></strong></li>
-<li>One-character <strong>quality scores</strong> for each base</li>
+<li>One-character ASCII <strong>quality scores</strong> for each base</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../img/fastq_dark.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="The FASTQ format."><img src="../img/fastq_dark.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="An annotated screenshot of two reads in a FASTQ file."></a></p>
+<p><a href="../img/fastq_dark.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="The FASTQ format."><img src="../img/fastq_dark.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:92.0%" alt="An annotated screenshot of two reads in a FASTQ file."></a></p>
 </figure>
 </div>
 <figcaption>The FASTQ format.</figcaption>
 </figure>
 </div>
-<p>Each qualiy score character corresponds to a numeric “Phred” quality score (<span class="math inline">\(Q\)</span>) that is a function of the estimated <em>error</em> probability for a base call (<span class="math inline">\(P\)</span>):</p>
+<p>Each ASCII character in the quality line corresponds to a numeric “Phred” quality score (<span class="math inline">\(Q\)</span>) that is a function of the estimated <em>error</em> probability for a base call (<span class="math inline">\(P\)</span>):</p>
 <p><span class="math display">\[
 Q = -10 * log_{10}(P)
 \]</span></p>
@@ -745,16 +783,17 @@ Q = -10 * log_{10}(P)
 <hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
-<i class="fa-solid fa-comments" aria-label="comments"></i> But why use those ASCII characters in the quality line? <em>(Click to see the solution)</em>
+<i class="fa-solid fa-comments" aria-label="comments"></i> But why use those ASCII characters and not just numbers in the quality line? <em>(Click to see the solution)</em>
 </summary>
-<p>To be clear, the numeric Phred quality score is represented in FASTQ files by a “ASCII character” corresponding to the number rather than the number itself. So why is this?</p>
-<p>This allows for a single-character representation of each possible score — such that <strong>each quality score character can conveniently correspond to (&amp; line up with) a base character</strong> in the read.</p>
-For your reference, <a href="https://www.drive5.com/usearch/manual/quality_score.html">here is a complete lookup table</a> – look at the top table, <code>BASE=33</code>).
+<p>First, to be clear, the question that arises is this: the numeric Phred quality score is represented in FASTQ files by a “ASCII character” corresponding to the number rather than the number itself. That seems roundabout and harder to understand. So why is this done?</p>
+<p>This is done because it allows for a <strong>single-character</strong> representation of each possible score — such that <em>each quality score character can correspond to (&amp; line up with)</em> <em>a base character in the read.</em></p>
+For your reference, <a href="https://www.drive5.com/usearch/manual/quality_score.html">here is a complete lookup table</a> to convert the ASCII characters to Phred quality scores (look at the top table, <code>BASE=33</code>).
+<hr style="height:1pt; visibility:hidden;">
 </details>
 </section>
-<section id="listing-the-fastq-files" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="listing-the-fastq-files"><span class="header-section-number">4.2</span> Listing the FASTQ files</h3>
-<p>Let’s take another look at your list of FASTQ files:</p>
+<section id="fastq-file-sizes-and-organization" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="fastq-file-sizes-and-organization"><span class="header-section-number">4.2</span> FASTQ file sizes and organization</h3>
+<p>Let’s take another look at the list of FASTQ files:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:36 ERR10802863_R1.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802863_R2.fastq.gz
@@ -765,12 +804,12 @@ For your reference, <a href="https://www.drive5.com/usearch/manual/quality_score
 [...truncated...]</code></pre>
 <p>In the file listing above:</p>
 <ul>
-<li><p>First, take note of the file sizes. They are “only” about 22 Mb in size, and all have a very similar size. This is because I “subsampled” the FASTQ files to only retain 500,000 reads per file. The original files were on average over 1 Gb in size with about 30 million reads.</p></li>
+<li><p>First, take note of the file sizes. They are merely about 22 Mb in size, and all have a very similar size. This is because I “subsampled” the FASTQ files, only retaining 500,000 reads per file. <em>The original files were on average over 1 Gb in size with about 30 million reads.</em></p></li>
 <li><p>Second, if you look closely at the file names, it looks like there are two FASTQ files per sample: one with <code>_R1</code> at the end of the file name, and one with <code>_R2</code>.</p></li>
 </ul>
 <details>
 <summary>
-<i class="fa-solid fa-comments" aria-label="comments"></i> What might each of the two files per sample represent/contain? <em>)Click for the solution)</em>
+<i class="fa-solid fa-comments" aria-label="comments"></i> What might each of these two files per sample represent/contain? <em>(Click for the solution)</em>
 </summary>
 These contain the forward reads (<code>_R1.fastq.gz</code>) vs.&nbsp;the reverse reads (<code>_R2.fastq.gz</code>).
 </details>
@@ -810,26 +849,27 @@ NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 </details>
 </section>
 <hr style="height:1pt; visibility:hidden;">
-<p>While the above problematic reads were easy to spot, we typically don’t perform extensive quality control by manually inspecting FASTQ files. There are simply too many reads to make sense of! Instead, you can use <strong>specialized tools like FastQC to summarize</strong> FASTQ files – that’s what we’ll do now.</p>
+<p>While the above problematic reads were easy to spot, you wouldn’t typically perform quality control by manually inspecting FASTQ files. There are simply too many reads to make sense of! Instead, you can use <strong>specialized tools like FastQC to summarize</strong> FASTQ files – that’s what we’ll do now.</p>
 </section>
 </section>
 <section id="fastqc-for-quality-control-of-hts-reads" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="fastqc-for-quality-control-of-hts-reads"><span class="header-section-number">5</span> FastQC for quality control of HTS reads</h2>
-<p>FastQC is a very useful and widely used tool to perform <strong>quality control of HTS reads</strong>. It is also a good first example of a bioinformatics tool with a command-line interface.</p>
+<p>FastQC is a very useful and widely used tool to perform <strong>quality control of HTS reads</strong>. For the budding computational biologist, it is also a good first example of a bioinformatics/HTS analysis tool with a command-line interface.</p>
 <section id="running-fastqc" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="running-fastqc"><span class="header-section-number">5.1</span> Running FastQC</h3>
-<p>To run FastQC, use the command <code>fastqc</code>. To analyze a FASTQ files with default FastQC settings, a complete FastQC command would simply be <code>fastqc</code>, followed by the name of the file as the argument:</p>
+<p>Command-line programs like FastQC are operated quite similarly to the Unix shell commands you’ve seen. To run FastQC, you use the command <code>fastqc</code>.</p>
+<p>To analyze a FASTQ files with default FastQC settings, a complete FastQC command would simply be <code>fastqc</code>, followed by the name of the file as the argument:</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>bash: fastqc: command not found...</code></pre>
 <section id="loading-the-fastqc-module" class="level4">
 <h4 class="anchored" data-anchor-id="loading-the-fastqc-module">Loading the FastQC “module”</h4>
-<p>But of course, it can’t be quite that simple – we get an error! While FastQC <em>is</em> installed at OSC<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, we have to <strong>“load it”</strong> before we can use it. The finer details of using software at OSC are outside of the scope of this lab, but please accept that we can load FastQC as follows:</p>
+<p>But of course, it can’t be quite that simple – we get an error! While FastQC <em>is</em> installed at OSC<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, we have to <em>“load it”</em> before use. The finer details of using software at OSC are outside of the scope of this lab, so here, please accept that we can load FastQC as follows:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fastqc/0.12.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="changing-the-output-dir" class="level4">
 <h4 class="anchored" data-anchor-id="changing-the-output-dir">Changing the output dir</h4>
-<p>We’re also going to make a chance to our command. An annoying default behavior of FastQC is that it writes output files in the dir where the input files are – it’s not good practice to directly mix data and results like that!</p>
-<p>To figure out how we can change that behavior, note that many commands and bioinformatics tools alike have an <strong>option <code>-h</code> and/or <code>--help</code></strong> to print usage information to the screen.</p>
+<p>Before trying again, you’ll also make a chance to the command. An ill-advised default behavior of FastQC is that it writes output files in the dir where the input files are – it’s not good practice to directly mix data and results like that!</p>
+<p>To figure out how we can change that behavior, note that many commands and programs have an <strong>option <code>-h</code> and/or <code>--help</code></strong> to print usage information to the screen.</p>
 </section>
 <section id="exercise-finding-the-output-directory-option" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-finding-the-output-directory-option"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Finding the output directory option</h4>
@@ -838,111 +878,119 @@ NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 <summary>
 <em>Click for the solution</em>
 </summary>
-<p><code>fastqc -h</code> and <code>fastqc --help</code> will both work to show the help info.</p>
-<p>You’ll get quite a bit of output printed to screen, including the snippet about output directories that is reproduced below:</p>
+<p>Both <code>fastqc -h</code> and <code>fastqc --help</code> will show the help info. You’ll get quite a bit of output printed to screen, including this snippet about output directories:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>  -o --outdir  Create all output files in the specified output directory.
                Please note that this directory must exist as the program
                will not create it.  If this option is not set then the 
                output file for each sequence file is created in the same
                directory as the sequence file which was processed.</code></pre>
-So, you can use <code>-o</code> or equivalently, <code>--outdir</code> to specify an output dir.
+This means that you can use <code>-o</code> or equivalently, <code>--outdir</code> to specify an output dir. (Commands often have both short- and long-form options just for convenience.)
 </details>
 </section>
 <hr style="height:1pt; visibility:hidden;">
-<p>You’ll want to put the output in the directory you created in the first part of the lab, e.g.&nbsp;for me it would be <code>jelmer/fastqc</code>:</p>
+<p>You’ll want to have FastQC write output to a deicated dir within the dir you created in the first part of the lab. For me, for example, a good choice would be <code>jelmer/fastqc</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'jelmer' with your own dir name </span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>Specified output directory 'jelmer/fastqc' does not exist</code></pre>
+<p>But we get an error! 😡</p>
 <section id="exercise-fixing-the-output-directory-problem" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-fixing-the-output-directory-problem"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Fixing the output directory problem</h4>
-<p>😡 What is going on this time? Can you try to fix the problem?</p>
+<p>What is going on this time? Can you try to fix the problem?</p>
 <details>
 <summary>
 <em>If you know what the problem is, click here for a hint on how to fix it</em>
 </summary>
-<p>You can create a new directory either by using the buttons in the VS Code side bar or with the <code>mkdir</code> command – here, try it as <strong><code>mkdir -p</code></strong> followed by the name (path) of the directory you want to create:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> REPLACE-THIS-WITH-YOUR-DESIRED-OUTPUT-DIR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can create a new directory in the OnDemand file explorer, or use a command to create dirs.</p>
+<p>For the latter option: the command <code>mkdir</code> can be used to create new dirs, where you give the name/path of the dir you want to create as the argument:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'DESIRED-OUTPUT-DIR' with the actual name we want to give the new dir</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> DESIRED-OUTPUT-DIR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details>
 <summary>
 <em>Click here for the solution</em>
 </summary>
 <ul>
-<li><p>The problem, as the error message indicates, is that the output directory that we specified with <code>--outdir</code> does not exist. We might have expected FastQC to be smart/flexible enough to create this dir for us, but alas.</p></li>
-<li><p>You can create this dir in the OnDemand or VS Code file explorers, but here I will show how to do it with a command: <code>mkdir</code> can be used to create new dirs.</p>
+<li><p>The problem, as the error message indicates, is that the output directory that we specified with <code>--outdir</code> does not exist. We might have expected FastQC to be smart/flexible enough to create this dir for us, but alas. To be fair, it did warn us about this in the Help info!</p></li>
+<li><p>You can create this dir in the OnDemand file explorer, but here I will show how to do it with a command: <code>mkdir</code> can be used to create new dirs.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> jelmer/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </details>
 </section>
 <p>Now that you’ve created the output directory, let’s give it a final try before throwing our laptops out the window:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> <span class="va">$USER</span>/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>Started analysis of ERR10802863_R1.fastq.gz
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>application/gzip
+Started analysis of ERR10802863_R1.fastq.gz
 Approx 5% complete for ERR10802863_R1.fastq.gz
 Approx 10% complete for ERR10802863_R1.fastq.gz
 Approx 15% complete for ERR10802863_R1.fastq.gz
+Approx 20% complete for ERR10802863_R1.fastq.gz
+Approx 25% complete for ERR10802863_R1.fastq.gz
 [...truncated...]
+Approx 100% complete for ERR10802863_R1.fastq.gz
 Analysis complete for ERR10802863_R1.fastq.gz</code></pre>
 <p><strong>Success!!</strong> 🥳</p>
 </section>
 <section id="fastqc-output-files" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="fastqc-output-files"><span class="header-section-number">5.2</span> FastQC output files</h3>
 <p>Let’s take a look at the files in the output dir you specified:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> <span class="va">$USER</span>/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 241K Jan 25 15:50 ERR10802863_R1_fastqc.html
--rw-r--r-- 1 jelmer PAS0471 256K Jan 25 15:50 ERR10802863_R1_fastqc.zip</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [Replace 'jelmer' with your own dir name]</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> jelmer/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>total 1.1M
+-rw-r--r-- 1 jelmer PAS0471 718K Jan 27 13:12 ERR10802863_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 364K Jan 27 13:12 ERR10802863_R1_fastqc.zip</code></pre>
 <ul>
-<li>There is a <code>.zip</code> file, which contains <strong>tables</strong> with FastQC’s data summaries</li>
-<li>There is an <code>.html</code> (HTML) file, which contains <strong>plots</strong> — this is what we’ll look at next</li>
+<li>There is a <code>.zip</code> file — this contains <strong>tables</strong> with FastQC’s data summaries</li>
+<li>There is an <code>.html</code> (HTML) file – this contains QC plots and is what we’ll look at next</li>
 </ul>
 <section id="exercise-run-fastqc-for-the-r2-file" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-run-fastqc-for-the-r2-file"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Run FastQC for the R2 file</h4>
-<p>Run FastQC for the corresponding R2 file. Would you use the same output dir?</p>
+<p>Run FastQC for the corresponding R2 FASTQ file. Would you use the same output dir?</p>
 <details>
 <summary>
 <em>Click here for the solution</em>
 </summary>
 <p>Yes, it makes sense to use the same output dir, since as you could see above, the output file names have the input file identifiers in them. As such, you don’t need to worry about overwriting files, and it will be easier to have all the results in a single dir.</p>
-<p>To run FastQC for the R2 (=reverse-read) file:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> <span class="va">$USER</span>/fastqc ERR10802863_R2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To run FastQC for the R2 (=reverse-read) FASTQ file:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>Started analysis of ERR10802863_R2.fastq.gz
 Approx 5% complete for ERR10802863_R2.fastq.gz
 Approx 10% complete for ERR10802863_R2.fastq.gz
 Approx 15% complete for ERR10802863_R2.fastq.gz
 [...truncated...]
 Analysis complete for ERR10802863_2.fastq.gz</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> <span class="va">$USER</span>/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> jelmer/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 241K Jan 21 21:50 ERR10802863_R1_fastqc.html
 -rw-r--r-- 1 jelmer PAS0471 256K Jan 21 21:50 ERR10802863_R1_fastqc.zip
 -rw-r--r-- 1 jelmer PAS0471 234K Jan 21 21:53 ERR10802863_R2_fastqc.html
 -rw-r--r-- 1 jelmer PAS0471 244K Jan 21 21:53 ERR10802863_R2_fastqc.zip</code></pre>
-Now, you have four files: two for each of your preceding successful FastQC runs.
+Now, you have four FastQC output files: two for each of your preceding successful FastQC runs.
 </details>
 </section>
 </section>
 </section>
 <section id="interpreting-fastqcs-output" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="interpreting-fastqcs-output"><span class="header-section-number">6</span> Interpreting FastQC’s output</h2>
-<p>First, you’ll have to download FastQC’s output HTML files, because with your current setup, you unfortunately can’t view HTML files within VS Code at OSC:</p>
+<p>First, you’ll have to download FastQC’s output HTML files, because you can’t view them in the Unix shell<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
 <ol type="1">
-<li>Find the FastQC HTML files in the file explorer in the VS Code side bar.</li>
-<li>Right-click on one of them, click <code>Download...</code> and follow the prompt to download the file somewhere to your computer (doesn’t matter where, just make sure you see where it goes).</li>
-<li>Repeat this for the second file</li>
-<li>Then, open your computer’s file browser, find the downloaded files, and double-click on one. It should be <strong>opened in your default web browser</strong>.</li>
+<li>Find the FastQC HTML files in the OnDemand Files menu file explorer.</li>
+<li>Select the two files by clicking the check-box at the right, and click the Download bottom towards the top.</li>
+<li>Download the file to somewhere on your computer (doesn’t matter where), and your browser should give you a pop-up with the file you can click on to open it.</li>
+<li>Since the file is in HTML format, it should <strong>open in your web browser</strong>.</li>
 </ol>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="../img/vscode-download.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="When you right-clock on a file or folder in the VS Code file browser, there’s a button to Download it."><img src="../img/vscode-download.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%" alt="A screenshot showing the file download option in the VS Code file explorer."></a></p>
+<p><a href="../img/ondemand-fastqc-download.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="With the two HTML files selected, you can click the Download button at the top"><img src="../img/ondemand-fastqc-download.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%" alt="Screenshot of the OnDemand file explorer with FastQC HTML files selected for download."></a></p>
 </figure>
 </div>
-<figcaption>When you right-clock on a file or folder in the VS Code file browser, there’s a button to Download it.</figcaption>
+<figcaption>With the two HTML files selected, you can click the Download button at the top</figcaption>
 </figure>
 </div>
-<p>We’ll now go through a couple of the FastQC plots/modules, with first some example plots<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> with good/bad results for reference.</p>
-<section id="overview-of-module-results" class="level4">
-<h4 class="anchored" data-anchor-id="overview-of-module-results">Overview of module results</h4>
+<p>We’ll now go through a couple of the FastQC plots/modules, with first some example plots<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> with good/bad results for reference.</p>
+<section id="overview-of-module-results" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="overview-of-module-results"><span class="header-section-number">6.1</span> Overview of module results</h3>
 <p>FastQC has “<strong>pass</strong>” (checkmark in green), “<strong>warning</strong>” (exclamation mark in orange), and “<strong>fail</strong>” (cross in red) assessments for each module, as you can see below.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -971,8 +1019,8 @@ More about the FastQC module assessments <em>(Click to expand)</em>
 </div>
 </div>
 </section>
-<section id="basic-statistics" class="level4">
-<h4 class="anchored" data-anchor-id="basic-statistics">Basic statistics</h4>
+<section id="basic-statistics-module" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="basic-statistics-module"><span class="header-section-number">6.2</span> Basic statistics module</h3>
 <p>This section shows, for example, the number of sequences (reads) and the read length range for your file:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -980,8 +1028,8 @@ More about the FastQC module assessments <em>(Click to expand)</em>
 </figure>
 </div>
 </section>
-<section id="per-base-quality-sequence-quality" class="level4">
-<h4 class="anchored" data-anchor-id="per-base-quality-sequence-quality">Per base quality sequence quality</h4>
+<section id="per-base-quality-graph" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="per-base-quality-graph"><span class="header-section-number">6.3</span> Per base quality graph</h3>
 <p>This figure visualize the mean per-base Phred quality score (as discussed above; y-axis) along the length of the reads (x-axis). Note that:</p>
 <ul>
 <li>A decrease in sequence quality along the reads is normal</li>
@@ -1005,8 +1053,8 @@ More about the FastQC module assessments <em>(Click to expand)</em>
 </div>
 </div>
 </section>
-<section id="adapter-content" class="level4">
-<h4 class="anchored" data-anchor-id="adapter-content">Adapter content</h4>
+<section id="adapter-content-graph" class="level3" data-number="6.4">
+<h3 data-number="6.4" class="anchored" data-anchor-id="adapter-content-graph"><span class="header-section-number">6.4</span> Adapter content graph</h3>
 <p>Checks for known adapter sequences. As you’ve learned, when an insert size is shorter than the read length, adapters will end up in the sequence – these should be removed!</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1025,50 +1073,40 @@ More about the FastQC module assessments <em>(Click to expand)</em>
 </div>
 </div>
 </div>
-</section>
 <section id="exercise-interpreting-the-fastqc-output" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-interpreting-the-fastqc-output"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Interpreting the FastQC output</h4>
 <p>Open the HTML file for the R1 FASTQ file and go through the modules we discussed above. Can you make sense of it? Does the data look good to you, overall?</p>
-<p>Now open the HTML file for the <em>R2</em> FASTQ file and take a look just at the quality score graph. Does it look any worse than the R1?</p>
+<p>Now open the HTML file for the R2 FASTQ file and take a look just at the quality score graph. Does it look any worse than the R1?</p>
+</section>
 </section>
 </section>
 <section id="prep-for-next-weeks-lab" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="prep-for-next-weeks-lab"><span class="header-section-number">7</span> Prep for next week’s lab</h2>
-<p>In next week’s lab, you will be working in R, using RStudio, to analyze the gene expression counts resulting from this RNA-Seq data. You will have <a href="../pages/r_homework.html">homework</a> to prepare for that lab, and to make that easier for you, I’ll now demonstrate how to start an RStudio session at OSC:</p>
+<p>In next week’s lab, you will be working in R, using RStudio, to analyze the gene expression counts resulting from this RNA-Seq data. You will have <a href="../pages/r_homework.html">homework</a> to prepare for that lab. To make that a bit easier for you, I’ll now demonstrate how to start an RStudio session at OSC:</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>It’s necessary to fill out this form (instead of just opening RStudio) because RStudio runs on a compute node rather than a login node. Whenever you want to access a compute node, you need to request resources for it, like this form does.</p>
+</div>
+</div>
+</div>
 <ol type="1">
-<li><p>Log in to OSC at <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a></p></li>
+<li><p>Go to the <a href="https://ondemand.osc.edu">OnDemand homepage</a> as before</p></li>
 <li><p>Click on <strong><code>Interactive Apps</code></strong> (top bar) and then <strong><code>RStudio Server</code></strong> (all the way at the bottom)</p></li>
 <li><p>Fill out the form as follows:</p>
 <ul>
-<li>Cluster: <strong><code>Pitzer</code></strong></li>
+<li>Cluster: <strong><code>cardinal</code></strong></li>
 <li>R version: <strong><code>4.4.0</code></strong></li>
 <li>Project: <strong><code>PAS2880</code></strong></li>
 <li>Number of hours: <strong><code>4</code></strong></li>
 <li>Node type: <strong><code>any</code></strong></li>
 <li>Number of cores: <strong><code>2</code></strong></li>
-</ul>
-<details>
-<summary>
-<p><em>Click to see a screenshot</em></p>
-</summary>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../img/rstudio_form.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
-</figure>
-</div>
-</details></li>
+</ul></li>
 <li><p>Click the big blue <strong><code>Launch</code></strong> button at the bottom</p></li>
-<li><p>Now, you should be sent to a new page with a box at the top for your RStudio Server “job”, which should initially be “Queued” (waiting to start).</p>
-<details>
-<summary>
-<p><em>Click to see a screenshot</em></p>
-</summary>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../img/rstudio_queued.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
-</figure>
-</div>
-</details></li>
+<li><p>Now, you should be sent to a new page with a box at the top for your RStudio Server “job”, which should initially be “Queued” (waiting to start).</p></li>
 <li><p>Your job should start running very soon, with the top bar of the box turning green and saying “Running”.</p>
 <details>
 <summary>
@@ -1088,7 +1126,6 @@ More about the FastQC module assessments <em>(Click to expand)</em>
 <p>In today’s lab, you were introduced to:</p>
 <ul>
 <li>Working at the Ohio Supercomputer Center</li>
-<li>Using the VS Code text editor</li>
 <li>Using the Unix shell</li>
 <li>Reference genome files &amp; where to find these</li>
 <li>HTS read FASTQ files and how to quality-control these</li>
@@ -1107,9 +1144,10 @@ Side note: scaling the analysis &amp; next steps for real projects (Click to exp
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>The missing pieces for a typical, fuller example of how such tools are run in the context of an actual genomics project are (if we stay with FastQC):</p>
+<p>For this brief intro to HTS data analysis, we’ve kept things simple. In a typical HTS data analysis project, however, there are some more pieces to the puzzle that we didn’t cover today:</p>
 <ul>
-<li>Putting the command to run FastQC in a <strong>“shell script”</strong>.</li>
+<li>Using a text editor with an integrated terminal (e.g., VS Code) to be able to write and edit scripts more easily</li>
+<li>Putting commands to run programs FastQC in a <strong>“shell script”</strong>.</li>
 <li><strong>Submitting the script</strong> as a “batch job”.</li>
 <li>To make speed things, using the OSC’s capabilities, we can <strong>submit multiple jobs <em>in parallel</em> using a loop</strong>.</li>
 </ul>
@@ -1127,12 +1165,10 @@ Side note: scaling the analysis &amp; next steps for real projects (Click to exp
 <hr>
 <hr>
 </section>
-<section id="appendix" class="level2" data-number="9">
-<h2 data-number="9" class="anchored" data-anchor-id="appendix"><span class="header-section-number">9</span> Appendix</h2>
-<section id="gtf-genome-annotation-files" class="level3" data-number="9.1">
-<h3 data-number="9.1" class="anchored" data-anchor-id="gtf-genome-annotation-files"><span class="header-section-number">9.1</span> GTF genome annotation files</h3>
-<section id="the-gtf-format" class="level4">
-<h4 class="anchored" data-anchor-id="the-gtf-format">The GTF format</h4>
+<section id="appendix-gtf-files" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="appendix-gtf-files"><span class="header-section-number">9</span> Appendix: GTF files</h2>
+<section id="the-gtf-format" class="level3" data-number="9.1">
+<h3 data-number="9.1" class="anchored" data-anchor-id="the-gtf-format"><span class="header-section-number">9.1</span> The GTF format</h3>
 <p>The GTF format is a tab-delimited tabular file format that contains <strong>genome annotations</strong>, with:</p>
 <ul>
 <li>One row for each annotated “<strong>genomic feature</strong>” (gene, exon, etc.)</li>
@@ -1151,9 +1187,9 @@ NC_000001   RefSeq  exon    11874   12227   .       +       .       gene_id "DDX
 <li><code>attribute</code> — A semicolon-separated list of tag-value pairs with additional information</li>
 </ul>
 </section>
-<section id="your-culex-gtf-file" class="level4">
-<h4 class="anchored" data-anchor-id="your-culex-gtf-file">Your <em>Culex</em> GTF file</h4>
-<p>Take a look at the GTF file for your <em>Cx. pipiens</em> reference genome – like before, use <code>less</code>, but now with the <code>-S</code> option:</p>
+<section id="the-culex-pipiens-gtf-file" class="level3" data-number="9.2">
+<h3 data-number="9.2" class="anchored" data-anchor-id="the-culex-pipiens-gtf-file"><span class="header-section-number">9.2</span> The <em>Culex pipiens</em> GTF file</h3>
+<p>Take a look at the GTF file for the <em>Culex pipiens</em> reference genome – like before, use <code>less</code>, but now with the <code>-S</code> option:</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> data/ref/GCF_016801865.2.gtf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>#gtf-version 2.2
 #!genome-build TS_CPP_V2
@@ -1179,16 +1215,16 @@ Avoid line-wrapping with <code>less -S</code>
 <p>Lines in a file may contain too many characters to fit on your screen, as will be the case for this GTF file. <code>less</code> will by default “wrap” such lines onto the next line on your screen, but this is often confusing for files like FASTQ and tabular files like GTF. Therefore, we turned off line-wrapping above by using the <code>-S</code> option to <code>less</code>.</p>
 </div>
 </div>
-</section>
 <section id="exercise-understanding-gtf-entries" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-understanding-gtf-entries"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Understanding GTF entries</h4>
-<p>The GTF file is sorted: all entries from the first line of the table, until you again see “gene” in the third column, belong to the first gene. Can you make sense of all these entries for this gene, given what you know of gene structures? How many transcripts does this gene have?</p>
+<p>The GTF file is sorted: all entries from the first line of the table, until the next time you a “gene” entry in the third column, list features are part of the first gene.</p>
+<p>Can you make sense of all the entries for the first gene in the GTF, given what you know of gene structures? How many transcripts does the gene have?</p>
 <details>
 <summary>
 <em>Click to see some pointers</em>
 </summary>
 <ul>
-<li>The first gene (“LOC120427725”) has 3 transcripts.</li>
+<li>The first gene (<code>LOC120427725</code>) has 3 transcripts.</li>
 <li>Each transcript has 6-7 exons, 5 CDSs, and a start and stop codon.</li>
 </ul>
 <p>Below, I’ve printed all lines belonging to the first gene:</p>
@@ -1256,8 +1292,10 @@ Garrigós, Marta, Guillem Ylla, Josué Martínez-de la Puente, Jordi Figuerola, 
 <li id="fn1"><p> That is, an HTS project where reads can be mapped to a reference genome.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>As of January, 2026.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p> There are no universal standards for the header line format, but individual programs and databases may expect specific formats.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>For a full list of installed software at OSC: <a href="https://www.osc.edu/resources/available_software/software_list" class="uri">https://www.osc.edu/resources/available_software/software_list</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p> Some of the FastQC example plots were taken from <a href="https://rtsf.natsci.msu.edu/sites/_rtsf/assets/File/FastQC_TutorialAndFAQ_080717.pdf">here</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>The reason is that they try to load them into RAM memory entirely, even if you just want to see the first few lines.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For a full list of installed software at OSC: <a href="https://www.osc.edu/resources/available_software/software_list" class="uri">https://www.osc.edu/resources/available_software/software_list</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p> The Unix shell is great for plain-text file, but not for other types of files.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p> Some of the FastQC example plots were taken from <a href="https://rtsf.natsci.msu.edu/sites/_rtsf/assets/File/FastQC_TutorialAndFAQ_080717.pdf">here</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

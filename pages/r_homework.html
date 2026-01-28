@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jelmer Poelstra">
-<meta name="dcterms.date" content="2026-01-29">
+<meta name="dcterms.date" content="2026-01-30">
 
-<title>R homework for the week 4 lab – ENTMLGY6703-SP26 - Jelmer’s lectures</title>
+<title>Homework for the week 4 lab: R basics – ENTMLGY6703-SP26 - Jelmer’s lectures</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../pages/infrastructure.html">
- <span class="dropdown-text">Lab part 1: Computational Infrastructure</span></a>
+ <span class="dropdown-text">Lab part 1: Computing Environment</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../pages/data.html">
@@ -157,6 +157,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-week-4-rna-seq">    
         <li>
+    <a class="dropdown-item" href="../pages/r_homework.html">
+ <span class="dropdown-text">R Homework</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../pages/rnaseq.html">
  <span class="dropdown-text">Lecture: RNA-seq</span></a>
   </li>  
@@ -166,10 +170,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link active" href="../pages/r_homework.html" aria-current="page"> 
-<span class="menu-text">R Homework</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -221,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#r-vs.-rstudio" id="toc-r-vs.-rstudio" class="nav-link" data-scroll-target="#r-vs.-rstudio"><span class="header-section-number">2.2</span> R vs.&nbsp;RStudio</a></li>
   </ul></li>
   <li><a href="#start-an-rstudio-session-at-osc" id="toc-start-an-rstudio-session-at-osc" class="nav-link" data-scroll-target="#start-an-rstudio-session-at-osc"><span class="header-section-number">3</span> Start an RStudio session at OSC</a></li>
-  <li><a href="#orienting-to-rstudio-basic-layout" id="toc-orienting-to-rstudio-basic-layout" class="nav-link" data-scroll-target="#orienting-to-rstudio-basic-layout"><span class="header-section-number">4</span> Orienting to RStudio (basic layout)</a></li>
+  <li><a href="#orienting-to-rstudio" id="toc-orienting-to-rstudio" class="nav-link" data-scroll-target="#orienting-to-rstudio"><span class="header-section-number">4</span> Orienting to RStudio</a></li>
   <li><a href="#r-basics" id="toc-r-basics" class="nav-link" data-scroll-target="#r-basics"><span class="header-section-number">5</span> R basics</a>
   <ul class="collapse">
   <li><a href="#r-as-calculator" id="toc-r-as-calculator" class="nav-link" data-scroll-target="#r-as-calculator"><span class="header-section-number">5.1</span> R as calculator</a></li>
@@ -248,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#extracting-elements-from-vectors" id="toc-extracting-elements-from-vectors" class="nav-link" data-scroll-target="#extracting-elements-from-vectors"><span class="header-section-number">11.3</span> Extracting elements from vectors</a></li>
   </ul></li>
   <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames"><span class="header-section-number">12</span> Data frames</a></li>
-  <li><a href="#a-brief-intro-to-the-tidyverse-and-pipes" id="toc-a-brief-intro-to-the-tidyverse-and-pipes" class="nav-link" data-scroll-target="#a-brief-intro-to-the-tidyverse-and-pipes"><span class="header-section-number">13</span> A brief intro to the tidyverse and pipes</a>
+  <li><a href="#a-brief-introduction-to-the-tidyverse-and-pipes" id="toc-a-brief-introduction-to-the-tidyverse-and-pipes" class="nav-link" data-scroll-target="#a-brief-introduction-to-the-tidyverse-and-pipes"><span class="header-section-number">13</span> A brief introduction to the <em>tidyverse</em> and pipes</a>
   <ul class="collapse">
   <li><a href="#read_tsv-to-read-tabular-data" id="toc-read_tsv-to-read-tabular-data" class="nav-link" data-scroll-target="#read_tsv-to-read-tabular-data"><span class="header-section-number">13.1</span> <code>read_tsv()</code> to read tabular data</a></li>
   <li><a href="#select-to-pick-columns" id="toc-select-to-pick-columns" class="nav-link" data-scroll-target="#select-to-pick-columns"><span class="header-section-number">13.2</span> <code>select()</code> to pick columns</a></li>
@@ -263,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R homework for the week 4 lab</h1>
+<h1 class="title">Homework for the week 4 lab: R basics</h1>
 </div>
 
 
@@ -289,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 29, 2026</p>
+      <p class="date">January 30, 2026</p>
     </div>
   </div>
   
@@ -305,22 +305,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><br></p>
 <section id="introduction" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<p>This homework is intended to get you familiar with R &amp; RStudio. Most of the content is intended for those of you who have little to no experience with R, but:</p>
+<p>This homework is intended to get you introduce you to the basics of R &amp; RStudio, because the week 4 lab will involve using R for RNA-Seq data analysis. As such, this is mostly intended for those with little to no experience with R, <em>but</em>:</p>
 <ul>
-<li><p>Everyone will need to install several R packages in RStudio at the Ohio Supercomputer Center (OSC) – section 8 of this page.</p></li>
-<li><p>If you have some familiarity with R already, make sure to at least glance over all material to make sure you’re familiar with all of it.</p></li>
+<li>Even if you’ve worked with R before, at least glance over all material to make sure you’re familiar with all of it</li>
+<li>Everyone should install several R packages in RStudio at the Ohio Supercomputer Center (OSC) – <a href="#r-packages">section 8</a></li>
 </ul>
-<p>If you run into any issues when going through this material, or have questions, don’t hesitate to <a href="poelstra.1@osu.edu">email Jelmer</a>.</p>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If you run out of steam or time while trying to do this homework, you can stop after section 10 (R objects). But we will see examples of the topics covered in section 11-13 in the week 4 lab.</p>
+</div>
+</div>
+</div>
+<p><em>If you run into any issues when going through this material,</em> <em>or have questions, don’t hesitate to <a href="poelstra.1@osu.edu">email Jelmer</a>.</em></p>
 <section id="learning-objectives" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="learning-objectives"><span class="header-section-number">1.1</span> Learning objectives</h3>
 <p>In this session, you will learn:</p>
 <ul>
 <li>The RStudio layout and the functions of the different panes and tabs</li>
 <li>The basics of interacting with R by using R as a calculator</li>
-<li>Defining a variables/objects in R, and assigning values/data to them</li>
+<li>Creating objects in R, and assigning values/data to them</li>
 <li>Calling functions</li>
 <li>Getting help</li>
-<li>Installing and loading R packages</li>
+<li>Installing and loading packages</li>
 <li>Data structures like vectors and data frames</li>
 <li>The basics of the tidyverse packages, including piping with <code>|&gt;</code></li>
 </ul>
@@ -330,46 +340,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2" class="anchored" data-anchor-id="r-and-rstudio"><span class="header-section-number">2</span> R and RStudio</h2>
 <section id="why-use-r" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="why-use-r"><span class="header-section-number">2.1</span> Why use R?</h3>
-<p>The R language is probably the best environment for the “downstream” analysis<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> of genomics and other omics data.</p>
-<p>On top of that, R is a great all-round tool for exploratory and statistical analysis and visualization of any kind of data. Because it is free, open-source, cross-platform, and works with code rather than a graphical user interface (GUI), it is likely the best choice for reproducible data analysis all around.</p>
+<p>After initial processing high-throughput sequencing (HTS) data such as with command-line tools in the Unix shell, you’ll often want to perform <em>statistical analysis and visualization</em> of the results. The R language is probably the best environment for this.</p>
+<p>On top of that, R is a great all-round tool to perform the analysis and visualization of any kind of data — together with Python, it is the leading data science language. Because it is free, open-source, cross-platform, and works with code rather than a graphical user interface (GUI), using R also helps with <em>reproducibility</em> of your research.</p>
 </section>
 <section id="r-vs.-rstudio" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="r-vs.-rstudio"><span class="header-section-number">2.2</span> R vs.&nbsp;RStudio</h3>
-<p>To run R, all you need is the R program. However, we will be running R inside a fancy editor called <a href="https://www.rstudio.com/products/rstudio">RStudio</a>, which makes working with R much more pleasant!</p>
-<p>Similar to VS Code, you can run a version of RStudio within your browser by starting an Interactive App through OSC OnDemand.</p>
+<p>To run R, all you need is the R program with its “console” where you type commands. However, we will be running R inside a fancy editor called <a href="https://www.rstudio.com/products/rstudio">RStudio</a>, which makes working with R much more pleasant!</p>
 </section>
 </section>
 <section id="start-an-rstudio-session-at-osc" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="start-an-rstudio-session-at-osc"><span class="header-section-number">3</span> Start an RStudio session at OSC</h2>
-<p>While you can install and use R and RStudio on your own computer, for this course, you will use RStudio at OSC:</p>
+<p>While you can install and use R and RStudio on your own computer, for this course, you will use RStudio at OSC: you can run a version of RStudio at OSC within your browser by starting an Interactive App through OnDemand.</p>
 <ol type="1">
 <li>Log in to OSC’s OnDemand portal at <a href="https://ondemand.osc.edu" class="uri">https://ondemand.osc.edu</a></li>
-<li>In the blue top bar, select <strong><code>Interactive Apps</code></strong> at the bottom, click <strong><code>RStudio Server</code></strong></li>
+<li>In the blue top bar, select <strong><code>Interactive Apps</code></strong> and at the bottom, click <strong><code>RStudio Server</code></strong></li>
 <li>Fill out the form as follows:
 <ul>
-<li>Cluster: <strong><code>pitzer</code></strong></li>
+<li>Cluster: <strong><code>cardinal</code></strong></li>
 <li>R version: <strong><code>4.4.0</code></strong></li>
 <li>Project: <strong><code>PAS2880</code></strong></li>
-<li>Number of hours: <strong><code>2</code></strong></li>
+<li>Number of hours: <strong><code>3</code></strong></li>
 <li>Node type: <strong><code>any</code></strong></li>
-<li>Number of cores: <strong><code>2</code></strong></li>
+<li>Number of cores: <strong><code>1</code></strong></li>
 </ul></li>
 <li>Click <strong><code>Launch</code></strong></li>
 <li>Click the <strong><code>Connect to RStudio Server</code></strong> button once it appears</li>
 </ol>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If you run out of time for this session, or want to spread this homework across multiple short sessions: you can always start a new session for as many sessions as you want, and you can modify the number of hours in the form as you see fit.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="orienting-to-rstudio-basic-layout" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="orienting-to-rstudio-basic-layout"><span class="header-section-number">4</span> Orienting to RStudio (basic layout)</h2>
-<p>When you first open RStudio, you will be greeted by four panes, each of which have multiple tabs:</p>
+<section id="orienting-to-rstudio" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="orienting-to-rstudio"><span class="header-section-number">4</span> Orienting to RStudio</h2>
+<p>RStudio is divided into four panes, each of which have multiple tabs – we will highlight the most important ones here:</p>
 <ul>
-<li><p><strong>Top left:</strong> The editor/source pane, where you can open and edit documents like scripts <em>(This may be missing if you don’t have docemunts open – if so, we’ll make it appear later)</em></p></li>
-<li><p><strong>Bottom left:</strong> the default and most useful tab in this pane is your R “Console”, where you can type and execute R code</p></li>
-<li><p><strong>Top right:</strong> the default and most useful tab in this pane this is your “Environment”, which shows you what you have loaded in your R environment</p></li>
-<li><p><strong>Bottom right:</strong> the default tab in this pane is “Files”, which is a file explorer starting in your initial working directory (more about that next). The additional tabs are also commonly used, such as those to show plots and help.</p></li>
+<li><p><strong>Top left: Source (or Editor)</strong><br>
+Here, you can open and edit text documents like scripts <em>(May be missing if you don’t have any documents open – if so, we’ll make it appear later)</em></p></li>
+<li><p><strong>Bottom left: Console</strong><br>
+Here, you can type and execute R code</p></li>
+<li><p><strong>Top right: Workspace</strong><br>
+The default Environment tab shows you what you have loaded in your R environment</p></li>
+<li><p><strong>Bottom right: View</strong><br>
+The default tab in this pane is “Files”, a file explorer. Also commonly used are e.g.&nbsp;Plots, where plots appear, and Help, for help info.</p></li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../img/R_studio_panes.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+<p><img src="../img/R_studio_panes.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>A screenshot showing the four main RStudio panes</figcaption>
 </figure>
 </div>
 </section>
@@ -412,8 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-r-prompt" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="the-r-prompt"><span class="header-section-number">5.2</span> The R prompt</h3>
 <p>The <code>&gt;</code> sign in your console is the R prompt, indicating that that R is ready for you to type something. In other words, this is equivalent to the <code>$</code> Shell prompt you’ve seen in the week 3 lab.</p>
-<p>Also just like in Unix shell, when you are not seeing the prompt, R is either <strong>busy</strong> (because you asked it to do a longer-running computation) or <strong>waiting</strong> for you to complete an incomplete command.</p>
-<p>If you notice that your prompt turned into a <code>+</code>, you typed an incomplete command – for example:</p>
+<p>When you are not seeing the prompt, R is either <strong>busy</strong> (because you asked it to do a longer-running computation) or <strong>waiting</strong> for you to complete an incomplete command. If you notice that your prompt turned into a <code>+</code>, you typed an incomplete command – for example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -468,6 +491,7 @@ Adding comments to your code
 </div>
 </div></li>
 </ul>
+<p>You will commonly use these types of comparisons to check and subset/filter your data.</p>
 </section>
 </section>
 <section id="functions-in-r" class="level2" data-number="6">
@@ -483,7 +507,7 @@ Adding comments to your code
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre class="r-out"><code>/users/PAS2880/jelmer</code></pre></li>
-<li><p>Inside those parentheses, you can provide <strong>arguments</strong> to a function. For example, using <code>setwd()</code>, the equivalent to the Shell’s <code>cd</code>, to set your working dir, the argument is the file path to set as working dir:</p>
+<li><p>Inside those parentheses, you can provide <strong>arguments</strong> to a function<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For example, using <code>setwd()</code>, the equivalent to the Shell’s <code>cd</code>, to set your working dir, the argument is the file path to set as working dir:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/fs/scratch/PAS2880/ENT6703"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -508,9 +532,10 @@ Adding comments to your code
 <pre class="regular-r-output"><code>[1] 7</code></pre>
 </div>
 </div>
-<p>In most functions, including <code>round()</code>, arguments have <strong>names</strong> that can be used. For example, the argument to <code>round()</code> represents the number to be rounded has the name <code>x</code>, so you can also use:</p>
+<p>In most functions, including <code>round()</code>, arguments have <strong>names</strong> that can be used. The argument to <code>round()</code>, which represents the number to be rounded, has the name <code>x</code>, so you can also use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="at">x =</span> <span class="fl">6.53</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is equivalent to the above:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="at">x =</span> <span class="fl">6.53</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 7</code></pre>
 </div>
@@ -522,7 +547,7 @@ Adding comments to your code
 <pre class="regular-r-output"><code>[1] 6.5</code></pre>
 </div>
 </div>
-<p>You could choose not to name these arguments, but that is not as easy to understand.</p>
+<p>You could choose not to name these arguments, but that is not as easy to understand for someone reading your code – such as yourself two months later! <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -543,39 +568,62 @@ Adding comments to your code
 </section>
 <section id="r-help-help-and" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="r-help-help-and"><span class="header-section-number">7</span> R Help: <code>help()</code> and <code>?</code></h2>
-<p>The <code>help()</code> function and <code>?</code> help operator in R offer access to documentation pages for R functions, data sets, and other objects. They provide access to both packages in the standard R distribution and contributed packages.</p>
-<p>For example:</p>
+<p>So how can you know what a function does, and which arguments it takes? The <code>help()</code> function and <code>?</code> help operator in R offer access to documentation pages for R functions – as well as built-in data sets and other objects. For example:</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>?getwd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The output should appear in the Help tab of the bottom-left panel in RStudio and should look something like this:</p>
+<p>The output should appear in the Help tab of the bottom-left panel in RStudio and look something like this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../img/R_help_setwd.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+<p><img src="../img/R_help_setwd.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption>The R help output for the <code>getwd()</code> function</figcaption>
 </figure>
 </div>
+<p>You can also search for Help pages in that same RStudio Help tab.</p>
 </section>
 <section id="r-packages" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="r-packages"><span class="header-section-number">8</span> R packages</h2>
-<p>R packages are basically add-ons or extensions to the functionality of the R language.</p>
+<p>R packages are basically add-ons or extensions to the functionality of the R language. These need to installed and loaded:</p>
 <ul>
-<li><p>The function <code>install.packages()</code> <strong>installs</strong> an R package. This is a one-time operation – you won’t need to reinstall a package when you start a new R session later.</p></li>
-<li><p>The function <code>library()</code> will <strong>load</strong> an R package in your current R session. Every time you want to use a package in R, you need to load it, just like everytime you want to use MS Word on your computer, you need to open it.</p></li>
+<li><p>The function <code>install.packages()</code> <strong>installs</strong> an R package. This is a one-time operation – you won’t need to reinstall a package when you start a new R session later<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p></li>
+<li><p>The function <code>library()</code> will <strong>load</strong> an R package in your current R session. Every time you want to use a package in R, you need to load it – just like everytime you want to use MS Word on your computer, you need to open it.</p></li>
 </ul>
 <p>To practice with this, you will now install several packages you’ll need in next week’s lab. Note that:</p>
 <ul>
-<li><p>Unfortunately, on OSC, packages installation can take a while, especially for large packages like these, so please be patient<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p></li>
-<li><p>A lot of messages may be printed to the console when installation is ongoing. Installation of a package is done when you get your prompt back. Unless you see clear messages that include words like “Error” and “Failed”, it should have succeeded.</p></li>
-<li><p>Besides <code>install.packages()</code>, you’ll also use the <code>BiocManager::install()</code> function from to install some packages from Bioconductor, which hosts many bioinformatics/omics-related R packages.</p></li>
+<li><p>Unfortunately, on OSC, packages installation can take a while. Especially for large packages like these, so please be patient<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p></li>
+<li><p>A lot of messages may be printed to the console when installation is ongoing. Installation of a package is done when you get your prompt back. Unless you see clear messages that include words like “Error” and “Failed”, it should have succeeded (“Warning”s are typically okay).</p></li>
+<li><p>Besides <code>install.packages()</code>, you’ll also use the <code>BiocManager::install()</code> function from to install some packages from Bioconductor, a separate repository that hosts many bioinformatics/omics-related R packages.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run these lines one-by-one to install the needed packages:</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"DESeq2"</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"EnhancedVolcano"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run these lines one-by-one to install the needed packages --</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># First, the tidyverse, which is discussed at the end of this homework</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre class="r-out"><code># [... lots of output ...]
+# [The last lines should look something like this:]
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (tidyverse)
+
+The downloaded source packages are in
+    ‘/tmp/RtmpS4n222/downloaded_packages’</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is needed to in turn install the next two packages:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Should take &lt;1 minute to install)</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use this for differential expression analysis:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (May take 5-10 minutes to install)</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"DESeq2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use this to create a data visualization called a volcano plot:</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Should take &lt;1 minute to install)</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"EnhancedVolcano"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Test that you can load the packages – see the expected output below:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="regular-r-output"><code>Loading required package: ggplot2</code></pre>
 </div>
@@ -584,14 +632,14 @@ Adding comments to your code
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <details>
 <summary>
 <em>Click here to see the expected output when loading the ‘DESeq2’ package</em>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="regular-r-output"><code>Loading required package: S4Vectors</code></pre>
 </div>
@@ -715,7 +763,7 @@ Attaching package: 'Biobase'</code></pre>
 </div>
 </details>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="regular-r-output"><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -747,23 +795,22 @@ Attaching package: 'Biobase'</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Don’t worry about the “conflict” warnings shown above.</p>
+<p><em>For now, don’t worry about the “conflict” warnings shown above.</em></p>
 </div>
 </div>
 </div>
 </section>
 <section id="r-scripts" class="level2" data-number="9">
 <h2 data-number="9" class="anchored" data-anchor-id="r-scripts"><span class="header-section-number">9</span> R scripts</h2>
-<p>Moving forward, you will mostly write and save your R code in so-called “R scripts”, which are text files that contain R code.</p>
-<p>It’s a good idea to write and save most of your (important) code in scripts, to help <em>keep track of what you’ve been doing</em> and make it easier to modify and rerun things.</p>
+<p>You should mostly write and save your R code in so-called “R scripts”, which are text files with R code. This helps keep track of what you’ve been doing and makes it easier to modify and rerun things.</p>
 <ol type="1">
 <li><p>Create and open a new R script by clicking <strong><code>File</code></strong> (top menu bar) &gt; <strong><code>New File</code></strong> &gt; <strong><code>R Script</code></strong>.</p></li>
 <li><p>Save this new script right away by clicking <strong><code>File</code></strong> &gt; <strong><code>Save As</code></strong>. In the dialog box, you can save it right in the suggested folder, or you can make a new folder for this course. Regardless, save the script as <strong><code>homework.R</code></strong> (the extension for R scripts is <code>.R</code>).</p></li>
 </ol>
-<p>To send code from the script in the editor to the console, where it will be executed by R, press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> on Windows, or <kbd>Cmd</kbd> + <kbd>Return</kbd> on a Mac. Practice that after typing the following in the script:</p>
+<p>But isn’t a hassle to have to copy-paste code from a script to the console? Well, RStudio makes this pretty easy: to execute code from the script in the the console, press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> on Windows, or <kbd>Cmd</kbd> + <kbd>Return</kbd> on a Mac. Practice that after typing the following in the script:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type this in the script, then run it with Ctrl + Enter (or Cmd + Return)</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type this in the script, then run it with Ctrl + Enter (or Cmd + Return)</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 10</code></pre>
 </div>
@@ -771,26 +818,31 @@ Attaching package: 'Biobase'</code></pre>
 </section>
 <section id="r-objects" class="level2" data-number="10">
 <h2 data-number="10" class="anchored" data-anchor-id="r-objects"><span class="header-section-number">10</span> R objects</h2>
+<p>Objects are a key concept in R and other programming languages. They can store data and values that you can manipulate and analyze. It takes some time to get used to working with -and conceptualizing- objects, but you will get the hang of it with some practice.</p>
 <section id="assigning-stuff-to-objects" class="level3" data-number="10.1">
 <h3 data-number="10.1" class="anchored" data-anchor-id="assigning-stuff-to-objects"><span class="header-section-number">10.1</span> Assigning stuff to objects</h3>
-<p>You can assign one or more values to a so-called “object” with the <strong>assignment operator</strong> <code>&lt;-</code>. A few examples:</p>
+<p>You can assign one or more values to a so-called “object” with the <strong>assignment operator</strong> <code>&lt;-</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value 250 the object 'length_cm'</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>length_cm <span class="ot">&lt;-</span> <span class="dv">250</span></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>length_cm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value 250 the object 'length_cm':</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>length_cm <span class="ot">&lt;-</span> <span class="dv">250</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Now print the value of this object to screen simply by typing its name:</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>length_cm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 250</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign the value 2.54 to the object 'conversion'</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>conversion <span class="ot">&lt;-</span> <span class="fl">2.54</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>conversion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>conversion <span class="ot">&lt;-</span> <span class="fl">2.54</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>conversion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 2.54</code></pre>
 </div>
 </div>
 <p>Importantly, you can use objects as if you had typed their values directly:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>length_cm <span class="sc">/</span> conversion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>length_cm <span class="sc">/</span> conversion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 98.4252</code></pre>
 </div>
@@ -801,9 +853,9 @@ Attaching package: 'Biobase'</code></pre>
 <p>Some pointers on object names:</p>
 <ul>
 <li>Because R is case sensitive, <code>length_inch</code> is different from <code>Length_Inch</code>!</li>
-<li>An object name cannot contain spaces — so for readability, you can for example separate words using underscores, as in <code>length_cm</code>.</li>
+<li>An object name cannot contain spaces — so for readability, you can for example separate words e.g.&nbsp;using underscores, as in <code>length_cm</code>.</li>
 <li>Object names can contain but cannot start with a number: <code>x2</code> is valid but <code>2x</code> is not.</li>
-<li>Make object names descriptive yet not too long — this is not always easy!</li>
+<li><em>Make object names descriptive yet not too long — this is not always easy!</em></li>
 </ul>
 <section id="exercise-assigning-objects-in-r" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-assigning-objects-in-r"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Assigning objects in R</h4>
@@ -814,8 +866,8 @@ Attaching package: 'Biobase'</code></pre>
 <p><em>Click to see the solution</em></p>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>num_1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>num_2 <span class="ot">&lt;-</span> <span class="dv">15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>num_1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>num_2 <span class="ot">&lt;-</span> <span class="dv">15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details></li>
 <li><p>Compute the sum of <code>num_1</code> and <code>num_2</code></p>
@@ -824,7 +876,7 @@ Attaching package: 'Biobase'</code></pre>
 <p><em>Click to see the solution</em></p>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>num_1 <span class="sc">+</span> num_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>num_1 <span class="sc">+</span> num_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 35</code></pre>
 </div>
@@ -836,8 +888,8 @@ Attaching package: 'Biobase'</code></pre>
 <p><em>Click to see a solution</em></p>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> num_1 <span class="sc">-</span> num_2</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>difference</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> num_1 <span class="sc">-</span> num_2</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>difference</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 5</code></pre>
 </div>
@@ -869,23 +921,23 @@ Attaching package: 'Biobase'</code></pre>
 </section>
 <section id="vectors" class="level2" data-number="11">
 <h2 data-number="11" class="anchored" data-anchor-id="vectors"><span class="header-section-number">11</span> Vectors</h2>
-<p>R has several so-called “data structures”, which are different types of objects to store different types of data. Vectors are the most basic data structure in R, and are <strong>collections of one or more items</strong>.</p>
+<p>R has several so-called “data structures”, distinct object types to store different kinds of data. The most basic of these is the <strong>vector</strong>, which is simply a <strong>collections of one or more items</strong>.</p>
 <section id="creating-vectors" class="level3" data-number="11.1">
 <h3 data-number="11.1" class="anchored" data-anchor-id="creating-vectors"><span class="header-section-number">11.1</span> Creating vectors</h3>
-<p>You’ve already created a few vectors, as the single-item <code>num_1</code> etc. objects above were vectors! But let’s see somethin new: a common way to make vectors with <strong>multiple elements</strong> is with the <code>c</code> (combine) function:</p>
+<p>You’ve already created a few vectors, as the single-item <code>num_1</code> etc. objects above were vectors! So let’s see something new here: a common way to make vectors with <strong>multiple elements</strong> is with the <code>c</code> (combine) function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># longer_vector will contain 3 items:</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>longer_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
-<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>longer_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># longer_vector will contain 3 items:</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>longer_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>longer_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 10 20 30</code></pre>
 </div>
 </div>
-<p>For ranges of integers (whole numbers), you can also use the colon operator <code>:</code>:</p>
+<p>For ranges of integers (whole numbers), you can also use the colon operator <code>:</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># longer_vector will contain 10 items:</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>sequence_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>sequence_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># longer_vector will contain 10 items:</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>sequence_vector <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>sequence_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
@@ -893,20 +945,20 @@ Attaching package: 'Biobase'</code></pre>
 </section>
 <section id="exploring-vectors" class="level3" data-number="11.2">
 <h3 data-number="11.2" class="anchored" data-anchor-id="exploring-vectors"><span class="header-section-number">11.2</span> Exploring vectors</h3>
-<p>R has many functions that provide information about vectors and other types of objects, such as to get the number of items, or the mean or sum of the values of these items<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+<p>R has many functions that provide information about vectors and other types of objects, such as to get the number of items, or the mean or sum of the values of these items<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the number of items:</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(longer_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the number of items:</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(longer_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the the mean (average) across all elements:</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(longer_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the the mean (average) across all elements:</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(longer_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 20</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the sum of all elements:</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(longer_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the sum of all elements:</span></span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(longer_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 60</code></pre>
 </div>
@@ -916,14 +968,14 @@ Attaching package: 'Biobase'</code></pre>
 <h3 data-number="11.3" class="anchored" data-anchor-id="extracting-elements-from-vectors"><span class="header-section-number">11.3</span> Extracting elements from vectors</h3>
 <p>You can extract items from objects like vectors using “bracket notation” – get the second item with <code>[2]</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>longer_vector[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>longer_vector[<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 20</code></pre>
 </div>
 </div>
 <p>Or get the first and third items with <code>[c(1, 3)]</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>longer_vector[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>longer_vector[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 10 30</code></pre>
 </div>
@@ -932,10 +984,11 @@ Attaching package: 'Biobase'</code></pre>
 </section>
 <section id="data-frames" class="level2" data-number="12">
 <h2 data-number="12" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">12</span> Data frames</h2>
-<p>Data frames are a key R data structure that contain <strong>tabular data</strong> – data organized in rows and columns, similar to spreadsheets.</p>
-<p>An example is the <code>iris</code> data frame, which is an dataset that comes shipped with R. You can take a look at the first few rows of this data frame using the <code>head()</code> function:</p>
+<p><strong>Data frames</strong> are a key R data structure that contain <strong>tabular data</strong> – data organized in rows and columns, similar to spreadsheets. An example is the <code>iris</code> data frame that comes shipped with R, which contains measurements for three different species of iris.</p>
+<p>You can take a look at the first few rows of this data frame using the <code>head()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that each row represents one individual iris flower:</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -946,13 +999,20 @@ Attaching package: 'Biobase'</code></pre>
 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 </div>
 </div>
-<p>For data frames, the <code>View()</code> function is also quite neat, as it will open the data frame in a spreadsheet-like viewer – try it!:</p>
+<details>
+<summary>
+How many columns does this data frame have?<em>(Click for the solution)</em>
+</summary>
+This data frame has 5 columns: <code>Sepal.Length</code>, <code>Sepal.Width</code>, <code>Petal.Length</code>, <code>Petal.Width</code>, and <code>Species</code>. The 1 to 6 on the left are the <strong>row names</strong>, in this case a simple numbering of the rows.
+</details>
+<p>For data frames, the <code>View()</code> function is also neat, as it opens the data frame in a spreadsheet-like viewer – try it!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can extract individual columns from a data frame using the <code>$</code> operator:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Sepal.Width</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the 'Sepal.Width' column from the 'iris' data frame:</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Sepal.Width</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>  [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9 3.5
  [19] 3.8 3.8 3.4 3.7 3.6 3.3 3.4 3.0 3.4 3.5 3.4 3.2 3.1 3.4 4.1 4.2 3.1 3.2
@@ -967,49 +1027,51 @@ Attaching package: 'Biobase'</code></pre>
 </div>
 <p>This kind of operation will return a vector – which can be subsetted as well:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Sepal.Width[<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the 2nd to 5th items from the 'Sepal.Width' column:</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Sepal.Width[<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code>[1] 3.0 3.2 3.1 3.6</code></pre>
 </div>
 </div>
 </section>
-<section id="a-brief-intro-to-the-tidyverse-and-pipes" class="level2" data-number="13">
-<h2 data-number="13" class="anchored" data-anchor-id="a-brief-intro-to-the-tidyverse-and-pipes"><span class="header-section-number">13</span> A brief intro to the tidyverse and pipes</h2>
-<p>Finally, you’ll learn a little about a versatily family of R packages designed for data science called the <a href="https://www.tidyverse.org">“tidyverse”</a>. The tidyverse is quite large and includes the famous <em>ggplot2</em> package to create all sorts of data visualizations – we’ll barely scratch the surface here but this should already give you some useful tools.</p>
+<section id="a-brief-introduction-to-the-tidyverse-and-pipes" class="level2" data-number="13">
+<h2 data-number="13" class="anchored" data-anchor-id="a-brief-introduction-to-the-tidyverse-and-pipes"><span class="header-section-number">13</span> A brief introduction to the <em>tidyverse</em> and pipes</h2>
+<p>Finally, you’ll learn a little about a versatile family of R packages designed for data science called the <a href="https://www.tidyverse.org">“tidyverse”</a>. The <em>tidyverse</em> is quite large and includes the famous <em>ggplot2</em> package for data visualization – we’ll barely scratch the surface here, but this should already give you some useful tools.</p>
 <section id="read_tsv-to-read-tabular-data" class="level3" data-number="13.1">
 <h3 data-number="13.1" class="anchored" data-anchor-id="read_tsv-to-read-tabular-data"><span class="header-section-number">13.1</span> <code>read_tsv()</code> to read tabular data</h3>
 <p>The <code>read_tsv()</code> function reads a TSV (Tab-Separated Values) file into a dataframe, taking the path to the file as its main argument – here, read the sample metadata file used in next week’s lab:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre class="regular-r-output"><code>Rows: 22 Columns: 3
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: "\t"
-chr (3): sample_id, time, treatment
+chr (2): sample_id, treatment
+dbl (1): dpi
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 </div>
-<p>Take a look at the resulting data frame <code>meta</code>:</p>
+<p>Some info about how it interpreted the data is printed, especially about the data types of different columns (see the box below). Take a look at the resulting data frame <code>meta</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code># A tibble: 22 × 3
-   sample_id   time  treatment  
-   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      
- 1 ERR10802882 10d   cathemerium
- 2 ERR10802875 10d   cathemerium
- 3 ERR10802879 10d   cathemerium
- 4 ERR10802883 10d   cathemerium
- 5 ERR10802878 10d   control    
- 6 ERR10802884 10d   control    
- 7 ERR10802877 10d   control    
- 8 ERR10802881 10d   control    
- 9 ERR10802876 10d   relictum   
-10 ERR10802880 10d   relictum   
+   sample_id     dpi treatment  
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;      
+ 1 ERR10802864     1 cathemerium
+ 2 ERR10802867     1 cathemerium
+ 3 ERR10802870     1 cathemerium
+ 4 ERR10802866     1 control    
+ 5 ERR10802869     1 control    
+ 6 ERR10802863     1 control    
+ 7 ERR10802871     1 relictum   
+ 8 ERR10802874     1 relictum   
+ 9 ERR10802865     1 relictum   
+10 ERR10802868     1 relictum   
 # ℹ 12 more rows</code></pre>
 </div>
 </div>
@@ -1023,56 +1085,54 @@ Tibble??
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The output above is a so-called “tibble”, as the top of the output above mentions. This is a modern take on data frames provided by the tidyverse. Tibbles behave mostly like data frames, but have some nice features mostly in the way they are printed to screen.</p>
+<p>The data frame is a so-called “tibble”, as the top of the output above says. This is a modern take on data frames provided by the tidyverse. Tibbles behave mostly like data frames, but have some nice features mostly in the way they are printed to screen.</p>
+<p>For example, the “data types” of columns are shown at the top of the output above, where <code>chr</code> means character (text data) and <code>dbl</code> means double (numeric data; other data types exist as well).</p>
 </div>
 </div>
 </section>
 <section id="select-to-pick-columns" class="level3" data-number="13.2">
 <h3 data-number="13.2" class="anchored" data-anchor-id="select-to-pick-columns"><span class="header-section-number">13.2</span> <code>select()</code> to pick columns</h3>
-<p><code>select()</code> subsets a data frame by including/excluding certain columns. By default, it only includes the columns you specify:</p>
+<p>The <code>select()</code> function subsets a data frame by including/excluding certain columns. By default, it only includes the columns you specify:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="at">.data =</span> meta, sample_id, treatment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="at">.data =</span> meta, sample_id, treatment)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="regular-r-output"><code># A tibble: 22 × 2
    sample_id   treatment  
    &lt;chr&gt;       &lt;chr&gt;      
- 1 ERR10802882 cathemerium
- 2 ERR10802875 cathemerium
- 3 ERR10802879 cathemerium
- 4 ERR10802883 cathemerium
- 5 ERR10802878 control    
- 6 ERR10802884 control    
- 7 ERR10802877 control    
- 8 ERR10802881 control    
- 9 ERR10802876 relictum   
-10 ERR10802880 relictum   
+ 1 ERR10802864 cathemerium
+ 2 ERR10802867 cathemerium
+ 3 ERR10802870 cathemerium
+ 4 ERR10802866 control    
+ 5 ERR10802869 control    
+ 6 ERR10802863 control    
+ 7 ERR10802871 relictum   
+ 8 ERR10802874 relictum   
+ 9 ERR10802865 relictum   
+10 ERR10802868 relictum   
 # ℹ 12 more rows</code></pre>
 </div>
 </div>
-<p>Above, the first argument was the data frame, whereas the other arguments were the (unquoted!) names of columns to be kept.</p>
-<p>The output is a new, modified dataframe (same for the following functions), which in the example above, you simply printed to the screen – but as you’ll see later, you can store the output too.</p>
+<p>Above, the first argument was the data frame, whereas the other arguments were the (unquoted!) names of columns to be kept. The output is a new, modified dataframe. In the example above, this data frame was simply printed to the screen – but as you’ll see later, it can be stored too.</p>
 </section>
 <section id="filter-to-pick-rows-observations" class="level3" data-number="13.3">
 <h3 data-number="13.3" class="anchored" data-anchor-id="filter-to-pick-rows-observations"><span class="header-section-number">13.3</span> <code>filter()</code> to pick rows (observations)</h3>
-<p>The <code>filter()</code> function outputs only those rows that satisfy one or more conditions. It is similar to Filter functionality in Excel. For example, to only keep rows for the <code>10d</code> timepoint:</p>
+<p>The <code>filter()</code> function outputs only those rows that satisfy one or more conditions, similar to Filter functionality in Excel. For example, to only keep rows for the <code>1</code> timepoint:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> meta, time <span class="sc">==</span> <span class="st">"10d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> meta, dpi <span class="sc">==</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre class="regular-r-output"><code># A tibble: 12 × 3
-   sample_id   time  treatment  
-   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      
- 1 ERR10802882 10d   cathemerium
- 2 ERR10802875 10d   cathemerium
- 3 ERR10802879 10d   cathemerium
- 4 ERR10802883 10d   cathemerium
- 5 ERR10802878 10d   control    
- 6 ERR10802884 10d   control    
- 7 ERR10802877 10d   control    
- 8 ERR10802881 10d   control    
- 9 ERR10802876 10d   relictum   
-10 ERR10802880 10d   relictum   
-11 ERR10802885 10d   relictum   
-12 ERR10802886 10d   relictum   </code></pre>
+<pre class="regular-r-output"><code># A tibble: 10 × 3
+   sample_id     dpi treatment  
+   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;      
+ 1 ERR10802864     1 cathemerium
+ 2 ERR10802867     1 cathemerium
+ 3 ERR10802870     1 cathemerium
+ 4 ERR10802866     1 control    
+ 5 ERR10802869     1 control    
+ 6 ERR10802863     1 control    
+ 7 ERR10802871     1 relictum   
+ 8 ERR10802874     1 relictum   
+ 9 ERR10802865     1 relictum   
+10 ERR10802868     1 relictum   </code></pre>
 </div>
 </div>
 </section>
@@ -1080,52 +1140,47 @@ Tibble??
 <h3 data-number="13.4" class="anchored" data-anchor-id="the-pipe"><span class="header-section-number">13.4</span> The pipe (<code>|&gt;</code>)</h3>
 <p>It’s common to want to use several consecutive functions to wrangle a dataframe into the format you want. For example, you may want to first <code>select()</code> one or more columns, then <code>filter()</code> the resulting dataframe. You could do that as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>meta_sel <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> meta, sample_id, time)</span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> meta_sel, time <span class="sc">==</span> <span class="st">"10d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>meta_sel <span class="ot">&lt;-</span> <span class="fu">select</span>(<span class="at">.data =</span> meta, sample_id, dpi)</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="at">.data =</span> meta_sel, dpi <span class="sc">==</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre class="regular-r-output"><code># A tibble: 12 × 2
-   sample_id   time 
-   &lt;chr&gt;       &lt;chr&gt;
- 1 ERR10802882 10d  
- 2 ERR10802875 10d  
- 3 ERR10802879 10d  
- 4 ERR10802883 10d  
- 5 ERR10802878 10d  
- 6 ERR10802884 10d  
- 7 ERR10802877 10d  
- 8 ERR10802881 10d  
- 9 ERR10802876 10d  
-10 ERR10802880 10d  
-11 ERR10802885 10d  
-12 ERR10802886 10d  </code></pre>
+<pre class="regular-r-output"><code># A tibble: 10 × 2
+   sample_id     dpi
+   &lt;chr&gt;       &lt;dbl&gt;
+ 1 ERR10802864     1
+ 2 ERR10802867     1
+ 3 ERR10802870     1
+ 4 ERR10802866     1
+ 5 ERR10802869     1
+ 6 ERR10802863     1
+ 7 ERR10802871     1
+ 8 ERR10802874     1
+ 9 ERR10802865     1
+10 ERR10802868     1</code></pre>
 </div>
 </div>
 <p>You could go on along these lines, successively creating new objects that you then use for the next step. But there is a more elegant way of dong this, directly sending (“piping”) output from one function into the next function with the <strong>pipe operator</strong> <code>|&gt;</code> (a vertical bar <kbd>|</kbd> followed by a greater-than sign <kbd>&gt;</kbd>).</p>
 <p>Let’s start by seeing a reformulation of the code above with pipes:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span></span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample_id, time) <span class="sc">|&gt;</span></span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(time <span class="sc">==</span> <span class="st">"10d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample_id, dpi) <span class="sc">|&gt;</span></span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dpi <span class="sc">==</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre class="regular-r-output"><code># A tibble: 12 × 2
-   sample_id   time 
-   &lt;chr&gt;       &lt;chr&gt;
- 1 ERR10802882 10d  
- 2 ERR10802875 10d  
- 3 ERR10802879 10d  
- 4 ERR10802883 10d  
- 5 ERR10802878 10d  
- 6 ERR10802884 10d  
- 7 ERR10802877 10d  
- 8 ERR10802881 10d  
- 9 ERR10802876 10d  
-10 ERR10802880 10d  
-11 ERR10802885 10d  
-12 ERR10802886 10d  </code></pre>
+<pre class="regular-r-output"><code># A tibble: 10 × 2
+   sample_id     dpi
+   &lt;chr&gt;       &lt;dbl&gt;
+ 1 ERR10802864     1
+ 2 ERR10802867     1
+ 3 ERR10802870     1
+ 4 ERR10802866     1
+ 5 ERR10802869     1
+ 6 ERR10802863     1
+ 7 ERR10802871     1
+ 8 ERR10802874     1
+ 9 ERR10802865     1
+10 ERR10802868     1</code></pre>
 </div>
 </div>
-<p>What happened here? You took the <code>meta</code> data frame, sent (“piped”) it into the <code>select()</code> function, whose output in turn was piped into the <code>filter()</code> function.</p>
-<p>You can think of the pipe as <strong>“then”</strong>: take <code>meta</code>, <em>then</em> select, <em>then</em> rename.</p>
+<p>What happened here? You took the <code>meta</code> data frame, sent (“piped”) it into the <code>select()</code> function, whose output in turn was piped into the <code>filter()</code> function. You can think of the pipe as <strong>“then”</strong>: take <code>meta</code>, <em>then</em> select, <em>then</em> rename.</p>
 <p>When using the pipe, you no longer specify the input with the <code>.data</code> argument, because the function now gets its input data via the pipe. Using pipes involves less typing and is more readable than successive assignments.</p>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
@@ -1133,10 +1188,37 @@ Tibble??
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>For code readability, it is good practice to start a new line after a pipe <code>|&gt;</code>, and to keep the subsequent line(s) <em>indented</em> as RStudio will automatically do.</p>
+<p>For code readability, start a new line after every pipe <code>|&gt;</code> and indent subsequent lines, as seen above.</p>
 </div>
 </div>
 </div>
+<section id="exercise-tidyverse-functions-and-pipes" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-tidyverse-functions-and-pipes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Tidyverse functions and pipes</h4>
+<p>Use a “pipeline” like above to output a data frame with two columns (<code>sample_id</code> and <code>treatment</code>) only for the <em>cathemerium</em> treatment. How many rows does your output data frame have?</p>
+<details>
+<summary>
+Click for the solution
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span></span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample_id, treatment) <span class="sc">|&gt;</span></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(treatment <span class="sc">==</span> <span class="st">"cathemerium"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre class="regular-r-output"><code># A tibble: 7 × 2
+  sample_id   treatment  
+  &lt;chr&gt;       &lt;chr&gt;      
+1 ERR10802864 cathemerium
+2 ERR10802867 cathemerium
+3 ERR10802870 cathemerium
+4 ERR10802882 cathemerium
+5 ERR10802875 cathemerium
+6 ERR10802879 cathemerium
+7 ERR10802883 cathemerium</code></pre>
+</div>
+</div>
+<p>The output data frame has 7 rows and 2 columns: note that “7 x 2” is helpfully shown at the top of the output in the console.</p>
+</details>
+</section>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -1164,33 +1246,6 @@ Optional: Using the pipe keyboard shortcut <em>(Click to expand)</em>
 </div>
 </div>
 </div>
-<section id="exercise-tidyverse-functions-and-pipes" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="exercise-tidyverse-functions-and-pipes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Tidyverse functions and pipes</h4>
-<p>Use a “pipeline” like above to output a data frame with two columns (<code>sample_id</code> and <code>treatment</code>) only for the <em>cathemerium</em> treatment. How many rows does your output data frame have?</p>
-<details>
-<summary>
-Click for the solution
-</summary>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span></span>
-<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sample_id, treatment) <span class="sc">|&gt;</span></span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(treatment <span class="sc">==</span> <span class="st">"cathemerium"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="regular-r-output"><code># A tibble: 7 × 2
-  sample_id   treatment  
-  &lt;chr&gt;       &lt;chr&gt;      
-1 ERR10802882 cathemerium
-2 ERR10802875 cathemerium
-3 ERR10802879 cathemerium
-4 ERR10802883 cathemerium
-5 ERR10802864 cathemerium
-6 ERR10802867 cathemerium
-7 ERR10802870 cathemerium</code></pre>
-</div>
-</div>
-<p>The output data frame has 7 rows and 2 columns: note that “7 x 2” is helpfully shown at the top of the output in the console.</p>
-</details>
-</section>
 
 
 </section>
@@ -1200,9 +1255,11 @@ Click for the solution
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p> I.e., after summarizing/processing data with command-line tools in the Unix shell<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p> This should be <em>much</em> faster on your own computer.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>The latter two only with numeric vectors - as vectors can also contain text.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p> In R, there is no distinction between options and arguments like with Shell commands.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p> And unlike unnamed arguments, named arguments can be presented in any order you like.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This also applies at OSC<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p> This should be <em>much</em> faster on your own computer.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>The latter two only with numeric vectors - as vectors can also contain text.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
