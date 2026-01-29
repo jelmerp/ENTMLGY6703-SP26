@@ -180,6 +180,7 @@ Jelmer Poelstra
 <li><a href="#/short-read-hts" id="/toc-short-read-hts">Short-read HTS</a></li>
 <li><a href="#/reference-genomes" id="/toc-reference-genomes">Reference genomes</a></li>
 <li><a href="#/looking-forward" id="/toc-looking-forward">Looking forward</a></li>
+<li><a href="#/bonus-more-on-hts-applications" id="/toc-bonus-more-on-hts-applications">Bonus: More on HTS applications</a></li>
 </ul>
 </nav>
 </section>
@@ -190,30 +191,30 @@ Jelmer Poelstra
 </section>
 <section id="what-do-we-mean-by-sequencing" class="slide level2">
 <h2>What do we mean by <em>sequencing</em>?</h2>
-<details>
-<summary>
-What does the term sequencing, like in “high-throughput sequencing”, generally refer to? &nbsp; <i class="fa-solid fa-comments" style="color:darkolivegreen;"></i>
-</summary>
-<p>Determining the sequence of DNA, RNA, or protein fragments.</p>
-Most commonly, especially in “high-throughput” sequencing, it refers to <strong>DNA sequencing</strong> specifically.
-</details>
-<div class="fragment">
-<hr style="height:1pt; visibility:hidden;">
-<p>This week and next, we will focus on <strong>DNA</strong> sequencing, keeping in mind that:</p>
 <ul>
-<li>Protein sequencing involves completely different technologies</li>
+<li>Sequencing generally refers to <strong>determining the sequence of DNA, RNA, or protein fragments</strong></li>
 </ul>
-</div>
+<hr style="height:1pt; visibility:hidden;">
+<ul>
+<li>Most commonly, especially in the context of “high-throughput” sequencing,<br>
+it specifically refers to <strong>DNA</strong> sequencing</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
 <div class="fragment">
 <ul>
+<li><p>Here, we’ll <strong>only focus on DNA sequencing</strong>, keeping in mind that:</p>
+<ul>
+<li><p>Protein sequencing involves completely different technologies</p></li>
 <li><p>RNA can be, and usually is, sequenced as DNA as well</p>
 <details>
 <summary>
 <p>How is that done and why? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span></p>
 </summary>
 <p>RNA is usually reverse transcribed to DNA (cDNA) prior to sequencing.</p>
-<p>While it is becoming more feasible to directly sequence RNA molecules, RNA is an unstable molecule that is easily degraded and harder to sequence.</p>
+<p>While it is becoming more feasible to directly sequence RNA molecules,<br>
+RNA is an unstable molecule that is easily degraded and harder to sequence.</p>
 </details></li>
+</ul></li>
 </ul>
 </div>
 </section>
@@ -222,12 +223,12 @@ Most commonly, especially in “high-throughput” sequencing, it refers to <str
 <div>
 <ul>
 <li class="fragment"><strong>Sanger sequencing <span style="color:darkolivegreen"><em>(since ~1985)</em></span></strong><br>
-Sequences a single, typically PCR-amplified, short-ish (≤900 bp) DNA fragment at a time</li>
+Sequences a single, typically PCR-amplified, DNA fragment at a time</li>
 </ul>
 <hr style="height:1pt; visibility:hidden;">
 <ul>
 <li class="fragment"><p><strong>High-throughput sequencing (HTS)</strong><br>
-Sequences 10<sup>5</sup>-10<sup>9</sup>, usually randomly selected, DNA fragments at a time — two types:</p>
+Sequences 10<sup>5</sup>-10<sup>9</sup>, often randomly selected, DNA fragments at a time — two types:</p>
 <ul>
 <li class="fragment"><p>Short-read HTS: More accurate, shorter reads <span style="color:darkolivegreen"><strong><em>(since 2005)</em></strong></span></p></li>
 <li class="fragment"><p>Long-read HTS: Less accurate, longer reads <span style="color:darkolivegreen"><strong><em>(since 2011)</em></strong></span></p></li>
@@ -259,25 +260,23 @@ as illustrated by Dr.&nbsp;Popp last week:</li>
 <p><img data-src="../img/popp_primers.png" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
 </figure>
 </div>
+<div class="fragment">
 <ul>
-<li>Therefore, to design primers, you must know something about the target sequence in advance — this can be highly limiting</li>
+<li><p>Therefore, to design primers, you must know something about the target sequence in advance — this can be highly limiting</p></li>
+<li><p>The sequenced fragment can be up to about 800-1,000 bp</p></li>
 </ul>
+</div>
 </section>
 <section id="sanger-sequencing-1" class="slide level2">
 <h2>Sanger sequencing</h2>
 <ul>
-<li>Sequencing itself is performed by <strong>synthesizing a new DNA strand</strong> with fluorescently-labeled nucleotides, using a different color for each base (<code>A</code>, <code>C</code>, <code>G</code>, <code>T</code>)</li>
-</ul>
-<div class="fragment">
-<hr style="height:1pt; visibility:hidden;">
-<ul>
-<li>The final result is a chromatogram that can be “base-called”:</li>
+<li><p>Sequencing itself is performed by <strong>synthesizing a new DNA strand</strong> with fluorescently-labeled nucleotides, using a different color for each base (<code>A</code>, <code>C</code>, <code>G</code>, <code>T</code>)</p></li>
+<li><p>The final result is a chromatogram that can be “base-called”:</p></li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="../img/good.chromatogram.png" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="https://dnacore.mgh.harvard.edu/new-cgi-bin/site/pages/sequencing_pages/seq_troubleshooting.jsp"></p>
 </figure>
-</div>
 </div>
 <div class="fragment">
 <hr style="height:1pt; visibility:hidden;">
@@ -293,9 +292,6 @@ as illustrated by Dr.&nbsp;Popp last week:</li>
 <p>How many basepairs is that? Want to guess how much it cost to do this?</p>
 </div>
 </div>
-</div>
-<div class="footer">
-
 </div>
 </div>
 </section>
@@ -316,8 +312,9 @@ as illustrated by Dr.&nbsp;Popp last week:</li>
 <section id="present-day-sanger-applications" class="slide level2">
 <h2>Present-day Sanger applications</h2>
 <ul>
-<li><p>Because HTS has <em>much</em> higher throughput and is <em>much</em> cheaper per base, Sanger sequencing has become less widely used</p></li>
-<li><p>But it is not obsolete, in part because high throughput isn’t always needed or even wanted</p></li>
+<li><p>Because HTS has <em>much</em> higher throughput and is <em>much</em> cheaper per base,<br>
+Sanger sequencing is now less widely used</p></li>
+<li><p>But it is not obsolete, in part because high throughput isn’t always needed</p></li>
 </ul>
 </section>
 <section id="section" class="slide level2">
@@ -341,7 +338,7 @@ as illustrated by Dr.&nbsp;Popp last week:</li>
 <li><p>Taxonomic identification of samples</p></li>
 <li><p>Examining genetic variation among individuals/populations</p></li>
 </ul>
-<p>…where using one or few marker or candidate genes can be sufficient</p>
+<p>…where using one or few marker loci or candidate genes can be sufficient</p>
 </section></section>
 <section>
 <section id="high-throughput-sequencing-hts" class="title-slide slide level1 center" data-background-color="silver">
@@ -470,7 +467,7 @@ for example, “genomics” data typically spans much or all of the genome
 </div>
 <div class="fragment">
 <ul>
-<li><strong>Metabarcoding</strong> – for microbial community characterization</li>
+<li><strong>Metabarcoding</strong> — for microbial community characterization</li>
 </ul>
 </div>
 <div class="fragment">
@@ -485,205 +482,6 @@ for example, “genomics” data typically spans much or all of the genome
 <strong><em>Does any of you work on, or is planning to work on, projects like these?</em></strong> &nbsp; <i class="fa-solid fa-comments" style="color:darkolivegreen;"></i>
 </summary>
 </details>
-</div>
-</section>
-<section id="examples-of-hts-applications-1" class="slide level2">
-<h2>Examples of HTS applications</h2>
-<ul>
-<li>In each of of these applications:
-<ul>
-<li>What part(s) of the genome are you sequencing?</li>
-<li>Who are you sequencing (how many individuals/species)?</li>
-<li>How are the sequences used?</li>
-</ul></li>
-</ul>
-</section>
-<section id="examples-of-hts-applications-2" class="slide level2">
-<h2>Examples of HTS applications</h2>
-<div style="font-size: 85%;">
-<table class="table-striped caption-top">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 27%">
-<col style="width: 27%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Appl.</th>
-<th>What</th>
-<th>Who</th>
-<th>How</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Whole-genome assembly</strong></td>
-<td>The whole genome! 😃</td>
-<td>A single individual</td>
-<td>“<em>Overlap</em>” reads into larger fragments</td>
-</tr>
-<tr class="even">
-<td><strong>Variants</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><strong>16S Metabarcoding</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>RNA-Seq</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="examples-of-hts-applications-3" class="slide level2">
-<h2>Examples of HTS applications</h2>
-<div style="font-size: 85%;">
-<table class="table-striped caption-top">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 27%">
-<col style="width: 27%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Appl.</th>
-<th>What</th>
-<th>Who</th>
-<th>How</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Whole-genome assembly</strong></td>
-<td>The whole genome! 😃</td>
-<td>A single individual</td>
-<td>“<em>Overlap</em>” reads into larger fragments</td>
-</tr>
-<tr class="even">
-<td><strong>Variants</strong></td>
-<td>Whole genome or specific (e.g.&nbsp;exome) or random (GBS/RAD) regions</td>
-<td>Multiple individuals</td>
-<td>For each site &amp; individual, determine the <em>variant state</em> (allele)</td>
-</tr>
-<tr class="odd">
-<td><strong>16S Metabarcoding</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><strong>RNA-Seq</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="examples-of-hts-applications-4" class="slide level2">
-<h2>Examples of HTS applications</h2>
-<div style="font-size: 85%;">
-<table class="table-striped caption-top">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 27%">
-<col style="width: 27%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Appl.</th>
-<th>What</th>
-<th>Who</th>
-<th>How</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Whole-genome assembly</strong></td>
-<td>The whole genome! 😃</td>
-<td>A single individual</td>
-<td>“<em>Overlap</em>” reads into larger fragments</td>
-</tr>
-<tr class="even">
-<td><strong>Variants</strong></td>
-<td>Whole genome or specific (e.g.&nbsp;exome) or random (GBS/RAD) regions</td>
-<td>Multiple individuals</td>
-<td>For each site &amp; individual, determine the <em>variant state</em> (allele)</td>
-</tr>
-<tr class="odd">
-<td><strong>16S Metabarcoding</strong></td>
-<td>A specific locus (e.g.&nbsp;16S)</td>
-<td>Multiple samples —<br>can be soil, gut contents, etc.</td>
-<td><strong><em>Assign</em></strong> reads a <em>taxonomic identity</em> and <strong><em>count</em></strong></td>
-</tr>
-<tr class="even">
-<td><strong>RNA-Seq</strong></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="examples-of-hts-applications-5" class="slide level2">
-<h2>Examples of HTS applications</h2>
-<div style="font-size: 85%;">
-<table class="table-striped caption-top">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 27%">
-<col style="width: 27%">
-<col style="width: 27%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Appl.</th>
-<th>What</th>
-<th>Who</th>
-<th>How</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Whole-genome assembly</strong></td>
-<td>The whole genome! 😃</td>
-<td>A single individual</td>
-<td>“<em>Overlap</em>” reads into larger fragments</td>
-</tr>
-<tr class="even">
-<td><strong>Variants</strong></td>
-<td>Whole genome or specific (e.g.&nbsp;exome) or random (GBS/RAD) regions</td>
-<td>Multiple individuals</td>
-<td>For each site &amp; individual, determine the <em>variant state</em> (allele)</td>
-</tr>
-<tr class="odd">
-<td><strong>16S Metabarcoding</strong></td>
-<td>A specific locus (e.g.&nbsp;16S)</td>
-<td>Multiple samples —<br>can be soil, gut contents, etc.</td>
-<td><strong><em>Assign</em></strong> reads a <em>taxonomic identity</em> and <strong><em>count</em></strong></td>
-</tr>
-<tr class="even">
-<td><strong>RNA-Seq</strong></td>
-<td>Transcriptome</td>
-<td>Multiple samples across different conditions/treatments</td>
-<td><strong><em>Assign</em></strong> reads a <em>gene identity</em> and <strong><em>counted</em></strong></td>
-</tr>
-</tbody>
-</table>
 </div>
 </section>
 <section id="the-main-hts-technologies" class="slide level2">
@@ -863,9 +661,9 @@ for example, “genomics” data typically spans much or all of the genome
 <p>For example:</p>
 <ul>
 <li>(SNP) variant analysis</li>
-<li>Counting applications such as RNA-Seq</li>
+<li>“Counting applications” such as RNA-Seq</li>
 </ul>
-<p>Here, genomic locations (variant analysis) or gene identities (RNA-Seq) can be reliably inferred from as little as 25 bp.</p>
+<p>For these, genomic locations (variant analysis) or gene identities (RNA-Seq) can be reliably inferred from as little as 25 bp</p>
 </details>
 </div>
 </section>
@@ -924,7 +722,7 @@ i.e., obtaining a “<strong>depth of coverage</strong>” greater than 1:</p>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p><em>Typical depths of coverage are ~50-100x for genome assembly and 10-30x for “resequencing” (!)</em></p>
+<p><em>Typical depths of coverage: ~50-100x for genome assembly &amp; 10-30x for variant typing (!)</em></p>
 </div>
 </div>
 </div>
@@ -940,7 +738,6 @@ i.e., obtaining a “<strong>depth of coverage</strong>” greater than 1:</p>
 <ul>
 <li>In a HTS context, a “<strong>library</strong>” is a collection of DNA fragments ready for sequencing</li>
 </ul>
-<hr style="height:1pt; visibility:hidden;">
 <div class="fragment">
 <ul>
 <li>These fragments can number in the <strong>millions or billions</strong> and are often randomly generated from input like genomic DNA:</li>
@@ -997,7 +794,6 @@ this is called <strong>“paired-end” (PE) sequencing</strong>:</li>
 </figure>
 </div>
 <div class="fragment">
-<hr style="height:1pt; visibility:hidden;">
 <ul>
 <li>When sequencing is instead <strong>single-end (SE)</strong>, no reverse read is produced:</li>
 </ul>
@@ -1015,17 +811,17 @@ this is called <strong>“paired-end” (PE) sequencing</strong>:</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/pairedend.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../img/pairedend.png" class="quarto-figure quarto-figure-center" style="width:80.0%" alt="A diagram showing forward and reverse reads in paired-end sequencing."></a></p>
+<p><a href="../img/pairedend.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../img/pairedend.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A diagram showing forward and reverse reads in paired-end sequencing."></a></p>
 </figure>
 </div>
 <details>
 <summary>
 <strong>What happens when a fragment is shorter than the length of a single F or R read?</strong> &nbsp; <i class="fa-solid fa-comments" style="color:darkolivegreen;"></i>
 </summary>
-<p>“<strong>Adapter read-through</strong>”: the final bases in the resulting reads will consist of adapter sequence, which should be removed before downstream analysis</p>
+<p>“<strong>Adapter read-through</strong>”: the final bases in the resulting reads will consist of adapter sequence (these should be removed before downstream analysis)</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/insert_size_adapter-read-through.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../img/insert_size_adapter-read-through.png" class="quarto-figure quarto-figure-center" style="width:58.0%" alt="A diagram illustrating the scenario when the DNA fragment is shorter than the single read length"></a></p>
+<p><a href="../img/insert_size_adapter-read-through.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../img/insert_size_adapter-read-through.png" class="quarto-figure quarto-figure-center" style="width:52.0%" alt="A diagram illustrating the scenario when the DNA fragment is shorter than the single read length"></a></p>
 </figure>
 </div>
 </details>
@@ -1040,7 +836,7 @@ this is called <strong>“paired-end” (PE) sequencing</strong>:</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/pairedend.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="../img/pairedend.png" class="quarto-figure quarto-figure-center" style="width:80.0%" alt="A diagram showing forward and reverse reads in paired-end sequencing."></a></p>
+<p><a href="../img/pairedend.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="../img/pairedend.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A diagram showing forward and reverse reads in paired-end sequencing."></a></p>
 </figure>
 </div>
 <details>
@@ -1060,28 +856,41 @@ this is called <strong>“paired-end” (PE) sequencing</strong>:</li>
 </section>
 <section id="how-illumina-sequencing-works" class="slide level2">
 <h2>How Illumina sequencing works</h2>
-<p>Sequencing is performed by synthesizing a new strand using fluorescently-labeled bases and taking a picture each time a new nucleotide is incorporated:</p>
+<p>We start with fragments that have been attached to a flow cell —<br>
+this image shows just two, but millions are present simultaneously</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/illumina_cycle1.png" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
+<p><img data-src="../img/illumina_cycle0.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
 <section id="how-illumina-sequencing-works-1" class="slide level2">
 <h2>How Illumina sequencing works</h2>
-<p>Sequencing is performed by synthesizing a new strand using fluorescently-labeled bases and taking a picture each time a new nucleotide is incorporated:</p>
+<p>Sequencing is performed by synthesizing a new strand using fluorescently-labeled bases,<br>
+and taking a picture each time a new nucleotide is incorporated:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/illumina_cycle2.png" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
+<p><img data-src="../img/illumina_cycle1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
 <section id="how-illumina-sequencing-works-2" class="slide level2">
 <h2>How Illumina sequencing works</h2>
-<p>Sequencing is performed by synthesizing a new strand using fluorescently-labeled bases and taking a picture each time a new nucleotide is incorporated:</p>
+<p>Sequencing is performed by synthesizing a new strand using fluorescently-labeled bases,<br>
+and taking a picture each time a new nucleotide is incorporated:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/illumina_cycle5.png" class="quarto-figure quarto-figure-center" style="width:90.0%"></p>
+<p><img data-src="../img/illumina_cycle2.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</section>
+<section id="how-illumina-sequencing-works-3" class="slide level2">
+<h2>How Illumina sequencing works</h2>
+<p>Sequencing is performed by synthesizing a new strand using fluorescently-labeled bases,<br>
+and taking a picture each time a new nucleotide is incorporated:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/illumina_cycle5.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
@@ -1128,8 +937,27 @@ this is called <strong>“paired-end” (PE) sequencing</strong>:</li>
 </section>
 <section id="reference-genomes-1" class="slide level2">
 <h2>Reference genomes</h2>
-<p>Many HTS applications either <strong>require a “reference genome”</strong> or <strong>involve its production.</strong><br>
-What exactly does reference genome refer to? It usually includes:</p>
+<p>Many HTS applications either <strong>require a “reference genome”</strong> or <strong>involve its production</strong>:</p>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../img/reads2genome.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../img/reads2genome.png" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="A diagram illustrating how sequencing reads are aligned to a reference genome."></a></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="reference-genomes-2" class="slide level2">
+<h2>Reference genomes</h2>
+<p>Many HTS applications either <strong>require a “reference genome”</strong> or <strong>involve its production:</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../img/reads2genome_2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img data-src="../img/reads2genome_2.png" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="A diagram illustrating how sequencing reads are aligned to a reference genome."></a></p>
+</figure>
+</div>
+</section>
+<section id="reference-genomes-3" class="slide level2">
+<h2>Reference genomes</h2>
+<p>What exactly does reference genome refer to? It usually includes:</p>
 <div class="fragment">
 <ul>
 <li><p><strong>An assembly</strong><br>
@@ -1186,13 +1014,16 @@ Provides e.g.&nbsp;<em>locations of genes and other genomic “features”</em> 
 </section>
 <section id="genome-assemblies" class="slide level2">
 <h2>Genome assemblies</h2>
-<div>
 <ul>
-<li class="fragment"><p>With increasing usage &amp; quality of long-read HTS, assemblies are getting better and better</p></li>
-<li class="fragment"><p>Still, many assemblies instead consist of –often 1000s of– fragments (contigs and scaffolds)</p></li>
+<li>Besides being produced at higher rates as shown on the previous slide,<br>
+assemblies keep getting better with increasing usage &amp; quality of long-read HTS</li>
 </ul>
-</div>
+<div class="fragment">
+<ul>
+<li>Still, many assemblies instead consist of –often 1000s of– fragments (contigs and scaffolds)</li>
+</ul>
 <hr style="height:1pt; visibility:hidden;">
+</div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1203,7 +1034,7 @@ Provides e.g.&nbsp;<em>locations of genes and other genomic “features”</em> 
 <p><strong>How is this data stored?</strong></p>
 </div>
 <div class="callout-content">
-<p>Both genome assemblies and annotations are typically saved in a single text file each — we’ll explore some of these files in tomorrow’s lab.</p>
+<p>Both genome assemblies and annotations are typically saved in a single text file each — we’ll explore these in tomorrow’s lab</p>
 </div>
 </div>
 </div>
@@ -1211,9 +1042,10 @@ Provides e.g.&nbsp;<em>locations of genes and other genomic “features”</em> 
 </section>
 <section id="recap" class="slide level2">
 <h2>Recap</h2>
-<p>You’ve learned:</p>
+<p>You’ve learned…</p>
 <ol type="1">
 <li><p>That high-throughput sequencing (HTS) enables DNA sequencing at <em>much</em> larger scales than was previously possible</p></li>
+<li><p>That HTS underlies several major “omics” fields</p></li>
 <li><p>How short-read and long-read HTS have different strengths and weaknesses</p></li>
 <li><p>About libraries and the technology underlying short-read sequencing</p></li>
 </ol>
@@ -1233,7 +1065,7 @@ Provides e.g.&nbsp;<em>locations of genes and other genomic “features”</em> 
 <p>The labs this and next week are organized around the data set from <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#/references" role="doc-biblioref" onclick="">2025</a>)</span>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/garrigos_paper.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../img/garrigos_paper.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A screenshot of the paper's front matter."></a></p>
+<p><a href="../img/garrigos_paper.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14"><img data-src="../img/garrigos_paper.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A screenshot of the paper's front matter."></a></p>
 </figure>
 </div>
 <p>This paper uses <strong>paired-end Illumina RNA-Seq data</strong> to study gene expression in <em>Culex pipiens</em> mosquitos infected with two different malaria-causing <em>Plasmodium</em> protozoans.</p>
@@ -1258,6 +1090,218 @@ Provides e.g.&nbsp;<em>locations of genes and other genomic “features”</em> 
 <ul>
 <li>In the lab, you will perform differential gene expression analysis on the <em>Culex pipiens</em> RNA-Seq dataset</li>
 </ul>
+</div>
+</section></section>
+<section>
+<section id="bonus-more-on-hts-applications" class="title-slide slide level1 center">
+<h1>Bonus: More on HTS applications</h1>
+
+</section>
+<section id="examples-of-hts-applications-1" class="slide level2">
+<h2>Examples of HTS applications</h2>
+<p>We talked about these HTS applications:</p>
+<ul>
+<li><strong>Whole-genome assembly</strong> — for producing reference genomes</li>
+<li><strong>Typing of SNPs and other sequence variants</strong> — for population genetics, GWAS, etc.</li>
+<li><strong>Metabarcoding</strong> — for microbial community characterization</li>
+<li><strong>RNA-Seq</strong> — for large-scale gene expression analysis</li>
+</ul>
+<hr style="height:1pt; visibility:hidden;">
+<div class="fragment">
+<p>In each of of these applications:</p>
+<ul>
+<li>What part(s) of the genome are you sequencing?</li>
+<li>Who are you sequencing (how many individuals/species)?</li>
+<li>How are the sequences used?</li>
+</ul>
+</div>
+</section>
+<section id="examples-of-hts-applications-2" class="slide level2">
+<h2>Examples of HTS applications</h2>
+<div style="font-size: 85%;">
+<table class="table-striped caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Appl.</th>
+<th>What</th>
+<th>Who</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Whole-genome assembly</strong></td>
+<td>The whole genome! 😃</td>
+<td>A single individual</td>
+<td>“<em>Overlap</em>” reads into larger fragments</td>
+</tr>
+<tr class="even">
+<td><strong>Variant typing</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>16S Metabarcoding</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>RNA-Seq</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="examples-of-hts-applications-3" class="slide level2">
+<h2>Examples of HTS applications</h2>
+<div style="font-size: 85%;">
+<table class="table-striped caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Appl.</th>
+<th>What</th>
+<th>Who</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Whole-genome assembly</strong></td>
+<td>Whole genome 😃</td>
+<td>A single individual</td>
+<td>“<em>Overlap</em>” reads into larger fragments</td>
+</tr>
+<tr class="even">
+<td><strong>Variant typing</strong></td>
+<td>Whole genome <br>or specific (e.g.&nbsp;exome)<br> or random (GBS/RAD) regions</td>
+<td>Multiple individuals</td>
+<td>For each site &amp; individual, determine the <em>variant state</em> (allele)</td>
+</tr>
+<tr class="odd">
+<td><strong>16S Metabarcoding</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>RNA-Seq</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="examples-of-hts-applications-4" class="slide level2">
+<h2>Examples of HTS applications</h2>
+<div style="font-size: 85%;">
+<table class="table-striped caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Appl.</th>
+<th>What</th>
+<th>Who</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Whole-genome assembly</strong></td>
+<td>Whole genome 😃</td>
+<td>A single individual</td>
+<td>“<em>Overlap</em>” reads into larger fragments</td>
+</tr>
+<tr class="even">
+<td><strong>Variant typing</strong></td>
+<td>Whole genome <br>or specific (e.g.&nbsp;exome)<br> or random (GBS/RAD) regions</td>
+<td>Multiple individuals</td>
+<td>For each site &amp; individual, determine the <em>variant state</em> (allele)</td>
+</tr>
+<tr class="odd">
+<td><strong>16S Metabarcoding</strong></td>
+<td>A specific locus (e.g.&nbsp;16S)</td>
+<td>Multi-species samples —<br>soil, gut contents, etc.</td>
+<td>Assign reads a <em>taxonomic</em> identity and <strong><em>count</em></strong></td>
+</tr>
+<tr class="even">
+<td><strong>RNA-Seq</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="examples-of-hts-applications-5" class="slide level2">
+<h2>Examples of HTS applications</h2>
+<div style="font-size: 85%;">
+<table class="table-striped caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Appl.</th>
+<th>What</th>
+<th>Who</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Whole-genome assembly</strong></td>
+<td>Whole genome 😃</td>
+<td>A single individual</td>
+<td>“<em>Overlap</em>” reads into larger fragments</td>
+</tr>
+<tr class="even">
+<td><strong>Variant typing</strong></td>
+<td>Whole genome <br>or specific (e.g.&nbsp;exome)<br> or random (GBS/RAD) regions</td>
+<td>Multiple individuals</td>
+<td>For each site &amp; individual, determine the <em>variant state</em> (allele)</td>
+</tr>
+<tr class="odd">
+<td><strong>16S Metabarcoding</strong></td>
+<td>A specific locus (e.g.&nbsp;16S)</td>
+<td>Multi-species samples —<br>soil, gut contents, etc.</td>
+<td>Assign reads a <em>taxonomic</em> identity and <strong><em>count</em></strong></td>
+</tr>
+<tr class="even">
+<td><strong>RNA-Seq</strong></td>
+<td>Whole transcriptome</td>
+<td>Multiple indivuals<br>(&amp; multiple conditions)</td>
+<td>Assign reads a <em>gene</em> identity and <strong><em>count</em></strong></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
