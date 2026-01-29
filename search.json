@@ -179,7 +179,7 @@
     "href": "pages/sequencing.html#what-do-we-mean-by-sequencing",
     "title": "High-throughput sequencing and genomes",
     "section": "What do we mean by sequencing?",
-    "text": "What do we mean by sequencing?\n\n\nWhat does the term sequencing, like in “high-throughput sequencing”, generally refer to?   \n\nDetermining the sequence of DNA, RNA, or protein fragments.\nMost commonly, especially in “high-throughput” sequencing, it refers to DNA sequencing specifically.\n\n\n\nThis week and next, we will focus on DNA sequencing only, keeping in mind that:\n\nProtein sequencing involves completely different technologies\n\n\n\n\nRNA can be, and usually is, sequenced via DNA sequencing\n\n\nHow is that done and why?   \n\nRNA is usually reverse transcribed to DNA (cDNA) prior to sequencing.\nWhile it is becoming more feasible to directly sequence RNA molecules, RNA is an unstable molecule that is easily degraded and harder to sequence."
+    "text": "What do we mean by sequencing?\n\n\nWhat does the term sequencing, like in “high-throughput sequencing”, generally refer to?   \n\nDetermining the sequence of DNA, RNA, or protein fragments.\nMost commonly, especially in “high-throughput” sequencing, it refers to DNA sequencing specifically.\n\n\n\nThis week and next, we will focus on DNA sequencing, keeping in mind that:\n\nProtein sequencing involves completely different technologies\n\n\n\n\nRNA can be, and usually is, sequenced as DNA as well\n\n\nHow is that done and why?   \n\nRNA is usually reverse transcribed to DNA (cDNA) prior to sequencing.\nWhile it is becoming more feasible to directly sequence RNA molecules, RNA is an unstable molecule that is easily degraded and harder to sequence."
   },
   {
     "objectID": "pages/sequencing.html#overview-of-sequencing-technologies",
@@ -193,28 +193,28 @@
     "href": "pages/sequencing.html#sanger-sequencing",
     "title": "High-throughput sequencing and genomes",
     "section": "Sanger sequencing",
-    "text": "Sanger sequencing\n\nSanger sequencing almost always starts with PCR amplification of the target DNA region —\nas illustrated by Dr. Popp last week:\n\n\n\nTherefore, you must know something about the target sequence in advance to design primers"
+    "text": "Sanger sequencing\n\nSanger sequencing almost always starts with PCR amplification of the target DNA region —\nas illustrated by Dr. Popp last week:\n\n\n\n\n\n\n\nTherefore, to design primers, you must know something about the target sequence in advance — this can be highly limiting"
   },
   {
     "objectID": "pages/sequencing.html#sanger-sequencing-1",
     "href": "pages/sequencing.html#sanger-sequencing-1",
     "title": "High-throughput sequencing and genomes",
     "section": "Sanger sequencing",
-    "text": "Sanger sequencing\n\nSequencing itself is performed by synthesizing a new DNA strand with fluorescently-labeled nucleotides, using a different color for each base (A, C, G, T)\n\n\n\n\nThe final result is a chromatogram that can be “base-called”:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe entire human genome was sequenced with Sanger technology!\n\n\nHow many basepairs is that? Want to guess how much this cost?"
+    "text": "Sanger sequencing\n\nSequencing itself is performed by synthesizing a new DNA strand with fluorescently-labeled nucleotides, using a different color for each base (A, C, G, T)\n\n\n\n\nThe final result is a chromatogram that can be “base-called”:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe entire human genome was sequenced with Sanger technology!\n\n\nHow many basepairs is that? Want to guess how much it cost to do this?"
   },
   {
     "objectID": "pages/sequencing.html#sequencing-cost-through-time",
     "href": "pages/sequencing.html#sequencing-cost-through-time",
     "title": "High-throughput sequencing and genomes",
     "section": "Sequencing cost through time",
-    "text": "Sequencing cost through time\n\nhttps://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost"
+    "text": "Sequencing cost through time\n\n\n\n\n\n\nhttps://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost"
   },
   {
     "objectID": "pages/sequencing.html#present-day-sanger-applications",
     "href": "pages/sequencing.html#present-day-sanger-applications",
     "title": "High-throughput sequencing and genomes",
     "section": "Present-day Sanger applications",
-    "text": "Present-day Sanger applications\n\nBecause HTS has much higher throughput and is much cheaper per base, Sanger sequencing has become less widely used\n\n\n\nBut it is not obsolete, in part because high throughput isn’t always needed or even wanted"
+    "text": "Present-day Sanger applications\n\nBecause HTS has much higher throughput and is much cheaper per base, Sanger sequencing has become less widely used\nBut it is not obsolete, in part because high throughput isn’t always needed or even wanted"
   },
   {
     "objectID": "pages/sequencing.html#section",
@@ -228,7 +228,7 @@
     "href": "pages/sequencing.html#present-day-sanger-applications-1",
     "title": "High-throughput sequencing and genomes",
     "section": "Present-day Sanger applications",
-    "text": "Present-day Sanger applications\nSome present-day uses of Sanger sequencing include:\n\nTaxonomic identification of samples\nExamining variation among individuals or populations in one or a few candidate or marker genes"
+    "text": "Present-day Sanger applications\nSome present-day uses of Sanger sequencing include…\n\nTaxonomic identification of samples\nExamining genetic variation among individuals/populations\n\n…where using one or few marker or candidate genes can be sufficient"
   },
   {
     "objectID": "pages/sequencing.html#omics",
@@ -242,7 +242,7 @@
     "href": "pages/sequencing.html#the-main-omics-data-types",
     "title": "High-throughput sequencing and genomes",
     "section": "The main omics data types",
-    "text": "The main omics data types\n\n\n\n\n\n\n\n\nOmics type\nMolecule type\n\n\n\n\n\nGenomics\nDNA\n\n\n\nEpigenomics\nDNA modifications\nHigh-throughput sequencing (HTS)\n\n\nTranscriptomics\nRNA\n\n\n\nProteomics\nProteins\n\n\n\nMetabolomics\nMetabolites\n\n\n\n\n\n\n\n\nWhat does the -omics suffix mean?   \n\nThe “omics” suffix indicates the involvement of large-scale datasets — in the sense that, for example, “genomics” data typically spans much or all of the genome.\nWhile the boundaries can be fuzzy, sequencing a single gene in a single organism is not genomics, and running qPCR for a handful of genes is not transcriptomics."
+    "text": "The main omics data types\n\n\n\n\n\n\n\n\nOmics type\nMolecule type\n\n\n\n\n\nGenomics\nDNA\n\n\n\nEpigenomics\nDNA modifications\nHigh-throughput sequencing (HTS)\n\n\nTranscriptomics\nRNA\n\n\n\nProteomics\nProteins\n\n\n\nMetabolomics\nMetabolites\n\n\n\n\n\n\n\n\nWhat does the -omics suffix mean?   \n\nThe “omics” suffix indicates the involvement of large-scale datasets —\nfor example, “genomics” data typically spans much or all of the genome"
   },
   {
     "objectID": "pages/sequencing.html#the-main-omics-data-types-1",
@@ -256,42 +256,42 @@
     "href": "pages/sequencing.html#examples-of-hts-applications",
     "title": "High-throughput sequencing and genomes",
     "section": "Examples of HTS applications",
-    "text": "Examples of HTS applications\n\nWhole-genome assembly — for producing reference genomes\n\n\n\nTyping of SNPs and other sequence variants — for population genetics, GWAS, etc.\n\n\n\n\n16S Metabarcoding – for microbial community characterization\n\n\n\n\nRNA-Seq — for large-scale gene expression analysis\n\n\n\n\n\n\nDoes any of you work on or is planning to work on projects like this?"
+    "text": "Examples of HTS applications\n\nWhole-genome assembly — for producing reference genomes\n\n\n\nTyping of SNPs and other sequence variants — for population genetics, GWAS, etc.\n\n\n\n\nMetabarcoding – for microbial community characterization\n\n\n\n\nRNA-Seq — for large-scale gene expression analysis\n\n\n\n\n\n\nDoes any of you work on, or is planning to work on, projects like these?"
   },
   {
     "objectID": "pages/sequencing.html#examples-of-hts-applications-1",
     "href": "pages/sequencing.html#examples-of-hts-applications-1",
     "title": "High-throughput sequencing and genomes",
     "section": "Examples of HTS applications",
-    "text": "Examples of HTS applications\n\nIn each of of these applications:\n\nWhat part(s) of the genome are you sequencing?\nWho are you sequencing (how many individuals/species)?\nHow are the sequences used?\n\n\n\n\n\n\nWhole-genome assembly\n\n\nThe whole genome! 😃\nA single individual\nReads are “overlapped” into larger fragments (chromosomes if possible)"
+    "text": "Examples of HTS applications\n\nIn each of of these applications:\n\nWhat part(s) of the genome are you sequencing?\nWho are you sequencing (how many individuals/species)?\nHow are the sequences used?"
   },
   {
     "objectID": "pages/sequencing.html#examples-of-hts-applications-2",
     "href": "pages/sequencing.html#examples-of-hts-applications-2",
     "title": "High-throughput sequencing and genomes",
     "section": "Examples of HTS applications",
-    "text": "Examples of HTS applications\n\nIn each of of these applications:\n\nWhat part(s) of the genome are you sequencing?\nWho are you sequencing (how many individuals/species)?\nHow are the sequences used?\n\n\n\n\n\n\nTyping of SNPs and other sequence variants\n\n\nVaries! Can be the whole genome (“resequencing”), but also specific (e.g. exome) or random (GBS/RAD) regions\nMany individuals, which are compared\nFor each site & individual, the variant state (allele) is determined"
+    "text": "Examples of HTS applications\n\n\n\n\n\n\n\n\n\n\nAppl.\nWhat\nWho\nHow\n\n\n\n\nWhole-genome assembly\nThe whole genome! 😃\nA single individual\n“Overlap” reads into larger fragments\n\n\nVariants\n\n\n\n\n\n16S Metabarcoding\n\n\n\n\n\nRNA-Seq"
   },
   {
     "objectID": "pages/sequencing.html#examples-of-hts-applications-3",
     "href": "pages/sequencing.html#examples-of-hts-applications-3",
     "title": "High-throughput sequencing and genomes",
     "section": "Examples of HTS applications",
-    "text": "Examples of HTS applications\n\nIn each of of these applications:\n\nWhat part(s) of the genome are you sequencing?\nWho are you sequencing (how many individuals/species)?\nHow are the sequences used?\n\n\n\n\n\n\n16S Metabarcoding\n\n\nA specific locus (e.g., 16S rRNA gene for bacteria) – but across species!\nMany samples, which can be soil, water, gut contents, etc.\nSequences are assigned a taxonomic identity and then counted"
+    "text": "Examples of HTS applications\n\n\n\n\n\n\n\n\n\n\nAppl.\nWhat\nWho\nHow\n\n\n\n\nWhole-genome assembly\nThe whole genome! 😃\nA single individual\n“Overlap” reads into larger fragments\n\n\nVariants\nWhole genome or specific (e.g. exome) or random (GBS/RAD) regions\nMultiple individuals\nFor each site & individual, determine the variant state (allele)\n\n\n16S Metabarcoding\n\n\n\n\n\nRNA-Seq"
   },
   {
     "objectID": "pages/sequencing.html#examples-of-hts-applications-4",
     "href": "pages/sequencing.html#examples-of-hts-applications-4",
     "title": "High-throughput sequencing and genomes",
     "section": "Examples of HTS applications",
-    "text": "Examples of HTS applications\n\nIn each of of these applications:\n\nWhat part(s) of the genome are you sequencing?\nWho are you sequencing (how many individuals/species)?\nHow are the sequences used?\n\n\n\n\n\n\nRNA-Seq\n\nThe entire transcriptome"
+    "text": "Examples of HTS applications\n\n\n\n\n\n\n\n\n\n\nAppl.\nWhat\nWho\nHow\n\n\n\n\nWhole-genome assembly\nThe whole genome! 😃\nA single individual\n“Overlap” reads into larger fragments\n\n\nVariants\nWhole genome or specific (e.g. exome) or random (GBS/RAD) regions\nMultiple individuals\nFor each site & individual, determine the variant state (allele)\n\n\n16S Metabarcoding\nA specific locus (e.g. 16S)\nMultiple samples —can be soil, gut contents, etc.\nAssign reads a taxonomic identity and count\n\n\nRNA-Seq"
   },
   {
-    "objectID": "pages/sequencing.html#illustration-of-hts",
-    "href": "pages/sequencing.html#illustration-of-hts",
+    "objectID": "pages/sequencing.html#examples-of-hts-applications-5",
+    "href": "pages/sequencing.html#examples-of-hts-applications-5",
     "title": "High-throughput sequencing and genomes",
-    "section": "Illustration of HTS",
-    "text": "Illustration of HTS\nTBA"
+    "section": "Examples of HTS applications",
+    "text": "Examples of HTS applications\n\n\n\n\n\n\n\n\n\n\nAppl.\nWhat\nWho\nHow\n\n\n\n\nWhole-genome assembly\nThe whole genome! 😃\nA single individual\n“Overlap” reads into larger fragments\n\n\nVariants\nWhole genome or specific (e.g. exome) or random (GBS/RAD) regions\nMultiple individuals\nFor each site & individual, determine the variant state (allele)\n\n\n16S Metabarcoding\nA specific locus (e.g. 16S)\nMultiple samples —can be soil, gut contents, etc.\nAssign reads a taxonomic identity and count\n\n\nRNA-Seq\nTranscriptome\nMultiple samples across different conditions/treatments\nAssign reads a gene identity and counted"
   },
   {
     "objectID": "pages/sequencing.html#the-main-hts-technologies",
@@ -333,7 +333,7 @@
     "href": "pages/sequencing.html#error-rates",
     "title": "High-throughput sequencing and genomes",
     "section": "Error rates",
-    "text": "Error rates\nA read’s sequence may differ from the actual DNA sequence it came from:\n\nThe read can have base-calling errors, missing bases, or extra bases\n\n\n\nWhen the base calling software is not confident, it can also return Ns (= undetermined)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhen you receive HTS reads, base calls have typically been made already.\nEvery base call is accompanied by a quality score, representing the estimated error probability."
+    "text": "Error rates\nA read’s sequence may differ from the actual DNA sequence it originated from:\n\nThe read can have base-calling errors, missing bases, or extra bases\n\n\n\nWhen the base calling software is not confident, it can also return Ns (= undetermined)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhen you receive HTS reads, base calls have typically been made already.\nEvery base call is accompanied by a quality score, representing the estimated error probability."
   },
   {
     "objectID": "pages/sequencing.html#correcting-sequencing-errors",
@@ -347,35 +347,35 @@
     "href": "pages/sequencing.html#libraries-and-library-prep",
     "title": "High-throughput sequencing and genomes",
     "section": "Libraries and library prep",
-    "text": "Libraries and library prep\n\nIn a HTS context, a “library” is a collection of DNA fragments ready for sequencing.\n\n\n\n\nThese fragments can number in the millions or billions and are often randomly generated from input like genomic DNA:\n\n\n\n\n\n\n\n\n\nAn overview of the library prep procedure. This is typically done for you by a sequencing facility or company."
+    "text": "Libraries and library prep\n\nIn a HTS context, a “library” is a collection of DNA fragments ready for sequencing\n\n\n\n\nThese fragments can number in the millions or billions and are often randomly generated from input like genomic DNA:\n\n\n\n\n\n\n\n\n\nAn overview of the library prep procedure. This is typically done for you by a sequencing facility or company."
   },
   {
     "objectID": "pages/sequencing.html#libraries-and-library-prep-1",
     "href": "pages/sequencing.html#libraries-and-library-prep-1",
     "title": "High-throughput sequencing and genomes",
     "section": "Libraries and library prep",
-    "text": "Libraries and library prep\n\nAfter library prep, each DNA fragment is flanked by several types of short sequences that together make up the “adapters”:\n\n\n\n\n\n\n\n\n\n\n\nMultiplexing!\n\n\nAdapters can include “indices” or “barcodes” to identify individual samples, so many samples can be combined (multiplexed) into a single library."
+    "text": "Libraries and library prep\n\nAfter library prep, each DNA fragment is flanked by several types of short sequences that together make up the “adapters”:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMultiplexing!\n\n\nAdapters can include “indices” or “barcodes” to identify individual samples, so many samples can be combined (multiplexed) into a single library"
   },
   {
     "objectID": "pages/sequencing.html#paired-end-vs.-single-end-sequencing",
     "href": "pages/sequencing.html#paired-end-vs.-single-end-sequencing",
     "title": "High-throughput sequencing and genomes",
     "section": "Paired-end vs. single-end sequencing",
-    "text": "Paired-end vs. single-end sequencing\n\nDNA fragments can be sequenced from both ends as shown below —\nthis is called “paired-end” (PE) sequencing:\n\n\n\n\n\n\n\n\n\nWhen sequencing is instead single-end (SE), no reverse read is produced:"
+    "text": "Paired-end vs. single-end sequencing\n\nFragments can be sequenced from both ends as shown below —\nthis is called “paired-end” (PE) sequencing:\n\n\n\n\n\n\n\n\n\nWhen sequencing is instead single-end (SE), no reverse read is produced:"
   },
   {
     "objectID": "pages/sequencing.html#fragment-size-variation",
     "href": "pages/sequencing.html#fragment-size-variation",
     "title": "High-throughput sequencing and genomes",
     "section": "Fragment size variation",
-    "text": "Fragment size variation\n\nDNA fragment size varies – by design and because of limited precision in size selection\n\n\n\n\n\n\n\n\nWhat happens when it’s shorter than the length of a single F or R read?   \n\n“Adapter read-through”: the final bases in the resulting reads will consist of adapter sequence, which should be removed before downstream analysis"
+    "text": "Fragment size variation\n\nDNA fragment size varies – by design and because of limited precision in size selection\n\n\n\n\n\n\n\n\nWhat happens when a fragment is shorter than the length of a single F or R read?   \n\n“Adapter read-through”: the final bases in the resulting reads will consist of adapter sequence, which should be removed before downstream analysis"
   },
   {
     "objectID": "pages/sequencing.html#fragment-size-variation-1",
     "href": "pages/sequencing.html#fragment-size-variation-1",
     "title": "High-throughput sequencing and genomes",
     "section": "Fragment size variation",
-    "text": "Fragment size variation\n\nDNA fragment size varies – by design and because of limited precision in size selection\n\n\n\n\n\n\n\n\nWhat happens when it’s shorter than the combined F + R read length?   \n\nOverlapping reads (this can be useful!):"
+    "text": "Fragment size variation\n\nDNA fragment size varies – by design and because of limited precision in size selection\n\n\n\n\n\n\n\n\nWhat happens when a fragment is shorter than the combined F + R read length?   \n\nOverlapping reads (this can be useful!):"
   },
   {
     "objectID": "pages/sequencing.html#how-illumina-sequencing-works",
@@ -452,21 +452,21 @@
     "href": "pages/sequencing.html#and-enormous-growth-of-genomes-in-databases",
     "title": "High-throughput sequencing and genomes",
     "section": "And enormous growth of genomes in databases",
-    "text": "And enormous growth of genomes in databases\n\n\n Konkel and Slot (2023)"
+    "text": "And enormous growth of genomes in databases\n\n\n\n\n\n\n Konkel and Slot (2023)"
   },
   {
     "objectID": "pages/sequencing.html#genome-assemblies",
     "href": "pages/sequencing.html#genome-assemblies",
     "title": "High-throughput sequencing and genomes",
     "section": "Genome assemblies",
-    "text": "Genome assemblies\n\n\nWith increasing usage & quality of long-read HTS, assemblies are getting better and better\nChromosome-level assemblies require additional technologies (e.g., Hi-C)\nMany assemblies instead consist of –often 1000s of– fragments (contigs and scaffolds)\n\n\n\n\n\n\n\n\n\n\nHow is this data stored?\n\n\nBoth genome assemblies and annotations are typically saved in a single text file each — we’ll explore some of these files in tomorrow’s lab."
+    "text": "Genome assemblies\n\n\nWith increasing usage & quality of long-read HTS, assemblies are getting better and better\nStill, many assemblies instead consist of –often 1000s of– fragments (contigs and scaffolds)\n\n\n\n\n\n\n\n\n\n\nHow is this data stored?\n\n\nBoth genome assemblies and annotations are typically saved in a single text file each — we’ll explore some of these files in tomorrow’s lab."
   },
   {
     "objectID": "pages/sequencing.html#recap",
     "href": "pages/sequencing.html#recap",
     "title": "High-throughput sequencing and genomes",
     "section": "Recap",
-    "text": "Recap\nYou’ve learned:\n\nThat high-throughput sequencing (HTS) enables large-scale DNA sequencing\nHow short-read and long-read HTS have different strengths and weaknesses\nAbout libraries and the technology underlying short-read sequencing\n\n\n\nThat reference genomes are essential for many HTS applications"
+    "text": "Recap\nYou’ve learned:\n\nThat high-throughput sequencing (HTS) enables DNA sequencing at much larger scales than was previously possible\nHow short-read and long-read HTS have different strengths and weaknesses\nAbout libraries and the technology underlying short-read sequencing\n\n\n\nThat reference genomes are essential for many HTS applications"
   },
   {
     "objectID": "pages/sequencing.html#the-garrigós-et-al.-2025-dataset",
@@ -487,7 +487,7 @@
     "href": "pages/sequencing.html#next-weeks-content",
     "title": "High-throughput sequencing and genomes",
     "section": "Next week’s content",
-    "text": "Next week’s content\n\nIn the lecture, you will learn about RNA-Seq, the state-of-the-art transcriptomics method\n\n\n\nIn the lab, you will perform differential gene expression analysis on the Culex pipiens RNA-Seq dataset"
+    "text": "Next week’s content\n\nIn the lecture, you will learn how RNA-Seq is used to study gene expression at scale\n\n\n\nIn the lab, you will perform differential gene expression analysis on the Culex pipiens RNA-Seq dataset"
   },
   {
     "objectID": "pages/sequencing.html#references",
