@@ -20,18 +20,18 @@ website:
         menu: 
           - text: "Lecture: High-throughput Sequencing & Genomes"
             href: pages/sequencing.qmd
-          - text: "Lab part 1: Computational Infrastructure"
+          - text: "Lab part 1: Computing Environment"
             href: pages/infrastructure.qmd
           - text: "Lab part 2: Working with genome and HTS Data"
             href: pages/data.qmd
       - text: "Week 4: RNA-seq"
         menu: 
+          - text: "R Homework"
+            href: pages/r_homework.qmd
           - text: "Lecture: RNA-seq"
             href: pages/rnaseq.qmd
           - text: "Lab: Differential expression analysis"
             href: pages/DE.qmd
-      - text: "R Homework"
-        href: pages/r_homework.qmd
     right:
       - text: About
         href: about.qmd

@@ -1,7 +1,7 @@
 ---
-title: "Computational Infrastructure<br>for Genomics Analyses"
+title: "Computing Environment for HTS Analysis"
 subtitle: "Week 3 lab -- part 1"
-pagetitle: "Computational Infrastructure"
+pagetitle: "Computing Environment"
 date: 2026-01-30
 author:
   - name: Jelmer Poelstra
@@ -28,72 +28,50 @@ bibliography: ../references.bib
 
 ### Today's lab
 
-- You will first learn about a typical "computational infrastructure"
-  to analyze high-throughput sequencing (HTS) data -- **this page, part I**.
+In today's lab:
 
-- You will then use that infrastructure to start the exploration of an HTS dataset.
+- You will first learn about what kind of computing environment is commonly
+  used for analyzing high-throughput sequencing (HTS) data -- **this page, part I**.
+
+- Then, you'll work in this environment to explore an HTS dataset.
   You'll check out HTS read and reference genome files,
   and perform read quality control -- [**part II**](data.qmd).
 
 ### Goals for this part
 
-- Learn what a typical computational infrastructure for genomics analyses looks like
-- Learn the basics of supercomputers, and using the Ohio Supercomputer Center (OSC)
-- Become familiar with a text editor (VS Code)
-- Take your first steps in the command-line interface of the Unix shell
+1. Learn what computing environment is commonly used for genomics analyses
+2. Understand the basics of supercomputers
+3. Learn how to access Ohio Supercomputer Center (OSC) resources
+4. Take your first steps in the command-line interface of the Unix shell
 
-## Computational infrastructure overview
+## Overview of the computing environment for HTS analysis
 
-Due in large part to the amount of data involved,
-a laptop or desktop computer is often not sufficient to work with HTS data.
-Additionally, most of the specialized programs that help you analyze your data
+Due in large part to *the amount of data involved*,
+a personal computer is often not sufficient to work with HTS data.
+Additionally, most of the *specialized programs* that help you analyze your data
 can only be run through a "command-line interface",
 in which you type commands rather than point-and-click.
 
-For these reasons,
-a typical computational infrastructure -the computer hardware and software-
-to do genomics analyses involves:
+Therefore, a typical computing environment
+-the computer hardware and software- for HTS data analysis includes:
 
-1.  A **supercomputer**[^1] -- in our case, the Ohio Supercomputer Center (OSC)
-2.  A **text editor** -- in our case, VS Code
-3.  The **Unix shell** (terminal) and command-line programs that run in it
-4.  **R** (or perhaps Python) for statistical analysis and visualization.
+1. A **supercomputer** --- here, the Ohio Supercomputer Center (OSC)
+2. The **Unix shell** (terminal) and command-line programs that run in it
+3. **R** (or Python) for statistical analysis and visualization.
 
-[^1]: Cloud computing is an alternative, but won't be covered here.
-
-Today, you will see the first three of these components in action.
-In this first part, you'll get a little familiar with them,
+Today, you will see the first two of these components in action.
+In today's first part, you'll build some familiarity with them,
 and in [the next part](./data.qmd),
-you'll apply what you learned to reference genome and HTS read data.
-(In next week's lab,
-we will cover the fourth item in the context of RNA-Seq differential expression
-analysis.)
-
-::: {.callout-warning collapse="true"}
-#### Side note: "I don't think I like coding. Can I avoid all of this?" *(Click to expand)*
-
-If you will often be doing HTS/genomics projects like the ones mentioned above,
-it's hard to avoid using this (kind of) infrastructure.
-But especially if you're only doing a single project like this,
-you might avoid it by:
-
-- Outsourcing part of the analysis:
-  companies or service cores can often do the more standardized,
-  compute-heavy parts for you
-- Trying a platform like [***Galaxy***](https://usegalaxy.org),
-  which has a web browser interface and doesn't require coding
-
-Finally, generative AI tools are becoming increasingly capable of
-writing code for you based on your instructions,
-and may spurn additional no-code or low-code solutions in the future.
-:::
+you'll use them to explore reference genome and HTS read data.
+(In next week's lab, we will cover the third item in the context of
+RNA-Seq differential expression analysis.)
 
 ## The Ohio Supercomputer Center (OSC)
 
 ### Introduction to supercomputers
 
 A **supercomputer** (also known as a "**cluster**")
-consists of many computers that are connected by a high-speed network,
+consists of many computers that are connected by a high-speed network
 and can be accessed remotely by its users.
 You can think of it simply as a *network of computers* ---
 with individual computers called "**nodes**".
@@ -105,23 +83,23 @@ Supercomputers provide two main types of resources:
 
 Why might you need a supercomputer?
 
-- Often, your HTS **dataset is too large** to be handled efficiently,
+- Often, your HTS *dataset is too large* to be handled efficiently,
   or at all, by a laptop/desktop computer
-- To **speed up** analyses by using more computing power and/or
+- To *speed up* analyses by using more computing power and/or
   running them in parallel
-- It's also a great place to **store** large amounts of data ---
-  and genomics data is often very large
+- It's also a great place to *store large amounts of data* ---
+  and HTS data is often very large
 
 ### Introduction to OSC
 
 ![](../img/osc_logo.png){fig-align="center" width="65%" fig-alt="The Ohio Supercomputer Center logo." .lightbox}
 
 The **Ohio Supercomputer Center (OSC)** provides computing resources to researchers
-and others across Ohio.
+and others across Ohio^[
 Research usage is charged at subsidized rates, and in our case at CFAES,
-these costs are absorbed at the college level.
-
-This is what "Cardinal", one of the OSC supercomputers, physically looks like:
+these costs are absorbed at the college level.].
+It currently has three supercomputers --
+this is what "Cardinal", one of those, physically looks like:
 
 ![_The Cardinal OSC cluster: it's just some cabinets with many connected computers inside!_](../img/cardinal_photo.jpeg){fig-align="center" width="55%" fig-alt="A photo of the Cardinal OSC cluster" .lightbox}
 
@@ -129,42 +107,49 @@ This is what "Cardinal", one of the OSC supercomputers, physically looks like:
 
 You can think of a supercomputer as having three main parts:
 
-- **Login Nodes**: The handful of computers users end up on after logging in
+- **Login Nodes**: The handful of computers that you end up on after logging in
 - **Compute Nodes**: The many computers you can reserve to run your analyses
-- **File Systems**: Where files are stored (these are shared between the OSC clusters)
+- **File Systems**: Where files are stored^[
+   These are shared between the OSC supercomputers,
+   so you can access the same files from each one.]
 
 ![_The structure of a supercomputer with three main components: file systems, login nodes, and compute nodes_ ](../img/cluster_overview_ed.png){fig-align="center" width="85%" fig-alt="A diagram showing the structure of a supercomputer with three main components: file systems, login nodes, and compute nodes" .lightbox}
 
-### The OSC OnDemand web portal
+## The OSC OnDemand web portal
 
-{{< fa user-edit >}} Go to <https://ondemand.osc.edu> and use the
-username + password login option on the left-hand side to log in with your OSC
-(not OSU!) credentials.
-
+{{< fa user-edit >}} Go to <https://ondemand.osc.edu>.
+Use the username + password login option on the left-hand side to log in with
+your OSC (not OSU!) credentials.
 Once logged in, you should see a landing page similar to the one below:
 
 ![_The OSC OnDemand landing page_](../img/ondemand_home.png){fig-align="center" width="95%" fig-alt="A screenshot of the OSC OnDemand landing page" .lightbox}
 
-We will now go through some of the dropdown menus in the **blue bar along the top**.
+Let's go through some of the dropdown menus in the **blue bar along the top**.
 
-#### Files menu
+### Files menu
 
-Hovering over the **Files** dropdown menu gives a list of folders you have access to.
-If your account is brand new, you should only see three listed:
+Hovering over the **Files** dropdown menu gives a list of "top-level" folders
+you have access to:
 
-1. A **Home** folder for miscellaneous personal files (starts with `/users/`)
-2. The `PAS2880` project's "**project**" folder for permanent storage (`/fs/ess/PAS2880`)
-3. The `PAS2880` project's "**scratch**" folder for temporary storage (`/fs/scratch/PAS2880`) 
+![The Files dropdown menu. You will see different folders listed.](../img/ondemand-files-dropdown.png){fig-align="center" width="28%" fig-alt="A screenshot of the options in the OSC OnDemand Files dropdown menu." .lightbox}
 
-{{< fa user-edit >}} Click on the `PAS2880` scratch folder, `/fs/scratch/PAS2880`.
-You should see the folders and files present there, 
-and click on folders to explore their contents.
-Click on the `ENT6703` folder, which we'll be using for these labs,
-and you should see the following:
+If your account is brand new, you should only see three folders listed,
+two of which are related to the OSC project we are using in these labs,
+which is called `PAS2880`:
+
+1. **Home Directory** -- for miscellaneous personal files
+3. `/fs/scratch/PAS2880` -- The "**scratch**" folder for temporary storage for project `PAS2880`
+2. `/fs/ess/PAS2880` -- The "**project**" folder for permanent storage for project `PAS2880`
+
+Click on the `PAS2880` scratch folder, `/fs/scratch/PAS2880`:
+you should see the folders and files present there, 
+and be able to click on folders to explore their contents.
+Then, click on the `ENT6703` folder, which we'll be using for these labs,
+and you should see something like the following:
 
 ![_The OnDemand file browser_](../img/ondemand_files_PAS2880.png){fig-align="center" width="95%" fig-alt="A screenshot of the OSC OnDemand file browser." .lightbox}
 
-This interface is **much like the file browser on your own computer**,
+This interface is *much like the file browser on your own computer*,
 so you can create, delete, move, copy files and folders.
 Additionally, you can upload (from your computer to OSC) and download
 (from OSC your computer) files -- see the buttons across the top.
@@ -173,7 +158,7 @@ Additionally, you can upload (from your computer to OSC) and download
 button at the top.
 Give it the *exact same name as your OSC username*,
 including any capitalization.
-_(I'll refer to this folder as your **personal folder** from now on.)_
+_(I'll refer to this folder as your **personal** folder from now on.)_
 
 ::: {.callout-tip appearance="simple"}
 *If in doubt, you can see what your username is by looking at the right side of the blue top bar:*
@@ -191,11 +176,15 @@ _(I'll refer to this folder as your **personal folder** from now on.)_
    How do you interpret this notation:
    what do the forward slashes <kbd>/</kbd> indicate,
    and what does each part in between represent?
-   You can click back-and-forth to see how the path changes.
+   _(It may help to click back-and-forth between folders to see how the path changes.)_
+   Does this seem fundamentally different from the file system on your own computer?
    
    <details><summary>*Click for the solution*</summary>
-   The forward slashes <kbd>/</kbd> separate folder in a path.
-   Each part in between represents a folder name.
+   The forward slashes <kbd>/</kbd> separate folders in a path.
+   Each part in between, then, represents a folder.
+   
+   The path is hierarchical and you should read it from left (top-level folder)
+   to right (subfolders):
    For example, in `/fs/scratch/PAS2880/ENT6703`:
    
    - `/fs` is a top-level folder -- you can always distinguish a top-level folder
@@ -204,10 +193,10 @@ _(I'll refer to this folder as your **personal folder** from now on.)_
    - inside that is the `PAS2880` folder
    - inside that is the `ENT6703` folder
    
-   Taking a step back, the OSC file system is a single hierarchical structure.
-   File systems on personal computers are structured very similarly,
-   though in Windows, among some other differences,
-   backslashes <kbd>\</kbd> are used instead of forward slashes <kbd>/</kbd>.
+   File systems on personal computers are structured very similarly.
+   But on Windows, among some other differences,
+   backslashes <kbd>\\</kbd> are used instead of forward slashes <kbd>/</kbd>
+   to separate folders.
    
    </details>
    
@@ -216,7 +205,7 @@ _(I'll refer to this folder as your **personal folder** from now on.)_
    ![](../img/paths2.png){fig-align="center" width="60%" fig-alt="A diagram showing the hierarchical structure of a file system with folders and subfolders." .lightbox}
    </details>
    
-3. If user `miranda` made a folder inside the `ENT6703` folder,
+3. If someone made a folder `miranda` inside the `ENT6703` folder,
    what would be the path to that folder?
    
    <details><summary>*Click for the solution*</summary>
@@ -224,108 +213,33 @@ _(I'll refer to this folder as your **personal folder** from now on.)_
    </details>
 :::
 
-::: {.callout-note collapse="true"}
-#### Side note: OSC System Status overview*(click to expand)*
+### Interactive Apps
 
-In the "**Clusters**" dropdown menu,
-click on the item at the bottom, "**`System Status`**":
+You can access a bunch of software via the **Interactive Apps** dropdown menu.
+In next week's lab, you will use RStudio ("RStudio Server") from this menu.
+
+![Some of the options at the bottom of the Interactive Apps dropdown menu, such as RStudio.](../img/ondemand_vscode_select.png){fig-align="center" width="24%" fig-alt="A screenshot of the options in the OSC OnDemand Interactive Apps dropdown menu." .lightbox}
+
+### Clusters menu: Shell access
+
+We'll now open a Unix shell, which you'll get introduced to in the next section.
+Under the **Clusters** dropdown menu,
+you can access a Unix shell on each of the three OSC supercomputers (clusters) --
+Ascend, Cardinal, or Pitzer:
 
 ![_The Clusters dropdown menu_](../img/ondemand_systemstatus_select.png){fig-align="center" width="40%" fig-alt="A screenshot of the options in the OSC OnDemand Clusters dropdown menu." .lightbox}
 
+Click on "Cardinal Shell Access",
+which will open a new browser tab with a black terminal window.
+
+::: {.callout-note collapse="true"}
+#### Side note: System Status*(click to expand)*
+
+You can also check out the **System Status** page from the Clusters menu.
 This page shows an overview of the live, current usage of the two clusters --
 just to give you an idea of the scale of the supercomputer center and its usage.
 
 ![A screenshot of the "System Status" page showing live cluster usage.](../img/ondemand_systemstatus.png){fig-align="center" width="90%" fig-alt="A screenshot of the OSC Ondemand System Status page showing live cluster usage." .lightbox}
-:::
-
-#### Interactive Apps
-
-You can access a bunch of software via the **Interactive Apps** dropdown menu --
-go ahead and click on the "Code Server" button --
-that will allow us to use the VS Code text editor on OSC, as explained below.
-
-![](../img/ondemand_vscode_select.png){fig-align="center" width="24%" fig-alt="A screenshot of the options in the OSC OnDemand Interactive Apps dropdown menu." .lightbox}
-
-## The VS Code text editor
-
-### What is VS Code?
-
-VS Code is basically a fancy text editor,
-with an integrated terminal that runs a Unix shell.
-In these labs:
-
-- VS Code will be our editor for Unix shell code (this week)
-- RStudio will be our editor for R (next week's lab)
-
-### Starting a VS Code session
-
-Interactive Apps like VS Code and RStudio **run on compute nodes** (not login nodes).
-Because compute nodes always need to be "reserved" to be used,
-you have to fill out a form and specify the following details:
-
-- The **Cluster** we want to use: `pitzer`
-- The **Account**, the OSC Project to be billed for the compute node usage: `PAS2880`
-- The **Number of hours** we want to make a reservation for: `4`
-- The **Working Directory** (starting point) for the program:
-  `/fs/scratch/PAS2880/ENT6703`
-- [The **App Code Server version**: `4.8.3` (this should be the only available option)]{style="color:#969696"}
-
-![This is how you should fill out the form to start a VS Code session](../img/ondemand_vscode_form.png){fig-align="center" width="65%" fig-alt="A screenshot of OSC OnDemand VS Code form." .lightbox}
-
-Click `Launch` and you'll be sent to the _My Interactive Sessions_ page
-with a card for your job at the top.
-First, your job may be *Queued* for some seconds
-(i.e., waiting for computing resources to be assigned to it),
-but it should soon switch to *Starting* and then to *Running*:
-  
-![](../img/ondemand_vscode_running2.png){fig-align="center" width="75%" fig-alt="A screenshot of the OSC OnDemand page shown when the Code Server job has started running." .lightbox}
-
-Once the blue **Connect to VS Code** button appears,
-click that and VS Code will open in a new browser tab.
-When VS Code opens, you may get these two pop-ups (and possibly some others):
-
-::: columns
-::: {.column width="52%"}
-![Here, click "Yes, ..." and check the "Trust" box](../img/vscode-trust2.png){fig-align="center" width="85%" fig-alt="A screenshot of a popup you may get when first opening a folder in VS Code." .lightbox}
-:::
-
-::: {.column width="48%"}
-![Here, click "Don't Show Again"](../img/vscode-git.png){fig-align="center" width="85%" fig-alt="A screenshot of a popup you may get when first opening VS Code." .lightbox}
-:::
-:::
-
-### The VS Code User Interface
-
-![An annotated overview of the VS Code User Interface](../img/vscode-welcome_ed.png){fig-align="center" width="80%" fig-alt="An annotated screenshot of the VS Code user interace" .lightbox}
-
-#### Editor pane and "Get Started" document
-
-The main part of the VS Code is the **editor pane**.
-Here, you can open files like scripts and other types of text files, and images.
-Right now, you should see a Get Started page --
-you don't have to go through any steps that may be suggested there.
-  
-#### Side bars
-
-The **Activity Bar** (narrow side bar) on the far left has:
-
-- A {{< fa bars >}} ("hamburger menu"),
-  which has menu items like `File` that you often find in a top bar
-- A {{< fa cog >}} (cog wheel icon) in the bottom,
-  through which you can mainly access *settings*
-- Icons to toggle **(wide) Side Bar** options --
-  but we'll only use the default selection, the *Explorer* (file browser)
-
-#### Terminal (with a Unix shell)
-
-**Open a terminal** by clicking  {{< fa bars >}}   =\> `Terminal` =\> `New Terminal`.
-We'll start using this in the next section!
-
-::: exercise
-#### {{< fa user-edit >}} Exercise: Try a few color themes
-
-1.  Access the "Color Themes" option by clicking <i class="fa fa-cog"></i>   =\> `Color Theme`.
-2.  Try out a few themes and see what you like!
 :::
 
 ## The Unix shell
@@ -335,8 +249,8 @@ We'll start using this in the next section!
 A computer's **shell** is an interface inside a Terminal window that allows you
 to interact with your computer by typing commands.
 More specifically,
-the **Unix shell** is the shell of Unix-based operating systems,
-which include Mac and Linux (but not Windows).
+the **Unix shell** is the shell of Unix-based operating systems
+(Mac and Linux but not Windows).
 Supercomputers like OSC run on Linux,
 so the default shell here -and for scientific computing in general- is a Unix shell.
 
@@ -356,6 +270,30 @@ But there are other good reasons to use the shell, including:
   
 ### First steps in the Unix shell
 
+#### The terminal interface
+
+The terminal interface you see after opening the Cardinal Shell Access
+should look something like this:
+
+![](../img/ondemand_shell2.png){fig-align="center" width="95%" fig-alt="A screenshot of the OSC OnDemand shell interface." .lightbox}
+
+OSC is printing some welcome messages and information about your account.
+At the bottom is the *prompt*, where you can type commands.
+To start with:
+
+- I will go ahead and _clear the screen_, so the prompt is at the top,
+  and will continue to occasionally do that throughout this session.
+  The screen can be cleared with <kbd>Ctrl</kbd> + <kbd>L</kbd> (both Windows and Mac).
+
+- In the top-right corner of the terminal window is a `Themes:` dropdown menu,
+  where you can select a different color scheme for the terminal.
+  I prefer light themes and will select `GitHub`; you may choose whatever you like.
+
+With a light theme and a cleared screen,
+the terminal window should now look something like this:
+
+![](../img/shell-light.png){fig-align="center" width="95%" fig-alt="A screenshot of the OSC OnDemand shell interface." .lightbox}
+
 #### The shell prompt
 
 Inside your terminal, the "prompt" indicates that the shell is ready for a command.
@@ -363,35 +301,34 @@ Your prompt at OSC should show the following pieces of information:
 
 `[<username>@<node-name> <current-folder>]$`
 
-For example, below, user `jelmer` is on node `p0080` in folder `ENT6703`:
+For example, below, user `jelmer` is on node `cardinal-login01` in folder `~`
+(the tilde `~` is shorthand for the user's home folder):
 
 ``` bash-in-nocolor
-[jelmer@p0080 ENT6703]$ 
+[jelmer@cardinal-login01 ~]$ 
 ```
 
-You type commands **after the dollar sign** `$`,
-and then press <kbd>Enter</kbd> to execute them.
-When it has finished executing,
-you'll get your prompt back and can type a new command.
+To use the shell, you type a command **after the dollar sign** `$`,
+and then press <kbd>Enter</kbd> to execute it.
+When it has finished running, you'll get your prompt back and can type a new command.
+*Easy!* 😃
 
 ::: callout-tip
 #### How shell code is shown on this website
 
 - The **pale gray boxes** like the ones shown above are used to show the commands
-  you should type.
+  you should type
 - From now on, the prompt itself (`[...]$`) won't be shown,
-  only the commands you type.
-  This saves space and allows you to copy-paste code from the boxes
-  (but I recommend typing!).
+  only the commands you type
 - **Darker gray boxes** (with italic text, below the boxes with commands)
-  show the *output* of commands.
+  show the *output* of commands
 :::
 
 #### A few simple commands: `date`, `whoami`, `pwd`
 
 The Unix shell comes with hundreds of "commands":
-small programs that perform specific actions.
-(If you're familiar with R or Python, a Unix command is like an R/Python function.)
+small programs that perform specific actions
+(if you've used R, a Unix command is like an R function).
 Let's start with a few simple commands:
 
 - The `date` command prints the current date and time:
@@ -400,7 +337,7 @@ Let's start with a few simple commands:
   date
   ```
   ```bash-out
-  Fri Jan 26 14:31:51 EST 2024
+  Fri Jan 30 14:31:51 EST 2026
   ```
 
 - The `whoami` (who-am-i) command prints your username:
@@ -412,26 +349,27 @@ Let's start with a few simple commands:
   jelmer
   ```
 
-- The `pwd` -Print Working Directory- command prints the "path" (location) of
-  the folder you are currently located in:
+- The `pwd` -Print Working Directory- command prints the path of
+  the folder you are currently located in --
+  yours will be different than mine.
 
   ```bash
   pwd
   ```
   ``` bash-out
-  /fs/scratch/PAS2880/ENT6703/jelmer
+  /users/PAS0471/jelmer
   ```
 
 All those commands provided us with some output.
 That output was **printed to screen**,
-which is the default behavior for nearly every Unix command.
+which is the default behavior for most Unix commands.
 
 ::: callout-note
 #### Some terminology
 
-- Recall that "directory" / "dir" is just a synonym for "folder" --
-  we'll use "**dir**" from now on
-- When working in a Unix shell, you are always "in" a specific directory,
+- "Directory" or "dir" for short is just a synonym for "folder" --
+  we'll mostly use "**dir**" from now on
+- When working in a Unix shell, you are always "in" a specific dir,
   which is called your **working dir**
 - Recall from earlier that a "**path**", such as that output by `pwd`,
   specifies the location of a file or dir in a computer's file system
@@ -448,11 +386,11 @@ But many commands perform an **action** other than providing information.
 For example, you can use the command **`cd`** to Change Directory,
 i.e. change your working dir.
 
-Let's use `cd` to move to another dir by specifying the *path*
+Let's use `cd` to navigate to another dir by specifying the *path*
 to that directory after the `cd` command:
 
 ```bash
-cd /fs/scratch/PAS2880/ENT6703/share
+cd /fs/scratch/PAS2880/ENT6703/data
 ```
 
 Note that `cd` had **no output** at all.
@@ -463,7 +401,7 @@ checking the working directory again with `pwd`:
 pwd
 ```
 ```bash-out
-/fs/scratch/PAS2880/ENT6703/share
+/fs/scratch/PAS2880/ENT6703/data
 ```
 
 ::: callout-note
@@ -471,11 +409,11 @@ pwd
 :::
 
 In more abstract terms, you provided `cd` with an **argument** above,
-namely the path of the dir to move to.
-Arguments generally tell commands what file or directory to operate on.
+namely the path of the dir to navigate to.
+*Arguments generally tell commands what file or directory to operate on*.
 
 So, `cd` gives no output when it succesfully changed the working directory.
-But let's also see what happens when it does not succeed — it gives an error:
+But let's also see what happens when it does not succeed — an error appears:
 
 ```bash
 cd /fs/Scratch/PAS2880
@@ -484,11 +422,12 @@ cd /fs/Scratch/PAS2880
 bash: cd: /fs/Scratch/PAS2880: No such file or directory
 ```
 
-<details><summary>{{< fa comments >}} What was the problem with the path we specified? *(Click to see the answer)*</summary>
+<details><summary>{{< fa comments >}} What was the problem with the path we specified? Does that surprise you? *(Click to see the answer)*</summary>
 
 We used a capital S in `/Scratch/` — this should have been `/scratch/`.
 
-Everything in the shell is **case-sensitive**, including commands and file names.
+This hints at the fact that everything in the shell is **case-sensitive**,
+including commands and file names.
 So if a directory is called `scratch`, typing `Scratch` will not work!
 </details>
 
@@ -503,7 +442,7 @@ by default those present in your current working dir:
 ls
 ```
 ``` bash-out
-data  README.md
+fastq  meta  README.md  ref
 ```
 
 ::: {.callout-tip collapse="true"}
@@ -512,11 +451,11 @@ data  README.md
 The `ls` output shown above does not show the different colors you
 should see in your shell, where:
 
-- Entries in **[blue]{style="color: #0328fc"}** are directories (like `data` and `metadata` above)
+- Entries in **[blue]{style="color: #0328fc"}** are directories (like `fastq` and `meta` above)
 - Entries in **black** are regular files (like `README.md` above)
-- Entries in **[red]{style="color: #d92118"}** are compressed files (we'll see an example soon).
+- Entries in **[red]{style="color: #d92118"}** are compressed files (you'll see an example soon)
 
-_(Though colors may vary depending on your terminal and color scheme settings.)_
+_(Though note that some color schemes may show different colors for these.)_
 :::
 
 #### Options (to `ls`)
@@ -531,9 +470,11 @@ For example, we can call `ls` with the **option `-l`**
 ls -l 
 ```
 ``` bash-out
-total 17
-drwxr-xr-x 5 jelmer PAS0471 4096 Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1502 Jan 22 11:04 README.md
+total 2
+drwxr-x--- 2 jelmer PAS0471 4096 Jan 27 08:37 fastq
+drwxr-x--- 2 jelmer PAS0471 4096 Jan 27 08:37 meta
+-rw-r----- 1 jelmer PAS0471 1539 Jan 27 08:37 README.md
+drwxr-x--- 2 jelmer PAS0471 4096 Jan 27 08:37 ref
 ```
 
 Notice that it lists the same items as our first `ls` call above,
@@ -547,9 +488,11 @@ Let's add another option, `-h`:
 ls -l -h
 ```
 ``` bash-out
-total 17K
-drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md
+total 2.0K
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 fastq
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 meta
+-rw-r----- 1 jelmer PAS0471 1.6K Jan 27 08:37 README.md
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 ref
 ```
 
 <details><summary>{{< fa comments >}} What is different about the output, and what do you think that means? *(Click to see the answer)*</summary>
@@ -571,29 +514,21 @@ ls -lh
 ```
 ``` bash-out
 total 17K
-drwxr-xr-x 5 jelmer PAS0471 4.0K Jan 21 12:39 data
--rw-r--r-- 1 jelmer PAS0471 1.5K Jan 22 11:04 README.md
+total 2.0K
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 fastq
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 meta
+-rw-r----- 1 jelmer PAS0471 1.6K Jan 27 08:37 README.md
+drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 ref
 ```
 
 #### Combining options and arguments
 
 Arguments to `ls` should be **dirs or files to operate on**.
-For example, if you wanted to see what's inside the `data` dir,
+For example, if you wanted to see what's inside the `fastq` dir,
 instead of inside your working dir, we could type:
 
 ```bash
-ls data
-```
-``` bash-out
-fastq  meta  ref
-```
-
-The `data` dir appears to contain three dirs with different kinds of data.
-We'll talk in detail about that later, but for now,
-take a look inside the `fastq` dir:
-
-```bash
-ls data/fastq
+ls fastq
 ```
 ```bash-out
 ERR10802863_R1.fastq.gz  ERR10802865_R2.fastq.gz  ERR10802868_R1.fastq.gz  ERR10802870_R2.fastq.gz  ERR10802875_R1.fastq.gz  ERR10802877_R2.fastq.gz  ERR10802880_R1.fastq.gz  ERR10802882_R2.fastq.gz  ERR10802885_R1.fastq.gz
@@ -613,56 +548,57 @@ now, the `-h` option is especially useful and allows you see that the FASTQ file
 are 21-22 Mb in size:
 
 ```bash
-ls -lh data/fastq
+ls -lh fastq
 ```
 ``` bash-out
 total 941M
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802863_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802863_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802864_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802864_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802865_R2.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:34 ERR10802866_R1.fastq.gz
--rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:34 ERR10802866_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 21M Jan 27 08:37 ERR10802863_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802863_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 21M Jan 27 08:37 ERR10802864_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802864_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802865_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802865_R2.fastq.gz
+-rw-r----- 1 jelmer PAS0471 21M Jan 27 08:37 ERR10802866_R1.fastq.gz
+-rw-r----- 1 jelmer PAS0471 22M Jan 27 08:37 ERR10802866_R2.fastq.gz
 [...output truncated...]
 ```
 
 ::: exercise
 #### {{< fa user-edit >}} Exercise: Practice with `ls`
 
-List the files in the `data/ref` dir.
+List the files in the `ref` dir.
 What are the file sizes?
 
 <details><summary>*Click for the solution*</summary>
   
 ```bash
-ls -lh data/ref
+ls -lh ref
 ```
 ```bash-out
-total 670M
--rw-r--r-- 1 jelmer PAS0471 547M Jan 20 22:34 GCF_016801865.2.fna
--rw-r--r-- 1 jelmer PAS0471 123M Jan 20 22:34 GCF_016801865.2.gtf
+total 659M
+-rw-r----- 1 jelmer PAS0471 547M Jan 27 08:37 GCF_016801865.2.fna
+-rw-r----- 1 jelmer PAS0471 123M Jan 27 08:37 GCF_016801865.2.gtf
 ```
   
-The `.fna` file (this is the genome assembly nucleotide FASTA file) is 547 Mb
-(not bases but bytes!), and the `.gtf` file (this is the annotation file) is 123 Mb.
+The `.fna` file (the genome assembly nucleotide FASTA file) is 547 Mb,
+and the `.gtf` file (the annotation GTF file) is 123 Mb.
 </details>
 :::
 
 ::: exercise
 #### {{< fa user-edit >}} Bonus Exercise: Paths
 
-Earlier with `cd`, you used long paths like `/fs/scratch/PAS2880/ENT6703/share`.
-Here, you used short ones like `data` and `data/fastq`.
-What is the difference between these kinds of paths?
+Earlier with `cd`, you used long paths like `/fs/scratch/PAS2880/ENT6703/data`.
+Here, you used short ones like `data` and `fastq`.
+What is the difference between these kinds of paths --
+which of the following statements is correct (only one is correct)?
   
-A) When you use `cd`, you have to use long paths, but with `ls` you can use short ones.
-B) `data` and `data/fastq` are just shorter because they are closer to the
-   root of the filesystem, so there are fewer dirs to travel through.
-C) The long paths start from the root of the file system,
-   while the short paths start from your current working dir.
-D) The long paths are for directories, while the short paths are for files.
+> A) When you use `cd`, you have to use long paths, but with `ls` you can use short ones.
+> B) `data` and `fastq` are just shorter because they are closer to the
+     root of the filesystem, so there are fewer dirs to travel through.
+> C) The long paths start from the root of the file system,
+     while the short paths start from your current working dir.
+> D) The long paths are for directories, while the short paths are for files.
   
 <details><summary>*Click for the solution*</summary>
   
@@ -676,11 +612,19 @@ you can think of these as GPS coordinates:
 they always point to the same location, no matter where you currently are.
    
 The short paths are **relative paths**, starting from your current working dir.
-So, if your working dir is `/fs/scratch/PAS2880/ENT6703`,
-then `data` is equivalent to `/fs/scratch/PAS2880/ENT6703/data`.
 Continuing the geographic analogy, these are like giving directions
 starting from your current location such as "take the second left".
-   
+
+See the table below for two examples:
+
+:::: {.column style="font-size: 90%"}
+
+| Working dir | Absolute path to another folder                         | Relative path         |
+|-------------|----------------------------------------|-----------------------|
+| `/fs/scratch/PAS2880/ENT6703/data` | `/fs/scratch/PAS2880/ENT6703/data/fastq`     | `fastq`     |
+| `/fs/scratch/PAS2880/ENT6703` | `/fs/scratch/PAS2880/ENT6703/data/fastq` | `data/fastq`               |
+
+::::
 </details>  
 :::
 
@@ -701,7 +645,7 @@ starting from your current location such as "take the second left".
   pwd    # 'pwd' will be executed but everything after the '#' is ignored
   ```
   ``` bash-out
-  /fs/scratch/PAS2880/ENT6703/jelmer
+  /fs/scratch/PAS2880/ENT6703/data
   ```
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -709,21 +653,21 @@ starting from your current location such as "take the second left".
 ::: exercise
 #### {{< fa user-edit >}} Exercise: Shell navigation practice
 
-1. Move into your personal directory (the one you created a little while back),
-   and then back into the `share` dir.
+1. Navigate into your personal dir (the one you created a little while back),
+   and then back into the `data` dir.
 
    <details><summary>*Click for the solution*</summary>
   
-   - Move into your personal dir (replace `jelmer` with _your_ username):
+   - Navigate to your personal folder (replace `jelmer` with _your_ username):
   
      ```bash
      cd /fs/scratch/PAS2880/ENT6703/jelmer
      ```
     
-   - Move back to `ENT6703`:
+   - Navigate back to `data`:
   
      ```bash
-     cd /fs/scratch/PAS2880/ENT6703/share
+     cd /fs/scratch/PAS2880/ENT6703/data
      ```
    </details>
 
@@ -732,15 +676,17 @@ starting from your current location such as "take the second left".
 :::
 
 ::: exercise
-#### {{< fa user-edit >}} Bonus Exercise: Advanced navigation
+#### {{< fa user-edit >}} Bonus Exercise: Navigating up
 
 In the first question, did you perhaps find yourself wondering
-how you can move up a level in the file system?
-In a path, `..` denotes one level up,
-so `../bla` means one level up and _then_ down into the `bla` directory.
+how you can navigate **up** a level in the file system?
+
+Well: in a path, `..` denotes one level up.
+And `../bla`, for example,
+means one level up and _then_ down into the `bla` directory.
   
-Try to make use of this construct to move into your personal dir and back to
-`share` again, instead of using the "full paths" like above.
+Try to make use of this construct to navigate into your personal dir and back to
+`data` again, instead of using the "full paths" like above.
 _Hint: Tab completion after typing `../` can help you to orient yourself!_
 
 <details><summary>*Click for the solution*</summary>
@@ -751,10 +697,10 @@ _Hint: Tab completion after typing `../` can help you to orient yourself!_
   cd ../jelmer
   ```
      
-- Back to `share`:
+- Back to `data`:
      
   ```bash 
-  cd ../share
+  cd ../data
   ```
 </details>
    
@@ -765,3 +711,7 @@ _Hint: Tab completion after typing `../` can help you to orient yourself!_
 
 </details>
 :::
+
+<br>
+
+#### _[Continue to part II of this lab](data.qmd) =>_ 

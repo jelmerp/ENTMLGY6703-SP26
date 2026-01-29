@@ -1,0 +1,56 @@
+# Long-read HTS {background-color="silver"}
+
+## Long-read HTS
+
+The technologies underlying the two main long-read HTS technologies are very different,
+but have some commonalities beyond long reads — they:
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+- Perform **"single-molecule" sequencing** (no PCR amplification of library fragments)
+- Require higher quality & quantity of DNA (because of the lack of PCR)
+- Can detect some **base modifications**, like methyl groups
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: callout-important
+## Error rates are changing
+
+I mentioned earlier that long-read HTS has higher error rate than short-read (Illumina) HTS.
+
+However, error rates in one type of PacBio sequencing where individual fragments
+are sequenced multiple times ("HiFi") *are now lower than in Illumina*.
+:::
+
+## Nanopore sequencing
+
+**A single strand of DNA passes through a nanopore** —\
+the *electrical current* is measured, which depends on the combination of bases passes in the pore:
+
+[![](../img/Nanopore-sequencing_crop.jpg){fig-align="center" width="73%"}](https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing)
+
+::: legend2
+<https://www.genome.gov/genetics-glossary/Nanopore-DNA-Sequencing>
+:::
+
+## Video of Oxford Nanopore technology
+
+{{< video https://www.youtube.com/watch?v=RcP85JHLmnI width="93%" height="79%" >}}
+
+## ONT (Nanopore) sequencers
+
+![](../img/ont_sequencers.png){fig-align="center" width="70%"}
+
+. . .
+
+::: callout-caution
+## Under development!
+
+ONT constantly releases new flow cells with updated technology,
+which have led to large decreases in error rates over the past decade ---
+and even over the past two or so years.
+:::

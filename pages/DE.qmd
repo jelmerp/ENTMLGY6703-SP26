@@ -18,7 +18,7 @@ other-links:
     href: r_homework.html
 execute: 
   eval: true
-  cache: true
+  cache: false
 knitr:
   opts_chunk:
     out.width: "85%"
@@ -163,7 +163,7 @@ you need to create a DESeq2 object from three components:
 
 ```{r, echo=FALSE}
 count_table_file <- here::here("results/counts/salmon.merged.gene_counts_length_scaled.tsv")
-metadata_file <- here::here("data/meta/metadata_ed2.tsv")
+metadata_file <- here::here("data/meta/metadata.tsv")
 count_df <- read_tsv(count_table_file, show_col_types = FALSE)
 meta_raw <- read_tsv(metadata_file, show_col_types = FALSE)
 ```
@@ -198,9 +198,9 @@ How many biological replicates?
 
 <details><summary>*Click to see the solution*</summary>
 
-- The `time` column contains the amount of time after infection,
-  where "h" is short for hours.
-
+- The `dpi` column has the number of Days Post Infection
+  (i.e., timepoints): either 1 or 10 days.
+  
 - The `treatment` column contains the treatment:
   which *Plasmodium* species, or "control" (not infected).
 
@@ -211,10 +211,11 @@ How many biological replicates?
 
 <hr style="height:1pt; visibility:hidden;" />
 
-We'll now have to make some modifications to the metadata table
+You'll now have to make some modifications to the metadata table
 so that it can be used in DESeq2:
 
-- The table should be sorted by sample ID: we can use the `arrange()` function to do so
+- The table should be sorted by sample ID:
+  you can use the `arrange()` function to do so
 - The sample IDs should be row names, not a separate column:
   we can use the `column_to_rownames()` function for this
 
@@ -222,6 +223,13 @@ so that it can be used in DESeq2:
 # The input is the raw metadata dataframe ('meta_raw'),
 # and we'll store the output in a new, processed dataframe ('meta'):
 meta <- meta_raw |>
+  # By converting 'treatment' columns into a "factor",
+  # you can provide a custom order that will be respected in the plot -
+  # this, way 24h comes before 10d, and control before the two infections.
+  mutate(
+    dpi = factor(dpi, levels = c(1, 10)),
+    treatment = factor(treatment, levels = c("control", "cathemerium", "relictum"))
+  ) |>
   # 1. Sort the table by 'sample_id' column:
   arrange(sample_id) |>
   # 2. Turn the 'sample_id' column into row names:
@@ -422,7 +430,7 @@ Next, you can run and plot the PCA with a single function call,
 
 ```{r}
 # With 'intgroup', you specify the variables (columns) to color samples by
-plotPCA(dds_vst, intgroup = c("time", "treatment"))
+plotPCA(dds_vst, intgroup = c("dpi", "treatment"))
 ```
 
 ::: exercise
@@ -496,7 +504,7 @@ to get plot-ready formatted data instead of an actual plot:
 pca_df <- plotPCA(
   dds_vst,
   ntop = 500,
-  intgroup = c("time", "treatment"),
+  intgroup = c("dpi", "treatment"),
   returnData = TRUE
   )
 ```
@@ -507,7 +515,7 @@ pca_df <- plotPCA(
 
 ```{r}
 pca_df |>
-  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = time)) +
+  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = dpi)) +
   geom_point(size = 5) +
   scale_color_brewer(palette = "Dark2", name = "Infection status") +
   scale_shape(name = "Time points") +
@@ -527,7 +535,7 @@ pct_var <- round(100 * attr(pca_df, "percentVar"), 1)
 pct_var
 
 pca_df |> 
-  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = time)) +
+  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = dpi)) +
   geom_point(size = 5) +
   labs(
     x = paste0("PC1 (", pct_var[1], "%)"),
@@ -545,11 +553,7 @@ pca_df |>
 ```{r}
 # First, modify the factor levels in the PCA dataframe:
 pca_df |>
-  mutate(
-    time = factor(time, levels = c("24h", "10d")),
-    treatment = factor(treatment, levels = c("control", "relictum", "cathemerium"))
-    ) |>
-  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = time)) +
+  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = dpi)) +
   geom_point(size = 5) +
   labs(
     x = paste0("PC1 (", pct_var[1], "%)"),
@@ -583,7 +587,7 @@ i.e. using the design `~treatment`.
 ::: exercise
 #### {{< fa user-edit >}} Your Turn
 
-Given the PCA results, do you think we can ignore the `time` variable?
+Given the PCA results, do you think we can ignore the `dpi` variable?
 
 <details><summary>*Click to see the answer*</summary>
 TODO ADD SOLUTION
@@ -592,8 +596,8 @@ TODO ADD SOLUTION
 
 Controlling for time can be done in two ways:
 
-- An analysis with two independent variables (factors): `~ time + treatment`
-- Pairwise comparisons between each combination of time and treatment
+- An analysis with two independent variables (factors): `~ dpi + treatment`
+- Pairwise comparisons between each combination of `dpi` and `treatment`
 
 If you take a look at Table 1 with the DE results,
 it should become clearer how they did their analysis:
@@ -606,7 +610,8 @@ it should become clearer how they did their analysis:
 How do you interpret this: did they run pairwise comparisons or a two-factor model?
 
 <details><summary>*Click to see the answer*</summary>
-It looks like they performed pairwise comparisons between each combination of time and treatment.
+It looks like they performed pairwise comparisons between each combination of
+`dpi` and `treatment`.
 </details>
 :::
 
@@ -614,7 +619,7 @@ That brings us a step closer,
 but pairwise comparisons with more than independent variable can (also!) be done
 in two ways (and it's not clear from the paper which they used):
 
-- After **subsetting** the dataset to each combination of time and treatment.
+- After **subsetting** the dataset to each combination of dpi and treatment.
 - After creating a single, **combined independent variable** that is a
   combination of time and treatment.
 
@@ -622,12 +627,12 @@ The latter method is the more common one, and is what we will use below.
 
 ### Setting the statistical design
 
-You will now create a new variable that is a combination of `treatment` and `time`,
+You will now create a new variable that is a combination of `treatment` and `dpi`,
 and call it `group`:
 
 ```{r}
 # Create a combined variable called 'group':
-group <- paste(dds$treatment, dds$time, sep = "_")
+group <- paste(dds$treatment, dds$dpi, sep = "_")
 
 # Turn this into a 'factor' and add it to the DESeq2 object:
 # (Factors are a common R data type for categorical variables, and required by DESeq2)
@@ -697,14 +702,14 @@ You can extract the results for one pairwise comparison
 by specifying it with the `contrast` argument as a vector of length 3:
 
 1. The focal independent variable (here, `group`)
-2. The first (reference) level of the independent variable (in the example below, `relictum_24h`)
-3. The second level of the independent variable (in the example below, `control_24h`)
+2. The first (reference) level of the independent variable (in the example below, `relictum_1`)
+3. The second level of the independent variable (in the example below, `control_1`)
 
 ```{r}
-focal_contrast <- c("group", "relictum_24h", "control_24h")
-res_rc24 <- results(dds, contrast = focal_contrast)
+focal_contrast <- c("group", "relictum_1", "control_1")
+res_rc1 <- results(dds, contrast = focal_contrast)
 
-head(res_rc24)
+head(res_rc1)
 ```
 
 What do the columns in this table contain?
@@ -757,10 +762,10 @@ How many adjusted p-values were less than 0.05 -- i.e., significant?
 ```{r}
 # (We need 'na.rm = TRUE' because some p-values are 'NA')
 # (If we don't remove NAs from the calculation, sum() will just return NA)
-sum(res_rc24$padj < 0.05, na.rm = TRUE)
+sum(res_rc1$padj < 0.05, na.rm = TRUE)
 ```
 
-This means that you found `r sum(res_rc24$padj < 0.05, na.rm = TRUE)`
+This means that you found `r sum(res_rc1$padj < 0.05, na.rm = TRUE)`
 Differentially Expressed Genes (**DEG**s) for this specific pairwise comparison.
 
 ::: exercise
@@ -783,7 +788,7 @@ variety of comparisons.
 
 ```{r, eval=TRUE}
 # First convert the results table into a regular data frame:
-as.data.frame(res_rc24) |>
+as.data.frame(res_rc1) |>
   # Then, only select the rows/genes that are significant:
   filter(padj < 0.05) |>
   # If you run count() on a logical test, you get the nrs. that are FALSE v. TRUE
@@ -794,10 +799,10 @@ as.data.frame(res_rc24) |>
 
 ```{r}
 # Down-regulated (relictum < control):
-sum(res_rc24$log2FoldChange < 0 & res_rc24$padj < 0.05, na.rm = TRUE)
+sum(res_rc1$log2FoldChange < 0 & res_rc1$padj < 0.05, na.rm = TRUE)
 
 # Up-regulated (relictum > control):
-sum(res_rc24$log2FoldChange > 0 & res_rc24$padj < 0.05, na.rm = TRUE)
+sum(res_rc1$log2FoldChange > 0 & res_rc1$padj < 0.05, na.rm = TRUE)
 ```
 
 </details>
@@ -817,7 +822,7 @@ sum(res_rc24$log2FoldChange > 0 & res_rc24$padj < 0.05, na.rm = TRUE)
 
 ```{r, eval=TRUE}
 # First we need to convert the results table into a regular data frame
-as.data.frame(res_rc24) |>
+as.data.frame(res_rc1) |>
   # Then we only select the rows/genes that are significant
   filter(padj < 0.05, abs(log2FoldChange) > 1) |>
   # If we run count() on a logical test, we get the nrs. that are FALSE v. TRUE
@@ -828,10 +833,10 @@ as.data.frame(res_rc24) |>
 
 ```{r}
 # Down-regulated (relictum < control):
-sum(res_rc24$log2FoldChange < -1 & res_rc24$padj < 0.05, na.rm = TRUE)
+sum(res_rc1$log2FoldChange < -1 & res_rc1$padj < 0.05, na.rm = TRUE)
 
 # Up-regulated (relictum > control):
-sum(res_rc24$log2FoldChange > 1 & res_rc24$padj < 0.05, na.rm = TRUE)
+sum(res_rc1$log2FoldChange > 1 & res_rc1$padj < 0.05, na.rm = TRUE)
 ```
 
 </details>
@@ -854,11 +859,11 @@ from the package of the same name
 
 ```{r, fig.height=6.5}
 EnhancedVolcano(
-  toptable = res_rc24,      # DESeq2 results to plot   
+  toptable = res_rc1,      # DESeq2 results to plot   
   title = "relictum vs. control at 24 hpi",
   x = "log2FoldChange",     # Plot the log2-fold change along the x-axis
   y = "padj",               # Plot the p-value along the y-axis
-  lab = rownames(res_rc24), # Use the rownames for the gene labels (though see below)
+  lab = rownames(res_rc1), # Use the rownames for the gene labels (though see below)
   labSize = 0               # Omit gene labels for now
   )
 ```
@@ -888,11 +893,11 @@ Play around with the p-value cut-off and the labeling to create a plot you like.
 
 ```{r, fig.height=6.5}
 EnhancedVolcano(
-  toptable = res_rc24,      
+  toptable = res_rc1,      
   title = "relictum vs. control at 24 hpi",
   x = "log2FoldChange",     
   y = "padj",             
-  lab = rownames(res_rc24), 
+  lab = rownames(res_rc1), 
   labSize = 4,               # Now we will show the gene labels
   pCutoff = 10e-10,          # Modify the p-value cut-off
   subtitle = NULL,           # I'll also remove the silly subtitle
@@ -906,7 +911,7 @@ EnhancedVolcano(
 #### {{< fa user-edit >}} Bonus Exercise: Which gene is my outlier?
 
 Figure out the identity of the abovementioned log2-fold change outlier.\
-*(You can do so either by labeling it in the plot, or by filtering the `res_rc24` table.)*
+*(You can do so either by labeling it in the plot, or by filtering the `res_rc1` table.)*
 
 <details><summary>*Click for the solution on how to label it in the plot*</summary>
 
@@ -914,11 +919,11 @@ Figure out the identity of the abovementioned log2-fold change outlier.\
 
 ```{r, fig.height=6.5}
 EnhancedVolcano(
-  toptable = res_rc24,      
+  toptable = res_rc1,      
   title = "relictum vs. control at 24 hpi",
   x = "log2FoldChange",     
   y = "padj",             
-  lab = rownames(res_rc24), 
+  lab = rownames(res_rc1), 
   labSize = 4,               
   pCutoff = 0.05,            # Modify the p-value cut-off
   FCcutoff = 20,             # Modify the LFC cut-off
@@ -931,7 +936,7 @@ EnhancedVolcano(
 <hr style="height:1pt; visibility:hidden;" />
 
 ```{r}
-as.data.frame(res_rc24) |> filter(log2FoldChange > 20)
+as.data.frame(res_rc1) |> filter(log2FoldChange > 20)
 ```
 
 _(Interestingly, there's a second gene with a LFC \> 20 that we hadn't seen in the plot,_
@@ -952,7 +957,7 @@ We can get the ID of this gene as follows:
 
 ```{r}
 # Convert the results table into a regular dataframe and sort by adjusted p-value:
-top_df <- data.frame(res_rc24) |> arrange(padj)
+top_df <- data.frame(res_rc1) |> arrange(padj)
 
 # Gene IDs are the row names: extract the first row name to get the gene of interest
 top1 <- rownames(top_df)[1]
@@ -1005,7 +1010,7 @@ It is: `LOC120431476`.
 plotCounts(dds, gene = "LOC120431476", intgroup = "group")
 ```
 
-Wow! It looks like in every single time + treatment combinations,
+Wow! It looks like in every single dpi + treatment combination,
 all but one (or in one case, two) of the samples have zero expression,
 but there are several extreme outliers.
 
@@ -1016,7 +1021,7 @@ Nevertheless, even the multiple-testing corrected p-value (`padj`) is
 significant for this gene:
 
 ```{r}
-as.data.frame(res_rc24) |>
+as.data.frame(res_rc1) |>
   rownames_to_column("gene") |>
   filter(gene == "LOC120431476")
 ```
@@ -1043,7 +1048,7 @@ of interest in a format for plotting, by adding `returnData = TRUE`:
 focal_gene_counts <- plotCounts(
   dds,
   gene = top1,
-  intgroup = c("time", "treatment"),
+  intgroup = c("dpi", "treatment"),
   returnData = TRUE
   )
 
@@ -1057,17 +1062,10 @@ head(focal_gene_counts)
 
 ```{r, eval=FALSE}
 focal_gene_counts |>
-  # By converting 'time' and 'treatment' columns into "factors",
-  # you can provide a custom order that will be respected in the plot -
-  # this, way 24h comes before 10d, and control before the two infections.
-  mutate(
-    time = factor(time, levels = c("24h", "10d")),
-    treatment = factor(treatment, levels = c("control", "cathemerium", "relictum"))
-  ) |>
   # Treatment along the x-axis, gene counts along the y, color by treatment:
   ggplot(aes(x = treatment, y = count, fill = treatment)) +
   # Plot separate "facets" with the different time points
-  facet_wrap(vars(time)) +
+  facet_wrap(vars(dpi)) +
   # Add a boxplot with a partly transparaent (alpha) color:
   geom_boxplot(alpha = 0.5, outlier.shape = NA) +
   # _And_ add individual points:
@@ -1118,7 +1116,7 @@ This stores the table to a TSV text file, which can be opened in Excel.
 
 ```{r, eval=FALSE}
 # Write the 
-write_tsv(as.data.frame(res_rc24), "DE-results_rc24.tsv")
+write_tsv(as.data.frame(res_rc1), "DE-results_rc1.tsv")
 ```
 
 ### Heatmaps
@@ -1159,8 +1157,8 @@ norm_mat_sel <- norm_mat[match(top25_DE, rownames(norm_mat)), ]
 
 # Sort the metadata
 meta_sort <- meta |>
-  arrange(treatment, time) |>
-  select(treatment, time)
+  arrange(treatment, dpi) |>
+  select(treatment, dpi)
 ```
 
 Now you can create the plot:
@@ -1208,8 +1206,8 @@ norm_mat_sel <- norm_mat[match(top25_hi, rownames(norm_mat)), ]
 
 # Sort the metadata
 meta_sort <- meta |>
-  arrange(treatment, time) |>
-  select(treatment, time)
+  arrange(treatment, dpi) |>
+  select(treatment, dpi)
 
 # Create the heatmap
 pheatmap(

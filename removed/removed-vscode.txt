@@ -1,0 +1,84 @@
+## The VS Code text editor
+
+### What is VS Code?
+
+VS Code is basically a fancy text editor,
+with an integrated terminal that runs a Unix shell.
+In these labs:
+
+- VS Code will be our editor for Unix shell code (this week)
+- RStudio will be our editor for R (next week's lab)
+
+### Starting a VS Code session
+
+Interactive Apps like VS Code and RStudio **run on compute nodes** (not login nodes).
+Because compute nodes always need to be "reserved" to be used,
+you have to fill out a form and specify the following details:
+
+- The **Cluster** we want to use: `pitzer`
+- The **Account**, the OSC Project to be billed for the compute node usage: `PAS2880`
+- The **Number of hours** we want to make a reservation for: `4`
+- The **Working Directory** (starting point) for the program:
+  `/fs/scratch/PAS2880/ENT6703`
+- [The **App Code Server version**: `4.8.3` (this should be the only available option)]{style="color:#969696"}
+
+![This is how you should fill out the form to start a VS Code session](../img/ondemand_vscode_form.png){fig-align="center" width="65%" fig-alt="A screenshot of OSC OnDemand VS Code form." .lightbox}
+
+Click `Launch` and you'll be sent to the _My Interactive Sessions_ page
+with a card for your job at the top.
+First, your job may be *Queued* for some seconds
+(i.e., waiting for computing resources to be assigned to it),
+but it should soon switch to *Starting* and then to *Running*:
+  
+![](../img/ondemand_vscode_running2.png){fig-align="center" width="75%" fig-alt="A screenshot of the OSC OnDemand page shown when the Code Server job has started running." .lightbox}
+
+Once the blue **Connect to VS Code** button appears,
+click that and VS Code will open in a new browser tab.
+When VS Code opens, you may get these two pop-ups (and possibly some others):
+
+::: columns
+::: {.column width="52%"}
+![Here, click "Yes, ..." and check the "Trust" box](../img/vscode-trust2.png){fig-align="center" width="85%" fig-alt="A screenshot of a popup you may get when first opening a folder in VS Code." .lightbox}
+:::
+
+::: {.column width="48%"}
+![Here, click "Don't Show Again"](../img/vscode-git.png){fig-align="center" width="85%" fig-alt="A screenshot of a popup you may get when first opening VS Code." .lightbox}
+:::
+:::
+
+### The VS Code User Interface
+
+![An annotated overview of the VS Code User Interface](../img/vscode-welcome_ed.png){fig-align="center" width="80%" fig-alt="An annotated screenshot of the VS Code user interace" .lightbox}
+
+#### Editor pane and "Get Started" document
+
+The main part of the VS Code is the **editor pane**.
+Here, you can open files like scripts and other types of text files, and images.
+Right now, you should see a Get Started page --
+you don't have to go through any steps that may be suggested there.
+  
+#### Side bars
+
+The **Activity Bar** (narrow side bar) on the far left has:
+
+- A {{< fa bars >}} ("hamburger menu"),
+  which has menu items like `File` that you often find in a top bar
+- A {{< fa cog >}} (cog wheel icon) in the bottom,
+  through which you can mainly access *settings*
+- Icons to toggle **(wide) Side Bar** options --
+  but we'll only use the default selection, the *Explorer* (file browser)
+
+#### Terminal (with a Unix shell)
+
+**Open a terminal** by clicking  {{< fa bars >}}   =\> `Terminal` =\> `New Terminal`.
+We'll start using this in the next section!
+
+::: exercise
+#### {{< fa user-edit >}} Exercise: Try a few color themes
+
+1.  Access the "Color Themes" option by clicking <i class="fa fa-cog"></i>   =\> `Color Theme`.
+2.  Try out a few themes and see what you like!
+:::
+
+
+

@@ -27,25 +27,28 @@ bibliography: ../references.bib
 
 ## Introduction
 
-### This part's goals
+### Goals for this part of the lab
 
-1. Learn how to find a reference genome and the associated files
-2. Explore the reference genome files
-3. Explore HTS reads
-4. Perform quality-control on reads with a command-line tool, FastQC
+In this second part of the lab, you will learn how to:
+
+1. Look at files in the Unix shell
+2. Find a reference genome and the associated files
+3. Explore and understand reference genome files
+4. Explore and understand HTS files
+5. Perform quality-control on HTS reads with a command-line tool, FastQC
 
 ### The dataset
 
-As discussed in the lecture, today's and next week's labs will work with
-RNA-Seq data from @garrigós2025:
+As discussed in the lecture,
+you'll work with RNA-Seq data from @garrigós2025 in today's and next week's labs:
 
 ![](../img/paper.png){fig-align="center" width="75%"}
 
-To recap, this paper used RNA-Seq data to study gene expression in
+This paper used RNA-Seq data to study gene expression in
 *Culex pipiens* mosquitos infected with malaria-causing *Plasmodium* protozoans.
-
 Next week, you will learn about RNA-Seq methodology and experimental design,
-and we'll discuss this paper's experimental design in more detail.
+and we'll discuss the paper's experimental design in more detail.
+Here, we'll explore the paper's HTS data files.
 
 ## The files you'll work with
 
@@ -55,36 +58,47 @@ are sequence reads
 (usually produced for the focal project) and
 reference genome files (usually already available).
 
+For this project --our re-analysis of the @garrigós2025 data--
+I have downloaded those files for you and placed them in
+`/fs/scratch/PAS2880/ENT6703/data` on OSC.
 You've seen some of these files in the first part of this lab,
 but we didn't pay much attention to what they represent.
+
+First, we'll actually move one level up to the `ENT6703` dir:
+
+```bash
+cd /fs/scratch/PAS2880/ENT6703
+```
+
 Let's get an overview of the full set of files using the `tree` command
 (with the option `-C` to show colors): 
 
 ```bash
-# Make sure you're in the right dir (you may already be there)
-cd /fs/scratch/PAS2880/ENT6703/share
-```
-
-```bash
 # Unlike ls, tree will show the full directory structure
-tree -C
+tree -C data
 ```
 ```bash-out
 # (The colors you should see in the terminal aren't shown here)
-  .
-  └── data
-      ├── fastq
-      │   ├── ERR10802863_R1.fastq.gz
-      │   ├── ERR10802863_R2.fastq.gz
-      │   ├── ERR10802864_R1.fastq.gz
-      │   ├── ERR10802864_R2.fastq.gz
-      │   ├── [...truncated - more FASTQ files...]
-      ├── meta
-      │   └── metadata.tsv
-      └── ref
-          ├── GCF_016801865.2.fna
-          └── GCF_016801865.2.gtf
-  4 directories, 47 files
+data
+├── fastq
+│   ├── ERR10802863_R1.fastq.gz
+│   ├── ERR10802863_R2.fastq.gz
+│   ├── ERR10802864_R1.fastq.gz
+│   ├── ERR10802864_R2.fastq.gz
+│   ├── ERR10802865_R1.fastq.gz
+│   ├── ERR10802865_R2.fastq.gz
+│   ├── ERR10802866_R1.fastq.gz
+│   ├── ERR10802866_R2.fastq.gz
+│   ├── ERR10802867_R1.fastq.gz
+│   ├── ERR10802867_R2.fastq.gz
+|   ├── [...truncated - more FASTQ files...]
+├── meta
+│   └── metadata.tsv
+├── README.md
+└── ref
+    ├── GCF_016801865.2.fna
+    └── GCF_016801865.2.gtf
+3 directories, 48 files
 ```
 
 So, we have:
@@ -98,8 +112,12 @@ So, we have:
 which is one reason why the Unix shell excells at working with them.
 You'll take a closer look at each below.
 
+<details><summary>{{< fa comments >}} Looking at the `tree` output, what is the (full) path to the file `metadata.tsv`? *(Click to expand)*</summary>
+The path is `/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv`.
+</details>
+
 ::: {.callout-note collapse="true"}
-#### Side note: How would you go about to retrieve this data? *(Click to expand)*
+#### Side note: How you could retrieve this data yourself *(Click to expand)*
 
 At the end of the @garrigós2025 paper,
 there is a section called "Open Research" with a "Data Availability Statement",
@@ -133,70 +151,79 @@ ls -lh data/meta
 -rw-r--r-- 1 jelmer PAS0471 644 Jan 21 09:15 metadata.tsv
 ```
 
-You can find this file in the file explorer in the VS Code side bar,
-and click on it to open it in the editor.
-Alternatively, you can use the `cat` command to show the file contents in the shell:
+Use the `cat` command (short for catenate/concatenate)
+to show the file contents in the shell:
 
 ```bash
-cat data/meta/metadata.tsv
+cat meta/metadata.tsv
 ```
 ```bash-out
-sample_id    time   treatment
-ERR10802882  10_d   cathemerium
-ERR10802875  10_d   cathemerium
-ERR10802879  10_d   cathemerium
-ERR10802883  10_d   cathemerium
-ERR10802878  10_d   control
-ERR10802884  10_d   control
-ERR10802877  10_d   control
-ERR10802881  10_d   control
-ERR10802876  10_d   relictum
-ERR10802880  10_d   relictum
-ERR10802885  10_d   relictum
-ERR10802886  10_d   relictum
-ERR10802864  24_h   cathemerium
-ERR10802867  24_h   cathemerium
-ERR10802870  24_h   cathemerium
-ERR10802866  24_h   control
-ERR10802869  24_h   control
-ERR10802863  24_h   control
-ERR10802871  24_h   relictum
-ERR10802874  24_h   relictum
-ERR10802865  24_h   relictum
-ERR10802868  24_h   relictum
+sample_id       dpi     treatment
+ERR10802864     1       cathemerium
+ERR10802867     1       cathemerium
+ERR10802870     1       cathemerium
+ERR10802866     1       control
+ERR10802869     1       control
+ERR10802863     1       control
+ERR10802871     1       relictum
+ERR10802874     1       relictum
+ERR10802865     1       relictum
+ERR10802868     1       relictum
+ERR10802882     10      cathemerium
+ERR10802875     10      cathemerium
+ERR10802879     10      cathemerium
+ERR10802883     10      cathemerium
+ERR10802878     10      control
+ERR10802884     10      control
+ERR10802877     10      control
+ERR10802881     10      control
+ERR10802876     10      relictum
+ERR10802880     10      relictum
+ERR10802885     10      relictum
+ERR10802886     10      relictum
 ```
 
 There are 22 samples in total, with two variables of interest:
-`time` of sampling after infection, and `treatment` group (infection status).
-Each treatment-time combination has replicates to allow for statistical comparisons.
-Again, we'll discuss these aspects in more detail next week.
+
+- `dpi` --- time of sampling in Days Post-Infection
+- `treatment` --- treatment group: infection status
+
+Each `treatment`-`dpi` combination has replicates to allow for statistical
+comparisons.
+As mentioned, we'll discuss these aspects of the experimental design in more
+detail next week.
 
 ## Reference genome files
 
-The two main types of reference genome files needed for a HTS project
-like reference-based RNA-Seq are:
+There are two main types of reference genome files needed for a HTS project
+like reference-based RNA-Seq:
 
-1. The genome assembly, i.e. the nucleotide sequence of each chromosome/scaffold.
+1. The **genome assembly**,
+   i.e. the nucleotide sequence of each chromosome/scaffold.
    These are stored in the simple **FASTA** format.
 
-2. The genome annotation, i.e. a table with the positions of genes
-   and other genomic features on each chromosome/scaffold.
+2. The **genome annotation**,
+   i.e. a table with the positions of genes and other so-called genomic features
+   on each chromosome/scaffold.
    These are commonly stored in **GTF** or similar formats.
    
-Both of these are plain-text file formats.
 Below, after seeing how you can obtain such files, we'll focus on exploring
 the genome assembly FASTA file.
 
-### Finding your reference genome
+### Finding a reference genome
 
 Imagine you are one of the researchers involved in the *Culex* study.
-You would want to see if there's a *Cx. pipiens* reference genome available,
+You'd want to find out if a *Culex pipiens* reference genome is available,
 and if so, download the relevant files.
-The authors state the following in the paper (section 2.3, "Data analysis"):
+The authors state the following in the paper:
 
 > Because the reference genome and annotations of *Cx. pipiens* are not published yet, we used the reference genome and annotations of phylogenetically closest species that were available in Ensembl, *Cx. quinquefasciatus*.
 
-But perhaps that genome of *Cx. pipiens* has been published in the meantime?
+As discussed in the lecture, reference genomes of closely related species can
+generally be used if no genome is available for the focal species,
+but it's always best to use a genome of the exact species if possible.
+We also saw that new reference genomes are rapidly being published.
+So perhaps a reference genome of *Culex pipiens* has become available in the meantime?
 
 Generally, the first place to look for reference genome data is at NCBI,
 <https://ncbi.nlm.nih.gov>,
@@ -206,12 +233,11 @@ By means of example, let's first search for the hoverfly *Episyrphus balteatus*:
 
 ![](../img/refgenome_search.png){fig-align="center" width="75%"}
 
-For this species, we get the following "card" at the top of the results:
+You should get the following box at the top of the results:
 
 ![](../img/refgenome_result1b.png){fig-align="center" width="80%"}
 
-If you next click on "Genomes" in the result page above,
-you should get the following^[As of January, 2026.]:
+If you then click on "Genomes", you should see the following table^[As of January, 2026.]:
 
 ![](../img/refgenome_result2b.png){fig-align="center" width="95%"}
 
@@ -223,18 +249,20 @@ So, NCBI has 5 genomes assemblies for *Episyrphus balteatus*. The top one:
 - Is the only one with an entry in the `RefSeq` column,
   which means it has an (NCBI) annotation available.
 
-Therefore, that top assembly, `idEpiBalt1.1`, would be the one to go with.
+That top assembly, `idEpiBalt1.1`, would therefore be the one to choose,
+unless you have project-specific reasons to use one of the other assemblies
+(e.g., a genome from a specific population/lineage).
 
 ::: exercise
 #### {{< fa user-edit >}} Exercise: A _Culex pipiens_ reference genome
 
-1. Now search for *Culex pipiens*, and do a genus-wide search.
-   How many *Culex pipiens* are on NCBI, and if so, which would you pick?
+1. Now search for *Culex pipiens*.
+   How many *Culex pipiens* genomes are on NCBI, and if so, which would you pick?
 
    <details><summary>*Click for the solution*</summary>
     
    Go through the same process as shown above for the fruitfly,
-   now entering `Culex` in the search box.
+   now entering `Culex pipiens` in the search box.
     
    You should find that there are 5 *Culex pipiens* assemblies.
    Very much like for the fruitfly, as it happens,
@@ -245,7 +273,7 @@ Therefore, that top assembly, `idEpiBalt1.1`, would be the one to go with.
     
    So, there *is* currently a reference genome for *Cx. pipiens* available,
    and we'll be using that one:
-   the files you saw earlier in `data/ref` are for that genome.
+   the files you've seen in the `ref` dir are for that genome.
    </details>
 
 2. You can click on each assembly to get more information,
@@ -258,24 +286,23 @@ Therefore, that top assembly, `idEpiBalt1.1`, would be the one to go with.
    <details><summary>*Click for the solution*</summary>
    On the
    [genome's page at NCBI](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/),
-   some of the information includes the following stats on the assembly and the
-   annotation:
+   it says that the genome assembly has:
+   
+   - A size of 566.3 Mb (Megabases)
+   - 3 chromosomes and 289 unplaced scaffolds
+   - 16,297 protein-coding genes annotated
   
+   See these screenshots:
+   
    ![](../img/refgenome_stats.png){fig-align="center" width="40%"}
   
    ![](../img/refannot_stats.png){fig-align="center" width="50%"}
-  
-   So, the genome...
-  
-   - has a size of 566.3 Mb (Megabases)
-   - contains 3 chromosomes and 289 unplaced scaffolds
-   - has 16,297 protein-coding genes annotated
   
   </details>
 :::
 
 ::: {.callout-note collapse="true"}
-#### Side note: Downloading reference genome files *(Click to expand)*
+#### Side note: How you can download reference genome files *(Click to expand)*
 
 If you wanted to download the reference genome files from the NCBI website,
 you could either select an assembly in the overview table and click the `Download` button,
@@ -306,7 +333,8 @@ like [FlyBase](https://flybase.org/) for *Drosophila*,
 and [JGI Phytozome](https://phytozome-next.jgi.doe.gov/) for plants.
 
 In many cases,
-these databases *don't contain the exact same reference genome files than NCBI*. Often, at least the annotation is different,
+these databases *don't contain the exact same reference genome files than NCBI*.
+Often, at least the annotation is different,
 but even the assembly may have small differences including in chromosome/scaffold names,
 which can make these files completely incompatible.
 And to make matters even more complicated,
@@ -339,14 +367,14 @@ ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG
 Each FASTA entry consists of:
 
 1. A **header** line that starts with a `>` (greater-than sign) and provides an identifier
-   and optionally additional information about the sequence.^[
+   and optionally additional information about the sequence^[
    There are no universal standards for the header line format,
    but individual programs and databases may expect specific formats.]
-2. A nucleotide or amino acid **sequence** (which can take 1 or several/many lines)
+2. A nucleotide or amino acid **sequence** (which can span 1 or several/many lines)
 
 #### The *Culex* genome assembly FASTA file
 
-The *Culex* reference genome files are in the `data/ref` directory:
+The *Culex pipiens* reference genome files are in the `ref` directory:
 
 ``` bash
 ls -lh data/ref
@@ -357,10 +385,15 @@ ls -lh data/ref
 ```
 
 The FASTA file is `GCF_016801865.2.fna` and is quite large (547 Mb).
+`cat` isn't a great command to take a peek at such a large file,
+because it will print all of it to screen 😳.
 
-While you can easily open small to medium-size files in the editor pane,
-this doesn't work well for larger files like these.
-A handy command to view text files of any size is **`less`**,
+Yet the Unix shell more broadly is actually excellent for exploring such files,
+because visual text editors (say, Notepad or TextEdit) would have lots of trouble
+opening these large files^[The reason is that they try to load them into RAM memory entirely,
+even if you just want to see the first few lines.].
+
+A great command to easily view text files of any size is **`less`**,
 which opens them up in a "pager" within your shell -- 
 you'll see what that means if you try it with one of the assembly FASTA file:
 
@@ -389,14 +422,19 @@ aaaatattgaTAGAATGAAAGATGCAAGTCccaaaaattttaagtaaatgaATAGTAATCATAAAGATAActgatgatga
 After running the above command,
 the file should have "opened" inside the `less` pager.
 
-You can move around in the file in several ways:
+Move around in the file and explore it a bit,
+which you can do in several ways:
 by scrolling with your mouse, with up and down arrows, or, if you have them,
 <kbd>PgUp</kbd> and <kbd>PgDn</kbd> keys
 (also, <kbd>u</kbd> will move up half a page and
 <kbd>d</kbd> will move down half a page).
 
+How many FASTA entries are you seeing in the part of the file you explored?
+
+::: {.callout-tip appearance=simple}
 Notice that you are "inside" this pager and won't have your shell prompt back
 until you **press** <kbd>q</kbd> to quit `less`.
+:::
 :::
 
 ::: {.callout-warning collapse="true"}
@@ -419,7 +457,7 @@ which are in uppercase.
   `.fa`, `.fasta`, `.fna`, `.faa`
 - Of these, "generic" extensions are `.fasta` and `.fa`
   (e.g: `culex_assembly.fasta`)
-- While the other extensions explicitly indicate whether sequences are
+- The other extensions explicitly indicate whether sequences are
   *nucleotides* (`.fna`) or *amino acids* (`.faa`)
   
 These extensions are mainly used to help users quickly identify the sequence type:
@@ -428,16 +466,17 @@ the underlying format is the same in all cases.
 
 ### Annotation files
 
-As you saw, the genome assembly FASTA file merely contains the sequences of the chromosomes/scaffolds.
-How do you know where the genes are located on these sequences?
-That's where the annotation file comes in,
-which in this case is a GTF file (`GCF_016801865.2.gtf`).
+As you've seen, the genome assembly FASTA file merely contains the sequences of
+the chromosomes/scaffolds.
+How do you know where on these sequences genes are located?
+That's where the _annotation_ comes in,
+which in this case is stored in a GTF file (`GCF_016801865.2.gtf`).
 
-We won't explore the GTF annotation file,
+We won't explore the GTF annotation file
+(but check the [Appendix](#appendix) in your own time if you're interested),
 but it is basically a large table with information about the positions of genes
 and other genomic features.
-This is the basic idea (the actual format isn't quite as simple as this --
-see the [Appendix](#appendix) for more):
+While the actual format isn't quite as simple as this, the basic idea is as follows:
 
 ```bash-out-solo
 chromosome      feature  start  end   strand
@@ -446,26 +485,30 @@ chromosome1     gene1    17     1356   +
 chromosome1     gene2    4902   5041   +
 ```
 
+Among other things, this information allows you (and tools that can do it for you)
+to _extract_ gene sequences from the genome assembly FASTA file.
+
 ## FASTQ files
 
 ### The FASTQ format
 
 FASTQ is the standard HTS read data file format.
-Just like FASTA files, they contain sequences, but unlike in FASTA files,
-the sequences in FASTQ files are accomponiedied by quality scores
+Just like the FASTA format, it contains sequences, but in FASTQ,
+these are accompanied by _quality scores_
 (hence FASTQ as in "Q" for "quality").
 
-Each read is represented by **four lines**::
+Each read is represented by **four lines**:
 
 1. A **header** that starts with **`@`** and e.g. uniquely identifies the read
 2. The **sequence** itself
 3. A plus sign, **`+`**
-4. One-character **quality scores** for each base 
+4. One-character ASCII **quality scores** for each base 
 
-![The FASTQ format.](../img/fastq_dark.png){fig-align="center" width="100%" fig-alt="An annotated screenshot of two reads in a FASTQ file." .lightbox}
+![The FASTQ format.](../img/fastq_dark.png){fig-align="center" width="92%" fig-alt="An annotated screenshot of two reads in a FASTQ file." .lightbox}
 
-Each qualiy score character corresponds to a numeric "Phred" quality score ($Q$)
-that is a function of the estimated _error_ probability for a base call ($P$):
+Each ASCII character in the quality line corresponds to a numeric "Phred"
+quality score ($Q$) that is a function of the estimated _error_ probability
+for a base call ($P$):
 
 $$
 Q = -10 * log_{10}(P)
@@ -484,31 +527,33 @@ Some specific probabilities and their rough qualitative interpretation for Illum
 
 <hr style="height:1pt; visibility:hidden;" />
 
-<details><summary>{{< fa comments >}} But why use those ASCII characters in the quality line? _(Click to see the solution)_</summary>
+<details><summary>{{< fa comments >}} But why use those ASCII characters and not just numbers in the quality line? _(Click to see the solution)_</summary>
 
-To be clear, the numeric Phred quality score is represented in FASTQ files
-by a "ASCII character" corresponding to the number rather than the number itself.
-So why is this?
+First, to be clear, the question that arises is this:
+the numeric Phred quality score is represented in FASTQ files by a "ASCII character"
+corresponding to the number rather than the number itself.
+That seems roundabout and harder to understand. So why is this done?
 
-This allows for a single-character representation of each possible score —
-such that
-**each quality score character can conveniently correspond to (& line up with) a base character**
-in the read.
+This is done because it allows for a **single-character** representation of each
+possible score — such that
+*each quality score character can correspond to (& line up with)*
+*a base character in the read.*
 
 For your reference,
-[here is a complete lookup table](https://www.drive5.com/usearch/manual/quality_score.html) --
-look at the top table, `BASE=33`).
+[here is a complete lookup table](https://www.drive5.com/usearch/manual/quality_score.html)
+to convert the ASCII characters to Phred quality scores
+(look at the top table, `BASE=33`).
+<hr style="height:1pt; visibility:hidden;" />
 </details>
 
-### Listing the FASTQ files
+### FASTQ file sizes and organization
 
-Let's take another look at your list of FASTQ files:
+Let's take another look at the list of FASTQ files:
 
-``` bash
+```bash
 ls -lh data/fastq
 ```
-
-``` bash-out
+```bash-out
 -rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:36 ERR10802863_R1.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 22M Jan 21 13:36 ERR10802863_R2.fastq.gz
 -rw-r--r-- 1 jelmer PAS0471 21M Jan 21 13:36 ERR10802864_R1.fastq.gz
@@ -521,15 +566,15 @@ ls -lh data/fastq
 In the file listing above:
 
 - First, take note of the file sizes.
-  They are "only" about 22 Mb in size, and all have a very similar size.
-  This is because I "subsampled" the FASTQ files to only retain 500,000 reads per file.
-  The original files were on average over 1 Gb in size with about 30 million reads.
+  They are merely about 22 Mb in size, and all have a very similar size.
+  This is because I "subsampled" the FASTQ files, only retaining 500,000 reads per file.
+  _The original files were on average over 1 Gb in size with about 30 million reads._
 
 - Second, if you look closely at the file names,
   it looks like there are two FASTQ files per sample:
   one with `_R1` at the end of the file name, and one with `_R2`.
 
-<details><summary>{{< fa comments >}} What might each of the two files per sample represent/contain? *)Click for the solution)*</summary>
+<details><summary>{{< fa comments >}} What might each of these two files per sample represent/contain? *(Click for the solution)*</summary>
 These contain the forward reads (`_R1.fastq.gz`) vs. the reverse reads (`_R2.fastq.gz`).
 </details>
 
@@ -587,7 +632,7 @@ _(Note that it is generally *not* common to run into these kinds of failed reads
 <hr style="height:1pt; visibility:hidden;" />
 
 While the above problematic reads were easy to spot,
-we typically don't perform extensive quality control by manually inspecting FASTQ files.
+you wouldn't typically perform quality control by manually inspecting FASTQ files.
 There are simply too many reads to make sense of!
 Instead, you can use **specialized tools like FastQC to summarize** FASTQ files --
 that's what we'll do now.
@@ -596,12 +641,16 @@ that's what we'll do now.
 
 FastQC is a very useful and widely used tool to perform
 **quality control of HTS reads**.
-It is also a good first example of a bioinformatics tool with a
+For the budding computational biologist,
+it is also a good first example of a bioinformatics/HTS analysis tool with a
 command-line interface.
 
 ### Running FastQC
 
-To run FastQC, use the command `fastqc`.
+Command-line programs like FastQC are operated quite similarly to the Unix shell
+commands you've seen.
+To run FastQC, you use the command `fastqc`.
+
 To analyze a FASTQ files with default FastQC settings,
 a complete FastQC command would simply be `fastqc`,
 followed by the name of the file as the argument:
@@ -616,10 +665,9 @@ bash: fastqc: command not found...
 #### Loading the FastQC "module"
 
 But of course, it can't be quite that simple -- we get an error!
-While FastQC *is* installed at OSC[^5],
-we have to **"load it"** before we can use it.
+While FastQC *is* installed at OSC[^5], we have to *"load it"* before use.
 The finer details of using software at OSC are outside of the scope of this lab,
-but please accept that we can load FastQC as follows:
+so here, please accept that we can load FastQC as follows:
 
 ```bash
 module load fastqc/0.12.1
@@ -629,13 +677,13 @@ module load fastqc/0.12.1
 
 #### Changing the output dir
 
-We're also going to make a chance to our command.
-An annoying default behavior of FastQC is that it writes output files
+Before trying again, you'll also make a chance to the command.
+An ill-advised default behavior of FastQC is that it writes output files
 in the dir where the input files are --
 it's not good practice to directly mix data and results like that!
 
 To figure out how we can change that behavior,
-note that many commands and bioinformatics tools alike have an
+note that many commands and programs have an
 **option `-h` and/or `--help`** to print usage information to the screen.
 
 ::: exercise
@@ -645,10 +693,9 @@ Print FastQC's help info,
 and figure out which option you can use to specify an output dir of your choice.
 
 <details><summary>*Click for the solution*</summary>
-`fastqc -h` and `fastqc --help` will both work to show the help info.
-
+Both `fastqc -h` and `fastqc --help` will show the help info.
 You'll get quite a bit of output printed to screen,
-including the snippet about output directories that is reproduced below:
+including this snippet about output directories:
 
 ``` bash
 fastqc -h
@@ -661,14 +708,16 @@ fastqc -h
                directory as the sequence file which was processed.
 ```
 
-So, you can use `-o` or equivalently, `--outdir` to specify an output dir.
+This means that you can use `-o` or equivalently, `--outdir` to specify an output dir.
+(Commands often have both short- and long-form options just for convenience.)
 </details>
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
 
-You'll want to put the output in the directory you created in the first part
-of the lab, e.g. for me it would be `jelmer/fastqc`:
+You'll want to have FastQC write output to a deicated dir within the dir you
+created in the first part of the lab.
+For me, for example, a good choice would be `jelmer/fastqc`:
 
 ```bash
 # Replace 'jelmer' with your own dir name 
@@ -678,19 +727,23 @@ fastqc --outdir jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz
 Specified output directory 'jelmer/fastqc' does not exist
 ```
 
+But we get an error! 😡
+
 ::: exercise
 #### {{< fa user-edit >}} Exercise: Fixing the output directory problem
 
-😡 What is going on this time? Can you try to fix the problem?
+What is going on this time? Can you try to fix the problem?
 
 <details><summary>*If you know what the problem is, click here for a hint on how to fix it*</summary>
-You can create a new directory either by using the buttons in the VS Code side bar
-or with the `mkdir` command --
-here, try it as **`mkdir -p`** followed by the name (path) of the directory
-you want to create:
+You can create a new directory in the OnDemand file explorer,
+or use a command to create dirs.
+
+For the latter option: the command `mkdir` can be used to create new dirs,
+where you give the name/path of the dir you want to create as the argument:
 
 ```bash
-mkdir -p REPLACE-THIS-WITH-YOUR-DESIRED-OUTPUT-DIR
+# Replace 'DESIRED-OUTPUT-DIR' with the actual name we want to give the new dir
+mkdir DESIRED-OUTPUT-DIR
 ```
 </details>
 
@@ -700,8 +753,9 @@ mkdir -p REPLACE-THIS-WITH-YOUR-DESIRED-OUTPUT-DIR
   is that the output directory that we specified with `--outdir` does not exist.
   We might have expected FastQC to be smart/flexible enough to create this dir
   for us, but alas.
+  To be fair, it did warn us about this in the Help info!
 
-- You can create this dir in the OnDemand or VS Code file explorers,
+- You can create this dir in the OnDemand file explorer,
   but here I will show how to do it with a command:
   `mkdir` can be used to create new dirs.
   
@@ -715,14 +769,18 @@ Now that you've created the output directory,
 let's give it a final try before throwing our laptops out the window:
 
 ```bash
-fastqc --outdir $USER/fastqc data/fastq/ERR10802863_R1.fastq.gz
+fastqc --outdir jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz
 ```
 ```bash-out
+application/gzip
 Started analysis of ERR10802863_R1.fastq.gz
 Approx 5% complete for ERR10802863_R1.fastq.gz
 Approx 10% complete for ERR10802863_R1.fastq.gz
 Approx 15% complete for ERR10802863_R1.fastq.gz
+Approx 20% complete for ERR10802863_R1.fastq.gz
+Approx 25% complete for ERR10802863_R1.fastq.gz
 [...truncated...]
+Approx 100% complete for ERR10802863_R1.fastq.gz
 Analysis complete for ERR10802863_R1.fastq.gz
 ```
 
@@ -733,21 +791,22 @@ Analysis complete for ERR10802863_R1.fastq.gz
 Let's take a look at the files in the output dir you specified:
 
 ```bash
-ls -lh $USER/fastqc
+# [Replace 'jelmer' with your own dir name]
+ls -lh jelmer/fastqc
 ```
 ```bash-out
--rw-r--r-- 1 jelmer PAS0471 241K Jan 25 15:50 ERR10802863_R1_fastqc.html
--rw-r--r-- 1 jelmer PAS0471 256K Jan 25 15:50 ERR10802863_R1_fastqc.zip
+total 1.1M
+-rw-r--r-- 1 jelmer PAS0471 718K Jan 27 13:12 ERR10802863_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 364K Jan 27 13:12 ERR10802863_R1_fastqc.zip
 ```
 
-- There is a `.zip` file, which contains **tables** with FastQC's data summaries
-- There is an `.html` (HTML) file,
-  which contains **plots** --- this is what we'll look at next
+- There is a `.zip` file --- this contains **tables** with FastQC's data summaries
+- There is an `.html` (HTML) file -- this contains QC plots and is what we'll look at next
 
 ::: exercise
 #### {{< fa user-edit >}} Exercise: Run FastQC for the R2 file
 
-Run FastQC for the corresponding R2 file.
+Run FastQC for the corresponding R2 FASTQ file.
 Would you use the same output dir?
 
 <details><summary>*Click here for the solution*</summary>
@@ -756,10 +815,10 @@ the output file names have the input file identifiers in them.
 As such, you don't need to worry about overwriting files,
 and it will be easier to have all the results in a single dir.
 
-To run FastQC for the R2 (=reverse-read) file:
+To run FastQC for the R2 (=reverse-read) FASTQ file:
 
 ```bash
-fastqc --outdir $USER/fastqc ERR10802863_R2.fastq.gz
+fastqc --outdir jelmer/fastqc data/fastq/ERR10802863_R2.fastq.gz
 ```
 ```bash-out
 Started analysis of ERR10802863_R2.fastq.gz
@@ -771,7 +830,7 @@ Analysis complete for ERR10802863_2.fastq.gz
 ```
 
 ```bash
-ls -lh $USER/fastqc
+ls -lh jelmer/fastqc
 ```
 ```bash-out
 -rw-r--r-- 1 jelmer PAS0471 241K Jan 21 21:50 ERR10802863_R1_fastqc.html
@@ -780,26 +839,26 @@ ls -lh $USER/fastqc
 -rw-r--r-- 1 jelmer PAS0471 244K Jan 21 21:53 ERR10802863_R2_fastqc.zip
 ```
 
-Now, you have four files: two for each of your preceding successful FastQC runs.
+Now, you have four FastQC output files:
+two for each of your preceding successful FastQC runs.
 </details>
 :::
 
 ## Interpreting FastQC's output
 
 First, you'll have to download FastQC's output HTML files,
-because with your current setup,
-you unfortunately can't view HTML files within VS Code at OSC:
+because you can't view them in the Unix shell^[
+The Unix shell is great for plain-text file, but not for other types of files.].
 
-1. Find the FastQC HTML files in the file explorer in the VS Code side bar.
-2. Right-click on one of them, click `Download...` and follow the prompt to
-   download the file somewhere to your computer
-   (doesn't matter where, just make sure you see where it goes).
-3. Repeat this for the second file
-4. Then, open your computer's file browser, find the downloaded files,
-   and double-click on one.
-   It should be **opened in your default web browser**.
+1. Find the FastQC HTML files in the OnDemand Files menu file explorer.
+2. Select the two files by clicking the check-box at the right,
+   and click the Download bottom towards the top.
+3. Download the file to somewhere on your computer
+   (doesn't matter where), and your browser should give you a pop-up with the file
+   you can click on to open it.
+4. Since the file is in HTML format, it should **open in your web browser**.
 
-![When you right-clock on a file or folder in the VS Code file browser, there's a button to Download it.](../img/vscode-download.png){fig-align="center" width="55%" fig-alt="A screenshot showing the file download option in the VS Code file explorer." .lightbox}
+![With the two HTML files selected, you can click the Download button at the top](../img/ondemand-fastqc-download.png){fig-align="center" width="80%" fig-alt="Screenshot of the OnDemand file explorer with FastQC HTML files selected for download." .lightbox}
 
 We'll now go through a couple of the FastQC plots/modules,
 with first some example plots^[
@@ -807,7 +866,7 @@ Some of the FastQC example plots were taken from
 [here](https://rtsf.natsci.msu.edu/sites/_rtsf/assets/File/FastQC_TutorialAndFAQ_080717.pdf).
 ] with good/bad results for reference.
 
-#### Overview of module results
+### Overview of module results
 
 FastQC has "**pass**" (checkmark in green),
 "**warning**" (exclamation mark in orange),
@@ -830,14 +889,14 @@ That's because, for example:
   and files based on expected differences.
 :::
 
-#### Basic statistics
+### Basic statistics module
 
 This section shows, for example, the number of sequences (reads) and the read
 length range for your file:
 
 ![](../img/fastqc_mod01_basic-stats.png){fig-align="center" width="85%"}
 
-#### Per base quality sequence quality
+### Per base quality graph
 
 This figure visualize the mean per-base Phred quality score (as discussed above; y-axis)
 along the length of the reads (x-axis). Note that:
@@ -859,7 +918,7 @@ along the length of the reads (x-axis). Note that:
 :::
 :::::
 
-#### Adapter content
+### Adapter content graph
 
 Checks for known adapter sequences.
 As you've learned, when an insert size is shorter than the read length,
@@ -886,7 +945,7 @@ Open the HTML file for the R1 FASTQ file and go through the modules we discussed
 Can you make sense of it?
 Does the data look good to you, overall?
 
-Now open the HTML file for the *R2* FASTQ file and take a look just at the
+Now open the HTML file for the R2 FASTQ file and take a look just at the
 quality score graph.
 Does it look any worse than the R1?
 :::
@@ -895,36 +954,35 @@ Does it look any worse than the R1?
 
 In next week's lab, you will be working in R, using RStudio,
 to analyze the gene expression counts resulting from this RNA-Seq data.
-You will have [homework](r_homework.qmd) to prepare for that lab,
-and to make that easier for you,
+You will have [homework](r_homework.qmd) to prepare for that lab.
+To make that a bit easier for you,
 I'll now demonstrate how to start an RStudio session at OSC:
 
-1. Log in to OSC at <https://ondemand.osc.edu>
+::: {.callout-tip appearance="simple"}
+It's necessary to fill out this form (instead of just opening RStudio)
+because RStudio runs on a compute node rather than a login node.
+Whenever you want to access a compute node, you need to request resources for it,
+like this form does.
+:::
+
+1. Go to the [OnDemand homepage](https://ondemand.osc.edu) as before
 
 2. Click on **`Interactive Apps`** (top bar) and then **`RStudio Server`**
    (all the way at the bottom)
 
 3. Fill out the form as follows:
 
-   - Cluster: **`Pitzer`**
+   - Cluster: **`cardinal`**
    - R version: **`4.4.0`**
    - Project: **`PAS2880`**
    - Number of hours: **`4`**
    - Node type: **`any`**
    - Number of cores: **`2`**
 
-   <details><summary>*Click to see a screenshot*</summary>
-   ![](../img/rstudio_form.png){fig-align="center" width="50%"}
-   </details>
-
 4. Click the big blue **`Launch`** button at the bottom
 
 5. Now, you should be sent to a new page with a box at the top for your
    RStudio Server "job", which should initially be "Queued" (waiting to start).
-
-   <details><summary>*Click to see a screenshot*</summary>
-   ![](../img/rstudio_queued.png){fig-align="center" width="70%"}
-   </details>
 
 6. Your job should start running very soon,
    with the top bar of the box turning green and saying "Running".
@@ -942,7 +1000,6 @@ I'll now demonstrate how to start an RStudio session at OSC:
 In today's lab, you were introduced to:
 
 - Working at the Ohio Supercomputer Center
-- Using the VS Code text editor
 - Using the Unix shell
 - Reference genome files & where to find these
 - HTS read FASTQ files and how to quality-control these
@@ -956,10 +1013,13 @@ And you've seen a basic example of loading and running a command-line tool at OS
 ::: {.callout-note collapse="true"}
 #### Side note: scaling the analysis & next steps for real projects (Click to expand)
 
-The missing pieces for a typical, fuller example of how such tools are run in
-the context of an actual genomics project are (if we stay with FastQC):
+For this brief intro to HTS data analysis, we've kept things simple.
+In a typical HTS data analysis project, however,
+there are some more pieces to the puzzle that we didn't cover today:
 
-- Putting the command to run FastQC in a **"shell script"**.
+- Using a text editor with an integrated terminal (e.g., VS Code) to be able
+  to write and edit scripts more easily
+- Putting commands to run programs FastQC in a **"shell script"**.
 - **Submitting the script** as a "batch job".
 - To make speed things, using the OSC's capabilities,
   we can **submit multiple jobs *in parallel* using a loop**.
@@ -983,11 +1043,9 @@ it should not be hard to learn those skills either.
 
 -----
 
-## Appendix
+## Appendix: GTF files
 
-### GTF genome annotation files
-
-#### The GTF format
+### The GTF format
 
 The GTF format is a tab-delimited tabular file format that contains
 **genome annotations**, with:
@@ -1012,9 +1070,9 @@ Some details on the more important/interesting columns:
 - `strand` — Whether the feature is on the `+` (forward) or `-` (reverse) strand
 - `attribute` — A semicolon-separated list of tag-value pairs with additional information
 
-#### Your *Culex* GTF file
+### The *Culex pipiens* GTF file
 
-Take a look at the GTF file for your *Cx. pipiens* reference genome --
+Take a look at the GTF file for the *Culex pipiens* reference genome --
 like before, use `less`, but now with the `-S` option:
 
 ```bash
@@ -1049,14 +1107,16 @@ Therefore, we turned off line-wrapping above by using the `-S` option to `less`.
 
 The GTF file is sorted:
 all entries from the first line of the table,
-until you again see "gene" in the third column, belong to the first gene.
-Can you make sense of all these entries for this gene,
+until the next time you a "gene" entry in the third column,
+list features are part of the first gene.
+
+Can you make sense of all the entries for the first gene in the GTF,
 given what you know of gene structures?
-How many transcripts does this gene have?
+How many transcripts does the gene have?
 
 <details><summary>*Click to see some pointers*</summary>
 
-- The first gene ("LOC120427725") has 3 transcripts.
+- The first gene (`LOC120427725`) has 3 transcripts.
 - Each transcript has 6-7 exons, 5 CDSs, and a start and stop codon.
 
 Below, I've printed all lines belonging to the first gene:

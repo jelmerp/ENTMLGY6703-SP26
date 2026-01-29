@@ -39,3 +39,23 @@ ncbi_dataset/
 2 directories, 8 files
 ```
 :::
+
+
+::: {.callout-warning collapse="true"}
+#### Side note: "I don't think I like coding. Can I avoid all of this?" *(Click to expand)*
+
+If you will often be doing HTS/genomics projects like the ones mentioned above,
+it's hard to avoid using this (kind of) infrastructure.
+But especially if you're only doing a single project like this,
+you might avoid it by:
+
+- Outsourcing part of the analysis:
+  companies or service cores can often do the more standardized,
+  compute-heavy parts for you
+- Trying a platform like [***Galaxy***](https://usegalaxy.org),
+  which has a web browser interface and doesn't require coding
+
+Finally, generative AI tools are becoming increasingly capable of
+writing code for you based on your instructions,
+and may spurn additional no-code or low-code solutions in the future.
+:::

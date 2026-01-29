@@ -10,11 +10,12 @@ number-sections: false
 
 ### Schedule
 
-| Week | Date       | Module | Topic & link |
-|:------:|------|-------------|-----------------------------------|
-| 3    | Jan 29^th^ | High-throughput sequencing (HTS) | [**Lecture**: High-throughput sequencing & genomes](pages/sequencing.qmd) |
-| 3    | Jan 30^th^ | High-throughput sequencing (HTS) | \- [**Lab** part 1: Computational infrastructure](pages/infrastructure.qmd)<br>- [**Lab** part 2: Working with genome and HTS data](pages/data.qmd) |
-| 4    | Feb 5^th^  | RNA-Seq                          | [**Lecture**: RNA-Seq](pages/rnaseq.qmd) |
-| 4    | Feb 6^th^  | RNA-Seq                          | [**Lab**: Differential expression analysis](pages/DE.qmd) |
+| Week | Date       | Module | Type | Topic & link |
+|:------:|------|-------------|-----|-----------------------------------|
+| 3    | Jan 29^th^ | High-throughput sequencing (HTS) | Lecture | [High-throughput sequencing & genomes](pages/sequencing.qmd) |
+| 3    | Jan 30^th^ | High-throughput sequencing (HTS) | Lab  | - [Part 1: Computing environment](pages/infrastructure.qmd)<br>- [Part 2: Working with genome and HTS data](pages/data.qmd) |
+| 4    |   | RNA-Seq                          | Homework | [R basics](pages/r_homework.qmd) |
+| 4    | Feb 5^th^  | RNA-Seq                          | Lecture| [RNA-Seq](pages/rnaseq.qmd) |
+| 4    | Feb 6^th^  | RNA-Seq                          | Lab | [Differential expression analysis](pages/DE.qmd) |
 
-: {.striped .hover}
+: {.striped}
