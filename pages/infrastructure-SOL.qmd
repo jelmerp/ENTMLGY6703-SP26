@@ -185,6 +185,27 @@ _(I'll refer to this folder as your **personal** folder from now on.)_
    _(It may help to click back-and-forth between folders to see how the path changes.)_
    Does this seem fundamentally different from the file system on your own computer?
    
+   <details><summary>*Click for the solution*</summary>
+   The forward slashes <kbd>/</kbd> separate folders in a path.
+   Each part in between, then, represents a folder.
+   
+   The path is hierarchical and you should read it from left (top-level folder)
+   to right (subfolders):
+   For example, in `/fs/scratch/PAS2880/ENT6703`:
+   
+   - `/fs` is a top-level folder -- you can always distinguish a top-level folder
+     because the path starts with a forward slash <kbd>/</kbd>
+   - inside that is the `scratch` folder
+   - inside that is the `PAS2880` folder
+   - inside that is the `ENT6703` folder
+   
+   File systems on personal computers are structured very similarly.
+   But on Windows, among some other differences,
+   backslashes <kbd>\\</kbd> are used instead of forward slashes <kbd>/</kbd>
+   to separate folders.
+   
+   </details>
+   
    <details><summary>*Click to see a diagram of the OSC file system*</summary>
    <hr style="height:1pt; visibility:hidden;" />
    ![](../img/paths2.png){fig-align="center" width="60%" fig-alt="A diagram showing the hierarchical structure of a file system with folders and subfolders." .lightbox}
@@ -192,6 +213,10 @@ _(I'll refer to this folder as your **personal** folder from now on.)_
    
 3. If someone made a folder `miranda` inside the `ENT6703` folder,
    what would be the path to that folder?
+   
+   <details><summary>*Click for the solution*</summary>
+   The path would be `/fs/scratch/PAS2880/ENT6703/miranda`.
+   </details>
 :::
 
 ### Interactive Apps
@@ -412,7 +437,13 @@ cd /fs/Scratch/PAS2880
 -bash: cd: /fs/Scratch/PAS2880: No such file or directory
 ```
 
-<details><summary>{{< fa comments >}} What was the problem with the path we specified? Does that surprise you?</summary>
+<details><summary>{{< fa comments >}} What was the problem with the path we specified? Does that surprise you? *(Click to see the solution)*</summary>
+
+We used a capital S in `/Scratch/` — this should have been `/scratch/`.
+
+This hints at the fact that everything in the shell is **case-sensitive**,
+including commands and file names.
+So if a directory is called `scratch`, typing `Scratch` will not work!
 </details>
 
 ### `ls` and command options
@@ -479,7 +510,15 @@ drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 meta
 drwxr-x--- 2 jelmer PAS0471 4.0K Jan 27 08:37 ref
 ```
 
-<details><summary>{{< fa comments >}} What is different about the output, and what do you think that means?</summary>
+<details><summary>{{< fa comments >}} What is different about the output, and what do you think that means? *(Click to see the solution)*</summary>
+
+The only difference is in the format of the column reporting the sizes of the
+items listed.
+
+You now have "Human-readable filesizes" (hence `-h`),
+where sizes on the scale of kilobytes will be shown with `K`s,
+of megabytes with `M`s, and of gigabytes with `G`s.
+Minor detail, but this can be quite useful especially for large files.
 </details>
 
 Conveniently, options can be "pasted together";
@@ -544,6 +583,21 @@ total 941M
 
 List the files in the `ref` dir.
 What are the file sizes?
+
+<details><summary>*Click for the solution*</summary>
+  
+```bash
+ls -lh ref
+```
+```bash-out
+total 659M
+-rw-r----- 1 jelmer PAS0471 547M Jan 27 08:37 GCF_016801865.2.fna
+-rw-r----- 1 jelmer PAS0471 123M Jan 27 08:37 GCF_016801865.2.gtf
+```
+  
+The `.fna` file (the genome assembly nucleotide FASTA file) is 547 Mb,
+and the `.gtf` file (the annotation GTF file) is 123 Mb.
+</details>
 :::
 
 ::: exercise
@@ -561,6 +615,32 @@ which of the following statements is correct (only one is correct)?
      while the short paths start from your current working dir.
 > D) The long paths are for directories, while the short paths are for files.
   
+<details><summary>*Click for the solution*</summary>
+  
+The correct answer is `C`.
+  
+The long paths are called **absolute paths**,
+and start from the root of the file system
+(recognized by a leading slash like in `/fs/ess`).
+Making an analogy with geographic locations,
+you can think of these as GPS coordinates:
+they always point to the same location, no matter where you currently are.
+   
+The short paths are **relative paths**, starting from your current working dir.
+Continuing the geographic analogy, these are like giving directions
+starting from your current location such as "take the second left".
+
+See the table below for two examples:
+
+:::: {.column style="font-size: 90%"}
+
+| Working dir | Absolute path to another folder                         | Relative path         |
+|-------------|----------------------------------------|-----------------------|
+| `/fs/scratch/PAS2880/ENT6703/data` | `/fs/scratch/PAS2880/ENT6703/data/fastq`     | `fastq`     |
+| `/fs/scratch/PAS2880/ENT6703` | `/fs/scratch/PAS2880/ENT6703/data/fastq` | `data/fastq`               |
+
+::::
+</details>  
 :::
 
 ### A few more general shell tips

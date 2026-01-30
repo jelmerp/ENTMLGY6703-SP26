@@ -36,50 +36,44 @@ bibliography: ../references.bib
 
 ## What do we mean by *sequencing*?
 
-<details><summary>
-What does the term sequencing, like in "high-throughput sequencing",
-generally refer to?
-&nbsp; <i class="fa-solid fa-comments" style="color:darkolivegreen;"></i>
-</summary>
-Determining the sequence of DNA, RNA, or protein fragments.
-
-Most commonly, especially in "high-throughput" sequencing,
-it refers to **DNA sequencing** specifically.
-</details>
-
-. . .
+- Sequencing generally refers to
+  **determining the sequence of DNA, RNA, or protein fragments**
 
 <hr style="height:1pt; visibility:hidden;" />
 
-This week and next, we will focus on **DNA** sequencing, keeping in mind that:
+- Most commonly, especially in the context of "high-throughput" sequencing,\
+  it specifically refers to **DNA** sequencing
 
-- Protein sequencing involves completely different technologies
+<hr style="height:1pt; visibility:hidden;" />
 
 . . .
 
-- RNA can be, and usually is, sequenced as DNA as well
+- Here, we'll **only focus on DNA sequencing**, keeping in mind that:
 
-  <details><summary> How is that done and why?
-  &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
-  </summary>
-  RNA is usually reverse transcribed to DNA (cDNA) prior to sequencing.
-  
-  While it is becoming more feasible to directly sequence RNA molecules,
-  RNA is an unstable molecule that is easily degraded and harder to sequence.
-  </details>
+  - Protein sequencing involves completely different technologies
+
+  - RNA can be, and usually is, sequenced as DNA as well
+
+    <details><summary> How is that done and why?
+    &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+    </summary>
+    RNA is usually reverse transcribed to DNA (cDNA) prior to sequencing.
+    
+    While it is becoming more feasible to directly sequence RNA molecules,\
+    RNA is an unstable molecule that is easily degraded and harder to sequence.
+    </details>
 
 ## Overview of sequencing technologies
 
 ::: incremental
 
 - **Sanger sequencing [*(since ~1985)*]{style="color:darkolivegreen"}** \
-  Sequences a single, typically PCR-amplified,
-  short-ish (≤900 bp) DNA fragment at a time
+  Sequences a single, typically PCR-amplified, DNA fragment at a time
 
 <hr style="height:1pt; visibility:hidden;" />
 
 - **High-throughput sequencing (HTS)**\
-  Sequences 10^5^-10^9^, usually randomly selected,
+  Sequences 10^5^-10^9^, often randomly selected,
   DNA fragments at a time — two types:
 
   - Short-read HTS: More accurate, shorter reads
@@ -106,19 +100,19 @@ These sequenced fragments of DNA are usually called **reads**
 
 ![](../img/popp_primers.png){fig-align="center" width="90%"}
 
+. . .
+
 - Therefore, to design primers,
   you must know something about the target sequence in advance ---
   this can be highly limiting
+  
+- The sequenced fragment can be up to about 800-1,000 bp
 
 ## Sanger sequencing
 
 - Sequencing itself is performed by **synthesizing a new DNA strand** with
   fluorescently-labeled nucleotides, using a different color for each base
   (`A`, `C`, `G`, `T`)
-
-. . .
-
-<hr style="height:1pt; visibility:hidden;" />
 
 - The final result is a chromatogram that can be "base-called":
 
@@ -131,9 +125,6 @@ These sequenced fragments of DNA are usually called **reads**
 ::: callout-warning
 ## The entire human genome was sequenced with Sanger technology!
 How many basepairs is that? Want to guess how much it cost to do this?
-:::
-
-:::footer
 :::
 
 ## Sequencing cost through time
@@ -149,11 +140,11 @@ How many basepairs is that? Want to guess how much it cost to do this?
 
 ## Present-day Sanger applications
 
-- Because HTS has _much_ higher throughput and is _much_ cheaper per base,
-  Sanger sequencing has become less widely used
+- Because HTS has _much_ higher throughput and is _much_ cheaper per base,\
+  Sanger sequencing is now less widely used
 
 - But it is not obsolete,
-  in part because high throughput isn't always needed or even wanted
+  in part because high throughput isn't always needed
 
 ##
 
@@ -174,7 +165,7 @@ Some present-day uses of Sanger sequencing include...
 
 - Examining genetic variation among individuals/populations
 
-...where using one or few marker or candidate genes can be sufficient
+...where using one or few marker loci or candidate genes can be sufficient
 
 # High-throughput sequencing (HTS) {background-color="silver"}
 
@@ -237,7 +228,7 @@ for example, "genomics" data typically spans much or all of the genome
 
 . . .
 
-- **Metabarcoding** -- for microbial community characterization
+- **Metabarcoding** --- for microbial community characterization
 
 . . .
 
@@ -251,69 +242,6 @@ for example, "genomics" data typically spans much or all of the genome
 ***Does any of you work on, or is planning to work on, projects like these?***
 &nbsp; <i class="fa-solid fa-comments" style="color:darkolivegreen;"></i>
 </summary></details>
-
-## Examples of HTS applications
-
-- In each of of these applications:
-  - What part(s) of the genome are you sequencing?
-  - Who are you sequencing (how many individuals/species)?
-  - How are the sequences used?
-
-## Examples of HTS applications
-
-::: {style="font-size: 85%;"}
-
-| Appl. | What| Who | How
-|---|-----|-----|-----|
-| **Whole-genome assembly** | The whole genome! 😃 | A single individual | "_Overlap_" reads into larger fragments |
-| **Variants** |  | | | |
-| **16S Metabarcoding**  | | | |
-| **RNA-Seq**  | | | |
-
-: {.striped}
-:::
-
-## Examples of HTS applications
-
-::: {style="font-size: 85%;"}
-
-| Appl. | What| Who | How
-|---|-----|-----|-----|
-| **Whole-genome assembly** | The whole genome! 😃 | A single individual | "_Overlap_" reads into larger fragments |
-| **Variants** | Whole genome or specific (e.g. exome) or random (GBS/RAD) regions | Multiple individuals | For each site & individual, determine the _variant state_ (allele)
-| **16S Metabarcoding**  | | | |
-| **RNA-Seq**  | | | |
-
-: {.striped}
-:::
-
-## Examples of HTS applications
-
-::: {style="font-size: 85%;"}
-
-| Appl. | What| Who | How
-|---|-----|-----|-----|
-| **Whole-genome assembly** | The whole genome! 😃 | A single individual | "_Overlap_" reads into larger fragments |
-| **Variants** | Whole genome or specific (e.g. exome) or random (GBS/RAD) regions | Multiple individuals | For each site & individual, determine the _variant state_ (allele)
-| **16S Metabarcoding** | A specific locus (e.g. 16S) | Multiple samples ---<br>can be soil, gut contents, etc. | ***Assign*** reads a _taxonomic identity_ and ***count*** |
-| **RNA-Seq**  | | | |
-
-: {.striped}
-:::
-
-## Examples of HTS applications
-
-::: {style="font-size: 85%;"}
-
-| Appl. | What| Who | How
-|---|-----|-----|-----|
-| **Whole-genome assembly** | The whole genome! 😃 | A single individual | "_Overlap_" reads into larger fragments |
-| **Variants** | Whole genome or specific (e.g. exome) or random (GBS/RAD) regions | Multiple individuals | For each site & individual, determine the _variant state_ (allele)
-| **16S Metabarcoding** | A specific locus (e.g. 16S) | Multiple samples ---<br>can be soil, gut contents, etc. | ***Assign*** reads a _taxonomic identity_ and ***count*** |
-| **RNA-Seq** | Transcriptome | Multiple samples across different conditions/treatments | ***Assign*** reads a _gene identity_ and ***counted*** |
-
-: {.striped}
-:::
 
 ## The main HTS technologies
 
@@ -380,10 +308,10 @@ For example:
 For example:
 
 - (SNP) variant analysis
-- Counting applications such as RNA-Seq
+- "Counting applications" such as RNA-Seq
 
-Here, genomic locations (variant analysis) or gene identities (RNA-Seq) can be
-reliably inferred from as little as 25 bp.
+For these, genomic locations (variant analysis) or gene identities (RNA-Seq)
+can be reliably inferred from as little as 25 bp
   
 </details>
 
@@ -429,7 +357,7 @@ i.e., obtaining a "**depth of coverage**" greater than 1:
 . . .
 
 ::: {.callout-tip appearance="simple"}
-_Typical depths of coverage are ~50-100x for genome assembly and 10-30x for "resequencing" (!)_
+_Typical depths of coverage: ~50-100x for genome assembly & 10-30x for variant typing (!)_
 :::
 
 # Short-read HTS {background-color="silver"}
@@ -438,8 +366,6 @@ _Typical depths of coverage are ~50-100x for genome assembly and 10-30x for "res
 
 - In a HTS context,
   a "**library**" is a collection of DNA fragments ready for sequencing
-
-<hr style="height:1pt; visibility:hidden;" />
 
 . . .
 
@@ -484,8 +410,6 @@ so many samples can be combined (_multiplexed_) into a single library
 
 . . .
 
-<hr style="height:1pt; visibility:hidden;" />
-
 - When sequencing is instead **single-end (SE)**, no reverse read is produced:
 
 ![](../img/singleend.png){fig-align="center"}
@@ -495,7 +419,7 @@ so many samples can be combined (_multiplexed_) into a single library
 - DNA fragment size varies --
   by design and because of limited precision in size selection
 
-![](../img/pairedend.png){width="80%" fig-align="center" fig-alt="A diagram showing forward and reverse reads in paired-end sequencing." .lightbox}
+![](../img/pairedend.png){width="75%" fig-align="center" fig-alt="A diagram showing forward and reverse reads in paired-end sequencing." .lightbox}
 
 <details><summary>
 **What happens when a fragment is shorter than the length of a single F or R read?**
@@ -503,9 +427,9 @@ so many samples can be combined (_multiplexed_) into a single library
 </summary>
 
 "**Adapter read-through**": the final bases in the resulting reads will consist of
-adapter sequence, which should be removed before downstream analysis
+adapter sequence (these should be removed before downstream analysis)
 
-![](../img/insert_size_adapter-read-through.png){fig-align="center" width="58%" fig-alt="A diagram illustrating the scenario when the DNA fragment is shorter than the single read length" .lightbox}
+![](../img/insert_size_adapter-read-through.png){fig-align="center" width="52%" fig-alt="A diagram illustrating the scenario when the DNA fragment is shorter than the single read length" .lightbox}
 
 </details>
 
@@ -517,7 +441,7 @@ adapter sequence, which should be removed before downstream analysis
 - DNA fragment size varies --
   by design and because of limited precision in size selection
 
-![](../img/pairedend.png){width="80%" fig-align="center" fig-alt="A diagram showing forward and reverse reads in paired-end sequencing." .lightbox}
+![](../img/pairedend.png){width="75%" fig-align="center" fig-alt="A diagram showing forward and reverse reads in paired-end sequencing." .lightbox}
 
 <details><summary>
 **What happens when a fragment is shorter than the combined F + R read length?**
@@ -535,27 +459,34 @@ adapter sequence, which should be removed before downstream analysis
 
 ## How Illumina sequencing works
 
-Sequencing is performed by synthesizing a new strand using
-fluorescently-labeled bases and taking a picture each time a new nucleotide
-is incorporated:
+We start with fragments that have been attached to a flow cell ---\
+this image shows just two, but millions are present simultaneously
 
-![](../img/illumina_cycle1.png){width="90%" fig-align="center"}
-
-## How Illumina sequencing works
-
-Sequencing is performed by synthesizing a new strand using
-fluorescently-labeled bases and taking a picture each time a new nucleotide
-is incorporated:
-
-![](../img/illumina_cycle2.png){width="90%" fig-align="center"}
+![](../img/illumina_cycle0.png){width="100%" fig-align="center"}
 
 ## How Illumina sequencing works
 
 Sequencing is performed by synthesizing a new strand using
-fluorescently-labeled bases and taking a picture each time a new nucleotide
-is incorporated:
+fluorescently-labeled bases,\
+and taking a picture each time a new nucleotide is incorporated:
 
-![](../img/illumina_cycle5.png){width="90%" fig-align="center"}
+![](../img/illumina_cycle1.png){width="100%" fig-align="center"}
+
+## How Illumina sequencing works
+
+Sequencing is performed by synthesizing a new strand using
+fluorescently-labeled bases,\
+and taking a picture each time a new nucleotide is incorporated:
+
+![](../img/illumina_cycle2.png){width="100%" fig-align="center"}
+
+## How Illumina sequencing works
+
+Sequencing is performed by synthesizing a new strand using
+fluorescently-labeled bases,\
+and taking a picture each time a new nucleotide is incorporated:
+
+![](../img/illumina_cycle5.png){width="100%" fig-align="center"}
 
 ## The scale of Illumina sequencing
 
@@ -582,7 +513,21 @@ is incorporated:
 ## Reference genomes
 
 Many HTS applications either **require a "reference genome"** or
-**involve its production.**\
+**involve its production**:
+
+. . .
+
+![](../img/reads2genome.png){fig-align="center" width="100%" fig-alt="A diagram illustrating how sequencing reads are aligned to a reference genome." .lightbox}
+
+## Reference genomes
+
+Many HTS applications either **require a "reference genome"** or
+**involve its production:**
+
+![](../img/reads2genome_2.png){fig-align="center" width="100%" fig-alt="A diagram illustrating how sequencing reads are aligned to a reference genome." .lightbox}
+
+## Reference genomes
+
 What exactly does reference genome refer to? It usually includes:
 
 . . .
@@ -630,13 +575,13 @@ For example, if you work with maize, you want a _Zea mays_ reference genome. But
 
 ## Genome assemblies
 
-::: incremental
-- With increasing usage & quality of long-read HTS,
-  assemblies are getting better and better
+- Besides being produced at higher rates as shown on the previous slide,\
+  assemblies keep getting better with increasing usage & quality of long-read HTS
+
+. . .
 
 - Still, many assemblies instead consist of --often 1000s of-- fragments
   (contigs and scaffolds)
-:::
 
 <hr style="height:1pt; visibility:hidden;" />
 
@@ -645,15 +590,17 @@ For example, if you work with maize, you want a _Zea mays_ reference genome. But
 ::: callout-note
 ## How is this data stored?
 Both genome assemblies and annotations are typically saved in a single text file each —
-we'll explore some of these files in tomorrow's lab.
+we'll explore these in tomorrow's lab
 :::
 
 ## Recap
 
-You've learned:
+You've learned...
 
 1. That high-throughput sequencing (HTS) enables DNA sequencing at _much_ larger
    scales than was previously possible
+   
+2. That HTS underlies several major "omics" fields
 
 2. How short-read and long-read HTS have different strengths and weaknesses
 
@@ -695,5 +642,83 @@ protozoans.
 
 - In the lab, you will perform differential gene expression analysis
   on the *Culex pipiens* RNA-Seq dataset
+
+# Bonus: More on HTS applications
+
+## Examples of HTS applications
+
+We talked about these HTS applications:
+
+- **Whole-genome assembly** --- for producing reference genomes
+- **Typing of SNPs and other sequence variants**
+  --- for population genetics, GWAS, etc.
+- **Metabarcoding** --- for microbial community characterization
+- **RNA-Seq** --- for large-scale gene expression analysis
+
+<hr style="height:1pt; visibility:hidden;" />
+
+. . .
+
+In each of of these applications:
+
+- What part(s) of the genome are you sequencing?
+- Who are you sequencing (how many individuals/species)?
+- How are the sequences used?
+
+## Examples of HTS applications
+
+::: {style="font-size: 85%;"}
+
+| Appl. | What| Who | How
+|---|-----|-----|-----|
+| **Whole-genome assembly** | The whole genome! 😃 | A single individual | "_Overlap_" reads into larger fragments |
+| **Variant typing** |  | | | |
+| **16S Metabarcoding**  | | | |
+| **RNA-Seq**  | | | |
+
+: {.striped}
+:::
+
+## Examples of HTS applications
+
+::: {style="font-size: 85%;"}
+
+| Appl. | What| Who | How
+|---|-----|-----|-----|
+| **Whole-genome assembly** | Whole genome 😃 | A single individual | "_Overlap_" reads into larger fragments |
+| **Variant typing** | Whole genome <br>or specific (e.g. exome)<br> or random (GBS/RAD) regions | Multiple individuals | For each site & individual, determine the _variant state_ (allele)
+| **16S Metabarcoding**  | | | |
+| **RNA-Seq**  | | | |
+
+: {.striped}
+:::
+
+## Examples of HTS applications
+
+::: {style="font-size: 85%;"}
+
+| Appl. | What| Who | How
+|---|-----|-----|-----|
+| **Whole-genome assembly** | Whole genome 😃 | A single individual | "_Overlap_" reads into larger fragments |
+| **Variant typing** | Whole genome <br>or specific (e.g. exome)<br> or random (GBS/RAD) regions | Multiple individuals | For each site & individual, determine the _variant state_ (allele)
+| **16S Metabarcoding** | A specific locus (e.g. 16S) | Multi-species samples ---<br>soil, gut contents, etc. | Assign reads a _taxonomic_ identity and ***count*** |
+| **RNA-Seq**  | | | |
+
+: {.striped}
+:::
+
+## Examples of HTS applications
+
+::: {style="font-size: 85%;"}
+
+| Appl. | What| Who | How
+|---|-----|-----|-----|
+| **Whole-genome assembly** | Whole genome 😃 | A single individual | "_Overlap_" reads into larger fragments |
+| **Variant typing** | Whole genome <br>or specific (e.g. exome)<br> or random (GBS/RAD) regions | Multiple individuals | For each site & individual, determine the _variant state_ (allele)
+| **16S Metabarcoding** | A specific locus (e.g. 16S) | Multi-species samples ---<br>soil, gut contents, etc. | Assign reads a _taxonomic_ identity and ***count*** |
+| **RNA-Seq** | Whole transcriptome | Multiple indivuals<br>\(& multiple conditions) | Assign reads a _gene_ identity and ***count*** |
+
+: {.striped}
+:::
 
 ## References
