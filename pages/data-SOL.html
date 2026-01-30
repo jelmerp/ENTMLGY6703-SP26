@@ -517,8 +517,43 @@ ERR10802886     10      relictum</code></pre>
 <section id="exercise-a-culex-pipiens-reference-genome" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-a-culex-pipiens-reference-genome"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: A <em>Culex pipiens</em> reference genome</h4>
 <ol type="1">
-<li><p>Now search for <em>Culex pipiens</em>. Are there any <em>Culex pipiens</em> on NCBI now? And if there are multiple, which would you pick?</p></li>
-<li><p>You can click on each assembly to get more information, including statistics like the number of scaffolds. Take a closer look at the genome you picked above. What is the size of the genome assembly? How many chromosomes and scaffolds does it contain? And how many protein-coding genes?</p></li>
+<li><p>Now search for <em>Culex pipiens</em>. Are there any <em>Culex pipiens</em> on NCBI now? And if there are multiple, which would you pick?</p>
+<details>
+<summary>
+<p><em>Click for the solution</em></p>
+</summary>
+<p>Go through the same process as shown above for the fruitfly, now entering <code>Culex pipiens</code> in the search box.</p>
+<p>You should find that there are 5 <em>Culex pipiens</em> assemblies. Very much like for the fruitfly, as it happens, the first one (<code>TS_CPP_V2</code>) is the only with a reference checkmark next to it and an entry in the <code>RefSeq</code> column:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/refgenome_culex_pipiens.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
+</figure>
+</div>
+<p>So, there <em>is</em> currently a reference genome for <em>Cx. pipiens</em> available, and we’ll be using that one: the files you’ve seen in the <code>ref</code> dir are for that genome.</p>
+</details></li>
+<li><p>You can click on each assembly to get more information, including statistics like the number of scaffolds. Take a closer look at the genome you picked above. What is the size of the genome assembly? How many chromosomes and scaffolds does it contain? And how many protein-coding genes?</p>
+<details>
+<summary>
+<p><em>Click for the solution</em></p>
+</summary>
+<p>On the <a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/">genome’s page at NCBI</a>, it says that the genome assembly has:</p>
+<ul>
+<li>A size of 566.3 Mb (Megabases)</li>
+<li>3 chromosomes and 289 unplaced scaffolds</li>
+<li>16,297 protein-coding genes annotated</li>
+</ul>
+<p>See these screenshots:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/refgenome_stats.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/refannot_stats.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</details></li>
 </ol>
 </section>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -746,8 +781,12 @@ Q = -10 * log_{10}(P)
 <hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
-<i class="fa-solid fa-comments" aria-label="comments"></i> But why use those ASCII characters and not just numbers in the quality line?
+<i class="fa-solid fa-comments" aria-label="comments"></i> But why use those ASCII characters and not just numbers in the quality line? <em>(Click to see the solution)</em>
 </summary>
+<p>First, to be clear, the question that arises is this: the numeric Phred quality score is represented in FASTQ files by a “ASCII character” corresponding to the number rather than the number itself. That seems roundabout and harder to understand. So why is this done?</p>
+<p>This is done because it allows for a <strong>single-character</strong> representation of each possible score — such that <em>each quality score character can correspond to (&amp; line up with)</em> <em>a base character in the read.</em></p>
+For your reference, <a href="https://www.drive5.com/usearch/manual/quality_score.html">here is a complete lookup table</a> to convert the ASCII characters to Phred quality scores (look at the top table, <code>BASE=33</code>).
+<hr style="height:1pt; visibility:hidden;">
 </details>
 </section>
 <section id="fastq-file-sizes-and-organization" class="level3" data-number="4.2">
@@ -769,8 +808,9 @@ Q = -10 * log_{10}(P)
 </ul>
 <details>
 <summary>
-<i class="fa-solid fa-comments" aria-label="comments"></i> What might each of these two files per sample represent/contain?
+<i class="fa-solid fa-comments" aria-label="comments"></i> What might each of these two files per sample represent/contain? <em>(Click for the solution)</em>
 </summary>
+These contain the forward reads (<code>_R1.fastq.gz</code>) vs.&nbsp;the reverse reads (<code>_R2.fastq.gz</code>).
 </details>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -801,6 +841,18 @@ AAAAAEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEE&lt;EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE</c
 <section id="exercise-spotting-problematic-reads" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-spotting-problematic-reads"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Spotting problematic reads</h4>
 <p>Explore the FASTQ file a bit inside <code>less</code>. Can you spot any unusual-looking reads? How do you interpret this?</p>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<p>The 5<sup>th</sup> read looks as follows — and if you scroll down you should quickly see several more reads just like this:</p>
+<pre class="bash-out-solo"><code>@ERR10802863.11918285 11918285 length=35
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
++
+###################################</code></pre>
+<p>These only consist of <code>N</code> bases (and they are also shorter than the other reads), and are therefore completely useless!</p>
+<em>(Note that it is generally <em>not</em> common to run into these kinds of failed reads as easily!)</em>
+</details>
 </section>
 <hr style="height:1pt; visibility:hidden;">
 <p>While the above problematic reads were easy to spot, you wouldn’t typically perform quality control by manually inspecting FASTQ files. There are simply too many reads to make sense of! Instead, you can use <strong>specialized tools like FastQC to summarize</strong> FASTQ files – that’s what we’ll do now.</p>
@@ -813,14 +865,14 @@ AAAAAEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEE&lt;EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE</c
 <h3 data-number="5.1" class="anchored" data-anchor-id="running-fastqc"><span class="header-section-number">5.1</span> Running FastQC</h3>
 <p>Command-line programs like FastQC are operated quite similarly to the Unix shell commands you’ve seen. To run FastQC, you use the command <code>fastqc</code>.</p>
 <p>To analyze a FASTQ files with default FastQC settings, a complete FastQC command would simply be <code>fastqc</code> followed an argument which should have the name of (path to) the file that you want to analyze:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>bash: fastqc: command not found...
 Failed to search for file: GDBus.Error:org.freedesktop.DBus.Error.NameHasNoOwner: Could not activate remote peer.</code></pre>
 <section id="loading-the-fastqc-module" class="level4">
 <h4 class="anchored" data-anchor-id="loading-the-fastqc-module">Loading the FastQC “module”</h4>
 <p>But of course, it can’t be quite that simple – we get an error! While FastQC <em>is</em> installed at OSC<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, you have to “load it” before use, or you will get a “command not found” error like above.</p>
 <p>The finer details of using software at OSC are outside of the scope of this lab, so here, please accept that we can load FastQC as follows:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fastqc/0.12.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load fastqc/0.12.1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="changing-the-output-dir" class="level4">
 <h4 class="anchored" data-anchor-id="changing-the-output-dir">Changing the output dir</h4>
@@ -830,11 +882,24 @@ Failed to search for file: GDBus.Error:org.freedesktop.DBus.Error.NameHasNoOwner
 <section id="exercise-finding-the-output-directory-option" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-finding-the-output-directory-option"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Finding the output directory option</h4>
 <p>Print FastQC’s help info, and figure out which option you can use to specify an output dir of your choice.</p>
+<details>
+<summary>
+<em>Click for the solution</em>
+</summary>
+<p>Both <code>fastqc -h</code> and <code>fastqc --help</code> will show the help info. You’ll get quite a bit of output printed to screen, including this snippet about output directories:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">-h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>  -o --outdir  Create all output files in the specified output directory.
+               Please note that this directory must exist as the program
+               will not create it.  If this option is not set then the 
+               output file for each sequence file is created in the same
+               directory as the sequence file which was processed.</code></pre>
+This means that you can use <code>-o</code> or equivalently, <code>--outdir</code> to specify an output dir. (Commands often have both short- and long-form options just for convenience.)
+</details>
 </section>
 <hr style="height:1pt; visibility:hidden;">
 <p>You’ll want to have FastQC write output to a deicated dir within the dir you created in the first part of the lab. For me, for example, a good choice would be <code>jelmer/fastqc</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'jelmer' with your own dir name </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'jelmer' with your own dir name </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>Specified output directory 'jelmer/fastqc' does not exist</code></pre>
 <p>But we get an error – again! 😡</p>
 <section id="exercise-fixing-the-output-directory-problem" class="level4 exercise">
@@ -846,13 +911,24 @@ Failed to search for file: GDBus.Error:org.freedesktop.DBus.Error.NameHasNoOwner
 </summary>
 <p>You can create a new directory in the OnDemand file explorer, or use a command to create dirs.</p>
 <p>For the latter option: the command <code>mkdir</code> can be used to create new dirs, where you give the name/path of the dir you want to create as the argument:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'DESIRED-OUTPUT-DIR' with the actual name we want to give the new dir</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> DESIRED-OUTPUT-DIR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace 'DESIRED-OUTPUT-DIR' with the actual name we want to give the new dir</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> DESIRED-OUTPUT-DIR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<details>
+<summary>
+<em>Click here for the solution</em>
+</summary>
+<ul>
+<li><p>The problem, as the error message indicates, is that the output directory that we specified with <code>--outdir</code> does not exist. We might have expected FastQC to be smart/flexible enough to create this dir for us, but alas. To be fair, it did warn us about this in the Help info!</p></li>
+<li><p>You can create this dir in the OnDemand file explorer, but here I will show how to do it with a command: <code>mkdir</code> can be used to create new dirs.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [Change 'jelmer' to the name of your own dir]</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> jelmer/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
 </details>
 </section>
 <p>Now that you’ve created the output directory, let’s give it a final try before throwing our laptops out the window:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [Change 'jelmer' to the name of your own dir]</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [Change 'jelmer' to the name of your own dir]</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R1.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>application/gzip
 Started analysis of ERR10802863_R1.fastq.gz
 Approx 5% complete for ERR10802863_R1.fastq.gz
@@ -868,8 +944,8 @@ Analysis complete for ERR10802863_R1.fastq.gz</code></pre>
 <section id="fastqc-output-files" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="fastqc-output-files"><span class="header-section-number">5.2</span> FastQC output files</h3>
 <p>Let’s take a look at the files in the output dir you specified:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [Change 'jelmer' to the name of your own dir]</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> jelmer/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [Change 'jelmer' to the name of your own dir]</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> jelmer/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>total 1.1M
 -rw-r--r-- 1 jelmer PAS0471 718K Jan 27 13:12 ERR10802863_R1_fastqc.html
 -rw-r--r-- 1 jelmer PAS0471 364K Jan 27 13:12 ERR10802863_R1_fastqc.zip</code></pre>
@@ -880,6 +956,26 @@ Analysis complete for ERR10802863_R1.fastq.gz</code></pre>
 <section id="exercise-run-fastqc-for-the-r2-file" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-run-fastqc-for-the-r2-file"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Run FastQC for the R2 file</h4>
 <p>Run FastQC for the corresponding R2 FASTQ file. Would you use the same output dir?</p>
+<details>
+<summary>
+<em>Click here for the solution</em>
+</summary>
+<p>Yes, it makes sense to use the same output dir, since as you could see above, the output file names have the input file identifiers in them. As such, you don’t need to worry about overwriting files, and it will be easier to have all the results in a single dir.</p>
+<p>To run FastQC for the R2 (=reverse-read) FASTQ file:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> <span class="at">--outdir</span> jelmer/fastqc data/fastq/ERR10802863_R2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>Started analysis of ERR10802863_R2.fastq.gz
+Approx 5% complete for ERR10802863_R2.fastq.gz
+Approx 10% complete for ERR10802863_R2.fastq.gz
+Approx 15% complete for ERR10802863_R2.fastq.gz
+[...truncated...]
+Analysis complete for ERR10802863_2.fastq.gz</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> jelmer/fastqc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 241K Jan 21 21:50 ERR10802863_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 256K Jan 21 21:50 ERR10802863_R1_fastqc.zip
+-rw-r--r-- 1 jelmer PAS0471 234K Jan 21 21:53 ERR10802863_R2_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 244K Jan 21 21:53 ERR10802863_R2_fastqc.zip</code></pre>
+Now, you have four FastQC output files: two for each of your preceding successful FastQC runs.
+</details>
 </section>
 </section>
 </section>
@@ -1104,7 +1200,7 @@ NC_000001   RefSeq  exon    11874   12227   .       +       .       gene_id "DDX
 <section id="the-culex-pipiens-gtf-file" class="level3" data-number="9.2">
 <h3 data-number="9.2" class="anchored" data-anchor-id="the-culex-pipiens-gtf-file"><span class="header-section-number">9.2</span> The <em>Culex pipiens</em> GTF file</h3>
 <p>Take a look at the GTF file for the <em>Culex pipiens</em> reference genome – like before, use <code>less</code>, but now with the <code>-S</code> option:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> data/ref/GCF_016801865.2.gtf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> <span class="at">-S</span> data/ref/GCF_016801865.2.gtf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>#gtf-version 2.2
 #!genome-build TS_CPP_V2
 #!genome-build-accession NCBI_Assembly:GCF_016801865.2
