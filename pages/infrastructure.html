@@ -366,6 +366,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption><em>The structure of a supercomputer with three main components: file systems, login nodes, and compute nodes</em></figcaption>
 </figure>
 </div>
+<p>Access to OSC storage space and compute nodes is managed through <strong>projects</strong>. For this course, we have a project called <code>PAS2880</code>, which you have been added to.</p>
 </section>
 </section>
 </section>
@@ -399,10 +400,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If your account is brand new, you should only see three folders listed, two of which are related to the OSC project we are using in these labs, which is called <code>PAS2880</code>:</p>
 <ol type="1">
 <li><strong>Home Directory</strong> – for miscellaneous personal files</li>
-<li><code>/fs/scratch/PAS2880</code> – The “<strong>scratch</strong>” folder for temporary storage for project <code>PAS2880</code></li>
-<li><code>/fs/ess/PAS2880</code> – The “<strong>project</strong>” folder for permanent storage for project <code>PAS2880</code></li>
+<li><code>/fs/scratch/PAS2880</code> – the “<strong>scratch</strong>” folder for temporary storage for project <code>PAS2880</code></li>
+<li><code>/fs/ess/PAS2880</code> – the “<strong>project</strong>” folder for permanent storage for project <code>PAS2880</code></li>
 </ol>
-<p>Click on the <code>PAS2880</code> scratch folder, <code>/fs/scratch/PAS2880</code>: you should see the folders and files present there, and be able to click on folders to explore their contents. Then, click on the <code>ENT6703</code> folder, which we’ll be using for these labs, and you should see something like the following:</p>
+<p>Click on the <code>PAS2880</code> scratch folder, <code>/fs/scratch/PAS2880</code>: you should see the folders and files that are present there, and be able to click on folders to explore their contents. Then, click on the <code>ENT6703</code> folder, which we’ll be using for these labs, and you should see something like the following:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
@@ -472,7 +473,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="interactive-apps" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="interactive-apps"><span class="header-section-number">4.2</span> Interactive Apps</h3>
-<p>You can access a bunch of software via the <strong>Interactive Apps</strong> dropdown menu. In next week’s lab, you will use RStudio (“RStudio Server”) from this menu.</p>
+<p>You can access a bunch of software via the <strong>Interactive Apps</strong> dropdown menu. We won’t use any of these today, but in next week’s homework and lab, you will use RStudio (“RStudio Server”) from this menu.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <div class="quarto-figure quarto-figure-center">
@@ -531,7 +532,17 @@ Side note: System Status<em>(click to expand)</em>
 <section id="what-is-the-unix-shell-and-why-use-it" class="level3" data-number="5.1">
 <h3 data-number="5.1" class="anchored" data-anchor-id="what-is-the-unix-shell-and-why-use-it"><span class="header-section-number">5.1</span> What is the Unix shell and why use it?</h3>
 <p>A computer’s <strong>shell</strong> is an interface inside a Terminal window that allows you to interact with your computer by typing commands. More specifically, the <strong>Unix shell</strong> is the shell of Unix-based operating systems (Mac and Linux but not Windows). Supercomputers like OSC run on Linux, so the default shell here -and for scientific computing in general- is a Unix shell.</p>
-<p>Using the Unix shell is often a necessity when working with HTS data, in order to run the <strong>specialized software</strong> needed for data processing. But there are other good reasons to use the shell, including:</p>
+<p>Using the Unix shell is often a necessity when working with HTS data, in order to run the <strong>specialized software</strong> needed for data processing.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+And there are other good reasons to use the shell, including:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
 <li><strong>Automation and efficiency</strong><br>
 The shell allows you to repeat and automate tasks easily and without introducing errors.</li>
@@ -540,6 +551,8 @@ When working in the shell, it’s straightforward to keep a detailed record of w
 <li><strong>Viewing and processing large files</strong><br>
 Shell commands are excellent at viewing and processing <em>large, plain-text files</em>, which are common in omics data.</li>
 </ul>
+</div>
+</div>
 </section>
 <section id="first-steps-in-the-unix-shell" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="first-steps-in-the-unix-shell"><span class="header-section-number">5.2</span> First steps in the Unix shell</h3>
@@ -553,7 +566,7 @@ Shell commands are excellent at viewing and processing <em>large, plain-text fil
 </div>
 <p>OSC is printing some welcome messages and information about your account. At the bottom is the <em>prompt</em>, where you can type commands. To start with:</p>
 <ul>
-<li><p>I will go ahead and <em>clear the screen</em>, so the prompt is at the top, and will continue to occasionally do that throughout this session. The screen can be cleared with <kbd>Ctrl</kbd> + <kbd>L</kbd> (both Windows and Mac).</p></li>
+<li><p>I will go ahead and <em>clear the screen</em>, so the prompt is nicely at the top, and will continue to occasionally do that throughout this session. The screen can be cleared with <kbd>Ctrl</kbd> + <kbd>L</kbd> (both Windows and Mac).</p></li>
 <li><p>In the top-right corner of the terminal window is a <code>Themes:</code> dropdown menu, where you can select a different color scheme for the terminal. I prefer light themes and will select <code>GitHub</code>; you may choose whatever you like.</p></li>
 </ul>
 <p>With a light theme and a cleared screen, the terminal window should now look something like this:</p>
@@ -668,7 +681,7 @@ This hints at the fact that everything in the shell is <strong>case-sensitive</s
 <div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>fastq  meta  README.md  ref</code></pre>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -677,7 +690,7 @@ Side note: <code>ls</code> output colors <em>(click to expand)</em>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The <code>ls</code> output shown above does not show the different colors you should see in your shell, where:</p>
 <ul>

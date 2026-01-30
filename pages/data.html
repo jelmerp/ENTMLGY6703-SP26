@@ -374,7 +374,7 @@ window.Quarto = {
 <h2 data-number="2" class="anchored" data-anchor-id="the-files-youll-work-with"><span class="header-section-number">2</span> The files you’ll work with</h2>
 <p>The main data files in a reference-based HTS project<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> are sequence reads (usually produced for the focal project) and reference genome files (usually already available).</p>
 <p>For this project –our re-analysis of the <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#ref-garrigós2025" role="doc-biblioref">2025</a>)</span> data– I have downloaded those files for you and placed them in <code>/fs/scratch/PAS2880/ENT6703/data</code> on OSC. You’ve seen some of these files in the first part of this lab, but we didn’t pay much attention to what they represent.</p>
-<p>First, we’ll actually move one level up to the <code>ENT6703</code> dir:</p>
+<p>First, move one dir level up, to the <code>ENT6703</code> dir:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /fs/scratch/PAS2880/ENT6703</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s get an overview of the full set of files using the <code>tree</code> command (with the option <code>-C</code> to show colors):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unlike ls, tree will show the full directory structure</span></span>
@@ -402,11 +402,11 @@ data
 3 directories, 48 files</code></pre>
 <p>So, we have:</p>
 <ul>
-<li>A whole bunch of FASTQ files (<code>.fastq.gz</code> extension) which contain the HTS reads</li>
+<li>A whole bunch of FASTQ files (<code>.fastq.gz</code> extension), which contain the HTS reads</li>
 <li>Two reference genomes files representing the assembly/sequence (<code>.fna</code>) and the annotation table (<code>.gtf</code>)</li>
 <li>A sample metadata file with treatment information for each sample</li>
 </ul>
-<p><strong>All these files are plain-text files</strong>, which is one reason why the Unix shell excells at working with them. You’ll take a closer look at each below.</p>
+<p><strong>All these files are plain-text files</strong>, and the Unix shell excells at working with these. You’ll take a closer look at each below.</p>
 <details>
 <summary>
 <i class="fa-solid fa-comments" aria-label="comments"></i> Looking at the <code>tree</code> output, what is the (full) path to the file <code>metadata.tsv</code>? <em>(Click to expand)</em>
@@ -425,6 +425,7 @@ Side note: How you could retrieve this data yourself <em>(Click to expand)</em>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<p>When publishing about (high-throughput or Sanger) sequencing data, it is required to deposit the raw sequence data in a public repository like the NCBI Sequence Read Archive (SRA).</p>
 <p>At the end of the <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#ref-garrigós2025" role="doc-biblioref">2025</a>)</span> paper, there is a section called “Open Research” with a “Data Availability Statement”, which reads:</p>
 <blockquote class="blockquote">
 <p>Raw sequences generated in this study have been submitted to the European Nucleotide Archive ENA database (<a href="https://www.ebi.ac.uk/ena/browser/home" class="uri">https://www.ebi.ac.uk/ena/browser/home</a>) under project accession number PRJEB41609, Study ERP125411. Sample metadata are available at <a href="https://doi.org/10.20350/digitalCSIC/15708" class="uri">https://doi.org/10.20350/digitalCSIC/15708</a>.</p>
@@ -436,7 +437,7 @@ Side note: How you could retrieve this data yourself <em>(Click to expand)</em>
 </div>
 <section id="the-sample-metadata" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="the-sample-metadata"><span class="header-section-number">2.1</span> The sample metadata</h3>
-<p>Let’s start by taking a quick look at a table with information about the samples analyzed in this paper, which we’ll call the sample metadata. This file, <code>metadata.tsv</code>, is a small tabular plain-text file, with columns separated by Tabs (TSV/<code>.tsv</code> is short for “Tab-Separated Values”):</p>
+<p>Let’s start by taking a quick look at a table with information about the samples analyzed in this paper, which we’ll call the <strong>sample metadata</strong>. This file, <code>metadata.tsv</code>, is a small tabular plain-text file, with columns separated by Tabs (TSV/<code>.tsv</code> is short for “Tab-Separated Values”):</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> data/meta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>-rw-r--r-- 1 jelmer PAS0471 644 Jan 21 09:15 metadata.tsv</code></pre>
 <p>Use the <code>cat</code> command (short for catenate/concatenate) to show the file contents in the shell:</p>
@@ -464,12 +465,12 @@ ERR10802876     10      relictum
 ERR10802880     10      relictum
 ERR10802885     10      relictum
 ERR10802886     10      relictum</code></pre>
-<p>There are 22 samples in total, with two variables of interest:</p>
+<p>There are 22 samples in total, with two variables of interest listed as well:</p>
 <ul>
 <li><code>dpi</code> — time of sampling in Days Post-Infection</li>
-<li><code>treatment</code> — treatment group: infection status</li>
+<li><code>treatment</code> — treatment group, which is the infection status</li>
 </ul>
-<p>Each <code>treatment</code>-<code>dpi</code> combination has replicates to allow for statistical comparisons. As mentioned, we’ll discuss these aspects of the experimental design in more detail next week.</p>
+<p>(Each <code>treatment</code>-<code>dpi</code> combination has replicates to allow for statistical comparisons. As mentioned, we’ll discuss these aspects of the experimental design in more detail next week.)</p>
 </section>
 </section>
 <section id="reference-genome-files" class="level2" data-number="3">
@@ -487,7 +488,7 @@ ERR10802886     10      relictum</code></pre>
 <p>Because the reference genome and annotations of <em>Cx. pipiens</em> are not published yet, we used the reference genome and annotations of phylogenetically closest species that were available in Ensembl, <em>Cx. quinquefasciatus</em>.</p>
 </blockquote>
 <p>As discussed in the lecture, reference genomes of closely related species can generally be used if no genome is available for the focal species, but it’s always best to use a genome of the exact species if possible. We also saw that new reference genomes are rapidly being published. So perhaps a reference genome of <em>Culex pipiens</em> has become available in the meantime?</p>
-<p>Generally, the first place to look for reference genome data is at NCBI, <a href="https://ncbi.nlm.nih.gov" class="uri">https://ncbi.nlm.nih.gov</a>, where you can start by simply typing the name of your organism in the search box at the home page. By means of example, let’s first search for the hoverfly <em>Episyrphus balteatus</em>:</p>
+<p>Generally, the first place to look for reference genome data is at NCBI, <a href="https://ncbi.nlm.nih.gov" class="uri">https://ncbi.nlm.nih.gov</a>, where you can start by simply typing the name of your organism in the search box at the home page. By means of example, let’s first search for the hoverfly (also known as flower flies) <em>Episyrphus balteatus</em>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/refgenome_search.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
@@ -622,7 +623,7 @@ ATTCATTAAAGCAGTTTATTGGCTTAATGTACATCAGTGAAATCATAAATGCTAAATG</code></pre>
 <pre class="bash-out"><code>-rw------- 1 jelmer PAS0471 547M Jan 22 12:34 GCF_016801865.2.fna
 -rw------- 1 jelmer PAS0471 123M Jan 22 12:34 GCF_016801865.2.gtf</code></pre>
 <p>The FASTA file is <code>GCF_016801865.2.fna</code> and is quite large (547 Mb). <code>cat</code> isn’t a great command to take a peek at such a large file, because it will print all of it to screen 😳.</p>
-<p>Yet the Unix shell more broadly is actually excellent for exploring such files, because visual text editors (say, Notepad or TextEdit) would have lots of trouble opening these large files<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>Yet the Unix shell more broadly is actually excellent for exploring such files, in contrast to visual text editors (say, Notepad or TextEdit), which would have lots of trouble opening these large files<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
 <p>A great command to easily view text files of any size is <strong><code>less</code></strong>, which opens them up in a “pager” within your shell – you’ll see what that means if you try it with one of the assembly FASTA file:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> data/ref/GCF_016801865.2.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre class="bash-out"><code>&gt;NC_068937.1 Culex pipiens pallens isolate TS chromosome 1, TS_CPP_V2, whole genome shotgun sequence
@@ -1286,7 +1287,7 @@ Garrigós, Marta, Guillem Ylla, Josué Martínez-de la Puente, Jordi Figuerola, 
 <li id="fn1"><p> That is, an HTS project where reads can be mapped to a reference genome.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>As of January, 2026.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p> There are no universal standards for the header line format, but individual programs and databases may expect specific formats.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>The reason is that they try to load them into RAM memory entirely, even if you just want to see the first few lines.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p> The reason is that they try to load them into RAM memory entirely, even if you just want to see the first few lines.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>For a full list of installed software at OSC: <a href="https://www.osc.edu/resources/available_software/software_list" class="uri">https://www.osc.edu/resources/available_software/software_list</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p> The Unix shell is great for plain-text file, but not for other types of files.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p> Some of the FastQC example plots were taken from <a href="https://rtsf.natsci.msu.edu/sites/_rtsf/assets/File/FastQC_TutorialAndFAQ_080717.pdf">here</a>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
