@@ -29,7 +29,7 @@ website:
           - text: "R Homework"
             href: pages/r_homework.qmd
           - text: "Lecture: RNA-seq"
-            #href: pages/rnaseq.qmd
+            href: pages/rnaseq.qmd
           - text: "Lab: Differential expression analysis"
             #href: pages/DE.qmd
     right:

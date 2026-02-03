@@ -266,12 +266,46 @@ unless you have project-specific reasons to use one of the other assemblies
    Are there any *Culex pipiens* on NCBI now?
    And if there are multiple, which would you pick?
 
+   <details><summary>*Click for the solution*</summary>
+    
+   Go through the same process as shown above for the fruitfly,
+   now entering `Culex pipiens` in the search box.
+    
+   You should find that there are 5 *Culex pipiens* assemblies.
+   Very much like for the fruitfly, as it happens,
+   the first one (`TS_CPP_V2`) is the only with a reference checkmark next to it and
+   an entry in the `RefSeq` column:
+    
+   ![](../img/refgenome_culex_pipiens.png){fig-align="center" width="95%"}
+    
+   So, there *is* currently a reference genome for *Cx. pipiens* available,
+   and we'll be using that one:
+   the files you've seen in the `ref` dir are for that genome.
+   </details>
+
 2. You can click on each assembly to get more information,
    including statistics like the number of scaffolds.
    Take a closer look at the genome you picked above.
    What is the size of the genome assembly?
    How many chromosomes and scaffolds does it contain?
    And how many protein-coding genes? 
+
+   <details><summary>*Click for the solution*</summary>
+   On the
+   [genome's page at NCBI](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_016801865.2/),
+   it says that the genome assembly has:
+   
+   - A size of 566.3 Mb (Megabases)
+   - 3 chromosomes and 289 unplaced scaffolds
+   - 16,297 protein-coding genes annotated
+  
+   See these screenshots:
+   
+   ![](../img/refgenome_stats.png){fig-align="center" width="40%"}
+  
+   ![](../img/refannot_stats.png){fig-align="center" width="50%"}
+  
+   </details>
 :::
 
 ::: {.callout-note collapse="true"}
@@ -502,7 +536,23 @@ Some specific probabilities and their rough qualitative interpretation for Illum
 
 <hr style="height:1pt; visibility:hidden;" />
 
-<details><summary>{{< fa comments >}} But why use those ASCII characters and not just numbers in the quality line?</summary>
+<details><summary>{{< fa comments >}} But why use those ASCII characters and not just numbers in the quality line? _(Click to see the solution)_</summary>
+
+First, to be clear, the question that arises is this:
+the numeric Phred quality score is represented in FASTQ files by a "ASCII character"
+corresponding to the number rather than the number itself.
+That seems roundabout and harder to understand. So why is this done?
+
+This is done because it allows for a **single-character** representation of each
+possible score — such that
+*each quality score character can correspond to (& line up with)*
+*a base character in the read.*
+
+For your reference,
+[here is a complete lookup table](https://www.drive5.com/usearch/manual/quality_score.html)
+to convert the ASCII characters to Phred quality scores
+(look at the top table, `BASE=33`).
+<hr style="height:1pt; visibility:hidden;" />
 </details>
 
 ### FASTQ file sizes and organization
@@ -534,7 +584,8 @@ In the file listing above:
   it looks like there are two FASTQ files per sample:
   one with `_R1` at the end of the file name, and one with `_R2`.
 
-<details><summary>{{< fa comments >}} What might each of these two files per sample represent/contain?</summary>
+<details><summary>{{< fa comments >}} What might each of these two files per sample represent/contain? *(Click for the solution)*</summary>
+These contain the forward reads (`_R1.fastq.gz`) vs. the reverse reads (`_R2.fastq.gz`).
 </details>
 
 ::: callout-tip
@@ -570,6 +621,23 @@ AAAAAEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEE<EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
 Explore the FASTQ file a bit inside `less`.
 Can you spot any unusual-looking reads? How do you interpret this?
+
+<details><summary>*Click for the solution*</summary>
+The 5^th^ read looks as follows ---
+and if you scroll down you should quickly see several more reads just like this:
+
+``` bash-out-solo
+@ERR10802863.11918285 11918285 length=35
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
++
+###################################
+```
+
+These only consist of `N` bases (and they are also shorter than the other reads),
+and are therefore completely useless!
+
+_(Note that it is generally *not* common to run into these kinds of failed reads as easily!)_
+</details>
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -637,6 +705,26 @@ note that many commands and programs have an
 
 Print FastQC's help info,
 and figure out which option you can use to specify an output dir of your choice.
+
+<details><summary>*Click for the solution*</summary>
+Both `fastqc -h` and `fastqc --help` will show the help info.
+You'll get quite a bit of output printed to screen,
+including this snippet about output directories:
+
+``` bash
+fastqc -h
+```
+```bash-out
+  -o --outdir  Create all output files in the specified output directory.
+               Please note that this directory must exist as the program
+               will not create it.  If this option is not set then the 
+               output file for each sequence file is created in the same
+               directory as the sequence file which was processed.
+```
+
+This means that you can use `-o` or equivalently, `--outdir` to specify an output dir.
+(Commands often have both short- and long-form options just for convenience.)
+</details>
 :::
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -673,6 +761,23 @@ mkdir DESIRED-OUTPUT-DIR
 ```
 </details>
 
+<details><summary>*Click here for the solution*</summary>
+
+- The problem, as the error message indicates,
+  is that the output directory that we specified with `--outdir` does not exist.
+  We might have expected FastQC to be smart/flexible enough to create this dir
+  for us, but alas.
+  To be fair, it did warn us about this in the Help info!
+
+- You can create this dir in the OnDemand file explorer,
+  but here I will show how to do it with a command:
+  `mkdir` can be used to create new dirs.
+  
+  ```bash
+  # [Change 'jelmer' to the name of your own dir]
+  mkdir jelmer/fastqc
+  ```
+</details>
 :::
 
 Now that you've created the output directory,
@@ -719,6 +824,40 @@ total 1.1M
 
 Run FastQC for the corresponding R2 FASTQ file.
 Would you use the same output dir?
+
+<details><summary>*Click here for the solution*</summary>
+Yes, it makes sense to use the same output dir, since as you could see above,
+the output file names have the input file identifiers in them.
+As such, you don't need to worry about overwriting files,
+and it will be easier to have all the results in a single dir.
+
+To run FastQC for the R2 (=reverse-read) FASTQ file:
+
+```bash
+fastqc --outdir jelmer/fastqc data/fastq/ERR10802863_R2.fastq.gz
+```
+```bash-out
+Started analysis of ERR10802863_R2.fastq.gz
+Approx 5% complete for ERR10802863_R2.fastq.gz
+Approx 10% complete for ERR10802863_R2.fastq.gz
+Approx 15% complete for ERR10802863_R2.fastq.gz
+[...truncated...]
+Analysis complete for ERR10802863_2.fastq.gz
+```
+
+```bash
+ls -lh jelmer/fastqc
+```
+```bash-out
+-rw-r--r-- 1 jelmer PAS0471 241K Jan 21 21:50 ERR10802863_R1_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 256K Jan 21 21:50 ERR10802863_R1_fastqc.zip
+-rw-r--r-- 1 jelmer PAS0471 234K Jan 21 21:53 ERR10802863_R2_fastqc.html
+-rw-r--r-- 1 jelmer PAS0471 244K Jan 21 21:53 ERR10802863_R2_fastqc.zip
+```
+
+Now, you have four FastQC output files:
+two for each of your preceding successful FastQC runs.
+</details>
 :::
 
 ## Interpreting FastQC's output
