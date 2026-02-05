@@ -184,7 +184,10 @@ div.csl-indent {
     <a class="dropdown-item" href="../pages/rnaseq.html">
  <span class="dropdown-text">Lecture: RNA-seq</span></a>
   </li>  
-        <li class="dropdown-header">Lab: Differential expression analysis</li>
+        <li>
+    <a class="dropdown-item" href="../pages/DE.html">
+ <span class="dropdown-text">Lab: Differential expression analysis</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -266,12 +269,8 @@ div.csl-indent {
   <li><a href="#in-closing" id="toc-in-closing" class="nav-link" data-scroll-target="#in-closing"><span class="header-section-number">8</span> In Closing</a></li>
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="header-section-number">9</span> Appendix</a>
   <ul class="collapse">
-  <li><a href="#exporting-the-results" id="toc-exporting-the-results" class="nav-link" data-scroll-target="#exporting-the-results"><span class="header-section-number">9.1</span> Exporting the results</a></li>
-  <li><a href="#heatmaps" id="toc-heatmaps" class="nav-link" data-scroll-target="#heatmaps"><span class="header-section-number">9.2</span> Heatmaps</a></li>
-  <li><a href="#create-a-deseq2-object" id="toc-create-a-deseq2-object" class="nav-link" data-scroll-target="#create-a-deseq2-object"><span class="header-section-number">9.3</span> Create a DESeq2 object</a></li>
-  <li><a href="#sample-metadata" id="toc-sample-metadata" class="nav-link" data-scroll-target="#sample-metadata"><span class="header-section-number">9.4</span> Sample metadata</a></li>
-  <li><a href="#count-table" id="toc-count-table" class="nav-link" data-scroll-target="#count-table"><span class="header-section-number">9.5</span> Count table</a></li>
-  <li><a href="#create-the-deseq2-object" id="toc-create-the-deseq2-object" class="nav-link" data-scroll-target="#create-the-deseq2-object"><span class="header-section-number">9.6</span> Create the DESeq2 object</a></li>
+  <li><a href="#a-heatmap" id="toc-a-heatmap" class="nav-link" data-scroll-target="#a-heatmap"><span class="header-section-number">9.1</span> A heatmap</a></li>
+  <li><a href="#exporting-the-results" id="toc-exporting-the-results" class="nav-link" data-scroll-target="#exporting-the-results"><span class="header-section-number">9.2</span> Exporting the results</a></li>
   </ul></li>
   </ul>
 <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="rnaseq.html"><i class="bi bi-bookmarks"></i>Week 4 lecture</a></li><li><a href="r_homework.html"><i class="bi bi-code"></i>R homework</a></li></ul></div></nav>
@@ -330,8 +329,8 @@ div.csl-indent {
 <p>In <a href="../pages/rnaseq.html"><strong>yesterday’s lecture</strong></a>, you learned about the steps to generate a gene count table from this input data:</p>
 <ol type="1">
 <li><strong>Read preprocessing</strong>: QC, trimming, and optionally rRNA removal</li>
-<li><strong>Alignment</strong> of reads to a reference genome (+ alignment QC)</li>
-<li><strong>Quantification</strong> of expression levels</li>
+<li><strong>Alignment</strong> of reads to a reference genome</li>
+<li><strong>Quantification</strong> of expression levels by counting alignments</li>
 </ol>
 </section>
 <section id="todays-goals" class="level3" data-number="1.2">
@@ -380,6 +379,12 @@ div.csl-indent {
 <h3 data-number="2.3" class="anchored" data-anchor-id="load-the-r-packages-you-will-use"><span class="header-section-number">2.3</span> Load the R packages you will use</h3>
 <p>As part of your homework, you installed a few R packages with functionality you’ll need in today’s lab.</p>
 <p>Recall that R packages behave equivalently to other software/apps, in that installation is a one-time thing, but you need to lead them in any given session to use them. Let’s start with that:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, load the R packages:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)          <span class="co"># Differential expression analysis</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano) <span class="co"># Volcano plot</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># Misc. data manipulation and plotting</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="callout callout-style-simple callout-important">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -389,12 +394,6 @@ div.csl-indent {
 <p>Here, and with all the code in this lab, type or copy it in your script, and send it to the console from there. Recall that you can send code to the console by pressing <kbd><strong>Ctrl</strong></kbd> <strong>+</strong> <kbd><strong>Enter</strong></kbd> on Windows, or <kbd>Cmd</kbd> + <kbd>Return</kbd> on a Mac.</p>
 </div>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Then, load the R packages:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DESeq2)          <span class="co"># Differential expression analysis</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnhancedVolcano) <span class="co"># Volcano plot</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co"># Misc. data manipulation and plotting</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Running the code above will produce output in the R console, and some of it in orange, but all should be good unless you see explicit errors at the bottom.</p>
 <details>
@@ -562,15 +561,17 @@ The following objects are masked from 'package:matrixStats':
 <p>DESeq2 has its own “object type” (a specific R format type) and the first step when working with this package is to create a DESeq2 object. I already did this for you, so you can focus on the analysis itself. The object consists of two main parts:</p>
 <ol type="1">
 <li><p><strong>Sample metadata</strong> – accessed with <code>colData()</code><br>
-A table with the key sample grouping (here: treatment, time) information.</p></li>
+A table “mapping” samples to the groups they belong (here: treatment, time)</p></li>
 <li><p><strong>Count table</strong> – accessed with <code>counts()</code><br>
-A table with one row per gene, one column per sample, containing the gene counts.</p></li>
+A table with one row per gene, one column per sample, containing the gene counts</p></li>
 </ol>
 <p>Let’s load this DESeq2 object from a file. It’s stored in an R-specific format called an RDS file, which you can load with the <code>readRDS()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"/fs/scratch/PAS2880/ENT6703/results/dds.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We give the object the name 'dds' (short for DESeqDataSet)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (This is arbitrary and you could call it anything you want - but don't change it here.)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"/fs/scratch/PAS2880/ENT6703/results/dds.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Let’s see what’s inside this DESeq2 object:</p>
+<p>Let’s see what’s inside this DESeq2 object by simply typing its name:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -595,8 +596,8 @@ colData names(2): dpi treatment</code></pre>
 <p><em>(<code>colData</code> is used as a shorthand for “column data”, i.e.&nbsp;data associated with</em> <em>the columns/samples of the count table.)</em></p>
 <section id="the-sample-metadata" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="the-sample-metadata"><span class="header-section-number">3.1</span> The sample metadata</h3>
-<p>Last week, we looked at the TSV file with the sample metadata (<code>metadata/meta.tsv</code>), but we’ll take a closer look now.</p>
-<p>The sample metadata can be accessed with the <code>colData()</code> function, where we pass the name of our DESeq2 object as its argument:</p>
+<p>Last week, we looked at the TSV file with the sample metadata (<code>metadata/meta.tsv</code>), but we’ll take a closer look at this same sample metadata now.</p>
+<p>It can be accessed with the <code>colData()</code> function, where we pass the name of our DESeq2 object as its argument:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colData</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -616,7 +617,7 @@ ERR10802885       10 relictum
 ERR10802886       10 relictum   </code></pre>
 </div>
 </div>
-<p>If we want to see the entire table more easily, we can first create a regular dataframe from it:</p>
+<p>This is collapsed, only showing the first 5 and last 5 rows with <code>...</code> in between. If we want to see the entire table more easily, we can first create a regular dataframe from it:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This turns the colData() output into a regular data frame and stores it in 'meta':</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">colData</span>(dds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -662,16 +663,16 @@ ERR10802886  10    relictum</code></pre>
 <em>Click to see the solution</em>
 </summary>
 <ul>
-<li><p>The <code>dpi</code> column has the number of Days Post Infection (i.e., timepoints): either 1 or 10 days.</p></li>
-<li><p>The <code>treatment</code> column contains the treatment: which <em>Plasmodium</em> species, or “control” (not infected).</p></li>
-<li><p>All in all, there are 3 treatments across each of 2 timepoints, with 3-4 replicates per treatment-timepoint combination.</p></li>
+<li><p>The <code>dpi</code> column has the number of Days Post Infection (i.e., timepoints): either 1 or 10 days. You may remember from the lecture or the paper that there was also a 21-day timepoint, but I have removed those samples to keep things simpler.</p></li>
+<li><p>The <code>treatment</code> column contains the treatment: infection which <em>Plasmodium</em> species, or “control” (not infected).</p></li>
+<li><p>All in all, there are 3 treatments across each of 2 timepoints, with <strong>3-4 biological replicates</strong> per treatment-timepoint combination.</p></li>
 </ul>
 </details>
 </section>
 </section>
 <section id="the-count-table" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="the-count-table"><span class="header-section-number">3.2</span> The count table</h3>
-<p>The gene count table is stored in the DESeq2 object as well, which you can access with the <code>counts()</code> function:</p>
+<p>The gene count table inside the DESeq2 object can be accessed with the <code>counts()</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll wrap it in head() to only see the first 6 rows (genes):</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">counts</span>(dds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -706,7 +707,7 @@ COX3       51441       24915       50029       47750
 CYTB       57844       34616       50587       51198</code></pre>
 </div>
 </div>
-<p>This output may look confusing at a glance. Only the first 6 rows (=genes) are printed, but because the table is so wide, the output is “folded”. Pay attention to the row (gene) names to understand it better.</p>
+<p>This output may look confusing at a glance. Only the first 6 rows (=genes) are printed, but because the table is quite wide, the output is “folded”. Pay attention to the row (gene) names to understand it better.</p>
 <p>We can directly count the number of rows (genes) and columns (samples) from this count matrix – these numbers should correspond to what we saw above:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of rows (genes):</span></span>
@@ -723,8 +724,13 @@ CYTB       57844       34616       50587       51198</code></pre>
 </section>
 <section id="library-sizes" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="library-sizes"><span class="header-section-number">3.3</span> Library sizes</h3>
-<p>The total number of genes counts per sample is called the <strong>library size</strong>. <em>TBA - EXPAND</em></p>
-<p>How do the “library sizes” compare across samples? To see this, you can compute sums for each column (sample) using the <code>colSums()</code> function:</p>
+<p>The total number of gene counts per sample is called the <strong>library size</strong>. This varies among samples for various reasons, but we don’t consider these differences to be biologically meaningful. For example, if sample A has 10 million reads and sample B has 20 million reads, we could <em>not</em> conclude that sample B had “more expression”.</p>
+<details>
+<summary>
+Does this make sense to you or is it counter-intuitive? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+</summary>
+</details>
+<p>How do the library sizes compare across samples? To see this, you can compute sums for each column (sample) using the <code>colSums()</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">counts</span>(dds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -738,10 +744,10 @@ ERR10802883 ERR10802884 ERR10802885 ERR10802886
    21418234    19420046    24367372    25452228 </code></pre>
 </div>
 </div>
-<p>OK, lots of big numbers, so not that easy to read / interpret. Let’s convert these numbers:</p>
+<p>OK, lots of big numbers, so not that easy to read / interpret. Let’s manipulate that a bit:</p>
 <ul>
-<li>To whole millions: divide by 1,000,000 and round (<code>round()</code>) the result</li>
-<li>Sorted from low to high (<code>sort()</code>)</li>
+<li>Convert the numbers to whole millions: divide by 1,000,000 and then round with <code>round()</code></li>
+<li>Sorted the values (samples) from low to high with <code>sort()</code></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">round</span>(<span class="fu">colSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">/</span> <span class="dv">1000000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -756,10 +762,12 @@ ERR10802886 ERR10802866 ERR10802871 ERR10802876
          25          27          27          29 </code></pre>
 </div>
 </div>
-<section id="exercise-interpret-the-library-sizes" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="exercise-interpret-the-library-sizes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Interpret the library sizes</h4>
-<p>If one sample has 9 million reads and another 28 million reads, what implications does this have for comparing gene expression levels?</p>
-</section>
+<hr style="height:1pt; visibility:hidden;">
+<details>
+<summary>
+Given what we just discussed: If one sample has 9 million reads and another 28 million reads, what implications does this have for comparing gene expression levels between them? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+</summary>
+</details>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -772,14 +780,23 @@ Bonus: How many genes have non-zero counts? <em>(Click to expand)</em>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>How many genes have total (= across all samples) counts that are non-zero? To compute this, you can:</p>
-<ul>
-<li>Use <code>rowSums()</code> to compute total counts per gene (rows are genes)</li>
-<li><code>sum()</code> the number of times these total counts are greater than 0</li>
-</ul>
-<p>All in one line:</p>
+<p>Perhaps surprisingly, the gene count table often contains genes with zero counts across all samples: it simply contains all genes in the genome. In this dataset, how many genes have zero counts across all samples?</p>
+<p>To compute this, first note that you can use <code>rowSums()</code> to compute total counts per gene.</p>
+<p>Then, you can make use of the following type of construct to count how many times that sum is greater than a certain number, here 0:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>my_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">9</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>my_vec <span class="sc">&gt;</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre class="styled-output"><code>[1]  TRUE FALSE  TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(my_vec <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre class="styled-output"><code>[1] 2</code></pre>
+</div>
+</div>
+<p>So, the number of genes with non-zero total counts can be computed like so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 17788</code></pre>
 </div>
@@ -787,10 +804,10 @@ Bonus: How many genes have non-zero counts? <em>(Click to expand)</em>
 <hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
-Your turn: How many genes have total counts of at least 10? <em>(Click to see the solution)</em>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Your turn: How many genes have total counts of at least 10? <em>(Click to see the solution)</em>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 16682</code></pre>
 </div>
@@ -798,18 +815,18 @@ Your turn: How many genes have total counts of at least 10? <em>(Click to see th
 </details>
 <details>
 <summary>
-Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click to see the solution)</em>
+<i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click to see the solution)</em>
 </summary>
 <p>Now you need to divide the count sums by the number of samples (<code>22</code>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">/</span> <span class="dv">22</span> <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">/</span> <span class="dv">22</span> <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 12676</code></pre>
 </div>
 </div>
 <p>An even more robust way to do this is to not “hard-code” the number of samples (<code>22</code>), but to get it programmatically. This is the number of columns, which you can get with <code>ncol()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">/</span> <span class="fu">ncol</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">rowSums</span>(<span class="fu">counts</span>(dds)) <span class="sc">/</span> <span class="fu">ncol</span>(<span class="fu">counts</span>(dds)) <span class="sc">&gt;</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 12676</code></pre>
 </div>
@@ -830,16 +847,16 @@ Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click t
 </ul>
 <p>First, you have to normalize the count data to account for differences in library size among samples and to “stabilize” the variance among genes<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>dds_vst <span class="ot">&lt;-</span> <span class="fu">varianceStabilizingTransformation</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dds_vst <span class="ot">&lt;-</span> <span class="fu">varianceStabilizingTransformation</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The authors of the study did this as well:</p>
 <blockquote class="blockquote">
 <p><em>We carried out a Variance Stabilizing Transformation (VST) of the counts to represent the samples on a PCA plot.</em></p>
 </blockquote>
-<p>Next, you can run and plot the PCA with a single function call, <code>plotPCA</code> from DESeq2:</p>
+<p>Next, you can run and plot the PCA with a single function call, <code>plotPCA()</code> from DESeq2:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With 'intgroup', you specify the variables (columns) to color samples by</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPCA</span>(dds_vst, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"dpi"</span>, <span class="st">"treatment"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The 'intgroup' argument lets you pick the variables (columns) to color samples by</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotPCA</span>(dds_vst, <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"dpi"</span>, <span class="st">"treatment"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="regular-r-output"><code>using ntop=500 top features by variance</code></pre>
 </div>
@@ -853,7 +870,7 @@ Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click t
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 </div>
@@ -862,7 +879,7 @@ Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click t
 <h4 class="anchored" data-anchor-id="exercise-interpret-the-pca-result"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Interpret the PCA result</h4>
 <ol type="1">
 <li><p>Based on the above PCA plot, try to answer the three questions asked at the beginning of this PCA section.</p></li>
-<li><p>How does your plot compare to the PCA plot in the paper (Figure 1), in terms of the conclusions you drew in the previous question?</p>
+<li><p>How does the the PCA plot in the paper (Figure 1) compare? Would you draw similar conclusions? Do you see obvious differences?</p>
 <details>
 <summary>
 <p><em>Click to see the paper’s Figure 1</em></p>
@@ -886,14 +903,13 @@ Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click t
 <em>(Hint: run <code>?plotPCA</code> in the R console)</em></p></li>
 <li><p>Play around with different numbers of included genes (e.g., 100, 1000, all genes) and see how this affects the PCA plot.</p></li>
 </ol>
-<p><strong>TODO - ADD SOLUTION</strong></p>
 </section>
 <section id="bonus-exercise-2-make-a-better-pca-plot" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="bonus-exercise-2-make-a-better-pca-plot"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus exercise 2: Make a better PCA plot</h4>
 <p>Customize the PCA plot to make it better-looking and clearer.</p>
 <p>For example, in the plot we made above, each combination of time point and treatment has a distinct color. But it would be better to use <strong>point color</strong> only to distinguish one of the variables, and <strong>point shape</strong> to distinguish the other variable, as was done in the paper’s Fig. 1.</p>
-<p>First, you’ll need to get the data in a format that you can use to build the plot from scratch. You can do this by using the <code>returnData = TRUE</code> argument of the <code>plotPCA()</code> function (check the first solution below for more details if needed).</p>
-<p>Then, the plot customization will require some knowledge of <em>ggplot2</em>. If you don’t know how to do this yet, you can also try to use generative AI (Microsoft Copilot, ChatGPT, etc.) to help you write the code.</p>
+<p>To customize the plot, you’ll first need to get the data in a format you can use to build the plot from scratch. Do this using the <code>returnData = TRUE</code> argument of the <code>plotPCA()</code> function (check the first solution below if needed).</p>
+<p>Then, the plot customization will require some knowledge of <em>ggplot2</em>. If you don’t know how to do this yet, but still want to try, you can also try to use generative AI (Microsoft Copilot, ChatGPT, etc.) to help you write the code.</p>
 <details>
 <summary>
 <em>Partial solution: getting the dataframe</em>
@@ -901,12 +917,12 @@ Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click t
 <p>To be able to customize the plot properly, it’s best to build it from scratch ourselves, rather than using the <code>plotPCA</code> function. But then how do we get the input data in the right shape?</p>
 <p>A nice trick is that we can use <code>returnData = TRUE</code> in the <code>plotPCA</code> function, to get plot-ready formatted data instead of an actual plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pca_df <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  dds_vst,</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ntop =</span> <span class="dv">500</span>,</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"dpi"</span>, <span class="st">"treatment"</span>),</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnData =</span> <span class="cn">TRUE</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>pca_df <span class="ot">&lt;-</span> <span class="fu">plotPCA</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  dds_vst,</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ntop =</span> <span class="dv">500</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"dpi"</span>, <span class="st">"treatment"</span>),</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnData =</span> <span class="cn">TRUE</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="regular-r-output"><code>using ntop=500 top features by variance</code></pre>
 </div>
@@ -918,44 +934,42 @@ Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click t
 </summary>
 <p>This starts from the <code>pca_df</code> dataframe created in the first solution above:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca_df) <span class="sc">+</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">color =</span> treatment, <span class="at">shape =</span> dpi) <span class="sc">+</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>, <span class="at">name =</span> <span class="st">"Infection status"</span>) <span class="sc">+</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Let’s improve this plot in two ways:</p>
-<ol type="1">
-<li>Adding the percentage of variance explained by each principal component to the axes labels.</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First extract and store the percentage of variance explained by different</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># principal components, so you can later add this information to the plot:</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>pct_var <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">attr</span>(pca_df, <span class="st">"percentVar"</span>), <span class="dv">1</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>pct_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="styled-output"><code>[1] 85.3  3.1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca_df) <span class="sc">+</span> </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">color =</span> treatment, <span class="at">shape =</span> dpi) <span class="sc">+</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">"PC1 ("</span>, pct_var[<span class="dv">1</span>], <span class="st">"%)"</span>),</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">paste0</span>(<span class="st">"PC2 ("</span>, pct_var[<span class="dv">2</span>], <span class="st">"%)"</span>)</span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>, <span class="at">name =</span> <span class="st">"Infection status"</span>) <span class="sc">+</span></span>
-<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca_df) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">color =</span> treatment, <span class="at">shape =</span> dpi) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>, <span class="at">name =</span> <span class="st">"Infection status"</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="DE_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, we may want to add the percentage of variance explained by each principal component (PC) to the axes labels. That can be done as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First extract and store the percentage of variance explained by different</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># principal components, so you can later add this information to the plot:</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>pct_var <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> <span class="fu">attr</span>(pca_df, <span class="st">"percentVar"</span>), <span class="dv">1</span>)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>pct_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre class="styled-output"><code>[1] 85.3  3.1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remake the plot and customize the axes labels:</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pca_df) <span class="sc">+</span> </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">color =</span> treatment, <span class="at">shape =</span> dpi) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">"PC1 ("</span>, pct_var[<span class="dv">1</span>], <span class="st">"%)"</span>),</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">paste0</span>(<span class="st">"PC2 ("</span>, pct_var[<span class="dv">2</span>], <span class="st">"%)"</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>, <span class="at">name =</span> <span class="st">"Infection status"</span>) <span class="sc">+</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="DE_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 </div>
@@ -972,20 +986,16 @@ Your turn: How many genes have <em>mean</em> counts of at least 10? <em>(Click t
 <p><em>Then, we used the DESeq2 package (Love et al., 2014) to perform the differential gene expression analysis comparing: (i) P. relictum-infected mosquitoes vs.&nbsp;controls, (ii) P. cathemerium-infected mosquitoes vs.&nbsp;controls, and (iii) P. relictum-infected mosquitoes vs.&nbsp;P. cathemerium-infected mosquitoes.</em></p>
 </blockquote>
 <p>This is not terribly detailed and could be interpreted in a couple of different ways. For example, they may have compared infection statuses by <em>ignoring</em> time points <strong><em>or</em></strong> by <em>controlling for</em> time points in various ways.</p>
-<p>Ignoring time would mean analyzing the full dataset (all time points) while only using the infection status as an independent variable, i.e.&nbsp;using the design <code>~treatment</code>.</p>
-<section id="your-turn" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="your-turn"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Your Turn</h4>
-<p>Given the PCA results, do you think we can ignore the <code>dpi</code> variable?</p>
+<p>Ignoring time would mean analyzing the full dataset (all time points) while using the infection status as the only “independent variable”, i.e.&nbsp;using the design <code>~treatment</code>.</p>
+<hr style="height:1pt; visibility:hidden;">
 <details>
 <summary>
-<em>Click to see the answer</em>
+Given the PCA results, do you think we can ignore the <code>dpi</code> variable? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
 </summary>
-TODO ADD SOLUTION
 </details>
-</section>
 <p>Controlling for time can be done in two ways:</p>
 <ul>
-<li>An analysis with two independent variables (factors): <code>~ dpi + treatment</code></li>
+<li>An analysis with two independent variables: <code>~ dpi + treatment</code></li>
 <li>Pairwise comparisons between each combination of <code>dpi</code> and <code>treatment</code></li>
 </ul>
 <p>If you take a look at Table 1 with the DE results, it should become clearer how they did their analysis:</p>
@@ -994,37 +1004,38 @@ TODO ADD SOLUTION
 <p><img src="../img/paper_table1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
-<section id="your-turn-1" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="your-turn-1"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Your Turn</h4>
-<p>How do you interpret this: did they run pairwise comparisons or a two-factor model?</p>
 <details>
 <summary>
-<em>Click to see the answer</em>
+How do you interpret this: did they run pairwise comparisons or a two-factor model? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
 </summary>
-It looks like they performed pairwise comparisons between each combination of <code>dpi</code> and <code>treatment</code>.
 </details>
-</section>
-<p>That brings us a step closer, but pairwise comparisons with more than independent variable can (also!) be done in two ways (and it’s not clear from the paper which they used):</p>
+<p>Pairwise comparisons with more than independent variable can (also!) be done in two ways:</p>
 <ul>
-<li>After <strong>subsetting</strong> the dataset to each combination of dpi and treatment.</li>
-<li>After creating a single, <strong>combined independent variable</strong> that is a combination of time and treatment.</li>
+<li>After <strong>subsetting</strong> the dataset to each combination of <code>dpi</code> and <code>treatment</code>.</li>
+<li>After creating a single, <strong>combined independent variable</strong> that is a combination of <code>dpi</code> and <code>treatment.</code></li>
 </ul>
-<p>The latter method is the more common one, and is what we will use below.</p>
+<p>It’s not clear from the paper which they used, but the latter method is the more common one, so we’ll use that below.</p>
 </section>
 <section id="setting-the-statistical-design" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="setting-the-statistical-design"><span class="header-section-number">5.2</span> Setting the statistical design</h3>
 <p>You will now create a new variable that is a combination of <code>treatment</code> and <code>dpi</code>, and call it <code>group</code>:</p>
+<p>First, create a combined variable called <code>group</code> with the <code>paste()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a combined variable called 'group':</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">paste</span>(dds<span class="sc">$</span>treatment, dds<span class="sc">$</span>dpi, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn this into a 'factor' and add it to the DESeq2 object:</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (Factors are a common R data type for categorical variables, and required by DESeq2)</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">paste</span>(dds<span class="sc">$</span>treatment, dds<span class="sc">$</span>dpi, <span class="at">sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre class="styled-output"><code> [1] "control_1"      "cathemerium_1"  "relictum_1"     "control_1"     
+ [5] "cathemerium_1"  "relictum_1"     "control_1"      "cathemerium_1" 
+ [9] "relictum_1"     "relictum_1"     "cathemerium_10" "relictum_10"   
+[13] "control_10"     "control_10"     "cathemerium_10" "relictum_10"   
+[17] "control_10"     "cathemerium_10" "cathemerium_10" "control_10"    
+[21] "relictum_10"    "relictum_10"   </code></pre>
 </div>
-<p>Take a look at the variable you created:</p>
+</div>
+<p>Next, turn this into a ‘factor’ and add it to the DESeq2 object (factors are a common R data type for categorical variables, and required by DESeq2):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>group <span class="ot">&lt;-</span> <span class="fu">factor</span>(group)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>dds<span class="sc">$</span>group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code> [1] control_1      cathemerium_1  relictum_1     control_1      cathemerium_1 
  [6] relictum_1     control_1      cathemerium_1  relictum_1     relictum_1    
@@ -1034,9 +1045,9 @@ It looks like they performed pairwise comparisons between each combination of <c
 6 Levels: cathemerium_1 cathemerium_10 control_1 control_10 ... relictum_10</code></pre>
 </div>
 </div>
-<p>Which unique values does <code>group</code> have, and how many samples are in each? We can use the <code>table()</code> function for this:</p>
+<p>As a quick sanity check: which unique values does <code>group</code> have, and how many samples are in each? Use the <code>table()</code> function for this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dds<span class="sc">$</span>group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dds<span class="sc">$</span>group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>
  cathemerium_1 cathemerium_10      control_1     control_10     relictum_1 
@@ -1045,20 +1056,20 @@ It looks like they performed pairwise comparisons between each combination of <c
              4 </code></pre>
 </div>
 </div>
-<p>Next, set the analysis design:</p>
+<p>Lastly, set the analysis design by “adding” it to the DESeq2 object:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: the symbol before 'group' is a tilde, ~ </span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">design</span>(dds) <span class="ot">&lt;-</span> <span class="er">~</span> group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: the symbol before 'group' is a tilde, ~ </span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">design</span>(dds) <span class="ot">&lt;-</span> <span class="er">~</span> group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Phew, now you’re finally ready to run the DE analysis!</p>
 </section>
 <section id="running-the-de-analysis" class="level3" data-number="5.3">
 <h3 data-number="5.3" class="anchored" data-anchor-id="running-the-de-analysis"><span class="header-section-number">5.3</span> Running the DE analysis</h3>
-<p>While you had to do a lot of prep to get here, actually running the DE analysis is very simple. It can be done with the function <code>DESeq()</code>, and we only need to give it the DESeq2 object, since the analysis options are already specified in the object itself:</p>
+<p>While you had to do a lot of prep to get here, actually running the DE analysis is very simple. It’s done with the function <code>DESeq()</code>, which we <em>only</em> need to provide with the DESeq2 object, since all the data and also the analysis options are specified in the object itself:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Note that the output is assigned back to the same `dds` object -</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  the DE results are added to it)</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (Note that the output is assigned back to the same `dds` object -</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  the DE results are added to it)</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeq</span>(dds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="regular-r-output"><code>estimating size factors</code></pre>
 </div>
@@ -1078,42 +1089,69 @@ It looks like they performed pairwise comparisons between each combination of <c
 <pre class="regular-r-output"><code>fitting model and testing</code></pre>
 </div>
 </div>
-<p>The <code>DESeq()</code> function performs three steps consecutively:</p>
+<p>The <code>DESeq()</code> function performs a bunch of steps consecutively, to:</p>
 <ol type="1">
-<li>“Normalization” by library size and composition</li>
-<li>Estimation of gene-wise variance in counts (“dispersion”)</li>
-<li>Fitting the statistical model (a negative binomial GLM) and calculating the test statistics</li>
+<li>“Normalize” the count data by library size and composition</li>
+<li>Estimate of gene-wise variance in counts (“dispersion”)</li>
+<li>Fit the statistical model and calculate the test statistics</li>
 </ol>
-<p>A key thing to understand is that above, DESeq2 automatically performed <strong>pairwise</strong> comparisons between <strong>each of the (6) levels</strong> of the <code>group</code> variable. This means that for any individual gene, it tested whether the gene is differentially expressed <em>separately for each of these pairwise comparisons</em>.</p>
-<p><em>TODO - VISUALIZE THIS?</em></p>
+<p>A key thing to understand is that above, DESeq2 automatically performed pairwise comparisons between each of the (6) levels of the <code>group</code> variable. This means that for any individual gene, it tested whether the gene is differentially expressed <strong>separately for each of these (15) pairwise comparisons</strong>.</p>
+<section id="exercise-pairwise-comparisons" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="exercise-pairwise-comparisons"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Pairwise comparisons</h4>
+<p>Would you say we are interested in all 15 pairwise comparisons?</p>
+<p>If you’d like to see all possible pairwise comparisons, use the following R code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">combn</span>(<span class="fu">unique</span>(group), <span class="at">m =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<details>
+<summary>
+<em>Click to show the output of the code above</em>
+</summary>
+<hr style="height:1pt; visibility:hidden;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre class="styled-output"><code>     [,1]            [,2]         [,3]             [,4]          [,5]        
+[1,] "control_1"     "control_1"  "control_1"      "control_1"   "control_1" 
+[2,] "cathemerium_1" "relictum_1" "cathemerium_10" "relictum_10" "control_10"
+     [,6]            [,7]             [,8]            [,9]           
+[1,] "cathemerium_1" "cathemerium_1"  "cathemerium_1" "cathemerium_1"
+[2,] "relictum_1"    "cathemerium_10" "relictum_10"   "control_10"   
+     [,10]            [,11]         [,12]        [,13]           
+[1,] "relictum_1"     "relictum_1"  "relictum_1" "cathemerium_10"
+[2,] "cathemerium_10" "relictum_10" "control_10" "relictum_10"   
+     [,14]            [,15]        
+[1,] "cathemerium_10" "relictum_10"
+[2,] "control_10"     "control_10" </code></pre>
+</div>
+</div>
+<p>Each “column” in this ouput represents one pairwise comparison.</p>
+</details>
+</section>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Statistical considerations for the DE analysis
+Summary of statistical considerations for the DE analysis
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p><strong>Gene count normalization</strong><br>
-To fairly compare samples, raw gene counts must be adjusted:</p>
+<li><strong>Gene count normalization</strong> – to fairly compare samples, raw gene counts must be adjusted:
 <ul>
-<li>By <strong>library size</strong>, the total number of gene counts per sample</li>
-<li>By <strong>library composition</strong>, e.g.&nbsp;to correct for extremely abundant genes that “steal” most of a sample’s counts</li>
+<li>By <em>library size</em>, the total number of gene counts per sample</li>
+<li>By <em>library composition</em>, e.g.&nbsp;to correct for extremely abundant genes that “steal” most of a sample’s counts</li>
 </ul></li>
-<li><p><strong>Probability distribution of the count data</strong></p>
+<li><strong>Probability distribution of the count data</strong>
 <ul>
-<li><p>Gene counts have a distribution similar to Poisson but with higher variance<br>
-(the <em>negative binomial distribution</em> is typically used)</p></li>
-<li><p>Variance estimates are gene-specific but “borrow” information from other genes —<br>
-necessary in practice, but can make the analysis sensitive to false positives due to outliers</p></li>
+<li>Gene counts have a distribution similar to Poisson but with higher variance (the <em>negative binomial distribution</em> is typically used)</li>
+<li>Variance estimates are gene-specific but “borrow” information from other genes —<br>
+necessary in practice, but can make the analysis sensitive to false positives due to outliers (!)</li>
 </ul></li>
-<li><p><strong>Multiple-testing correction</strong></p>
+<li><strong>Multiple-testing correction</strong>
 <ul>
-<li>10,000+ genes are independently tested during a DE analysis,<br>
-so multiple testing correction is needed!</li>
+<li>10,000+ genes are independently tested during a DE analysis, so multiple testing correction is needed!</li>
 <li>The most common approach is the <strong>Benjamini-Hochberg</strong> (BH) method <em>(<a href="https://www.youtube.com/watch?v=K8LQSvtjcEo">explanatory video</a>)</em></li>
 </ul></li>
 </ol>
@@ -1128,15 +1166,14 @@ so multiple testing correction is needed!</li>
 <h3 data-number="6.1" class="anchored" data-anchor-id="the-results-table"><span class="header-section-number">6.1</span> The results table</h3>
 <p>You can extract the results for one pairwise comparison (which DESeq2 refers to as a <strong>contrast</strong>) at a time, by specifying it with the <code>contrast</code> argument as a vector of length 3:</p>
 <ol type="1">
-<li>The focal independent variable (here, <code>group</code>)</li>
+<li>The independent variable of interest (here, <code>group</code>)</li>
 <li>The first (reference) level of the independent variable (in the example below, <code>relictum_1</code>)</li>
 <li>The second level of the independent variable (in the example below, <code>control_1</code>)</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>focal_contrast <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"group"</span>, <span class="st">"relictum_1"</span>, <span class="st">"control_1"</span>)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>res_rc1 <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">contrast =</span> focal_contrast)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_rc1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>res_rc1 <span class="ot">&lt;-</span> <span class="fu">results</span>(dds, <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">"group"</span>, <span class="st">"relictum_1"</span>, <span class="st">"control_1"</span>))</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(res_rc1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>log2 fold change (MLE): group relictum_1 vs control_1 
 Wald test p-value: group relictum_1 vs control_1 
@@ -1153,26 +1190,13 @@ CYTB 36916.6130      -0.501653  0.261927 -1.915242 0.0554617  0.266528</code></p
 </div>
 <p>What do the columns in this table contain?</p>
 <ul>
-<li><strong><code>baseMean</code></strong>: Mean expression level across all samples.</li>
-<li><strong><code>log2FoldChange</code></strong>: The “log2-fold change” of gene counts between the compared levels.</li>
-<li><strong><code>lfcSE</code></strong>: The uncertainty in terms of the standard error (SE) of the log2-fold change estimate.</li>
-<li><strong><code>stat</code></strong>: The value for the Wald test’s test statistic.</li>
-<li><strong><code>pvalue</code></strong>: The <em>uncorrected</em> p-value from the Wald test.</li>
-<li><strong><code>padj</code></strong>: The multiple-testing corrected p-value (i.e., adjusted p-value).</li>
+<li><strong><code>baseMean</code></strong>: Mean expression level across all samples</li>
+<li><strong><code>log2FoldChange</code></strong>: The “log2-fold change” of gene counts between the compared levels</li>
+<li><strong><code>lfcSE</code></strong>: The uncertainty in terms of the standard error (SE) of the log2-fold change estimate</li>
+<li><strong><code>stat</code></strong>: The value for the Wald test’s test statistic</li>
+<li><strong><code>pvalue</code></strong>: The <em>uncorrected</em> p-value from the Wald test</li>
+<li><strong><code>padj</code></strong>: The multiple-testing corrected p-value (i.e., adjusted p-value)</li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Multiple testing correction
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Because you are testing significance for <em>many</em> genes, you need to correct for multiple testing. This can be done in multiple ways, but DESeq2 uses the Benjamini-Hochberg False Discovery Rate (FDR) correction. For more info, see this <a href="https://www.youtube.com/watch?v=K8LQSvtjcEo">StatQuest video</a>.</p>
-</div>
-</div>
 </section>
 <section id="log2-fold-changes-lfcs" class="level3" data-number="6.2">
 <h3 data-number="6.2" class="anchored" data-anchor-id="log2-fold-changes-lfcs"><span class="header-section-number">6.2</span> Log2-fold changes (LFCs)</h3>
@@ -1192,11 +1216,11 @@ Multiple testing correction
 </section>
 <section id="numbers-of-differentially-expressed-genes-degs" class="level3" data-number="6.3">
 <h3 data-number="6.3" class="anchored" data-anchor-id="numbers-of-differentially-expressed-genes-degs"><span class="header-section-number">6.3</span> Numbers of differentially expressed genes (DEGs)</h3>
-<p>How many adjusted p-values were less than 0.05 – i.e., significant?</p>
+<p>How many adjusted p-values were significant (less than 0.05)?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (We need 'na.rm = TRUE' because some p-values are 'NA')</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (If we don't remove NAs from the calculation, sum() will just return NA)</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (We need 'na.rm = TRUE' because some p-values are 'NA')</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (If we don't remove NAs from the calculation, sum() will just return NA)</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 801</code></pre>
 </div>
@@ -1204,11 +1228,13 @@ Multiple testing correction
 <p>This means that you found 801 Differentially Expressed Genes (<strong>DEG</strong>s) for this specific pairwise comparison.</p>
 <section id="exercise-deg-numbers" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-deg-numbers"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: DEG numbers</h4>
-<p>The paper’s Table 1 (which we saw above) reports the number of DEGs for a variety of comparisons.</p>
-<ul>
-<li><p>How does the number of DEGs we just got compare to what they found in the paper for this comparison?</p></li>
-<li><p>The table also reports numbers of up- and downregulated genes separately. Can you get those numbers for your DE results?</p></li>
-</ul>
+<p>The paper’s Table 1 (which we saw above) reports the number of DEGs for a variety of comparisons. How does the number of DEGs we just got compare to what they found in the paper for this comparison?</p>
+</section>
+<section id="bonus-exercise-up--and-downregulated-degs" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="bonus-exercise-up--and-downregulated-degs"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus exercise: Up- and downregulated DEGs</h4>
+<ol type="1">
+<li>The table also reports numbers of up- and downregulated genes separately. Can you get those numbers for your DE results?</li>
+</ol>
 <details>
 <summary>
 <em>Click to see the solution</em>
@@ -1218,12 +1244,12 @@ Multiple testing correction
 <li>Option 1: Solution using tidyverse/dplyr:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First convert the results table into a regular data frame:</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then, only select the rows/genes that are significant:</span></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">|&gt;</span></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If you run count() on a logical test, you get the nrs. that are FALSE v. TRUE</span></span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First convert the results table into a regular data frame:</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then, only select the rows/genes that are significant:</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="sc">|&gt;</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If you run count() on a logical test, you get the nrs. that are FALSE v. TRUE</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>  log2FoldChange &gt; 0   n
 1              FALSE 616
@@ -1234,24 +1260,21 @@ Multiple testing correction
 <li>Option 2: Solution using base R:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Down-regulated (relictum &lt; control):</span></span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Down-regulated (relictum &lt; control):</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 616</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Up-regulated (relictum &gt; control):</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Up-regulated (relictum &gt; control):</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 185</code></pre>
 </div>
 </div>
 </details>
-</section>
-<section id="bonus-exercise-more-degs" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="bonus-exercise-more-degs"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus exercise: more DEGs</h4>
-<ul>
+<ol start="2" type="1">
 <li>The table also reports the number of DEGs with an absolute LFC &gt; 1. Can you get those numbers for your DE results?</li>
-</ul>
+</ol>
 <details>
 <summary>
 <em>Click to see the solution</em>
@@ -1261,12 +1284,12 @@ Multiple testing correction
 <li>Option 1: Solution using tidyverse/dplyr:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we need to convert the results table into a regular data frame</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span></span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then we only select the rows/genes that are significant</span></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="fu">abs</span>(log2FoldChange) <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If we run count() on a logical test, we get the nrs. that are FALSE v. TRUE</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we need to convert the results table into a regular data frame</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then we only select the rows/genes that are significant</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="fu">abs</span>(log2FoldChange) <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># If we run count() on a logical test, we get the nrs. that are FALSE v. TRUE</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>  log2FoldChange &gt; 0   n
 1              FALSE 159
@@ -1277,39 +1300,40 @@ Multiple testing correction
 <li>Option 2: Solution using base R:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Down-regulated (relictum &lt; control):</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Down-regulated (relictum &lt; control):</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 159</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Up-regulated (relictum &gt; control):</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Up-regulated (relictum &gt; control):</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(res_rc1<span class="sc">$</span>log2FoldChange <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> res_rc1<span class="sc">$</span>padj <span class="sc">&lt;</span> <span class="fl">0.05</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] 49</code></pre>
 </div>
 </div>
 </details>
-<ul>
-<li>Extract the results for one or more other contrasts in the table, and compare the results.</li>
-</ul>
+</section>
+<section id="bonus-exercise-other-pairwise-comparisons" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="bonus-exercise-other-pairwise-comparisons"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus exercise: Other pairwise comparisons</h4>
+<p>Extract the results for one or more other contrasts in the table, and compare the results.</p>
 </section>
 </section>
 </section>
 <section id="de-result-visualizations" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="de-result-visualizations"><span class="header-section-number">7</span> DE result visualizations</h2>
-<p>You will create a few plots for the <code>relictum_24h</code> vs. <code>control_24h</code> comparison results, which you extracted above.</p>
+<p>Finall, you’ll create a few plots for the DE results you extracted above.</p>
 <section id="volcano-plot" class="level3" data-number="7.1">
 <h3 data-number="7.1" class="anchored" data-anchor-id="volcano-plot"><span class="header-section-number">7.1</span> Volcano plot</h3>
-<p>For a nice overview of the results, you can create a so-called “volcano plot” using the <code>EnhancedVolcano()</code> function from the package of the same name (<a href="https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html">see here for a “vignette” / tutorial</a>):</p>
+<p>“Volcano plots” are a popular way to get a visual overview of DE results. You’ll do that here using the <code>EnhancedVolcano()</code> function from the package of the same name (<a href="https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html">see here for a “vignette” / tutorial</a>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(</span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">toptable =</span> res_rc1,      <span class="co"># DESeq2 results to plot   </span></span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"relictum vs. control at 24 hpi"</span>,</span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"log2FoldChange"</span>,     <span class="co"># Plot the log2-fold change along the x-axis</span></span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"padj"</span>,               <span class="co"># Plot the p-value along the y-axis</span></span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lab =</span> <span class="fu">rownames</span>(res_rc1), <span class="co"># Use the rownames for the gene labels (though see below)</span></span>
-<span id="cb74-7"><a href="#cb74-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labSize =</span> <span class="dv">0</span>               <span class="co"># Omit gene labels for now</span></span>
-<span id="cb74-8"><a href="#cb74-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">toptable =</span> res_rc1,       <span class="co"># DESeq2 results to plot   </span></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"log2FoldChange"</span>,     <span class="co"># Plot the log2-fold change along the x-axis</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"padj"</span>,               <span class="co"># Plot the p-value along the y-axis</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"relictum vs. control at 24 hpi"</span>,  <span class="co"># Plot title</span></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lab =</span> <span class="fu">rownames</span>(res_rc1),  <span class="co"># Use the rownames for the gene labels (though see below)</span></span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labSize =</span> <span class="dv">0</span>               <span class="co"># Omit gene labels for now</span></span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="warning-r-output"><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.
@@ -1325,66 +1349,65 @@ Multiple testing correction
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <section id="exercise-interpret-the-volcano-plot" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-interpret-the-volcano-plot"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Interpret the volcano plot</h4>
-<p>TODO</p>
+<p>TBA</p>
 </section>
 <section id="bonus-exercise-improve-the-volcano-plot" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="bonus-exercise-improve-the-volcano-plot"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Improve the Volcano Plot</h4>
-<p>The <code>EnhancedVolcano()</code> function by default adds gene IDs to highly significant genes, but above, we turned off gene name labeling by setting <code>labSize = 0</code>. I did this because the default p-value cut-off for point labeling is <code>1e-5</code> and in this case, that would make the plot quite busy with gene labels. We might want to try a plot with a stricter p-value cut-off that does show the gene labels.</p>
-<p>Play around with the p-value cut-off and the labeling to create a plot you like.<br>
-<em>Check the</em> <a href="https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html">vignette</a> , <em>or the help page (accessed by running <code>?EnhancedVolcano</code>) to see how you can do this.</em></p>
+<p>The <code>EnhancedVolcano()</code> function by default adds gene IDs to highly significant genes, but above, we turned off gene name labeling by setting <code>labSize = 0</code>. I did this because the default p-value cut-off for point labeling is <code>1e-5</code> and in this case, that would make the plot quite busy with gene labels.</p>
+<p>We might want to try a plot with a stricter p-value cut-off that does show the gene labels. Play around with the p-value cut-off and the labeling to create a plot you like.</p>
+<p>Check the package’s explanatory <a href="https://bioconductor.org/packages/release/bioc/vignettes/EnhancedVolcano/inst/doc/EnhancedVolcano.html">“vignette”</a> or the function’s help page (accessed by running <code>?EnhancedVolcano</code>) to see how you can do this.</p>
 <details>
 <summary>
 <em>Click for an example</em>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(</span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">toptable =</span> res_rc1,      </span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"relictum vs. control at 24 hpi"</span>,</span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"log2FoldChange"</span>,     </span>
-<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"padj"</span>,             </span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lab =</span> <span class="fu">rownames</span>(res_rc1), </span>
-<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labSize =</span> <span class="dv">4</span>,               <span class="co"># Now we will show the gene labels</span></span>
-<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pCutoff =</span> <span class="fl">10e-10</span>,          <span class="co"># Modify the p-value cut-off</span></span>
-<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="cn">NULL</span>,           <span class="co"># I'll also remove the silly subtitle</span></span>
-<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="cn">NULL</span>,            <span class="co"># ... and the caption</span></span>
-<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(</span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">toptable =</span> res_rc1,      </span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"relictum vs. control at 24 hpi"</span>,</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"log2FoldChange"</span>,     </span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"padj"</span>,             </span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lab =</span> <span class="fu">rownames</span>(res_rc1), </span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labSize =</span> <span class="dv">4</span>,               <span class="co"># Now we will show the gene labels</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pCutoff =</span> <span class="fl">10e-10</span>,          <span class="co"># Modify the p-value cut-off</span></span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="cn">NULL</span>,           <span class="co"># I'll also remove the silly subtitle</span></span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="cn">NULL</span>,            <span class="co"># ... and the caption</span></span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 </details>
 </section>
-<section id="bonus-exercise-which-gene-is-my-outlier" class="level4 exercise">
-<h4 class="anchored" data-anchor-id="bonus-exercise-which-gene-is-my-outlier"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Which gene is my outlier?</h4>
-<p>Figure out the identity of the abovementioned log2-fold change outlier.<br>
-<em>(You can do so either by labeling it in the plot, or by filtering the <code>res_rc1</code> table.)</em></p>
+<section id="bonus-exercise-which-gene-is-the-outlier" class="level4 exercise">
+<h4 class="anchored" data-anchor-id="bonus-exercise-which-gene-is-the-outlier"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus Exercise: Which gene is the outlier?</h4>
+<p>Figure out the identity of the abovementioned log2-fold change outlier. You can do so either by labeling it in the plot, or by filtering the <code>res_rc1</code> table.</p>
 <details>
 <summary>
 <em>Click for the solution on how to label it in the plot</em>
 </summary>
 <hr style="height:1pt; visibility:hidden;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">toptable =</span> res_rc1,      </span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"relictum vs. control at 24 hpi"</span>,</span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"log2FoldChange"</span>,     </span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"padj"</span>,             </span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lab =</span> <span class="fu">rownames</span>(res_rc1), </span>
-<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labSize =</span> <span class="dv">4</span>,               </span>
-<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pCutoff =</span> <span class="fl">0.05</span>,            <span class="co"># Modify the p-value cut-off</span></span>
-<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">FCcutoff =</span> <span class="dv">20</span>,             <span class="co"># Modify the LFC cut-off</span></span>
-<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">EnhancedVolcano</span>(</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">toptable =</span> res_rc1,      </span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"relictum vs. control at 24 hpi"</span>,</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"log2FoldChange"</span>,     </span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"padj"</span>,             </span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lab =</span> <span class="fu">rownames</span>(res_rc1), </span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">labSize =</span> <span class="dv">4</span>,               </span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pCutoff =</span> <span class="fl">0.05</span>,            <span class="co"># Modify the p-value cut-off</span></span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">FCcutoff =</span> <span class="dv">20</span>,             <span class="co"># Modify the LFC cut-off</span></span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre class="warning-r-output"><code>Warning: Removed 1 row containing missing values or values outside the scale range
 (`geom_vline()`).</code></pre>
@@ -1392,7 +1415,7 @@ Multiple testing correction
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 </div>
@@ -1404,7 +1427,7 @@ Multiple testing correction
 </summary>
 <hr style="height:1pt; visibility:hidden;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span> <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span> <span class="fu">filter</span>(log2FoldChange <span class="sc">&gt;</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>             baseMean log2FoldChange    lfcSE     stat       pvalue
 LOC120431476 39.72038       43.77762 5.301369 8.257795 1.483875e-16
@@ -1418,26 +1441,27 @@ LOC120431476 3.434281e-13</code></pre>
 </section>
 <section id="plot-specific-genes" class="level3" data-number="7.2">
 <h3 data-number="7.2" class="anchored" data-anchor-id="plot-specific-genes"><span class="header-section-number">7.2</span> Plot specific genes</h3>
-<p>It can also be very informative to look at plots of expression levels for individual genes, especially for those with highly significant differential expression.</p>
+<p>It can also be very informative to plot expression levels for individual genes, especially those with highly significant differential expression.</p>
 <p>Let’s plot the single most highly significant DEG. We can get the ID of this gene as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the results table into a regular dataframe and sort by adjusted p-value:</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>top_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(res_rc1) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(padj)</span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gene IDs are the row names: extract the first row name to get the gene of interest</span></span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>top1 <span class="ot">&lt;-</span> <span class="fu">rownames</span>(top_df)[<span class="dv">1</span>]</span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>top1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the results table into a regular dataframe and sort by adjusted p-value:</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>top_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(res_rc1) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(padj)</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gene IDs are the row names: extract the first row name to get the gene of interest</span></span>
+<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>top1 <span class="ot">&lt;-</span> <span class="fu">rownames</span>(top_df)[<span class="dv">1</span>]</span>
+<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a>top1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>[1] "LOC120423768"</code></pre>
 </div>
 </div>
-<p>Like it does for PCA, DESeq2 also has a gene plotting function. This will by default plot normalized gene counts.</p>
+<p>DESeq2 also has a built-in gene plotting function. This will by default plot normalized gene counts.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCounts</span>(dds, <span class="at">gene =</span> top1, <span class="at">intgroup =</span> <span class="st">"group"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Like with the PlotPCA function, 'intgroup' specifies which variable to use for grouping:</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCounts</span>(dds, <span class="at">gene =</span> top1, <span class="at">intgroup =</span> <span class="st">"group"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1453,11 +1477,11 @@ LOC120431476 3.434281e-13</code></pre>
 </div>
 </div>
 <p>In the above plot, we’re not just seeing the difference between <code>relictum_24h</code> and <code>control_24h</code>, but are seeing expression levels for all four treatment-time combinations. That may not always be what you want, but it is useful to see the expression patterns across all groups.</p>
-<p>Here, the pattern suggests … TODO</p>
+<p>Here, the pattern suggests … TBA</p>
 <section id="exercise-plot-additional-de-genes" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="exercise-plot-additional-de-genes"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Exercise: Plot additional DE genes</h4>
 <p>Plot one or a few more of the top-DE genes. Do they have similar expression patterns across treatment and time points as the first one?</p>
-<p>TODO ADD SOLUTION</p>
+<p>TBA ADD SOLUTION</p>
 </section>
 <section id="bonus-exercise-plot-the-outlier-gene" class="level4 exercise">
 <h4 class="anchored" data-anchor-id="bonus-exercise-plot-the-outlier-gene"><i class="fa-solid fa-user-edit" aria-label="user-edit"></i> Bonus exercise: Plot the outlier gene</h4>
@@ -1473,11 +1497,11 @@ A previous bonus exercise showed you how to find the ID of the outlier gene. It 
 <em>Click for the solution</em>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCounts</span>(dds, <span class="at">gene =</span> <span class="st">"LOC120431476"</span>, <span class="at">intgroup =</span> <span class="st">"group"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotCounts</span>(dds, <span class="at">gene =</span> <span class="st">"LOC120431476"</span>, <span class="at">intgroup =</span> <span class="st">"group"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1485,9 +1509,9 @@ A previous bonus exercise showed you how to find the ID of the outlier gene. It 
 <p>Wow! It looks like in every single dpi + treatment combination, all but one (or in one case, two) of the samples have zero expression, but there are several extreme outliers.</p>
 <p>Our focal comparison is <code>control_24h</code> vs.&nbsp;<code>relictum_24h</code>, and it looks like the difference between these two groups is solely due to the one outlier in <code>relictum</code>. Nevertheless, even the multiple-testing corrected p-value (<code>padj</code>) is significant for this gene:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span></span>
-<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">==</span> <span class="st">"LOC120431476"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(res_rc1) <span class="sc">|&gt;</span></span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">"gene"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gene <span class="sc">==</span> <span class="st">"LOC120431476"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>          gene baseMean log2FoldChange    lfcSE     stat       pvalue
 1 LOC120431476 39.72038       43.77762 5.301369 8.257795 1.483875e-16
@@ -1507,17 +1531,17 @@ So, you have to be careful with talking these statistical results at face value,
 </summary>
 <p>Below, you’ll use that DESeq2 function, but only to extract the counts for our gene of interest in a format for plotting, by adding <code>returnData = TRUE</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use plotCounts with returnData = TRUE just to get a single-gene count table</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that is suitable for plotting:</span></span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>focal_gene_counts <span class="ot">&lt;-</span> <span class="fu">plotCounts</span>(</span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  dds,</span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene =</span> top1,</span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"dpi"</span>, <span class="st">"treatment"</span>),</span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnData =</span> <span class="cn">TRUE</span></span>
-<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at the resulting dataframe:</span></span>
-<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(focal_gene_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use plotCounts with returnData = TRUE just to get a single-gene count table</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="co"># that is suitable for plotting:</span></span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>focal_gene_counts <span class="ot">&lt;-</span> <span class="fu">plotCounts</span>(</span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  dds,</span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene =</span> top1,</span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">intgroup =</span> <span class="fu">c</span>(<span class="st">"dpi"</span>, <span class="st">"treatment"</span>),</span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">returnData =</span> <span class="cn">TRUE</span></span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb95-9"><a href="#cb95-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-10"><a href="#cb95-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at the resulting dataframe:</span></span>
+<span id="cb95-11"><a href="#cb95-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(focal_gene_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre class="styled-output"><code>                 count dpi   treatment
 ERR10802863 1543.81532   1     control
@@ -1534,22 +1558,22 @@ ERR10802868   32.14394   1    relictum</code></pre>
 <em>Solution part 2: Making the plot</em>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>focal_gene_counts <span class="sc">|&gt;</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Treatment along the x-axis, gene counts along the y, color by treatment:</span></span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> count, <span class="at">fill =</span> treatment)) <span class="sc">+</span></span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot separate "facets" with the different time points</span></span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(dpi)) <span class="sc">+</span></span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a boxplot with a partly transparaent (alpha) color:</span></span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># _And_ add individual points:</span></span>
-<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span>,</span>
-<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">21</span>,</span>
-<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">heigth =</span> <span class="dv">0</span>)</span>
-<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot styling (e.g., we don't need a legend)</span></span>
-<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>focal_gene_counts <span class="sc">|&gt;</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Treatment along the x-axis, gene counts along the y, color by treatment:</span></span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> treatment, <span class="at">y =</span> count, <span class="at">fill =</span> treatment)) <span class="sc">+</span></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot separate "facets" with the different time points</span></span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(dpi)) <span class="sc">+</span></span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a boxplot with a partly transparaent (alpha) color:</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># _And_ add individual points:</span></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="dv">21</span>,</span>
+<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">heigth =</span> <span class="dv">0</span>)</span>
+<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot styling (e.g., we don't need a legend)</span></span>
+<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details>
 </section>
@@ -1559,8 +1583,8 @@ ERR10802868   32.14394   1    relictum</code></pre>
 <h2 data-number="8" class="anchored" data-anchor-id="in-closing"><span class="header-section-number">8</span> In Closing</h2>
 <p>Today, you have performed several steps in the analysis of gene counts that result from a typical RNA-Seq workflow. Specifically, you have:</p>
 <ul>
-<li>Created a DESEq2 object from the gene count data and the experiment’s metadata</li>
-<li>Performed exploratory data analysis including a PCA</li>
+<li>Explore the RNA-Seq gene expression data in a DESEq2 object</li>
+<li>Performed Principal Component Analysis</li>
 <li>Ran a Differential Expression (DE) analysis with DESeq2</li>
 <li>Extracted, interpreted, and visualized the DE results</li>
 </ul>
@@ -1568,6 +1592,7 @@ ERR10802868   32.14394   1    relictum</code></pre>
 <h4 class="anchored" data-anchor-id="what-would-be-the-next-steps-in-such-an-analysis">What would be the next steps in such an analysis?</h4>
 <p>Typical next steps in such an analysis include:</p>
 <ul>
+<li><p>Additional summaries and plots can be made, such as heatmaps (see the Appendix below)</p></li>
 <li><p>Extracting, comparing, and synthesizing DE results across <strong>all pairwise comparisons</strong> (this would for example allow us to make the upset plot in <em>Figure 2 of the paper</em>)</p></li>
 <li><p><strong>Functional enrichment analysis</strong> with Gene Ontology (GO) terms, as done in the paper, and/or with KEGG pathways.</p></li>
 </ul>
@@ -1577,56 +1602,51 @@ ERR10802868   32.14394   1    relictum</code></pre>
 </section>
 <section id="appendix" class="level2" data-number="9">
 <h2 data-number="9" class="anchored" data-anchor-id="appendix"><span class="header-section-number">9</span> Appendix</h2>
-<section id="exporting-the-results" class="level3" data-number="9.1">
-<h3 data-number="9.1" class="anchored" data-anchor-id="exporting-the-results"><span class="header-section-number">9.1</span> Exporting the results</h3>
-<p>You may be wondering how you can save the DE results tables to files. You can do this with a writing counterpart to <code>read_tsv()</code> called, you guessed it, <code>write_tsv()</code>. This stores the table to a TSV text file, which can be opened in Excel.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the </span></span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(<span class="fu">as.data.frame</span>(res_rc1), <span class="st">"DE-results_rc1.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="heatmaps" class="level3" data-number="9.2">
-<h3 data-number="9.2" class="anchored" data-anchor-id="heatmaps"><span class="header-section-number">9.2</span> Heatmaps</h3>
+<section id="a-heatmap" class="level3" data-number="9.1">
+<h3 data-number="9.1" class="anchored" data-anchor-id="a-heatmap"><span class="header-section-number">9.1</span> A heatmap</h3>
 <p>Rather than plotting expression levels for many individual genes, you can create “heatmap” plots to plot dozens (possibly even hundreds) of genes at once.</p>
-<p>We will create heatmaps with the <code>pheatmap</code> function, and let’s make a heatmap for the top-25 most highly significant DEGs for our focal contrast.</p>
-<p>First, let’s install and then load this package:</p>
+<p>We will create heatmaps with the <code>pheatmap</code> function, and let’s make a heatmap for the top-25 most highly significant DEGs for the focal contrast. First, let’s install and then load this package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pheatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the pheatmap package [Output not shown]:</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pheatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First load the pheatmap package:</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the pheatmap package:</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Unlike with some of the functions we used before, we unfortunately can’t directly use our DESeq2 object, but we have to extract and subset the count matrix, and also pass the metadata to the heatmap function:</p>
-<p>TODO - FIX THE SAMPLE SORTING</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You need a normalized count matrix, like for the PCA</span></span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="co"># You can simply extract the matrix from the normalized dds object we created for the PCA</span></span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>norm_mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(dds_vst)</span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="co"># In the normalized count matrix, select only the genes of interest</span></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll create a vector with the top256 most significant DEGs</span></span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>top25_DE <span class="ot">&lt;-</span> <span class="fu">rownames</span>(top_df)[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>]</span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>norm_mat_sel <span class="ot">&lt;-</span> norm_mat[<span class="fu">match</span>(top25_DE, <span class="fu">rownames</span>(norm_mat)), ]</span>
-<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the metadata</span></span>
-<span id="cb94-11"><a href="#cb94-11" aria-hidden="true" tabindex="-1"></a>meta_sort <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
-<span id="cb94-12"><a href="#cb94-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(treatment, dpi) <span class="sc">|&gt;</span></span>
-<span id="cb94-13"><a href="#cb94-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(treatment, dpi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You need a normalized count matrix, like for the PCA</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="co"># You can extract the matrix from the normalized dds object we created for the PCA</span></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="co"># with the assay() function</span></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>norm_mat <span class="ot">&lt;-</span> <span class="fu">assay</span>(dds_vst)</span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a><span class="co"># In the normalized count matrix, select only the genes of interest</span></span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll create a vector with the top256 most significant DEGs</span></span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a>top25_DE <span class="ot">&lt;-</span> <span class="fu">rownames</span>(top_df)[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>]</span>
+<span id="cb100-9"><a href="#cb100-9" aria-hidden="true" tabindex="-1"></a>norm_mat_sel <span class="ot">&lt;-</span> norm_mat[<span class="fu">match</span>(top25_DE, <span class="fu">rownames</span>(norm_mat)), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The plot will respect the order of samples in the count matrix, so let’s sort the metadata and then the count matrix sensibly:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the metadata</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>meta_sort <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> <span class="fu">arrange</span>(treatment, dpi)</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the columns in the normalized count matrix to match the metadata</span></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>norm_mat_sel <span class="ot">&lt;-</span> norm_mat_sel[, <span class="fu">rownames</span>(meta_sort)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now you can create the plot:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(</span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  norm_mat_sel,</span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">annotation_col =</span> meta_sort,  <span class="co"># Add the metadata</span></span>
-<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster_cols =</span> <span class="cn">FALSE</span>,        <span class="co"># Don't cluster samples (=columns, cols)</span></span>
-<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,       <span class="co"># Don't show gene names</span></span>
-<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="st">"row"</span>,               <span class="co"># Perform z-scaling for each gene</span></span>
-<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  norm_mat_sel,</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">annotation_col =</span> meta_sort,  <span class="co"># Add the metadata</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster_cols =</span> <span class="cn">FALSE</span>,        <span class="co"># Don't cluster samples (=columns, cols)</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,       <span class="co"># Don't show gene names</span></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="st">"row"</span>,               <span class="co"># Perform z-scaling for each gene</span></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-51-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 </div>
@@ -1652,7 +1672,7 @@ ERR10802868   32.14394   1    relictum</code></pre>
 <em>Click for a hint: how to get that top-25</em>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>top25_hi <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">rowMeans</span>(norm_mat), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>top25_hi <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">sort</span>(<span class="fu">rowMeans</span>(norm_mat), <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </details>
 <details>
@@ -1660,26 +1680,26 @@ ERR10802868   32.14394   1    relictum</code></pre>
 <em>Click for the solution</em>
 </summary>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In the normalized count matrix, select only the genes of interest</span></span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>norm_mat_sel <span class="ot">&lt;-</span> norm_mat[<span class="fu">match</span>(top25_hi, <span class="fu">rownames</span>(norm_mat)), ]</span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the metadata</span></span>
-<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>meta_sort <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
-<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(treatment, dpi) <span class="sc">|&gt;</span></span>
-<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(treatment, dpi)</span>
-<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the heatmap</span></span>
-<span id="cb97-10"><a href="#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(</span>
-<span id="cb97-11"><a href="#cb97-11" aria-hidden="true" tabindex="-1"></a>  norm_mat_sel,</span>
-<span id="cb97-12"><a href="#cb97-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">annotation_col =</span> meta_sort,</span>
-<span id="cb97-13"><a href="#cb97-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster_cols =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb97-14"><a href="#cb97-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb97-15"><a href="#cb97-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="st">"row"</span></span>
-<span id="cb97-16"><a href="#cb97-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># In the normalized count matrix, select only the genes of interest</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>norm_mat_sel <span class="ot">&lt;-</span> norm_mat[<span class="fu">match</span>(top25_hi, <span class="fu">rownames</span>(norm_mat)), ]</span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort the metadata</span></span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>meta_sort <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span></span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(treatment, dpi) <span class="sc">|&gt;</span></span>
+<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(treatment, dpi)</span>
+<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the heatmap</span></span>
+<span id="cb104-10"><a href="#cb104-10" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(</span>
+<span id="cb104-11"><a href="#cb104-11" aria-hidden="true" tabindex="-1"></a>  norm_mat_sel,</span>
+<span id="cb104-12"><a href="#cb104-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">annotation_col =</span> meta_sort,</span>
+<span id="cb104-13"><a href="#cb104-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster_cols =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb104-14"><a href="#cb104-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">show_rownames =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb104-15"><a href="#cb104-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="st">"row"</span></span>
+<span id="cb104-16"><a href="#cb104-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="DE_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<p><img src="DE_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" style="width:85.0%"></p>
 </figure>
 </div>
 </div>
@@ -1687,192 +1707,12 @@ ERR10802868   32.14394   1    relictum</code></pre>
 </details>
 </section>
 </section>
-<section id="create-a-deseq2-object" class="level3" data-number="9.3">
-<h3 data-number="9.3" class="anchored" data-anchor-id="create-a-deseq2-object"><span class="header-section-number">9.3</span> Create a DESeq2 object</h3>
-<p>While I provided you with a ready-to-use DESeq2 object above, here is how you could do this yourself. You need to create a DESeq2 object from three components:</p>
-<ol type="1">
-<li><strong>Sample metadata</strong><br>
-This table should contain information on which samples belong to which groups that should be compared (i.e., the experiment’s “independent variables”).</li>
-<li><strong>Count table</strong><br>
-A table with one row per gene, and one column per sample.</li>
-<li><strong>A statistical design</strong><br>
-A statistical design formula to tell DESEq2 which groups to compare</li>
-</ol>
-</section>
-<section id="sample-metadata" class="level3" data-number="9.4">
-<h3 data-number="9.4" class="anchored" data-anchor-id="sample-metadata"><span class="header-section-number">9.4</span> Sample metadata</h3>
-<p>First, you’ll load the sample metadata from the same file you saw last week. To do so, use the <code>read_tsv()</code> function you also saw in the homework – this reads a TSV (Tab-Separated Values) file into a dataframe:</p>
+<section id="exporting-the-results" class="level3" data-number="9.2">
+<h3 data-number="9.2" class="anchored" data-anchor-id="exporting-the-results"><span class="header-section-number">9.2</span> Exporting the results</h3>
+<p>You may be wondering how you can save the DE results tables to files. You can do this with the function <code>write_tsv()</code>. This stores the table to a TSV text file, which can be opened in Excel.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>meta_raw <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv"</span>)</span>
-<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(meta_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>You’ll have to make some modifications to the metadata table so that it can be used in DESeq2:</p>
-<ul>
-<li>The table should be sorted by sample ID: you can use the <code>arrange()</code> function to do so</li>
-<li>The sample IDs should be row names, not a separate column: we can use the <code>column_to_rownames()</code> function for this</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The input is the raw metadata dataframe ('meta_raw'),</span></span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and we'll store the output in a new, processed dataframe ('meta'):</span></span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta_raw <span class="sc">|&gt;</span></span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># By converting 'treatment' columns into a "factor",</span></span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># you can provide a custom order that will be respected in the plot -</span></span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this, way 24h comes before 10d, and control before the two infections.</span></span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">dpi =</span> <span class="fu">factor</span>(dpi, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>)),</span>
-<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">factor</span>(treatment, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"control"</span>, <span class="st">"cathemerium"</span>, <span class="st">"relictum"</span>))</span>
-<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb99-11"><a href="#cb99-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Sort the table by 'sample_id' column:</span></span>
-<span id="cb99-12"><a href="#cb99-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sample_id) <span class="sc">|&gt;</span></span>
-<span id="cb99-13"><a href="#cb99-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2. Turn the 'sample_id' column into row names:</span></span>
-<span id="cb99-14"><a href="#cb99-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">"sample_id"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at the first 6 rows</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(meta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="styled-output"><code>            dpi   treatment
-ERR10802863   1     control
-ERR10802864   1 cathemerium
-ERR10802865   1    relictum
-ERR10802866   1     control
-ERR10802867   1 cathemerium
-ERR10802868   1    relictum</code></pre>
-</div>
-</div>
-<p>In the two outputs above, note the difference between having the sample IDs as a separate column versus as row names. This is a minor and uninteresting technical difference, but DESeq2 simply expects the sample IDs to be row names.</p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>When analyzing data sets, such modifications (“data wrangling”) are quite common and can take up more time and space than the actual analysis itself. Which is one reason we’re including these steps in the lab.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="count-table" class="level3" data-number="9.5">
-<h3 data-number="9.5" class="anchored" data-anchor-id="count-table"><span class="header-section-number">9.5</span> Count table</h3>
-<p>I produced a gene count table for you by running the <a href="https://nf-co.re/rnaseq">nf-core rnaseq pipeline</a> on the input data you saw last week (FASTQ reads and reference genome files).</p>
-<p>Load this count table into R:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>count_df <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"/fs/scratch/PAS2880/ENT6703/results/counts.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Take a look at the first 6 rows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(count_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="styled-output"><code># A tibble: 6 × 24
-  gene_id gene_name ERR10802863 ERR10802864 ERR10802865 ERR10802866 ERR10802867
-  &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-1 ATP6    ATP6         10275.       8255.       4103.      18615.      11625.  
-2 ATP8    ATP8             3.85        2.92        2.33        7.76        7.01
-3 COX1    COX1         88041.      83394.      36975.     136054.     130863.  
-4 COX2    COX2          8749.       7925.       2901.      16802.      10026.  
-5 COX3    COX3         55772.      50312.      35074.      80510.      69850.  
-6 CYTB    CYTB         38543.      36352.      22185.      62147.      57461.  
-# ℹ 17 more variables: ERR10802868 &lt;dbl&gt;, ERR10802869 &lt;dbl&gt;, ERR10802870 &lt;dbl&gt;,
-#   ERR10802871 &lt;dbl&gt;, ERR10802874 &lt;dbl&gt;, ERR10802875 &lt;dbl&gt;, ERR10802876 &lt;dbl&gt;,
-#   ERR10802877 &lt;dbl&gt;, ERR10802878 &lt;dbl&gt;, ERR10802879 &lt;dbl&gt;, ERR10802880 &lt;dbl&gt;,
-#   ERR10802881 &lt;dbl&gt;, ERR10802882 &lt;dbl&gt;, ERR10802883 &lt;dbl&gt;, ERR10802884 &lt;dbl&gt;,
-#   ERR10802885 &lt;dbl&gt;, ERR10802886 &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<p>Here, too, we have to make several modifications – DESeq2 expects that the count table:</p>
-<ul>
-<li>Has gene IDs as row names</li>
-<li>Does not contain any non-numeric columns</li>
-<li>Contains integer (whole-number, rounded) values</li>
-<li>Is a “matrix”, a slighly different object type from a dataframe</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>count_mat <span class="ot">&lt;-</span> count_df <span class="sc">|&gt;</span></span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Turn the 'gene_id' column into row names:</span></span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">"gene_id"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2. Remove a remaining non-numeric column (which has gene names):</span></span>
-<span id="cb105-5"><a href="#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>gene_name) <span class="sc">|&gt;</span></span>
-<span id="cb105-6"><a href="#cb105-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 3. Round everything to whole numbers:</span></span>
-<span id="cb105-7"><a href="#cb105-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>() <span class="sc">|&gt;</span></span>
-<span id="cb105-8"><a href="#cb105-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 4. Convert it to a formal 'matrix' format:</span></span>
-<span id="cb105-9"><a href="#cb105-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Let’s once again take a look at the first 6 rows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(count_mat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="styled-output"><code>     ERR10802863 ERR10802864 ERR10802865 ERR10802866 ERR10802867 ERR10802868
-ATP6       10275        8255        4103       18615       11625        7967
-ATP8           4           3           2           8           7           2
-COX1       88041       83394       36975      136054      130863       62279
-COX2        8749        7925        2901       16802       10026        6701
-COX3       55772       50312       35074       80510       69850       42478
-CYTB       38543       36352       22185       62147       57461       28159
-     ERR10802869 ERR10802870 ERR10802871 ERR10802874 ERR10802875 ERR10802876
-ATP6       12788        4408       13648       13834        1346       10032
-ATP8           2           0           2           1           3           2
-COX1      109596      106402      104394       77682       38276       78290
-COX2       11494        6603       11151        9893        1473       13146
-COX3       68228       71945       66900       52368       14665       37275
-CYTB       46219       52035       46090       35247       17449       38762
-     ERR10802877 ERR10802878 ERR10802879 ERR10802880 ERR10802881 ERR10802882
-ATP6         987        1834        3337        5036        1983       11586
-ATP8           0           0           0           3           0          27
-COX1       17785       32099       64490       63960       50965       76113
-COX2        1141        1907        3439        8334        2063       12752
-COX3        8797       15948       26278       29997       17802       35419
-CYTB       11177       22262       34368       33401       25854       43912
-     ERR10802883 ERR10802884 ERR10802885 ERR10802886
-ATP6       18821        2792       11749        6682
-ATP8          40           0           8           1
-COX1      108343       65829      107741       94682
-COX2       19148        2713       17947       10656
-COX3       51441       24915       50029       47750
-CYTB       57844       34616       50587       51198</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Bonus: Check that the sample IDs match <em>(Click to expand)</em>
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>When creating the DESeq2 object, DESeq2 assumes that sample IDs in the metadata and count tables completely match (no extra/missing samples in either table), and are provided in the same order. Let’s make sure this is indeed the case:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">rownames</span>(meta) <span class="sc">==</span> <span class="fu">colnames</span>(count_mat))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre class="styled-output"><code>[1] TRUE</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="create-the-deseq2-object" class="level3" data-number="9.6">
-<h3 data-number="9.6" class="anchored" data-anchor-id="create-the-deseq2-object"><span class="header-section-number">9.6</span> Create the DESeq2 object</h3>
-<p>You will create the DESeq2 object using the function <code>DESeqDataSetFromMatrix()</code>, which requires three arguments corresponding to the components discussed above:</p>
-<ul>
-<li>The metadata with argument <strong><code>colData</code></strong>.</li>
-<li>The count data with argument <strong><code>countData</code></strong>.</li>
-<li>The statistical design for the DE analysis with argument <strong><code>design</code></strong>. For now, you will specify <strong><code>~1</code></strong>, which effectively means “no design” — you will change this before the actual DE analysis.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (`dds` is a name commonly used for DESeq2 objects, short for "DESeq Data Set")</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>dds <span class="ot">&lt;-</span> <span class="fu">DESeqDataSetFromMatrix</span>(</span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">colData =</span> meta,</span>
-<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">countData =</span> count_mat,</span>
-<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">design =</span> <span class="sc">~</span> <span class="dv">1</span></span>
-<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre class="regular-r-output"><code>converting counts to integer mode</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the results table to a TSV file:</span></span>
+<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(<span class="fu">as.data.frame</span>(res_rc1), <span class="st">"DE-results_rc1.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
