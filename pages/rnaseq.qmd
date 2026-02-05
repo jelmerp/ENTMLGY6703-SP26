@@ -7,6 +7,7 @@ format:
   revealjs:
     theme: [default, ../theme_mod.scss]
     css: ../slides.css
+    auto-stretch: false
     smaller: true
     scrollable: false
     progress: true
@@ -30,167 +31,192 @@ editor_options:
 bibliography: ../references.bib
 ---
 
-# Intro to transcriptomics {background-color="silver"}
+# Why study gene expression? {background-color="silver"}
 
-## Recap: central dogma & omics
+## Gene expression is highly dynamic
 
-<br>
+Unlike an organism's genome content, the expression of genes is highly dynamic,
+varying:
 
-![](../img/centraldogma2.png){fig-align="center"}
+- Across time and space
 
-_TODO - Add "gene" and "transcipt" label_
+- Qualitatively (_which_ genes are expressed) and especially
+  quantitatively (_how much_ of each gene is expressed)
 
-## The transcriptome
+## Gene expression is functionally important 
 
-The transcriptome is the full set of transcripts expressed by an organism, which:
-
-::: incremental
-- **Is not at all stable across time & space**\---
-  unlike the genome but like the proteome
-
-- Varies both **qualitatively** (_which_ transcripts are expressed)\
-  and especially **quantitatively** (_how much_ of each transcript is expressed)
-:::
-
-## Transcriptomics
-
-Transcriptomics is the study of the transcriptome,\
-i.e. the **large-scale study of RNA transcripts expressed in an organism**.
-
-<hr style="height:1pt; visibility:hidden;" />
-
-Many approaches & applications — but most commonly, transcriptomics focuses on:
+Considering:
 
 ::: incremental
-- **mRNA** rather than on non-coding RNA types such as rRNA, tRNA, and miRNA
-- **Quantifying** gene expression levels
-- **Statistically comparing groups** (treatments, populations, tissues)
+
+1. That **protein production** tells us about the activity of biological functions,\
+   and the molecular mechanisms underlying those functions
+
+2. That it is easier to measure **transcript (mRNA)** than protein abundance
+
+3. The central dogma
+
 :::
 
-. . .
-
-<hr style="height:1pt; visibility:hidden;" />
-
-![](../img/read_comp.png)
-
-::: legend2
-https://hbctraining.github.io
-:::
-
-## Why do transcriptomics?
-
-Considering...
-
-- That protein production gives clues about the activity of specific biological functions,\
-  and the molecular mechanisms underlying those functions;
-
-- That it is much easier to measure transcript expression than protein expression at scale;
-
-- The central dogma
+![](../img/centraldogma3.png){fig-align="center" width="100%"}
 
 . . .
 
 ... ***gene expression can be used as a proxy for protein expression***
-to make functional inferences.
+to make functional inferences
 
-<br>
+## Studying gene expression
 
-![](../img/centraldogma3.png){fig-align="center"}
+For example,
+gene expression can be quantified to associate genes and genetic pathways with:
 
-_TODO ADD CAVEAT_
-
-## Why do transcriptomics? (cont.)
-
-Specifically, we can use transcriptomics to:
-
-- Compare **phenotypic vs. molecular** responses/differences
+- Phenotypic responses e.g. to environmental conditions
+- Differences between groups (treatments, genotypes, sexes, tissues, etc.)
 
 . . .
 
-- **Find pathways and genes** associated with:
-  - Phenotypic responses
-  - Differences between groups (treatments, genotypes, sexes, tissues, etc.)
+<hr style="height:1pt; visibility:hidden;" />
+
+So, studying gene expression can
+**identify candidate genes underlying phenotypes --**\
+these can next by functionally validated using experiments like knock-outs.
+
+<br>
 
 . . .
 
 ::: {.callout-tip appearance="simple"}
-In turn, these can for example be targeted to enhance or reduce organismal
-responses to help control pathogens and pests
+And further down the line,
+understanding molecular basis of phenotypes has all sorts of uses!
+
+E.g, in an agricultural context, to **manipulate** phenotypes such as resistance,
+pathogenicity, and yield.
 :::
 
-# Intro to RNA-Seq {background-color="silver"}
+## How to quantify gene expression?
 
-## What is RNA-Seq?
-
-RNA-Seq is the current state-of-the-art family of methods to study the transcriptome.\
-It involves the **random sequencing of millions of transcript fragments per sample**.
+- Techniques like **qPCR/ddPCR** can quantify expression of a few genes at a time
+  - Useful for hypothesis-driven research on specific genes
+  - Not suitable for discovery-based research on many genes
 
 <hr style="height:1pt; visibility:hidden;" />
 
-We will focus on the most common type of RNA-Seq, which:
+. . .
+
+- With **transcriptomics**, expression of thousands of genes is quantified simultaneously
+  - It was already common practice before HTS: with microarrays
+  - But is now dominated by the HTS-based method **RNA-Seq**
+
+# Introduction to RNA-Seq {background-color="silver"}
+
+## What is RNA-Seq?
+
+- To estimate gene expression levels genome-wide,
+  RNA-Seq takes a brute-force approach by
+  **randomly sequencing of millions of RNA fragments per sample**
+
+- The resulting reads can be assigned a gene of origin,\
+  and the core idea is that a gene's read count reflects that gene's expression level
+
+![](../img/reads.png){fig-align="center" width="35%"}
+
+. . .
+
+<details><summary>
+**How can we tell which gene each read originates from?**
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary>
+Most commonly by aligning them to a reference genome.
+</details>
+
+:::footer
+:::
+
+## What is RNA-Seq?
+
+- To estimate gene expression levels genome-wide,
+  RNA-Seq takes a brute-force approach by
+  **randomly sequencing of millions of RNA fragments per sample**
+
+- The resulting reads can be assigned a gene of origin,\
+  and the core idea is that a gene's read count reflects that gene's expression level
+
+![](../img/reads.png){fig-align="center" width="35%"}
+
+::: {.callout-note appearance="simple"}
+RNA-Seq is a very widely used technique —\
+it constitutes *the* most common usage of high-throughput sequencing
+:::
+
+:::footer
+:::
+
+## The most common type of RNA-Seq
+
+We'll focus on the most common type of RNA-Seq, which:
 
 ::: incremental
-- Does not sequence RNA directly, but first **reverse transcribes RNA to cDNA**
-- Attempts to sequence only mRNA, avoiding noncoding RNAs ("**mRNA-Seq**")
-- Does not distinguish between RNA from different cell types ("**bulk RNA-Seq**")
-- Uses **short reads** (≤150 bp) that do not cover full transcripts but do uniquely ID genes
+1. Does not sequence RNA directly, but first **reverse transcribes RNA to cDNA**
+2. Attempts to sequence only mRNA, avoiding non-coding RNAs ("**mRNA-Seq**")
+3. Does not distinguish between RNA from different cell types ("**bulk RNA-Seq**")
+4. Uses **short reads** (≤150 bp) that do not cover full transcripts but do uniquely ID genes
+5. Uses a reference genome for read alignment ("**reference-based RNA-Seq**")
 :::
 
 . . .
 
-_We may call this "short-read bulk mRNA-Seq" in full,_
-_but will simply use "RNA-Seq" for brevity._
+<hr style="height:1pt; visibility:hidden;" />
 
-## TODO: Relate to qPCR covered earlier
+::: {.callout-note appearance="simple"}
+_When I refer to RNA-Seq from now on, this kind of RNA-Seq is impled._
+:::
 
-## Other RNA-Seq applications
+## Side note: Types of RNA
 
-RNA-Seq data can also be used for **applications other than expression quantification**:
+![](../img/rna-types2.png){fig-align="center" width="83%"}
 
-- **Discover new genes & transcripts** and **improve genome annotation**
+:::legend2
+From [BioRender](https://biorender.com/)
+:::
 
-. . .
-
-- **SNP** identification & analysis (for popgen, molecular evolution, functional associations)
-
-<br>
-
-. . .
-
-All in all, RNA-Seq is a very widely used technique —\
-it constitutes *the* most common usage of high-throughput sequencing!
+:::footer
+:::
 
 ## RNA-Seq project examples
 
-RNA-Seq is also the most common data type I assist with as an MCIC bioinformatician. Some projects I've worked on used it **to identify genes & pathways that differ between**:
-
-- Multiple soybean cultivars in response to *Phytophtora sojae* inoculation; soybean in response to different *Phytophtora* species and strains (Dorrance lab, PlantPath)
-
-- Wheat vs. *Xanthomonas* with a gene knock-out vs. knock-in (Jacobs lab, PlantPath)
+RNA-Seq is the most common data type I help analyze in my role.\
+For a taste of what it's used for in CFAES and beyond ---\
+the following projects aimed to identify genes & pathways differing between:
 
 . . .
 
-- Mated and unmated mosquitos (Sirot lab, College of Wooster)
+- Soybean cultivars in response to *Phytophtora sojae* inoculation
+  _(Dorrance lab, PlantPath)_
 
-- Tissues of the ambrosia beetle and its symbiotic fungus (Ranger lab, USDA Wooster)
-
-- Diapause-inducing conditions for two pest stink bug species (Michel lab, Entomology)
-
-. . .
-
-- Human carcinoma cell lines with vs. without a manipulated gene (Cruz lab, CCC)
-
-- Pig coronaviruses with vs. without an experimental insertion (Wang lab, CFAH)
+- Response of maize to _Pantoea_ infection with and without an effector gene
+  _(Mackey lab, HCS)_
 
 . . .
 
-And to improve the annotation of a nematode genome (Taylor lab, PlantPath)
+- Mated and unmated mosquitos _(Sirot lab, College of Wooster)_
 
-TODO UPDATE?
+- Tissues of the ambrosia beetle and its symbiotic fungus _(Ranger lab, USDA)_
 
-# Experimental design {background-color="silver"}
+- Diapause-inducing conditions for two pest stink bug species _(Michel lab, Entomology)_
 
-## Experimental design: groups & replicates
+. . .
+
+- Pig coronaviruses with vs. without an experimental insertion _(Wang lab, CFAH)_
+
+- Human carcinoma cell lines with vs. without a manipulated gene _(Cruz lab, CCC)_
+
+. . .
+
+And to improve the annotation of a nematode genome assembly _(Taylor lab, PlantPath)_
+
+# Stage I: Experimental design {background-color="silver"}
+
+## Experimental design: treatments/groups
 
 RNA-Seq typically compares groups of samples defined by differences in:
 
@@ -200,281 +226,390 @@ RNA-Seq typically compares groups of samples defined by differences in:
 
 - **Tissues**
 
-## Experimental design: groups & replicates
-
-![https://github.com/ScienceParkStudyGroup/rnaseq-lesson](../img/experimental_design2.png)
-
-## Experimental design: groups & replicates
-
-To make statistically supported conclusions about expression differences between
-groups of samples, **biological replication** is required.
-
-. . .
-
-<hr style="height:1pt; visibility:hidden;" />
-
-When designing an RNA-Seq experiment, keep the following in mind:
-
-- **Numbers of replicates**\
-  These are typically quite low: 3 replicates per group is most common.\
-  Not advisable to go lower — if possible, use 4 or 5 replicates.
-
-. . .
-
-- **Statistical comparison design**\
-  Preferably, keep designs simple with 1-2 independent variables and
-  2-3 levels for each variable.
-
-. . .
-
-::: callout-tip
-##### Technical replicates?
-
-You won't need technical replicates that only replicate library prep and/or sequencing,
-but depending on your experimental design,
-may want to technically replicate something else. [TODO: WHAT DID I MEAN?]
-:::
-
 ## The Garrigós et al. 2025 dataset
 
 ![](../img/garrigos_paper.png){.lightbox fig-align="center" width="75%" fig-alt="A screenshot of the paper's front matter."}
 
-This paper uses RNA-seq data to study gene expression in *Culex pipiens* mosquitos infected with malaria-causing *Plasmodium* protozoans --- specifically, it compares mosquitos according to:
-
-- **Infection status**: *Plasmodium cathemerium* vs. *P. relictum* vs. control
-- **Time after infection**: 24 h vs. 10 days vs. 21 days
-
-# From samples to reads {background-color="silver"}
-
-## From samples to reads: overview of steps
-
-![https://sydney-informatics-hub.github.io/training-RNAseq-slides](../img/samples2reads){fig-align="center" fig-width="80%"}
-
-## RNA extraction & library prep
-
-::::::: columns
-::: {.column width="50%"}
-![](../img/library_prep.jpeg){fig-align="center" width="75%"}
+:::legend2
+@garrigós2025
 :::
 
-::::: {.column width="50%"}
-::: {.callout-tip appearance="minimal"}
-- Library preparation is typically done by sequencing facilities
+<br>
 
-<hr style="height:1pt; visibility:hidden;" />
+This paper used RNA-Seq data to study gene expression in *Culex pipiens*
+mosquitos infected with malaria-causing *Plasmodium* protozoans
 
-- There are two main ways to select for mRNAs,
-  which make up only a few % of RNAs: poly-A selection and ribo-depletion.
+## Experimental design: treatments/groups
 
-<hr style="height:1pt; visibility:hidden;" />
+![](../img/exp-design_a.png){.lightbox fig-align="center" width="75%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
 
-- Many samples can be "multiplexed" into a single RNA-Seq library
+:::footer
 :::
 
-<br><br><br>
+## Experimental design: treatments/groups
 
-::: {.legend2 align="left"}
-Fig. from [Kukurba & Montgomery 2015](www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)
+![](../img/exp-design_b.png){.lightbox fig-align="center" width="75%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
+
+:::footer
 :::
-:::::
-:::::::
 
-## Sequencing considerations
+## Experimental design: treatments/groups
 
-- **Sequencing technology**
-    - *Short-read (Illumina) HTS* -- by far the most common
-    - *Long-read HTS* -- consider if sequencing full transcripts (isoforms) is key
+![](../img/exp-design_c.png){.lightbox fig-align="center" width="75%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
 
-<hr style="height:1pt; visibility:hidden;" />
+:::footer
+:::
+
+## Experimental design: treatments/groups
+
+<details><summary>
+_With this experimental design,_
+_would it be appropriate to sequence 9 samples total?_
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary>
+No -- see the next slide
+</details>
+
+![](../img/exp-design_c.png){.lightbox fig-align="center" width="65%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
+
+:::footer
+:::
+
+## Biological replicates
+
+To make statistically supported conclusions about expression differences,\
+we need **biological replication** (at least 3-5 samples per group):
+
+![](../img/exp-design_d.png){.lightbox fig-align="center" width="65%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
+
+:::footer
+:::
+
+# Stage II: From samples to reads {background-color="silver"}
+
+## From samples to reads
+
+![](../img/samples2reads_a2.png){fig-align="center" width="80%"}
+
+<details><summary>
+**Which type of RNA do the red bars followed by [AAAAAAAA]{style="color:red;"} represent?**
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary>
+These are the mRNAs, which have poly-A tails (AAAA...)
+</details>
+
+## From samples to reads
+
+![](../img/samples2reads_a2.png){fig-align="center" width="80%"}
+
+We want mRNAs but these often make up only a few percent of RNAs!\
+The two main ways to select for mRNAs are **poly-A selection** and **ribo-depletion**.
 
 . . .
 
-- **Single-end vs. paired-end reads** (for Illumina)
-  - Paired-end has limited added value for reference-based, gene-level workflows
-    (but can be key in other scenarios) —
-    either way, it is common as prices are often similar
-
 <hr style="height:1pt; visibility:hidden;" />
+
+::: callout-note
+#### As mentioned in the previous lecture:
+
+- Library preparation is typically done by sequencing facilities / companies
+
+- Many samples can be "multiplexed" into a single (RNA-Seq) library
+:::
+
+## From samples to reads
+
+![](../img/samples2reads_b.png){fig-align="center" width="80%"}
+
+:::legend2
+Modified after <https://sydney-informatics-hub.github.io>
+:::
+
+:::footer
+:::
+
+## How much sequencing is needed?
 
 . . .
 
-- **Sequencing "depth" / amount** — number of reads per sample
-  - Guidelines highly approximate —
-    depends not just on transcriptome size but also on expression level distribution,
-    expression levels of genes of interest, etc.
+- Guidelines highly approximate —
+  required amount depends not just on transcriptome size but also on expression
+  level distribution, expression levels of genes of interest, etc.
 
-  - Typical recommendations are 20-50 million reads per sample
+. . .
 
-## Sequencing depth vs. replicates
+- Typical recommendations are 20-50 million reads per sample in eukaryotes
+  
+# Stage III: From reads to counts {background-color="silver"}
 
-For statistical power, more replicates are better than a higher sequencing depth:
+## Overview of RNA-Seq data analysis
 
-![](../img/02-de-replicates-3.png){fig-align="center" width="95%"}
+The analysis of RNA-Seq data can be divided into two main parts:
 
-::: {.legend2 align="left"}
-Fig. from [Liu et al. 2014](https://doi.org/10.1093/bioinformatics/btt688)
+1. **From reads to counts**:
+   from the raw reads, produce a count table
+2. **From counts to conclusions**:
+   analyze the count table to draw biological conclusions
+
+## A quick primer on the count table
+
+The **count table** has one row for each gene and one column for each sample,\
+with the entries being the number of reads mapping to each gene in each sample:
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+|  | Sample 1 | Sample 2 | Sample 3 |
+|---------|:----------:|:----------:|:----------:|
+| **Gene A**  | 1500     | 2300     | 1800     |
+| **Gene B**  | 0        | 5        | 2        |
+| **Gene C**  | 300      | 250      | 400      |
+
+: {.striped}
+
+<br>
+
+::: {.callout-tip appearance="simple"}
+_Actual count tables have thousands of genes (rows) and usually dozens of_
+_samples (columns)_
 :::
 
-# From reads to counts {background-color="silver"}
+. . .
 
-## Overview of steps
+<br>
 
-![Modified after [Kukurba & Montgomery 2015](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4863231/)](../img/analysis_overview2.png){fig-align="center" width="70%"}
+**How do you get to such a count table?**
+
+##
+
+![](../img/alignment1.png){fig-align="center" width="82%" fig-alt="A diagram of RNA-Seq analysis steps." .lightbox}
+
+::: footer
+:::
+
+##
+
+![](../img/alignment2.png){fig-align="center" width="82%" fig-alt="A diagram of RNA-Seq analysis steps." .lightbox}
+
+::: footer
+:::
+
+##
+
+![](../img/alignment3.png){fig-align="center" width="82%" fig-alt="A diagram of RNA-Seq analysis steps." .lightbox}
+
+::: footer
+:::
+
+##
+
+![](../img/alignment4.png){fig-align="center" width="82%" fig-alt="A diagram of RNA-Seq analysis steps." .lightbox}
+
+::: footer
+:::
+
+##
+
+![](../img/alignment5.png){fig-align="center" width="82%" fig-alt="A diagram of RNA-Seq analysis steps." .lightbox}
+
+::: footer
+:::
 
 ## From reads to counts: overview
 
-You will typically receive a "demultiplexed" (split-by-sample) set of **FASTQ** files.
+This is what the Adobe Firefly AI came up with when I tried to get
+it to help me with producing the diagram on the previous slide 😵‍💫
 
-Once you receive your data, the first series of analysis steps involves going from the raw reads to a count table (which will have a read count for each gene in each sample).
+![](../img/firefly_diagram.png){fig-align="center" width="45%" fig-alt="Adobe Firefly's image when asking it create a diagram of RNA-Seq analysis steps." .lightbox}
+
+::: footer
+:::
+
+## From reads to counts: overview
+
+It specifically involves, at a minimum:
+
+1. **Read preprocessing**
+
+2. **Aligning reads to a reference genome**
+
+3. **Quantifying expression levels**
 
 <br>
 
 . . .
 
-This part is **bioinformatics-heavy** with large files, a need for lots of computing power such as with a supercomputer, command-line (Unix shell) programs — it specifically involves:
+::: {.callout-note appearance="simple"}
+This part is "bioinformatics"-heavy, with large files, high computing needs,
+and using command-line tools ran in the Unix shell.
 
-. . .
-
-1.  Read preprocessing
-
-2.  Aligning reads to a reference genome (+ alignment QC)
-
-3.  Quantifying expression levels
-
-<hr style="height:1pt; visibility:hidden;" />
-
-. . .
-
-::: {.callout-tip appearance="minimal"}
-This can be run using **standardized, one-size-fits-all workflows**, and is therefore (relatively) suitable to be outsourced to a company, facility, or collaborator.
+If this is a problem:
+the process if fairly standardized and suitable to be outsourced. 
 :::
 
-## Reads to counts: Read pre-processing
+## Read pre-processing
 
-Read pre-processing includes the following steps:
-
-<hr style="height:1pt; visibility:hidden;" />
-
-- **Checking the** **quantity and quality of your reads**
-    - Does not change your data, but helps decide next steps / sample exclusion
-    - Also useful to check for contamination, library complexity, and adapter content
-
-. . .
+Read pre-processing includes:
 
 <hr style="height:1pt; visibility:hidden;" />
 
-- **Removing unwanted sequences**
+- **Checking the quantity and quality of your reads** (e.g. with `FastQC`)
+
+<hr style="height:1pt; visibility:hidden;" />
+
+- **Removing unwanted sequences**, such as:
     - Adapters, low-quality bases, and very short reads
     - rRNA-derived reads (*optional*)
     - Contaminant sequences (*optional*)
 
-## Reads to counts: alignment to a reference genome
+## Read alignment to a reference genome
 
-The **alignment of reads to a reference genome** needs to be *"splice-aware"*.
-
-<hr style="height:1pt; visibility:hidden;" />
-
-![[Berge et al. 2019](www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)](../img/alignment_ed2.png)
-
-## Reads to counts: alignment to a reference genome
-
-Alternatively, you can **align to the transcriptome** (i.e., all mature transcripts):
-
-![[Berge et al. 2019](www.annualreviews.org/doi/10.1146/annurev-biodatasci-072018-021255)](../img/alignment_ed1.jpg)
-
-## Reads to counts: alignment QC
-
-- **Alignment rates**\
-    What percentage of reads was successfully aligned? (Should be \>80%)
-
-<hr style="height:1pt; visibility:hidden;" />
-
-. . .
-
-- **Alignment targets**\
-    What percentages of aligned reads mapped to *exons* vs. *introns* vs. *intergenic regions*?
-
-. . .
-
-<details>
-
-<summary>What might cause high intronic mapping rates?</summary>
-
-An abundance of pre-mRNA versus mature-mRNA.
+<details><summary>
+Consider what you know about how mRNAs are produced.
+Does an RNA transcript always correspond to a contiguous stretch of the genome?
+If not, what implications does this have for read alignment?
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary>
 
 </details>
 
-. . .
+## Side note: Splicing
 
-<details>
+![](../img/splicing_biorender2a.png){fig-align="center" width="85%"}
 
-<summary>What might cause high intergenic mapping rates?</summary>
-
-DNA contamination or poor genome assembly/annotation quality
-
-</details>
-
-## Reads to counts: quantification
-
-At heart, a simple counting exercise once you have the alignments in hand.\
-But made more complicated by sequencing biases and multi-mapping reads.
-
-<hr style="height:1pt; visibility:hidden;" />
-
-. . .
-
-Current best-performing tools (e.g. `Salmon`) do **transcript-level quantification** — even though this is typically followed by **gene-level aggregation** prior to downstream analysis.
-
-<hr style="height:1pt; visibility:hidden;" />
-
-. . .
-
-::: callout-caution
-## Fast-moving field
-
-Several very commonly used tools like `FeatureCounts` (\>15k citations) and `HTSeq` (\<18k citations) have become disfavored in the past couple of years, as they e.g. don't count multi-mapping reads at all.
+:::legend2
+From [BioRender](https://biorender.com/)
 :::
 
-## A best-practice workflow to produce counts
+## Side note: Splicing
 
-The "nf-core" initiative (<https://nf-co.re>) attempts to produce best-practice and automated workflows/pipelines, like for RNA-Seq (<https://nf-co.re/rnaseq>):
+![](../img/splicing_biorender2.png){fig-align="center" width="85%"}
 
-![](../img/nfcore_rnaseq.png){fig-align="center" width="120%"}
+:::legend2
+From [BioRender](https://biorender.com/)
+:::
 
-# From counts to conclusions {background-color="silver"}
+## Read alignment to a reference genome
+
+So, the alignment of reads to a reference genome needs to be "_splice-aware_":
+
+<hr style="height:1pt; visibility:hidden;" />
+
+![](../img/alignment_ed2.png){fig-align="center" width="70%"}
+
+:::legend2
+@vandenberge2019
+:::
+
+:::footer
+:::
+
+## Read alignment to a reference genome
+
+Alternatively, you can align to the *transcriptome* (i.e., all mature transcripts):
+
+![](../img/alignment_ed1.jpg){fig-align="center" width="70%"}
+
+:::legend2
+@vandenberge2019
+:::
+
+:::footer
+:::
+
+## Read alignment to a reference genome
+
+<details><summary>Why are there multiple bars in panel **b**? What do these represent?
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary>
+These represent different transcripts originating from the same gene due to
+***alternative splicing***.
+These will produce different proteins, which are called ***isoforms***.
+
+Most short-read RNA-Seq studies do not attempt to distinguish between isoforms,\
+but rather quantify expression at the gene level.
+
+If distinguishing between isoforms is important,
+performing RNA-Seq with a **long-read HTS** platform is a better option.
+</details>
+
+![](../img/alignment_ed1.jpg){fig-align="center" width="50%"}
+
+:::legend2
+@vandenberge2019
+:::
+
+:::footer
+:::
+
+## Gene-wise quantification
+
+In essence, a simple counting exercise once you have the alignments in hand:\
+for each sample, how many reads map to each gene?
+
+![](../img/alignment_counting.png){fig-align="center" width="72%" fig-alt="A diagram of RNA-Seq analysis steps." .lightbox}
+
+. . .
+
+::: {.callout-note appearance="simple"}
+Though in practice, a bit more complicated than this, due to e.g.:
+
+- Reads that map to multiple genes ("multi-mapping reads")
+- Sequencing biases and RNA fragmentation
+:::
+
+## A best-practice pipeline to produce counts
+
+The "nf-core" initiative (<https://nf-co.re>, @ewels2020)
+aims to produce best-practice and automated bioinformatics pipelines,
+like for RNA-Seq (<https://nf-co.re/rnaseq>):
+
+![](../img/nfcore_rnaseq.png){fig-align="center" width="100%"}
+
+# Stage IV: From counts to conclusions {background-color="silver"}
 
 ## Count table analysis: overview
 
-The second part of RNA-Seq data analysis involves analyzing the count table.\
-In contrast to the first part, this can be done on a laptop and instead is heavier on **statistics**, **data visualization** and **biological interpretation**.
+The second part of RNA-Seq data analysis involves analyzing the count table.
+
+In contrast to the first part,
+this can be done on a laptop and instead is heavier on\
+**statistics**, **data visualization** and **biological interpretation**.
 
 <br>
 
 . . .
 
-It is typically done with the R languange, and common steps include:
+It is typically done with the R language, and common aspects include:
 
 - **Principal Component Analysis (PCA)**\
-    Assessing overall sample clustering patterns
+  Assessing overall sample "clustering" (similarity) patterns
 
 - **Differential Expression (DE) analysis**\
-    Finding genes that differ in expression level between sample groups (DEGs)
+  Finding genes that differ in expression level between sample groups (DEGs)
 
 - **Functional enrichment analysis**\
-    See whether certain gene function groupings are overrepresented among DEGs
+  See whether certain gene function categories are overrepresented among DEGs
 
-## PCA
+## Principal Component Analysis (PCA)
 
-A PCA analysis will help to visualize overall patterns of similarity among samples,\
-for example whether our groups of interest cluster:
+PCA visualizes overall patterns of similarity among samples,\
+such as whether groups of interest form distinct clusters:
 
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
-![Fig. 1 from [Garrigos et al. 2023](https://doi.org/10.1111/mec.17240)](../img/PCA.jpeg)
+![](../img/PCA.jpeg){fig-align="center" width="100%"}
+
+:::legend2
+Fig. 1 from @garrigós2025
+:::
 
 ## Differential expression (DE) analysis
 
-A Differential Expression (DE) analysis allows you to test, for every single expressed gene in your dataset, whether it significantly differs in expression level between groups.
+Differential Expression (DE) analysis allows you to test,
+separately for every expressed gene in your dataset,
+whether it significantly differs in expression level between groups.
 
 . . .
 
@@ -491,7 +626,9 @@ Typically, this is done with pairwise comparisons between groups:
 
 ## Differential expression (DE) analysis
 
-A Differential Expression (DE) analysis allows you to test, for every single expressed gene in your dataset, whether it significantly differs in expression level between groups.
+Differential Expression (DE) analysis allows you to test,
+separately for every expressed gene in your dataset,
+whether it significantly differs in expression level between groups.
 
 Typically, this is done with pairwise comparisons between groups:
 
@@ -505,94 +642,124 @@ Typically, this is done with pairwise comparisons between groups:
 :::
 :::::
 
-## DE analysis: general statistical considerations
+## Statistical considerations for the DE analysis
 
-- **Gene count normalization**\
-    To be able to fairly compare samples, raw gene counts need to be adjusted:
+1. Gene count normalization
+2. Probability distribution of the gene count data
+3. Multiple-testing correction
 
-    - By library size, which is the total number of gene counts per sample
-    - By library composition, e.g. to correct for sample-specific extremely abundant genes that "steal" most of that sample's counts
+::: {.callout-note appearance="simple"}
+We will talk about these during tomorrow's lab.
 
-. . .
-
-<br>
-
-- **Probability distribution of the count data**
-    - Gene counts have higher variance than a Poisson distribution: **negative** **binomial distribution** is typically used.
-    - Variance ("dispersion") estimates are gene-specific but "borrow" information from other genes (details beyond the scope of this lecture).
-
-## DE analysis: general statistical considerations (cont.)
-
-- **Multiple-testing correction**
-    - 10,000+ genes are independently tested during a DE analysis, so there is a dire need for multiple testing correction.
-    - The standard method is the **Benjamini-Hochberg** (BH) method.
-
-<hr style="height:1pt; visibility:hidden;" />
-
-. . .
-
-- **Log2-fold changes (LFC) as a measure of expression difference**
-    - We'll discuss this in the lab.
-
-. . .
-
-<hr style="height:1pt; visibility:hidden;" />
-
-::: callout-note
-#### R packages to the rescue
-
-Specialized R/Bioconductor packages like `DESeq2` and `EdgeR` make differential expression analysis relatively straightforward and automatically take care of the abovementioned considerations (we will use `DESeq2` in the lab).
+While not necessarily easy conceptually,
+this is all fairly straightforward in practice:
+specialized R packages like `DESeq2` take care of the details.
 :::
 
 ## Functional enrichment: introduction
 
-Lists of DEGs can be quite long, and it is not always easy to make biological sense of them. Functional enrichment analyses help with this.
+Lists of DEGs can be long: not always easy to make biological sense of.\
+Functional **enrichment analyses** help with this.
 
-Functional enrichment analyses check whether certain **functional categories of genes** are **statistically overrepresented** among up- and/or downregulated genes.
+Functional enrichment analyses check whether certain
+functional **categories** of genes are *statistically overrepresented*
+among up- and/or downregulated genes.
 
 <br>
 
 . . .
 
-There are a number of databases that group genes into functional categories, but the two main ones used for enrichment analysis are:
+Several databases group genes into functional categories ---\
+the two main ones used for enrichment analysis are:
 
 - **Gene Ontology (GO)**
 - **Kyoto Encyclopedia of Genes and Genomes (KEGG)**
 
+## Functional enrichment: conceptually
+
+A GO term called "**photosynthesis**" is
+associated with a set of genes involved in photosynthesis.
+
+- Say that 300 genes out of 30,000 genes in the genome have been annotated to
+  this term = 1%
+
+- Say that among your 50 out of your 500 DEGs
+  are annotated to this term = 5%
+
+. . .
+
+The larger the difference between these percentages,
+the stronger the indication that the function in question --here, photosynthesis--
+is overrepresented among your DEGs.
+
 ## Functional enrichment: GO
 
-:::::: columns
-:::: {.column width="32%"}
-- Genes are assigned zero, one or more GO "**terms**"
-- Hierarchical structure with more specific terms grouping into more general terms
-- Highest-level grouping are the three "ontologies": *Biological Process*, *Molecular Function*, *Cellular Component*
-
-<br>
+![](../img/garrigo_go.jpeg){fig-align="center" width="60%"}
 
 ::: legend2
-Fig. 4 from [Garrigos et al. 2023](https://doi.org/10.1111/mec.17240)
+Fig. 4 from @garrigós2025
 :::
-::::
 
-::: {.column width="68%"}
-![](../img/garrigo_go.jpeg){fig-align="center" width="100%"}
+::: {.callout-note appearance="simple"}
+GO terms have a *hierarchical* structure with more specific terms grouping into
+more general terms
 :::
-::::::
+
+:::footer
+:::
 
 ## Functional enrichment: KEGG {.nostretch}
 
 KEGG focuses on **pathways** for cellular and organismal functions whose genes can be drawn and connected in maps.
+
+. . .
 
 <br>
 
 ![](../img/kegg_example.jpg){fig-align="center" width="90%"}
 
 ::: legend2
-[Rodriguez et al. 2020](https://bsppjournals.onlinelibrary.wiley.com/doi/abs/10.1111/ppa.13165): "KEGG representation of up-regulated genes related to jasmonic acid (JA) signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with *Pseudocercospora fijiensis*. Genes or chemicals up-regulated at any time point were highlighted in green."
+@rodriguez2020
+
+> *KEGG representation of up-regulated genes related to jasmonic acid (JA) signal*
+> *transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with*
+> *Pseudocercospora fijiensis*.
+> *Genes or chemicals up-regulated at any time point were highlighted in green.*
+
 :::
 
-## Functional enrichment: KEGG
-
-![[Rodriguez et al. 2020](https://bsppjournals.onlinelibrary.wiley.com/doi/abs/10.1111/ppa.13165)](../img/kegg_example2.jpg){fig-align="center" width="80%"}
-
 # Questions? {background-color="silver"}
+
+## Read alignment QC
+
+- **Alignment rates**\
+  What percentage of reads was successfully aligned? _(Should be \>80%)_
+
+. . .
+
+- **Alignment targets**\
+  What percentages of aligned reads mapped to
+  *exons* vs. *introns* vs. *intergenic regions*?
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+<details><summary>What might cause high intronic mapping rates?
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary>
+An abundance of pre-mRNA versus mature-mRNA.
+</details>
+
+. . .
+
+<details><summary>What might cause high intergenic mapping rates?
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary>
+DNA contamination or poor genome assembly/annotation quality
+</details>
+
+## References
+
+:::footer
+:::

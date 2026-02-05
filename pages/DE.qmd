@@ -18,7 +18,7 @@ other-links:
     href: r_homework.html
 execute: 
   eval: true
-  cache: false
+  cache: true
 knitr:
   opts_chunk:
     out.width: "85%"
@@ -48,14 +48,14 @@ you learned about the steps to generate a gene count table from this input data:
 2. **Alignment** of reads to a reference genome (+ alignment QC)
 3. **Quantification** of expression levels
 
-### Today's goals
+### Today's goals 
 
 I have performed the above steps for you already,
-and you will start with the output of step 3: a **gene count table**.
-With that gene count table, you will:
+and you will start with an R object that contains the output of step 3:
+a **gene count table**. Then, you will:
 
-- Create an R object that also incorporates the meta (sample) data
-- Perform exploratory data analysis including a PCA
+- Explore the data
+- Perform a Principal Component Analysis (PCA)
 - Run a Differential Expression (DE) analysis
 - Extract and visualize the DE results
 
@@ -70,7 +70,7 @@ week's homework:
 2. Click on **`Interactive Apps`** (top bar) and then **`RStudio Server`**
    (all the way at the bottom)
 3. Fill out the form as follows:
-   - Cluster: **`Pitzer`**
+   - Cluster: **`Cardinal`**
    - R version: **`4.4.0`**
    - Project: **`PAS2880`**
    - Number of hours: **`4`**
@@ -141,60 +141,94 @@ library(EnhancedVolcano)
 
 </details>
 
-## Create a DESeq2 object
+## Loading and exploring the data
 
-Like in @garrigós2025,
-you'll perform a Principal Component Analysis (PCA) and a
-Differential Expression (DE) analysis.
-To do so, you'll use the **DESeq2** R package (@love2014deseq2, 
-[website](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)).
+The main analyses you'll perform today are a Principal Component Analysis (PCA)
+and a Differential Expression (DE) analysis.
+An R package that makes this relatively straightforward is **DESeq2**
+(@love2014deseq2, 
+[package website](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)),
+which you installed as part of your homework, and loaded just now.
 
-DESeq2 has its own "object type" (a specific R format type) and
-before you can do anything else,
-you need to create a DESeq2 object from three components:
+DESeq2 has its own "object type" (a specific R format type) and the first step
+when working with this package is to create a DESeq2 object.
+I already did this for you, so you can focus on the analysis itself.
+The object consists of two main parts:
 
-1. **Sample metadata**\
-   This table should contain information on which samples belong to which groups
-   that should be compared (i.e., the experiment's "independent variables").
-2. **Count table**\
-   A table with one row per gene, and one column per sample.
-3. **A statistical design**\
-   A statistical design formula to tell DESEq2 which groups to compare
-
-```{r, echo=FALSE}
-count_table_file <- here::here("results/counts/salmon.merged.gene_counts_length_scaled.tsv")
-metadata_file <- here::here("data/meta/metadata.tsv")
-count_df <- read_tsv(count_table_file, show_col_types = FALSE)
-meta_raw <- read_tsv(metadata_file, show_col_types = FALSE)
-```
-
-### Sample metadata
-
-First, you'll load the sample metadata from the same file you saw last week.
-To do so, use the `read_tsv()` function you also saw in the homework --
-this reads a TSV (Tab-Separated Values) file into a dataframe:
+1. **Sample metadata** -- accessed with `colData()`\
+   A table with the key sample grouping (here: treatment, time) information.
+   
+2. **Count table** -- accessed with `counts()`\
+   A table with one row per gene, one column per sample, containing the gene counts.
+   
+Let's load this DESeq2 object from a file.
+It's stored in an R-specific format called an RDS file,
+which you can load with the `readRDS()` function:
 
 ```{r, eval=FALSE}
-meta_raw <- read_tsv("/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv")
+dds <- readRDS("/fs/scratch/PAS2880/ENT6703/results/dds.rds")
 ```
 
-Let's take a look at the resulting dataframe with the `View()` function:
+```{r, echo=FALSE}
+dds_file <- here::here("results/dds.rds")
+dds <- readRDS(dds_file)
+```
+
+Let's see what's inside this DESeq2 object:
+
+```{r}
+dds
+```
+
+That printed a summary of the object, with the following key items:
+
+- **`class`**: The type of R object (here, `DESeqDataSet`)
+- **`dim`**: The dimensions of the count table (genes x samples)
+- **`rownames`**: The row names of the count table (here, gene IDs)
+- **`colnames`**: The column names of the count table (here, sample IDs)
+- **`colData names`**: The column names of the sample metadata table
+
+_(`colData` is used as a shorthand for "column data", i.e. data associated with_
+_the columns/samples of the count table.)_
+
+### The sample metadata
+
+Last week, we looked at the TSV file with the sample metadata (`metadata/meta.tsv`),
+but we'll take a closer look now.
+   
+The sample metadata can be accessed with the `colData()` function,
+where we pass the name of our DESeq2 object as its argument:
+
+```{r}
+colData(dds)
+```
+
+If we want to see the entire table more easily,
+we can first create a regular dataframe from it:
+
+```{r}
+# This turns the colData() output into a regular data frame and stores it in 'meta':
+meta <- data.frame(colData(dds))
+```
+
+And then take a look e.g. with the `View()` function:
 
 ```{r, eval=FALSE}
 # View() will open the dataframe in a spreadsheet like view
-View(meta_raw)
+# Below on this website, it's just printed in full
+View(meta)
 ```
 
 ```{r, echo=FALSE}
-print(meta_raw, n=100)
+meta
 ```
 
 ::: exercise
 #### {{< fa user-edit >}} Exercise: Interpret the metadata
 
-Based on the information in the table, try to understand the experimental design.
+Based on the information in the table, recap the study's experimental design.
 How many timepoints and treatments are there?
-How many biological replicates?
+How many biological replicates per group?
 
 <details><summary>*Click to see the solution*</summary>
 
@@ -209,177 +243,75 @@ How many biological replicates?
 </details>
 :::
 
-<hr style="height:1pt; visibility:hidden;" />
-
-You'll now have to make some modifications to the metadata table
-so that it can be used in DESeq2:
-
-- The table should be sorted by sample ID:
-  you can use the `arrange()` function to do so
-- The sample IDs should be row names, not a separate column:
-  we can use the `column_to_rownames()` function for this
-
-```{r}
-# The input is the raw metadata dataframe ('meta_raw'),
-# and we'll store the output in a new, processed dataframe ('meta'):
-meta <- meta_raw |>
-  # By converting 'treatment' columns into a "factor",
-  # you can provide a custom order that will be respected in the plot -
-  # this, way 24h comes before 10d, and control before the two infections.
-  mutate(
-    dpi = factor(dpi, levels = c(1, 10)),
-    treatment = factor(treatment, levels = c("control", "cathemerium", "relictum"))
-  ) |>
-  # 1. Sort the table by 'sample_id' column:
-  arrange(sample_id) |>
-  # 2. Turn the 'sample_id' column into row names:
-  column_to_rownames("sample_id")
-```
-
-```{r}
-# Take a look at the first 6 rows
-head(meta)
-```
-
-In the two outputs above,
-note the difference between having the sample IDs as a separate column versus
-as row names.
-This is a minor and uninteresting technical difference,
-but DESeq2 simply expects the sample IDs to be row names.
-
-::: {.callout-note appearance="simple"}
-When analyzing data sets, such modifications ("data wrangling") are quite common
-and can take up more time and space than the actual analysis itself.
-Which is one reason we're including these steps in the lab.
-:::
-
-### Count table
-
-I produced a gene count table for you by running the 
-[nf-core rnaseq pipeline](https://nf-co.re/rnaseq)
-on the input data you saw last week (FASTQ reads and reference genome files).
-  
-Load this count table into R:
-
-```{r, eval=FALSE}
-count_df <- read_tsv("/fs/scratch/PAS2880/ENT6703/results/counts.tsv")
-```
-
-Take a look at the first 6 rows:
-
-```{r}
-head(count_df)
-```
-
-Here, too, we have to make several modifications --
-DESeq2 expects that the count table:
-
-- Has gene IDs as row names
-- Does not contain any non-numeric columns
-- Contains integer (whole-number, rounded) values
-- Is a "matrix", a slighly different object type from a dataframe
-
-```{r}
-count_mat <- count_df |>
-  # 1. Turn the 'gene_id' column into row names:
-  column_to_rownames("gene_id") |>
-  # 2. Remove a remaining non-numeric column (which has gene names):
-  select(-gene_name) |>
-  # 3. Round everything to whole numbers:
-  round() |>
-  # 4. Convert it to a formal 'matrix' format:
-  as.matrix()
-```
-
-Let's once again take a look at the first 6 rows:
-
-```{r}
-head(count_mat)
-```
-
-::: {.callout-tip collapse="true"}
-#### Bonus: Check that the sample IDs match _(Click to expand)_
-When creating the DESeq2 object,
-DESeq2 assumes that sample IDs in the metadata and count tables completely match
-(no extra/missing samples in either table), and are provided in the same order.
-Let's make sure this is indeed the case:
-
-```{r}
-all(rownames(meta) == colnames(count_mat))
-```
-:::
-
-### Create the DESeq2 object
-
-You will create the DESeq2 object using the function `DESeqDataSetFromMatrix()`,
-which requires three arguments corresponding to the components discussed above:
-
-- The metadata with argument **`colData`**.
-- The count data with argument **`countData`**.
-- The statistical design for the DE analysis with argument **`design`**.
-  For now, you will specify **`~1`**,
-  which effectively means "no design" ---
-  you will change this before the actual DE analysis.
-
-```{r}
-# (`dds` is a name commonly used for DESeq2 objects, short for "DESeq Data Set")
-dds <- DESeqDataSetFromMatrix(
-  colData = meta,
-  countData = count_mat,
-  design = ~ 1
-  )
-```
-
-Before running the differential expression analysis, though,
-let's do a bit of exploratory data analysis.
-
-## Exploratory Data Analysis
-
 ### The count table
 
-What are the number of rows (=number of genes) and columns (=number of samples)
-of your gene expression count matrix?
+The gene count table is stored in the DESeq2 object as well,
+which you can access with the `counts()` function:
 
 ```{r}
-dim(count_mat)
+# We'll wrap it in head() to only see the first 6 rows (genes):
+head(counts(dds))
 ```
 
-So, we have `r nrow(count_mat)` genes and `r ncol(count_mat)` samples.
+This output may look confusing at a glance.
+Only the first 6 rows (=genes) are printed, but because the table is so wide,
+the output is "folded".
+Pay attention to the row (gene) names to understand it better.
 
-How do the "library sizes", i.e. the summed per-sample gene counts,
-compare across samples?
-To see this, you can compute column sums (recall: columns are samples) using
-the `colSums()` function:
+We can directly count the number of rows (genes) and columns (samples) from this
+count matrix -- these numbers should correspond to what we saw above:
 
 ```{r}
-colSums(count_mat)
+# Number of rows (genes):
+nrow(counts(dds))
+
+# Number of columns (samples):
+ncol(counts(dds))
 ```
 
-OK, that looks like a lot, but is not so easy to read / interpret.
+### Library sizes
+
+The total number of genes counts per sample is called the **library size**.
+_TBA - EXPAND_
+
+How do the "library sizes" compare across samples?
+To see this,
+you can compute sums for each column (sample) using the `colSums()` function:
+
+```{r}
+colSums(counts(dds))
+```
+
+OK, lots of big numbers, so not that easy to read / interpret.
 Let's convert these numbers:
 
 - To whole millions: divide by 1,000,000 and round (`round()`) the result
 - Sorted from low to high (`sort()`)
 
 ```{r}
-sort(round(colSums(count_mat) / 1000000))
+sort(round(colSums(counts(dds)) / 1000000))
 ```
+
+::: exercise
+#### {{< fa user-edit >}} Exercise: Interpret the library sizes
+
+If one sample has 9 million reads and another 28 million reads,
+what implications does this have for comparing gene expression levels?
+:::
 
 ::: {.callout-note collapse="true"}
 #### Bonus: How many genes have non-zero counts? _(Click to expand)_
 
 How many genes have total (= across all samples) counts that are non-zero?
-
 To compute this, you can:
 
 - Use `rowSums()` to compute total counts per gene (rows are genes)
-- Subset the count matrix with `[ ]` to only those genes with total counts > 0
-- Count the number of rows in that subsetted matrix with `nrow()`
+- `sum()` the number of times these total counts are greater than 0
 
 All in one line:
 
 ```{r}
-nrow(count_mat[rowSums(count_mat) > 0, ])
+sum(rowSums(counts(dds)) > 0)
 ```
 
 <hr style="height:1pt; visibility:hidden;" />
@@ -387,22 +319,30 @@ nrow(count_mat[rowSums(count_mat) > 0, ])
 <details><summary>Your turn: How many genes have total counts of at least 10? *(Click to see the solution)*</summary>
 
 ```{r}
-nrow(count_mat[rowSums(count_mat) >= 10, ])
+sum(rowSums(counts(dds)) > 9)
 ```
 </details>
 
 <details><summary>Your turn: How many genes have *mean* counts of at least 10? *(Click to see the solution)*</summary>
 
-Now you need to divide by the number of samples.
+Now you need to divide the count sums by the number of samples (`22`):
+
+```{r}
+sum(rowSums(counts(dds)) / 22 > 9)
+```
+
+An even more robust way to do this is to not "hard-code" the number of samples (`22`),
+but to get it programmatically.
 This is the number of columns, which you can get with `ncol()`
 
 ```{r}
-nrow(count_mat[rowSums(count_mat) / ncol(count_mat) >= 10, ])
+sum(rowSums(counts(dds)) / ncol(counts(dds)) > 9)
 ```
+
 </details>
 :::
 
-### Principal Component Analysis (PCA)
+## Principal Component Analysis (PCA)
 
 You will now run a PCA to look for overall patterns of (dis)similarity among samples.
 This will help answer questions like:
@@ -465,7 +405,7 @@ The `plotPCA()` function has an argument to change the number of included genes.
    _(Hint: run `?plotPCA` in the R console)_
 
 2. Play around with different numbers of included genes
-   (e.g., 100, 1000, all genes), and see how this affects the PCA plot.
+   (e.g., 100, 1000, all genes) and see how this affects the PCA plot.
 
 **TODO - ADD SOLUTION**
 :::
@@ -513,14 +453,14 @@ pca_df <- plotPCA(
 
 <details><summary>*Click to see a possible solution*</summary>
 
+This starts from the `pca_df` dataframe created in the first solution above:
+
 ```{r}
-pca_df |>
-  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = dpi)) +
+ggplot(pca_df) +
+  aes(x = PC1, y = PC2, color = treatment, shape = dpi) +
   geom_point(size = 5) +
   scale_color_brewer(palette = "Dark2", name = "Infection status") +
-  scale_shape(name = "Time points") +
-  theme_bw() +
-  theme(panel.grid.minor = element_blank())
+  theme_bw(base_size = 13)
 ```
 
 Let's improve this plot in two ways:
@@ -534,37 +474,16 @@ Let's improve this plot in two ways:
 pct_var <- round(100 * attr(pca_df, "percentVar"), 1)
 pct_var
 
-pca_df |> 
-  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = dpi)) +
+ggplot(pca_df) + 
+  aes(x = PC1, y = PC2, color = treatment, shape = dpi) +
   geom_point(size = 5) +
   labs(
     x = paste0("PC1 (", pct_var[1], "%)"),
     y = paste0("PC2 (", pct_var[2], "%)")
     ) +
   scale_color_brewer(palette = "Dark2", name = "Infection status") +
-  scale_shape(name = "Time points") +
-  theme_bw() +
-  theme(panel.grid.minor = element_blank())
+  theme_bw(base_size = 13)
 ```
-
-2. Improving the order of the legend items: 24 hours should come before 10 days,
-   and the control treatment is best presented first.
-   
-```{r}
-# First, modify the factor levels in the PCA dataframe:
-pca_df |>
-  ggplot(aes(x = PC1, y = PC2, color = treatment, shape = dpi)) +
-  geom_point(size = 5) +
-  labs(
-    x = paste0("PC1 (", pct_var[1], "%)"),
-    y = paste0("PC2 (", pct_var[2], "%)")
-    ) +
-  scale_color_brewer(palette = "Dark2", name = "Infection status") +
-  scale_shape(name = "Time points") +
-  theme_bw() +
-  theme(panel.grid.minor = element_blank())
-```
-
 </details>
 :::
 
@@ -683,12 +602,39 @@ The `DESeq()` function performs three steps consecutively:
    calculating the test statistics
 
 A key thing to understand is that above,
-DESeq2 automatically performed **pairwise** comparisons between **each of the (6) levels**
-of the `group` variable.
+DESeq2 automatically performed **pairwise** comparisons between
+**each of the (6) levels** of the `group` variable.
 This means that for any individual gene, it tested whether the gene is
 differentially expressed *separately for each of these pairwise comparisons*.
 
 _TODO - VISUALIZE THIS?_
+
+::: callout-note
+## Statistical considerations for the DE analysis
+
+1. **Gene count normalization**\
+   To fairly compare samples, raw gene counts must be adjusted:
+
+   - By **library size**, the total number of gene counts per sample
+   - By **library composition**,
+     e.g. to correct for extremely abundant genes that "steal" most of a
+     sample's counts
+
+2. **Probability distribution of the count data**
+
+   - Gene counts have a distribution similar to Poisson but with higher variance\
+     (the *negative binomial distribution* is typically used)
+  
+   - Variance estimates are gene-specific but "borrow" information from other genes ---\
+     necessary in practice, but can make the analysis sensitive to false
+     positives due to outliers
+
+3. **Multiple-testing correction**
+   - 10,000+ genes are independently tested during a DE analysis,\
+     so multiple testing correction is needed!
+   - The most common approach is the **Benjamini-Hochberg** (BH) method
+     _([explanatory video](https://www.youtube.com/watch?v=K8LQSvtjcEo))_
+:::
 
 ## Extracting the DE results
 
@@ -1221,3 +1167,155 @@ pheatmap(
 
 </details>
 :::
+
+### Create a DESeq2 object
+
+While I provided you with a ready-to-use DESeq2 object above,
+here is how you could do this yourself.
+You need to create a DESeq2 object from three components:
+
+1. **Sample metadata**\
+   This table should contain information on which samples belong to which groups
+   that should be compared (i.e., the experiment's "independent variables").
+2. **Count table**\
+   A table with one row per gene, and one column per sample.
+3. **A statistical design**\
+   A statistical design formula to tell DESEq2 which groups to compare
+
+```{r, echo=FALSE}
+count_table_file <- here::here("results/counts/salmon.merged.gene_counts_length_scaled.tsv")
+metadata_file <- here::here("data/meta/metadata.tsv")
+count_df <- read_tsv(count_table_file, show_col_types = FALSE)
+meta_raw <- read_tsv(metadata_file, show_col_types = FALSE)
+```
+
+### Sample metadata
+
+First, you'll load the sample metadata from the same file you saw last week.
+To do so, use the `read_tsv()` function you also saw in the homework --
+this reads a TSV (Tab-Separated Values) file into a dataframe:
+
+```{r, eval=FALSE}
+meta_raw <- read_tsv("/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv")
+
+head(meta_raw)
+```
+
+You'll have to make some modifications to the metadata table
+so that it can be used in DESeq2:
+
+- The table should be sorted by sample ID:
+  you can use the `arrange()` function to do so
+- The sample IDs should be row names, not a separate column:
+  we can use the `column_to_rownames()` function for this
+
+```{r}
+# The input is the raw metadata dataframe ('meta_raw'),
+# and we'll store the output in a new, processed dataframe ('meta'):
+meta <- meta_raw |>
+  # By converting 'treatment' columns into a "factor",
+  # you can provide a custom order that will be respected in the plot -
+  # this, way 24h comes before 10d, and control before the two infections.
+  mutate(
+    dpi = factor(dpi, levels = c(1, 10)),
+    treatment = factor(treatment, levels = c("control", "cathemerium", "relictum"))
+  ) |>
+  # 1. Sort the table by 'sample_id' column:
+  arrange(sample_id) |>
+  # 2. Turn the 'sample_id' column into row names:
+  column_to_rownames("sample_id")
+```
+
+```{r}
+# Take a look at the first 6 rows
+head(meta)
+```
+
+In the two outputs above,
+note the difference between having the sample IDs as a separate column versus
+as row names.
+This is a minor and uninteresting technical difference,
+but DESeq2 simply expects the sample IDs to be row names.
+
+::: {.callout-note appearance="simple"}
+When analyzing data sets, such modifications ("data wrangling") are quite common
+and can take up more time and space than the actual analysis itself.
+Which is one reason we're including these steps in the lab.
+:::
+
+### Count table
+
+I produced a gene count table for you by running the 
+[nf-core rnaseq pipeline](https://nf-co.re/rnaseq)
+on the input data you saw last week (FASTQ reads and reference genome files).
+  
+Load this count table into R:
+
+```{r, eval=FALSE}
+count_df <- read_tsv("/fs/scratch/PAS2880/ENT6703/results/counts.tsv")
+```
+
+Take a look at the first 6 rows:
+
+```{r}
+head(count_df)
+```
+
+Here, too, we have to make several modifications --
+DESeq2 expects that the count table:
+
+- Has gene IDs as row names
+- Does not contain any non-numeric columns
+- Contains integer (whole-number, rounded) values
+- Is a "matrix", a slighly different object type from a dataframe
+
+```{r}
+count_mat <- count_df |>
+  # 1. Turn the 'gene_id' column into row names:
+  column_to_rownames("gene_id") |>
+  # 2. Remove a remaining non-numeric column (which has gene names):
+  select(-gene_name) |>
+  # 3. Round everything to whole numbers:
+  round() |>
+  # 4. Convert it to a formal 'matrix' format:
+  as.matrix()
+```
+
+Let's once again take a look at the first 6 rows:
+
+```{r}
+head(count_mat)
+```
+
+::: {.callout-tip collapse="true"}
+#### Bonus: Check that the sample IDs match _(Click to expand)_
+When creating the DESeq2 object,
+DESeq2 assumes that sample IDs in the metadata and count tables completely match
+(no extra/missing samples in either table), and are provided in the same order.
+Let's make sure this is indeed the case:
+
+```{r}
+all(rownames(meta) == colnames(count_mat))
+```
+:::
+
+### Create the DESeq2 object
+
+You will create the DESeq2 object using the function `DESeqDataSetFromMatrix()`,
+which requires three arguments corresponding to the components discussed above:
+
+- The metadata with argument **`colData`**.
+- The count data with argument **`countData`**.
+- The statistical design for the DE analysis with argument **`design`**.
+  For now, you will specify **`~1`**,
+  which effectively means "no design" ---
+  you will change this before the actual DE analysis.
+
+```{r}
+# (`dds` is a name commonly used for DESeq2 objects, short for "DESeq Data Set")
+dds <- DESeqDataSetFromMatrix(
+  colData = meta,
+  countData = count_mat,
+  design = ~ 1
+  )
+```
