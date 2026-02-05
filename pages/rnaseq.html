@@ -177,10 +177,10 @@ Jelmer Poelstra
 <ul>
 <li><a href="#/why-study-gene-expression" id="/toc-why-study-gene-expression">Why study gene expression?</a></li>
 <li><a href="#/introduction-to-rna-seq" id="/toc-introduction-to-rna-seq">Introduction to RNA-Seq</a></li>
-<li><a href="#/experimental-design" id="/toc-experimental-design">Experimental design</a></li>
-<li><a href="#/from-samples-to-reads" id="/toc-from-samples-to-reads">From samples to reads</a></li>
-<li><a href="#/from-reads-to-counts" id="/toc-from-reads-to-counts">From reads to counts</a></li>
-<li><a href="#/from-counts-to-conclusions" id="/toc-from-counts-to-conclusions">From counts to conclusions</a></li>
+<li><a href="#/stage-i-experimental-design" id="/toc-stage-i-experimental-design">Stage I: Experimental design</a></li>
+<li><a href="#/stage-ii-from-samples-to-reads" id="/toc-stage-ii-from-samples-to-reads">Stage II: From samples to reads</a></li>
+<li><a href="#/stage-iii-from-reads-to-counts" id="/toc-stage-iii-from-reads-to-counts">Stage III: From reads to counts</a></li>
+<li><a href="#/stage-iv-from-counts-to-conclusions" id="/toc-stage-iv-from-counts-to-conclusions">Stage IV: From counts to conclusions</a></li>
 <li><a href="#/questions" id="/toc-questions">Questions?</a></li>
 </ul>
 </nav>
@@ -195,8 +195,7 @@ Jelmer Poelstra
 <p>Unlike an organism’s genome content, the expression of genes is highly dynamic, varying:</p>
 <ul>
 <li><p>Across time and space</p></li>
-<li><p>Qualitatively (<em>which</em> genes are expressed) and especially<br>
-quantitatively (<em>how much</em> of each gene is expressed)</p></li>
+<li><p>Qualitatively (<em>which</em> genes are expressed) and especially quantitatively (<em>how much</em> of each gene is expressed)</p></li>
 </ul>
 </section>
 <section id="gene-expression-is-functionally-important" class="slide level2">
@@ -204,7 +203,7 @@ quantitatively (<em>how much</em> of each gene is expressed)</p></li>
 <p>Considering:</p>
 <div>
 <ol type="1">
-<li class="fragment"><p>That <strong>protein production</strong> informs about the activity of biological functions,<br>
+<li class="fragment"><p>That <strong>protein production</strong> tells us about the activity of biological functions,<br>
 and the molecular mechanisms underlying those functions</p></li>
 <li class="fragment"><p>That it is easier to measure <strong>transcript (mRNA)</strong> than protein abundance</p></li>
 <li class="fragment"><p>The central dogma</p></li>
@@ -223,7 +222,7 @@ and the molecular mechanisms underlying those functions</p></li>
 <h2>Studying gene expression</h2>
 <p>For example, gene expression can be quantified to associate genes and genetic pathways with:</p>
 <ul>
-<li>Phenotypic responses</li>
+<li>Phenotypic responses e.g.&nbsp;to environmental conditions</li>
 <li>Differences between groups (treatments, genotypes, sexes, tissues, etc.)</li>
 </ul>
 <div class="fragment">
@@ -258,7 +257,7 @@ these can next by functionally validated using experiments like knock-outs.</p>
 <hr style="height:1pt; visibility:hidden;">
 <div class="fragment">
 <ul>
-<li><strong>Transcriptomics</strong> allows quantifying expression of thousands of genes simultaneously
+<li>With <strong>transcriptomics</strong>, expression of thousands of genes is quantified simultaneously
 <ul>
 <li>It was already common practice before HTS: with microarrays</li>
 <li>But is now dominated by the HTS-based method <strong>RNA-Seq</strong></li>
@@ -280,10 +279,33 @@ and the core idea is that a gene’s read count reflects that gene’s expressio
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/reads.png" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
+<p><img data-src="../img/reads.png" class="quarto-figure quarto-figure-center" style="width:35.0%"></p>
 </figure>
 </div>
 <div class="fragment">
+<details>
+<summary>
+<strong>How can we tell which gene each read originates from?</strong> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+</summary>
+Most commonly by aligning them to a reference genome.
+</details>
+<div class="footer">
+
+</div>
+</div>
+</section>
+<section id="what-is-rna-seq-1" class="slide level2">
+<h2>What is RNA-Seq?</h2>
+<ul>
+<li><p>To estimate gene expression levels genome-wide, RNA-Seq takes a brute-force approach by <strong>randomly sequencing of millions of RNA fragments per sample</strong></p></li>
+<li><p>The resulting reads can be assigned a gene of origin,<br>
+and the core idea is that a gene’s read count reflects that gene’s expression level</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/reads.png" class="quarto-figure quarto-figure-center" style="width:35.0%"></p>
+</figure>
+</div>
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
@@ -298,7 +320,6 @@ it constitutes <em>the</em> most common usage of high-throughput sequencing</p>
 <div class="footer">
 
 </div>
-</div>
 </section>
 <section id="the-most-common-type-of-rna-seq" class="slide level2">
 <h2>The most common type of RNA-Seq</h2>
@@ -309,6 +330,7 @@ it constitutes <em>the</em> most common usage of high-throughput sequencing</p>
 <li class="fragment">Attempts to sequence only mRNA, avoiding non-coding RNAs (“<strong>mRNA-Seq</strong>”)</li>
 <li class="fragment">Does not distinguish between RNA from different cell types (“<strong>bulk RNA-Seq</strong>”)</li>
 <li class="fragment">Uses <strong>short reads</strong> (≤150 bp) that do not cover full transcripts but do uniquely ID genes</li>
+<li class="fragment">Uses a reference genome for read alignment (“<strong>reference-based RNA-Seq</strong>”)</li>
 </ol>
 </div>
 <div class="fragment">
@@ -319,7 +341,7 @@ it constitutes <em>the</em> most common usage of high-throughput sequencing</p>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p><em>We may call this “short-read bulk mRNA-Seq” in full,</em> <em>but will simply use “RNA-Seq” for brevity</em></p>
+<p><em>When I refer to RNA-Seq from now on, this kind of RNA-Seq is impled.</em></p>
 </div>
 </div>
 </div>
@@ -329,7 +351,7 @@ it constitutes <em>the</em> most common usage of high-throughput sequencing</p>
 <h2>Side note: Types of RNA</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/rna-types.png" class="quarto-figure quarto-figure-center" style="width:83.0%"></p>
+<p><img data-src="../img/rna-types2.png" class="quarto-figure quarto-figure-center" style="width:83.0%"></p>
 </figure>
 </div>
 <div class="legend2">
@@ -344,10 +366,12 @@ it constitutes <em>the</em> most common usage of high-throughput sequencing</p>
 <p>RNA-Seq is the most common data type I help analyze in my role.<br>
 For a taste of what it’s used for in CFAES and beyond —<br>
 the following projects aimed to identify genes &amp; pathways differing between:</p>
+<div class="fragment">
 <ul>
 <li><p>Soybean cultivars in response to <em>Phytophtora sojae</em> inoculation <em>(Dorrance lab, PlantPath)</em></p></li>
 <li><p>Response of maize to <em>Pantoea</em> infection with and without an effector gene <em>(Mackey lab, HCS)</em></p></li>
 </ul>
+</div>
 <div class="fragment">
 <ul>
 <li><p>Mated and unmated mosquitos <em>(Sirot lab, College of Wooster)</em></p></li>
@@ -366,8 +390,8 @@ the following projects aimed to identify genes &amp; pathways differing between:
 </div>
 </section></section>
 <section>
-<section id="experimental-design" class="title-slide slide level1 center" data-background-color="silver">
-<h1>Experimental design</h1>
+<section id="stage-i-experimental-design" class="title-slide slide level1 center" data-background-color="silver">
+<h1>Stage I: Experimental design</h1>
 
 </section>
 <section id="experimental-design-treatmentsgroups" class="slide level2">
@@ -386,7 +410,11 @@ the following projects aimed to identify genes &amp; pathways differing between:
 <p><a href="../img/garrigos_paper.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../img/garrigos_paper.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A screenshot of the paper's front matter."></a></p>
 </figure>
 </div>
-<p>This paper uses RNA-seq data to study gene expression in <em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans.</p>
+<div class="legend2">
+<p><span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#/references" role="doc-biblioref" onclick="">2025</a>)</span></p>
+</div>
+<p><br></p>
+<p>This paper used RNA-Seq data to study gene expression in <em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans</p>
 </section>
 <section id="experimental-design-treatmentsgroups-1" class="slide level2">
 <h2>Experimental design: treatments/groups</h2>
@@ -421,40 +449,42 @@ the following projects aimed to identify genes &amp; pathways differing between:
 
 </div>
 </section>
-<section id="biological-replicates" class="slide level2">
-<h2>Biological replicates</h2>
-<p>To make statistically supported conclusions about expression differences,<br>
-<strong>biological replication</strong> is needed:</p>
+<section id="experimental-design-treatmentsgroups-4" class="slide level2">
+<h2>Experimental design: treatments/groups</h2>
+<details>
+<summary>
+<em>With this experimental design,</em> <em>would it be appropriate to sequence 9 samples total?</em> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+</summary>
+No – see the next slide
+</details>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/exp-design_d.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../img/exp-design_d.png" class="quarto-figure quarto-figure-center" style="width:65.0%" alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."></a></p>
+<p><a href="../img/exp-design_c.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img data-src="../img/exp-design_c.png" class="quarto-figure quarto-figure-center" style="width:65.0%" alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."></a></p>
 </figure>
 </div>
 <div class="footer">
 
 </div>
 </section>
-<section id="experimental-design-recommendations" class="slide level2">
-<h2>Experimental design recommendations</h2>
-<p>When designing an RNA-Seq experiment, keep the following in mind:</p>
-<ul>
-<li><strong>Numbers of replicates</strong><br>
-These can be quite low: 3 replicates per group is most common.<br>
-Not advisable to go lower — if possible, use 4 or 5 replicates.</li>
-</ul>
-<div class="fragment">
-<ul>
-<li><strong>Statistical comparison design</strong><br>
-Preferably, keep designs simple with 1-2 independent variables and 2-3 levels for each variable.</li>
-</ul>
+<section id="biological-replicates" class="slide level2">
+<h2>Biological replicates</h2>
+<p>To make statistically supported conclusions about expression differences,<br>
+we need <strong>biological replication</strong> (at least 3-5 samples per group):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><a href="../img/exp-design_d.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../img/exp-design_d.png" class="quarto-figure quarto-figure-center" style="width:65.0%" alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."></a></p>
+</figure>
+</div>
+<div class="footer">
+
 </div>
 </section></section>
 <section>
-<section id="from-samples-to-reads" class="title-slide slide level1 center" data-background-color="silver">
-<h1>From samples to reads</h1>
+<section id="stage-ii-from-samples-to-reads" class="title-slide slide level1 center" data-background-color="silver">
+<h1>Stage II: From samples to reads</h1>
 
 </section>
-<section id="from-samples-to-reads-1" class="slide level2">
+<section id="from-samples-to-reads" class="slide level2">
 <h2>From samples to reads</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -463,12 +493,12 @@ Preferably, keep designs simple with 1-2 independent variables and 2-3 levels fo
 </div>
 <details>
 <summary>
-<strong>Which type of RNA do the red bars followed by <code>AAAA...</code> represent?</strong> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+<strong>Which type of RNA do the red bars followed by <span style="color:red;">AAAAAAAA</span> represent?</strong> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
 </summary>
-These are the mRNAs, which have poly-A tails (AAAA…).
+These are the mRNAs, which have poly-A tails (AAAA…)
 </details>
 </section>
-<section id="from-samples-to-reads-2" class="slide level2">
+<section id="from-samples-to-reads-1" class="slide level2">
 <h2>From samples to reads</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -497,7 +527,7 @@ The two main ways to select for mRNAs are <strong>poly-A selection</strong> and 
 </div>
 </div>
 </section>
-<section id="from-samples-to-reads-3" class="slide level2">
+<section id="from-samples-to-reads-2" class="slide level2">
 <h2>From samples to reads</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -511,29 +541,22 @@ The two main ways to select for mRNAs are <strong>poly-A selection</strong> and 
 
 </div>
 </section>
-<section id="key-sequencing-considerations" class="slide level2">
-<h2>Key sequencing considerations</h2>
-<ul>
-<li><strong>Sequencing technology</strong>
-<ul>
-<li><em>Short-read (Illumina) HTS</em> – by far the most common</li>
-<li><em>Long-read HTS</em> – consider if identification of transcript isoforms is key</li>
-</ul></li>
-</ul>
+<section id="how-much-sequencing-is-needed" class="slide level2">
+<h2>How much sequencing is needed?</h2>
 <div class="fragment">
-<hr style="height:1pt; visibility:hidden;">
 <ul>
-<li><strong>Sequencing “depth” / amount</strong>: number of reads per sample
+<li>Guidelines highly approximate — required amount depends not just on transcriptome size but also on expression level distribution, expression levels of genes of interest, etc.</li>
+</ul>
+</div>
+<div class="fragment">
 <ul>
-<li><p>Guidelines highly approximate — depends not just on transcriptome size but also on expression level distribution, expression levels of genes of interest, etc.</p></li>
-<li><p>Typical recommendations are 20-50 million reads per sample</p></li>
-</ul></li>
+<li>Typical recommendations are 20-50 million reads per sample in eukaryotes</li>
 </ul>
 </div>
 </section></section>
 <section>
-<section id="from-reads-to-counts" class="title-slide slide level1 center" data-background-color="silver">
-<h1>From reads to counts</h1>
+<section id="stage-iii-from-reads-to-counts" class="title-slide slide level1 center" data-background-color="silver">
+<h1>Stage III: From reads to counts</h1>
 
 </section>
 <section id="overview-of-rna-seq-data-analysis" class="slide level2">
@@ -587,21 +610,21 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p><em>Actual count tables will have thousands of genes (rows) and usually dozens of</em> <em>samples (columns)</em></p>
+<p><em>Actual count tables have thousands of genes (rows) and usually dozens of</em> <em>samples (columns)</em></p>
 </div>
 </div>
 </div>
 </div>
 <div class="fragment">
 <p><br></p>
-<p>How do you get to such a count table?</p>
+<p><strong>How do you get to such a count table?</strong></p>
 </div>
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/alignment1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img data-src="../img/alignment1.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
+<p><a href="../img/alignment1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../img/alignment1.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
 </figure>
 </div>
 <div class="footer">
@@ -612,7 +635,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <h2></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/alignment2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img data-src="../img/alignment2.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
+<p><a href="../img/alignment2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../img/alignment2.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
 </figure>
 </div>
 <div class="footer">
@@ -623,7 +646,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <h2></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/alignment3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img data-src="../img/alignment3.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
+<p><a href="../img/alignment3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../img/alignment3.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
 </figure>
 </div>
 <div class="footer">
@@ -634,7 +657,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <h2></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/alignment4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img data-src="../img/alignment4.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
+<p><a href="../img/alignment4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="../img/alignment4.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
 </figure>
 </div>
 <div class="footer">
@@ -645,7 +668,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <h2></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/alignment5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10"><img data-src="../img/alignment5.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
+<p><a href="../img/alignment5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="../img/alignment5.png" class="quarto-figure quarto-figure-center" style="width:82.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
 </figure>
 </div>
 <div class="footer">
@@ -657,7 +680,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <p>This is what the Adobe Firefly AI came up with when I tried to get it to help me with producing the diagram on the previous slide 😵‍💫</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/firefly_diagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11"><img data-src="../img/firefly_diagram.png" class="quarto-figure quarto-figure-center" style="width:45.0%" alt="Adobe Firefly's image when asking it create a diagram of RNA-Seq analysis steps."></a></p>
+<p><a href="../img/firefly_diagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../img/firefly_diagram.png" class="quarto-figure quarto-figure-center" style="width:45.0%" alt="Adobe Firefly's image when asking it create a diagram of RNA-Seq analysis steps."></a></p>
 </figure>
 </div>
 <div class="footer">
@@ -672,7 +695,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <li><p><strong>Aligning reads to a reference genome</strong></p></li>
 <li><p><strong>Quantifying expression levels</strong></p></li>
 </ol>
-<hr style="height:1pt; visibility:hidden;">
+<p><br></p>
 <div class="fragment">
 <div class="callout callout-note callout-style-simple">
 <div class="callout-body">
@@ -680,8 +703,8 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p>This part is “bioinformatics”-heavy with large files and computing needs and command-line tools ran in the Unix shell.</p>
-<p>But it can be run using standardized pipeline and is therefore suitable to be outsourced.</p>
+<p>This part is “bioinformatics”-heavy, with large files, high computing needs, and using command-line tools ran in the Unix shell.</p>
+<p>If this is a problem: the process if fairly standardized and suitable to be outsourced.</p>
 </div>
 </div>
 </div>
@@ -689,17 +712,11 @@ with the entries being the number of reads mapping to each gene in each sample:<
 </section>
 <section id="read-pre-processing" class="slide level2">
 <h2>Read pre-processing</h2>
-<p>Note that you typically receive a “demultiplexed” (split-by-sample) set of <strong>FASTQ</strong> files.<br>
-Next, read pre-processing includes the following steps:</p>
+<p>Read pre-processing includes:</p>
 <hr style="height:1pt; visibility:hidden;">
 <ul>
-<li><strong>Checking the</strong> <strong>quantity and quality of your reads</strong> (e.g.&nbsp;with <code>FastQC</code>)
-<ul>
-<li>Does not change your data, but helps decide next steps / sample exclusion</li>
-<li>Also useful to check for contamination, library complexity, and adapter content</li>
-</ul></li>
+<li><strong>Checking the quantity and quality of your reads</strong> (e.g.&nbsp;with <code>FastQC</code>)</li>
 </ul>
-<div class="fragment">
 <hr style="height:1pt; visibility:hidden;">
 <ul>
 <li><strong>Removing unwanted sequences</strong>, such as:
@@ -709,18 +726,38 @@ Next, read pre-processing includes the following steps:</p>
 <li>Contaminant sequences (<em>optional</em>)</li>
 </ul></li>
 </ul>
-</div>
-</section>
-<section id="side-note-transcription-basics" class="slide level2">
-<h2>Side note: Transcription basics</h2>
-<p>Before you can understand RNA-Seq read alignment, you need to understand splicing:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../img/splicing_biorender2.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
-</figure>
-</div>
 </section>
 <section id="read-alignment-to-a-reference-genome" class="slide level2">
+<h2>Read alignment to a reference genome</h2>
+<details>
+<summary>
+Consider what you know about how mRNAs are produced. Does an RNA transcript always correspond to a contiguous stretch of the genome? If not, what implications does this have for read alignment? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+</summary>
+</details>
+</section>
+<section id="side-note-splicing" class="slide level2">
+<h2>Side note: Splicing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/splicing_biorender2a.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+</figure>
+</div>
+<div class="legend2">
+<p>From <a href="https://biorender.com/">BioRender</a></p>
+</div>
+</section>
+<section id="side-note-splicing-1" class="slide level2">
+<h2>Side note: Splicing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/splicing_biorender2.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+</figure>
+</div>
+<div class="legend2">
+<p>From <a href="https://biorender.com/">BioRender</a></p>
+</div>
+</section>
+<section id="read-alignment-to-a-reference-genome-1" class="slide level2">
 <h2>Read alignment to a reference genome</h2>
 <p>So, the alignment of reads to a reference genome needs to be “<em>splice-aware</em>”:</p>
 <hr style="height:1pt; visibility:hidden;">
@@ -736,7 +773,7 @@ Next, read pre-processing includes the following steps:</p>
 
 </div>
 </section>
-<section id="read-alignment-to-a-reference-genome-1" class="slide level2">
+<section id="read-alignment-to-a-reference-genome-2" class="slide level2">
 <h2>Read alignment to a reference genome</h2>
 <p>Alternatively, you can align to the <em>transcriptome</em> (i.e., all mature transcripts):</p>
 <div class="quarto-figure quarto-figure-center">
@@ -751,15 +788,16 @@ Next, read pre-processing includes the following steps:</p>
 
 </div>
 </section>
-<section id="read-alignment-to-a-reference-genome-2" class="slide level2">
+<section id="read-alignment-to-a-reference-genome-3" class="slide level2">
 <h2>Read alignment to a reference genome</h2>
 <details>
 <summary>
-Why are there multiple bars in panel b? What do these represent? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+Why are there multiple bars in panel <strong>b</strong>? What do these represent? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
 </summary>
 <p>These represent different transcripts originating from the same gene due to <strong><em>alternative splicing</em></strong>. These will produce different proteins, which are called <strong><em>isoforms</em></strong>.</p>
-Most short-read RNA-Seq studies do not attempt to distinguish between isoforms,<br>
-but rather quantify expression at the gene level.
+<p>Most short-read RNA-Seq studies do not attempt to distinguish between isoforms,<br>
+but rather quantify expression at the gene level.</p>
+If distinguishing between isoforms is important, performing RNA-Seq with a <strong>long-read HTS</strong> platform is a better option.
 </details>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -773,43 +811,13 @@ but rather quantify expression at the gene level.
 
 </div>
 </section>
-<section id="read-alignment-qc" class="slide level2">
-<h2>Read alignment QC</h2>
-<ul>
-<li><strong>Alignment rates</strong><br>
-What percentage of reads was successfully aligned? <em>(Should be &gt;80%)</em></li>
-</ul>
-<div class="fragment">
-<ul>
-<li><strong>Alignment targets</strong><br>
-What percentages of aligned reads mapped to <em>exons</em> vs.&nbsp;<em>introns</em> vs.&nbsp;<em>intergenic regions</em>?</li>
-</ul>
-</div>
-<div class="fragment">
-<hr style="height:1pt; visibility:hidden;">
-<details>
-<summary>
-What might cause high intronic mapping rates? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
-</summary>
-An abundance of pre-mRNA versus mature-mRNA.
-</details>
-</div>
-<div class="fragment">
-<details>
-<summary>
-What might cause high intergenic mapping rates? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
-</summary>
-DNA contamination or poor genome assembly/annotation quality
-</details>
-</div>
-</section>
 <section id="gene-wise-quantification" class="slide level2">
 <h2>Gene-wise quantification</h2>
 <p>In essence, a simple counting exercise once you have the alignments in hand:<br>
 for each sample, how many reads map to each gene?</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="../img/alignment_counting.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../img/alignment_counting.png" class="quarto-figure quarto-figure-center" style="width:72.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
+<p><a href="../img/alignment_counting.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13"><img data-src="../img/alignment_counting.png" class="quarto-figure quarto-figure-center" style="width:72.0%" alt="A diagram of RNA-Seq analysis steps."></a></p>
 </figure>
 </div>
 <div class="fragment">
@@ -839,8 +847,8 @@ for each sample, how many reads map to each gene?</p>
 </div>
 </section></section>
 <section>
-<section id="from-counts-to-conclusions" class="title-slide slide level1 center" data-background-color="silver">
-<h1>From counts to conclusions</h1>
+<section id="stage-iv-from-counts-to-conclusions" class="title-slide slide level1 center" data-background-color="silver">
+<h1>Stage IV: From counts to conclusions</h1>
 
 </section>
 <section id="count-table-analysis-overview" class="slide level2">
@@ -902,49 +910,18 @@ such as whether groups of interest form distinct clusters:</p>
 <section id="statistical-considerations-for-the-de-analysis" class="slide level2">
 <h2>Statistical considerations for the DE analysis</h2>
 <ol type="1">
-<li><p><strong>Gene count normalization</strong><br>
-To fairly compare samples, raw gene counts must be adjusted:</p>
-<ul>
-<li>By <strong>library size</strong>, the total number of gene counts per sample</li>
-<li>By <strong>library composition</strong>, e.g.&nbsp;to correct for extremely abundant genes that “steal” most of a sample’s counts</li>
-</ul></li>
+<li>Gene count normalization</li>
+<li>Probability distribution of the gene count data</li>
+<li>Multiple-testing correction</li>
 </ol>
-<div class="fragment">
-<hr style="height:1pt; visibility:hidden;">
-<ol start="2" type="1">
-<li><p><strong>Probability distribution of the count data</strong></p>
-<ul>
-<li><p>Gene counts have a distribution similar to Poisson but with higher variance<br>
-(the <em>negative binomial distribution</em> is typically used)</p></li>
-<li><p>Variance estimates are gene-specific but “borrow” information from other genes —<br>
-necessary in practice, but can make the analysis sensitive to false positives due to outliers</p></li>
-</ul></li>
-</ol>
-</div>
-</section>
-<section id="statistical-considerations-for-the-de-analysis-1" class="slide level2">
-<h2>Statistical considerations for the DE analysis</h2>
-<ol start="3" type="1">
-<li><strong>Multiple-testing correction</strong>
-<ul>
-<li>10,000+ genes are independently tested during a DE analysis,<br>
-so multiple testing correction is needed!</li>
-<li>The most common approach is the <strong>Benjamini-Hochberg</strong> (BH) method <em>(<a href="https://www.youtube.com/watch?v=K8LQSvtjcEo">explanatory video</a>)</em></li>
-</ul></li>
-</ol>
-<div class="fragment">
-<p><br></p>
-<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout callout-note callout-style-simple">
 <div class="callout-body">
-<div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>R packages to the rescue</strong></p>
-</div>
 <div class="callout-content">
-<p>Specialized R/Bioconductor packages like <code>DESeq2</code> make differential expression analysis relatively straightforward and automatically take care of the abovementioned considerations</p>
-</div>
+<p>We will talk about these during tomorrow’s lab.</p>
+<p>While not necessarily easy conceptually, this is all fairly straightforward in practice: specialized R packages like <code>DESeq2</code> take care of the details.</p>
 </div>
 </div>
 </div>
@@ -964,8 +941,8 @@ the two main ones used for enrichment analysis are:</p>
 </ul>
 </div>
 </section>
-<section id="functional-enrichment-the-general-idea" class="slide level2">
-<h2>Functional enrichment: The general idea</h2>
+<section id="functional-enrichment-conceptually" class="slide level2">
+<h2>Functional enrichment: conceptually</h2>
 <p>A GO term called “<strong>photosynthesis</strong>” is associated with a set of genes involved in photosynthesis.</p>
 <ul>
 <li><p>Say that 300 genes out of 30,000 genes in the genome have been annotated to this term = 1%</p></li>
@@ -1016,25 +993,41 @@ the two main ones used for enrichment analysis are:</p>
 </blockquote>
 </div>
 </div>
-</section>
-<section id="functional-enrichment-kegg-1" class="slide level2">
-<h2>Functional enrichment: KEGG</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../img/kegg_example2.jpg" class="quarto-figure quarto-figure-center" style="width:57.0%"></p>
-</figure>
-</div>
-<div class="legend2">
-<p><span class="citation" data-cites="rodriguez2020">Rodriguez et al. (<a href="#/references" role="doc-biblioref" onclick="">2020</a>)</span></p>
-</div>
-<div class="footer">
-
-</div>
 </section></section>
 <section>
 <section id="questions" class="title-slide slide level1 center" data-background-color="silver">
 <h1>Questions?</h1>
 
+</section>
+<section id="read-alignment-qc" class="slide level2">
+<h2>Read alignment QC</h2>
+<ul>
+<li><strong>Alignment rates</strong><br>
+What percentage of reads was successfully aligned? <em>(Should be &gt;80%)</em></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Alignment targets</strong><br>
+What percentages of aligned reads mapped to <em>exons</em> vs.&nbsp;<em>introns</em> vs.&nbsp;<em>intergenic regions</em>?</li>
+</ul>
+</div>
+<div class="fragment">
+<hr style="height:1pt; visibility:hidden;">
+<details>
+<summary>
+What might cause high intronic mapping rates? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+</summary>
+An abundance of pre-mRNA versus mature-mRNA.
+</details>
+</div>
+<div class="fragment">
+<details>
+<summary>
+What might cause high intergenic mapping rates? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+</summary>
+DNA contamination or poor genome assembly/annotation quality
+</details>
+</div>
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
