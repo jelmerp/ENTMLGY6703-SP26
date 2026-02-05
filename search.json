@@ -578,14 +578,14 @@
     "href": "pages/rnaseq.html#gene-expression-is-highly-dynamic",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Gene expression is highly dynamic",
-    "text": "Gene expression is highly dynamic\nUnlike an organism’s genome content, the expression of genes is highly dynamic, varying:\n\nAcross time and space\nQualitatively (which genes are expressed) and especially quantitatively (how much of each gene is expressed)"
+    "text": "Gene expression is highly dynamic\nUnlike an organism’s genome content, the expression of genes is highly dynamic – it varies:\n\nAcross time and space\nQualitatively (which genes are expressed) and especially quantitatively (how much of each gene is expressed)"
   },
   {
     "objectID": "pages/rnaseq.html#gene-expression-is-functionally-important",
     "href": "pages/rnaseq.html#gene-expression-is-functionally-important",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Gene expression is functionally important",
-    "text": "Gene expression is functionally important\nConsidering:\n\n\nThat protein production tells us about the activity of biological functions,\nand the molecular mechanisms underlying those functions\nThat it is easier to measure transcript (mRNA) than protein abundance\nThe central dogma\n\n\n\n\n\n\n\n\n… gene expression can be used as a proxy for protein expression to make functional inferences"
+    "text": "Gene expression is functionally important\nConsidering:\n\n\nThat protein production tells us about the activity of biological functions,\nand the molecular mechanisms underlying those functions\nThat it is easier to measure transcript (mRNA) than protein abundance\nThe central dogma\n\n\n\n\n\n\n\n\n… gene expression can be used as a proxy for protein expression to make functional inferences\n\n\n\n\n\n\n\n\n\nCaveat: the correlation between mRNA and protein levels is rather imperfect –\nsee e.g. Ponomarenko et al. (2023)."
   },
   {
     "objectID": "pages/rnaseq.html#studying-gene-expression",
@@ -606,7 +606,7 @@
     "href": "pages/rnaseq.html#what-is-rna-seq",
     "title": "Transcriptomics with RNA-Seq",
     "section": "What is RNA-Seq?",
-    "text": "What is RNA-Seq?\n\nTo estimate gene expression levels genome-wide, RNA-Seq takes a brute-force approach by randomly sequencing of millions of RNA fragments per sample\nThe resulting reads can be assigned a gene of origin,\nand the core idea is that a gene’s read count reflects that gene’s expression level\n\n\n\n\n\n\n\n\n\nHow can we tell which gene each read originates from?   \n\nMost commonly by aligning them to a reference genome."
+    "text": "What is RNA-Seq?\n\nTo estimate gene expression levels genome-wide, RNA-Seq takes a brute-force approach by randomly sequencing of millions of RNA fragments per sample\nThe resulting reads can be assigned a gene of origin,\nand the core idea is that a gene’s read count reflects that gene’s expression level\n\n\n\n\n\n\n\n\n\nHow can we tell which gene each read originates from?   \n\nMost commonly by aligning the reads to a reference genome."
   },
   {
     "objectID": "pages/rnaseq.html#what-is-rna-seq-1",
@@ -620,7 +620,7 @@
     "href": "pages/rnaseq.html#the-most-common-type-of-rna-seq",
     "title": "Transcriptomics with RNA-Seq",
     "section": "The most common type of RNA-Seq",
-    "text": "The most common type of RNA-Seq\nWe’ll focus on the most common type of RNA-Seq, which:\n\n\nDoes not sequence RNA directly, but first reverse transcribes RNA to cDNA\nAttempts to sequence only mRNA, avoiding non-coding RNAs (“mRNA-Seq”)\nDoes not distinguish between RNA from different cell types (“bulk RNA-Seq”)\nUses short reads (≤150 bp) that do not cover full transcripts but do uniquely ID genes\nUses a reference genome for read alignment (“reference-based RNA-Seq”)\n\n\n\n\n\n\n\n\n\n\nWhen I refer to RNA-Seq from now on, this kind of RNA-Seq is impled."
+    "text": "The most common type of RNA-Seq\nWe’ll focus on the most common type of RNA-Seq, which:\n\n\nDoes not sequence RNA directly, but first reverse transcribes RNA to cDNA\nAttempts to sequence only mRNA, avoiding non-coding RNAs (“mRNA-Seq”)\nDoes not distinguish between RNA from different cell types (“bulk RNA-Seq”)\nUses short reads (≤150 bp) that do not cover full transcripts but do uniquely ID genes\nUses a reference genome for read alignment (“reference-based RNA-Seq”)\n\n\n\n\n\n\n\n\n\n\nWhen I refer to RNA-Seq from now on, this specific type of RNA-Seq is implied."
   },
   {
     "objectID": "pages/rnaseq.html#side-note-types-of-rna",
@@ -634,7 +634,7 @@
     "href": "pages/rnaseq.html#rna-seq-project-examples",
     "title": "Transcriptomics with RNA-Seq",
     "section": "RNA-Seq project examples",
-    "text": "RNA-Seq project examples\nRNA-Seq is the most common data type I help analyze in my role.\nFor a taste of what it’s used for in CFAES and beyond —\nthe following projects aimed to identify genes & pathways differing between:\n\n\nSoybean cultivars in response to Phytophtora sojae inoculation (Dorrance lab, PlantPath)\nResponse of maize to Pantoea infection with and without an effector gene (Mackey lab, HCS)\n\n\n\n\nMated and unmated mosquitos (Sirot lab, College of Wooster)\nTissues of the ambrosia beetle and its symbiotic fungus (Ranger lab, USDA)\nDiapause-inducing conditions for two pest stink bug species (Michel lab, Entomology)\n\n\n\n\nPig coronaviruses with vs. without an experimental insertion (Wang lab, CFAH)\nHuman carcinoma cell lines with vs. without a manipulated gene (Cruz lab, CCC)\n\n\n\nAnd to improve the annotation of a nematode genome assembly (Taylor lab, PlantPath)"
+    "text": "RNA-Seq project examples\nRNA-Seq is the most common data type I help analyze in my role.\nFor a taste of what it’s used for in CFAES and beyond —\nthe following projects aimed to identify genes & pathways differing between:\n\n\nSoybean cultivars in response to Phytophtora sojae inoculation (Dorrance lab, PlantPath)\nResponse of maize to infection with Pantoea with and without an effector gene (Mackey lab, HCS)\n\n\n\n\nMated and unmated mosquitos (Sirot lab, College of Wooster)\nTissues of the ambrosia beetle and its symbiotic fungus (Ranger lab, USDA)\nDiapause-inducing conditions for two pest stink bug species (Michel lab, Entomology)\n\n\n\n\nPig coronaviruses with vs. without an experimental insertion (Wang lab, CFAH)\nHuman carcinoma cell lines with vs. without a manipulated gene (Cruz lab, CCC)\n\n\n\nAnd to improve the annotation of a nematode genome assembly (Taylor lab, PlantPath)"
   },
   {
     "objectID": "pages/rnaseq.html#experimental-design-treatmentsgroups",
@@ -644,53 +644,53 @@
     "text": "Experimental design: treatments/groups\nRNA-Seq typically compares groups of samples defined by differences in:\n\nTreatments — e.g. different host plants, temperature, diet, mated/unmated\nOrganismal variants — e.g. ages/developmental stages, sexes, subspecies\nTissues"
   },
   {
-    "objectID": "pages/rnaseq.html#the-garrigós-et-al.-2025-dataset",
-    "href": "pages/rnaseq.html#the-garrigós-et-al.-2025-dataset",
+    "objectID": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design",
+    "href": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design",
     "title": "Transcriptomics with RNA-Seq",
-    "section": "The Garrigós et al. 2025 dataset",
-    "text": "The Garrigós et al. 2025 dataset\n\n\n\n\n\n\nGarrigós et al. (2025)\n\n\nThis paper used RNA-Seq data to study gene expression in Culex pipiens mosquitos infected with malaria-causing Plasmodium protozoans"
+    "section": "The Garrigós et al. experimental design",
+    "text": "The Garrigós et al. experimental design\n\n\n\n\n\n\nGarrigós et al. (2025)\n\n\nCulex pipiens mosquitos infected with malaria-causing Plasmodium protozoans:\n\nPlasmodium relictum – higher virulence, lower tranmission rate\nPlasmodium cathemerium – lower virulence, higher tranmission rate"
   },
   {
-    "objectID": "pages/rnaseq.html#experimental-design-treatmentsgroups-1",
-    "href": "pages/rnaseq.html#experimental-design-treatmentsgroups-1",
+    "objectID": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design-1",
+    "href": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design-1",
     "title": "Transcriptomics with RNA-Seq",
-    "section": "Experimental design: treatments/groups",
-    "text": "Experimental design: treatments/groups"
+    "section": "The Garrigós et al. experimental design",
+    "text": "The Garrigós et al. experimental design"
   },
   {
-    "objectID": "pages/rnaseq.html#experimental-design-treatmentsgroups-2",
-    "href": "pages/rnaseq.html#experimental-design-treatmentsgroups-2",
+    "objectID": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design-2",
+    "href": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design-2",
     "title": "Transcriptomics with RNA-Seq",
-    "section": "Experimental design: treatments/groups",
-    "text": "Experimental design: treatments/groups"
+    "section": "The Garrigós et al. experimental design",
+    "text": "The Garrigós et al. experimental design"
   },
   {
-    "objectID": "pages/rnaseq.html#experimental-design-treatmentsgroups-3",
-    "href": "pages/rnaseq.html#experimental-design-treatmentsgroups-3",
+    "objectID": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design-3",
+    "href": "pages/rnaseq.html#the-garrigós-et-al.-experimental-design-3",
     "title": "Transcriptomics with RNA-Seq",
-    "section": "Experimental design: treatments/groups",
-    "text": "Experimental design: treatments/groups"
+    "section": "The Garrigós et al. experimental design",
+    "text": "The Garrigós et al. experimental design"
   },
   {
-    "objectID": "pages/rnaseq.html#experimental-design-treatmentsgroups-4",
-    "href": "pages/rnaseq.html#experimental-design-treatmentsgroups-4",
+    "objectID": "pages/rnaseq.html#experimental-design",
+    "href": "pages/rnaseq.html#experimental-design",
     "title": "Transcriptomics with RNA-Seq",
-    "section": "Experimental design: treatments/groups",
-    "text": "Experimental design: treatments/groups\n\n\nWith this experimental design, would it be appropriate to sequence 9 samples total?   \n\nNo – see the next slide"
+    "section": "Experimental design",
+    "text": "Experimental design\n\n\nWith this experimental design, would it be appropriate to sequence 9 samples total?   \n\nNo – see the next slide"
   },
   {
-    "objectID": "pages/rnaseq.html#biological-replicates",
-    "href": "pages/rnaseq.html#biological-replicates",
+    "objectID": "pages/rnaseq.html#experimental-design-biological-replicates",
+    "href": "pages/rnaseq.html#experimental-design-biological-replicates",
     "title": "Transcriptomics with RNA-Seq",
-    "section": "Biological replicates",
-    "text": "Biological replicates\nTo make statistically supported conclusions about expression differences,\nwe need biological replication (at least 3-5 samples per group):"
+    "section": "Experimental design: Biological replicates",
+    "text": "Experimental design: Biological replicates\nTo make statistically supported conclusions about expression differences,\nwe need biological replication (at least 3-5 samples per group):"
   },
   {
     "objectID": "pages/rnaseq.html#from-samples-to-reads",
     "href": "pages/rnaseq.html#from-samples-to-reads",
     "title": "Transcriptomics with RNA-Seq",
     "section": "From samples to reads",
-    "text": "From samples to reads\n\n\n\n\n\n\n\nWhich type of RNA do the red bars followed by AAAAAAAA represent?   \n\nThese are the mRNAs, which have poly-A tails (AAAA…)"
+    "text": "From samples to reads\n\n\n\n\n\n\n\nWhich type of RNA do the red bars followed by AAAAAAA represent?   \n\nThese are the mRNAs, which have poly-A tails (AAAAAA...)"
   },
   {
     "objectID": "pages/rnaseq.html#from-samples-to-reads-1",
@@ -728,18 +728,18 @@
     "text": "A quick primer on the count table\nThe count table has one row for each gene and one column for each sample,\nwith the entries being the number of reads mapping to each gene in each sample:\n\n\n\n\n\n\nSample 1\nSample 2\nSample 3\n\n\n\n\nGene A\n1500\n2300\n1800\n\n\nGene B\n0\n5\n2\n\n\nGene C\n300\n250\n400\n\n\n\n\n\n\n\n\n\n\nActual count tables have thousands of genes (rows) and usually dozens of samples (columns)\n\n\n\n\n\n\nHow do you get to such a count table?"
   },
   {
+    "objectID": "pages/rnaseq.html#a-genai-diagram-that-explains-rna-seq-analysis",
+    "href": "pages/rnaseq.html#a-genai-diagram-that-explains-rna-seq-analysis",
+    "title": "Transcriptomics with RNA-Seq",
+    "section": "A genAI diagram that explains RNA-Seq analysis",
+    "text": "A genAI diagram that explains RNA-Seq analysis\nI though I’d get some generative AI help with the diagram on the previous slide –\nthis is what Adobe Firefly came up with: 😵‍💫"
+  },
+  {
     "objectID": "pages/rnaseq.html#from-reads-to-counts-overview",
     "href": "pages/rnaseq.html#from-reads-to-counts-overview",
     "title": "Transcriptomics with RNA-Seq",
     "section": "From reads to counts: overview",
-    "text": "From reads to counts: overview\nThis is what the Adobe Firefly AI came up with when I tried to get it to help me with producing the diagram on the previous slide 😵‍💫"
-  },
-  {
-    "objectID": "pages/rnaseq.html#from-reads-to-counts-overview-1",
-    "href": "pages/rnaseq.html#from-reads-to-counts-overview-1",
-    "title": "Transcriptomics with RNA-Seq",
-    "section": "From reads to counts: overview",
-    "text": "From reads to counts: overview\nIt specifically involves, at a minimum:\n\nRead preprocessing\nAligning reads to a reference genome\nQuantifying expression levels\n\n\n\n\n\n\n\n\n\nThis part is “bioinformatics”-heavy, with large files, high computing needs, and using command-line tools ran in the Unix shell.\nIf this is a problem: the process if fairly standardized and suitable to be outsourced."
+    "text": "From reads to counts: overview\nIt specifically involves, at a minimum:\n\nRead preprocessing\nAligning reads to a reference genome\nQuantifying expression levels\n\n\n\n\n\n\n\n\n\nThis part is “bioinformatics”-heavy, with large files, high computing needs, and using command-line tools ran in the Unix shell.\nIf this is a problem: the process is fairly standardized and suitable to be outsourced."
   },
   {
     "objectID": "pages/rnaseq.html#read-pre-processing",
@@ -753,7 +753,7 @@
     "href": "pages/rnaseq.html#read-alignment-to-a-reference-genome",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Read alignment to a reference genome",
-    "text": "Read alignment to a reference genome\n\n\nConsider what you know about how mRNAs are produced. Does an RNA transcript always correspond to a contiguous stretch of the genome? If not, what implications does this have for read alignment?"
+    "text": "Read alignment to a reference genome\n\n\nConsider what you know about how mRNAs are produced. Does an RNA transcript always correspond to a contiguous stretch of the genome? If not, what implications does this have for read alignment?   \n\nNo, it doesn’t, because of splicing. This means that a read can align partially to two different exons, skipping the intron in between. “Regular” genome alignment would not be able to handle this properly – see the next slides."
   },
   {
     "objectID": "pages/rnaseq.html#side-note-splicing",
@@ -816,7 +816,14 @@
     "href": "pages/rnaseq.html#principal-component-analysis-pca",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Principal Component Analysis (PCA)",
-    "text": "Principal Component Analysis (PCA)\nPCA visualizes overall patterns of similarity among samples,\nsuch as whether groups of interest form distinct clusters:\n\n\n\n\n\n\n\nFig. 1 from Garrigós et al. (2025)"
+    "text": "Principal Component Analysis (PCA)\nPCA examines overall patterns of dissimilarity among samples,\nsuch as whether groups of interest form distinct clusters:\n\n\n\n\n\n\nFig. 1 from Garrigós et al. (2025)\n\n\n\n\n\n\n\n\n\nWe’ll talk more about the interpretation of this PCA plot in tomorrow’s lab"
+  },
+  {
+    "objectID": "pages/rnaseq.html#principal-component-analysis-pca-1",
+    "href": "pages/rnaseq.html#principal-component-analysis-pca-1",
+    "title": "Transcriptomics with RNA-Seq",
+    "section": "Principal Component Analysis (PCA)",
+    "text": "Principal Component Analysis (PCA)\nPCA examines overall patterns of dissimilarity among samples,\nsuch as whether groups of interest form distinct clusters:\n\n\n\n\n\n\nFig. 1 from Garrigós et al. (2025)\n\n\n\n\n\n\n\n\nPCA is a very useful technique, not just for RNA-Seq data.\nTo learn more about how it works, see this video (short overview) and this video (more detailed)."
   },
   {
     "objectID": "pages/rnaseq.html#differential-expression-de-analysis",
@@ -844,42 +851,42 @@
     "href": "pages/rnaseq.html#functional-enrichment-introduction",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Functional enrichment: introduction",
-    "text": "Functional enrichment: introduction\nLists of DEGs can be long: not always easy to make biological sense of.\nFunctional enrichment analyses help with this.\nFunctional enrichment analyses check whether certain functional categories of genes are statistically overrepresented among up- and/or downregulated genes.\n\n\nSeveral databases group genes into functional categories —\nthe two main ones used for enrichment analysis are:\n\nGene Ontology (GO)\nKyoto Encyclopedia of Genes and Genomes (KEGG)"
+    "text": "Functional enrichment: introduction\nLists of DEGs can be long and not always easy to make biological sense of.\nFunctional enrichment analysis helps with this, asking whether certain functional categories of genes are statistically overrepresented among DEGs.\n\n\nSeveral databases group genes into such functional categories —\nthe two main ones used for enrichment analysis are:\n\nGene Ontology (GO)\nHave a hierarchical structure with more specific terms grouping into more general terms\nKyoto Encyclopedia of Genes and Genomes (KEGG)\nLess general than GO, has pathways whose genes can be drawn and connected in diagrams"
   },
   {
     "objectID": "pages/rnaseq.html#functional-enrichment-conceptually",
     "href": "pages/rnaseq.html#functional-enrichment-conceptually",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Functional enrichment: conceptually",
-    "text": "Functional enrichment: conceptually\nA GO term called “photosynthesis” is associated with a set of genes involved in photosynthesis.\n\nSay that 300 genes out of 30,000 genes in the genome have been annotated to this term = 1%\nSay that among your 50 out of your 500 DEGs are annotated to this term = 5%\n\n\nThe larger the difference between these percentages, the stronger the indication that the function in question –here, photosynthesis– is overrepresented among your DEGs."
+    "text": "Functional enrichment: conceptually\nA GO term called “photosynthesis” is associated with a set of genes involved in photosynthesis.\n\nSay that 300 genes out of 30,000 genes in the genome have been annotated to this term = 1%\nSay that among your 50 out of your 500 DEGs are annotated to this term = 10%\n\n\nThe larger the difference between these percentages, the stronger the indication that the function in question –here, photosynthesis– is overrepresented among your DEGs."
   },
   {
     "objectID": "pages/rnaseq.html#functional-enrichment-go",
     "href": "pages/rnaseq.html#functional-enrichment-go",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Functional enrichment: GO",
-    "text": "Functional enrichment: GO\n\n\n\n\n\n\nFig. 4 from Garrigós et al. (2025)\n\n\n\n\n\n\n\nGO terms have a hierarchical structure with more specific terms grouping into more general terms"
+    "text": "Functional enrichment: GO\n\n\n\n\n\n\nFig. 4 from Garrigós et al. (2025)"
   },
   {
     "objectID": "pages/rnaseq.html#functional-enrichment-kegg",
     "href": "pages/rnaseq.html#functional-enrichment-kegg",
     "title": "Transcriptomics with RNA-Seq",
     "section": "Functional enrichment: KEGG",
-    "text": "Functional enrichment: KEGG\nKEGG focuses on pathways for cellular and organismal functions whose genes can be drawn and connected in maps.\n\n\n\n\n\n\n\n\nRodriguez et al. (2020)\n\nKEGG representation of up-regulated genes related to jasmonic acid (JA) signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with Pseudocercospora fijiensis. Genes or chemicals up-regulated at any time point were highlighted in green."
+    "text": "Functional enrichment: KEGG\n\n\n\n\n\n\n\nRodriguez et al. (2020)\n\nKEGG representation of up-regulated genes related to jasmonic acid (JA) signal transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with Pseudocercospora fijiensis. Genes or chemicals up-regulated at any time point were highlighted in green."
   },
   {
-    "objectID": "pages/rnaseq.html#read-alignment-qc",
-    "href": "pages/rnaseq.html#read-alignment-qc",
+    "objectID": "pages/rnaseq.html#bonus-read-alignment-qc",
+    "href": "pages/rnaseq.html#bonus-read-alignment-qc",
     "title": "Transcriptomics with RNA-Seq",
-    "section": "Read alignment QC",
-    "text": "Read alignment QC\n\nAlignment rates\nWhat percentage of reads was successfully aligned? (Should be &gt;80%)\n\n\n\nAlignment targets\nWhat percentages of aligned reads mapped to exons vs. introns vs. intergenic regions?\n\n\n\n\n\n\nWhat might cause high intronic mapping rates?   \n\nAn abundance of pre-mRNA versus mature-mRNA.\n\n\n\n\n\nWhat might cause high intergenic mapping rates?   \n\nDNA contamination or poor genome assembly/annotation quality"
+    "section": "Bonus: Read alignment QC",
+    "text": "Bonus: Read alignment QC\n\nAlignment rates\nWhat percentage of reads was successfully aligned? (Should be &gt;80%)\n\n\n\nAlignment targets\nWhat percentages of aligned reads mapped to exons vs. introns vs. intergenic regions?\n\n\n\n\n\n\nWhat might cause high intronic mapping rates?   \n\nAn abundance of pre-mRNA versus mature-mRNA.\n\n\n\n\n\nWhat might cause high intergenic mapping rates?   \n\nDNA contamination or poor genome assembly/annotation quality"
   },
   {
     "objectID": "pages/rnaseq.html#references",
     "href": "pages/rnaseq.html#references",
     "title": "Transcriptomics with RNA-Seq",
     "section": "References",
-    "text": "References\n\n\n\n\n\n\n\nEwels, Philip A., Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso, and Sven Nahnsen. 2020. “The Nf-Core Framework for Community-Curated Bioinformatics Pipelines.” Nature Biotechnology 38 (3): 276–78. https://doi.org/10.1038/s41587-020-0439-x.\n\n\nGarrigós, Marta, Guillem Ylla, Josué Martínez-de la Puente, Jordi Figuerola, and María José Ruiz-López. 2025. “Two Avian Plasmodium Species Trigger Different Transcriptional Responses on Their Vector Culex pipiens.” Molecular Ecology 34 (15): e17240. https://doi.org/10.1111/mec.17240.\n\n\nRodriguez, Héctor Alejandro, William F. Hidalgo, J. Danilo Sanchez, Riya C. Menezes, Bernd Schneider, Rafael Eduardo Arango, and Juan Gonzalo Morales. 2020. “Differential Regulation of Jasmonic Acid Pathways in Resistant (Calcutta 4) and Susceptible (Williams) Banana Genotypes During the Interaction with Pseudocercospora Fijiensis.” Plant Pathology 69 (5): 872–82. https://doi.org/https://doi.org/10.1111/ppa.13165.\n\n\nVan den Berge, Koen, Charlotte Soneson, Mark D. Robinson, and Christian Heinis. 2019. “RNA Sequencing Data: Hitchhiker’s Guide to Expression Analysis.” Annual Review of Biomedical Data Science 2 (1): 139–73. https://doi.org/10.1146/annurev-biodatasci-072018-021255."
+    "text": "References\n\n\n\n\n\n\n\nEwels, Philip A., Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Alneberg, Andreas Wilm, Maxime Ulysse Garcia, Paolo Di Tommaso, and Sven Nahnsen. 2020. “The Nf-Core Framework for Community-Curated Bioinformatics Pipelines.” Nature Biotechnology 38 (3): 276–78. https://doi.org/10.1038/s41587-020-0439-x.\n\n\nGarrigós, Marta, Guillem Ylla, Josué Martínez-de la Puente, Jordi Figuerola, and María José Ruiz-López. 2025. “Two Avian Plasmodium Species Trigger Different Transcriptional Responses on Their Vector Culex pipiens.” Molecular Ecology 34 (15): e17240. https://doi.org/10.1111/mec.17240.\n\n\nPonomarenko, Elena A., George S. Krasnov, Olga I. Kiseleva, Polina A. Kryukova, Viktoriia A. Arzumanian, Georgii V. Dolgalev, Ekaterina V. Ilgisonis, Andrey V. Lisitsa, and Ekaterina V. Poverennaya. 2023. “Workability of mRNA Sequencing for Predicting Protein Abundance.” Genes 14 (11): 2065. https://doi.org/10.3390/genes14112065.\n\n\nRodriguez, Héctor Alejandro, William F. Hidalgo, J. Danilo Sanchez, Riya C. Menezes, Bernd Schneider, Rafael Eduardo Arango, and Juan Gonzalo Morales. 2020. “Differential Regulation of Jasmonic Acid Pathways in Resistant (Calcutta 4) and Susceptible (Williams) Banana Genotypes During the Interaction with Pseudocercospora Fijiensis.” Plant Pathology 69 (5): 872–82. https://doi.org/https://doi.org/10.1111/ppa.13165.\n\n\nVan den Berge, Koen, Charlotte Soneson, Mark D. Robinson, and Christian Heinis. 2019. “RNA Sequencing Data: Hitchhiker’s Guide to Expression Analysis.” Annual Review of Biomedical Data Science 2 (1): 139–73. https://doi.org/10.1146/annurev-biodatasci-072018-021255."
   },
   {
     "objectID": "pages/DE.html#introduction",

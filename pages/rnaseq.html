@@ -192,7 +192,7 @@ Jelmer Poelstra
 </section>
 <section id="gene-expression-is-highly-dynamic" class="slide level2">
 <h2>Gene expression is highly dynamic</h2>
-<p>Unlike an organism’s genome content, the expression of genes is highly dynamic, varying:</p>
+<p>Unlike an organism’s genome content, the expression of genes is highly dynamic – it varies:</p>
 <ul>
 <li><p>Across time and space</p></li>
 <li><p>Qualitatively (<em>which</em> genes are expressed) and especially quantitatively (<em>how much</em> of each gene is expressed)</p></li>
@@ -216,6 +216,20 @@ and the molecular mechanisms underlying those functions</p></li>
 </div>
 <div class="fragment">
 <p>… <strong><em>gene expression can be used as a proxy for protein expression</em></strong> to make functional inferences</p>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>Caveat:</strong> the correlation between mRNA and protein levels is rather imperfect –<br>
+see e.g. <span class="citation" data-cites="ponomarenko2023">Ponomarenko et al. (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span>.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="studying-gene-expression" class="slide level2">
@@ -287,7 +301,7 @@ and the core idea is that a gene’s read count reflects that gene’s expressio
 <summary>
 <strong>How can we tell which gene each read originates from?</strong> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
 </summary>
-Most commonly by aligning them to a reference genome.
+Most commonly by aligning the reads to a reference genome.
 </details>
 <div class="footer">
 
@@ -341,7 +355,7 @@ it constitutes <em>the</em> most common usage of high-throughput sequencing</p>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p><em>When I refer to RNA-Seq from now on, this kind of RNA-Seq is impled.</em></p>
+<p><em>When I refer to RNA-Seq from now on, this specific type of RNA-Seq is implied.</em></p>
 </div>
 </div>
 </div>
@@ -369,7 +383,7 @@ the following projects aimed to identify genes &amp; pathways differing between:
 <div class="fragment">
 <ul>
 <li><p>Soybean cultivars in response to <em>Phytophtora sojae</em> inoculation <em>(Dorrance lab, PlantPath)</em></p></li>
-<li><p>Response of maize to <em>Pantoea</em> infection with and without an effector gene <em>(Mackey lab, HCS)</em></p></li>
+<li><p>Response of maize to infection with <em>Pantoea</em> with and without an effector gene <em>(Mackey lab, HCS)</em></p></li>
 </ul>
 </div>
 <div class="fragment">
@@ -403,8 +417,8 @@ the following projects aimed to identify genes &amp; pathways differing between:
 <li><p><strong>Tissues</strong></p></li>
 </ul>
 </section>
-<section id="the-garrigós-et-al.-2025-dataset" class="slide level2">
-<h2>The Garrigós et al.&nbsp;2025 dataset</h2>
+<section id="the-garrigós-et-al.-experimental-design" class="slide level2">
+<h2>The Garrigós et al.&nbsp;experimental design</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><a href="../img/garrigos_paper.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img data-src="../img/garrigos_paper.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A screenshot of the paper's front matter."></a></p>
@@ -413,11 +427,15 @@ the following projects aimed to identify genes &amp; pathways differing between:
 <div class="legend2">
 <p><span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#/references" role="doc-biblioref" onclick="">2025</a>)</span></p>
 </div>
-<p><br></p>
-<p>This paper used RNA-Seq data to study gene expression in <em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans</p>
+<hr style="height:1pt; visibility:hidden;">
+<p><em>Culex pipiens</em> mosquitos infected with malaria-causing <em>Plasmodium</em> protozoans:</p>
+<ul>
+<li><em>Plasmodium relictum</em> – higher virulence, lower tranmission rate</li>
+<li><em>Plasmodium cathemerium</em> – lower virulence, higher tranmission rate</li>
+</ul>
 </section>
-<section id="experimental-design-treatmentsgroups-1" class="slide level2">
-<h2>Experimental design: treatments/groups</h2>
+<section id="the-garrigós-et-al.-experimental-design-1" class="slide level2">
+<h2>The Garrigós et al.&nbsp;experimental design</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><a href="../img/exp-design_a.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img data-src="../img/exp-design_a.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."></a></p>
@@ -427,8 +445,8 @@ the following projects aimed to identify genes &amp; pathways differing between:
 
 </div>
 </section>
-<section id="experimental-design-treatmentsgroups-2" class="slide level2">
-<h2>Experimental design: treatments/groups</h2>
+<section id="the-garrigós-et-al.-experimental-design-2" class="slide level2">
+<h2>The Garrigós et al.&nbsp;experimental design</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><a href="../img/exp-design_b.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img data-src="../img/exp-design_b.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."></a></p>
@@ -438,8 +456,8 @@ the following projects aimed to identify genes &amp; pathways differing between:
 
 </div>
 </section>
-<section id="experimental-design-treatmentsgroups-3" class="slide level2">
-<h2>Experimental design: treatments/groups</h2>
+<section id="the-garrigós-et-al.-experimental-design-3" class="slide level2">
+<h2>The Garrigós et al.&nbsp;experimental design</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><a href="../img/exp-design_c.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img data-src="../img/exp-design_c.png" class="quarto-figure quarto-figure-center" style="width:75.0%" alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."></a></p>
@@ -449,8 +467,8 @@ the following projects aimed to identify genes &amp; pathways differing between:
 
 </div>
 </section>
-<section id="experimental-design-treatmentsgroups-4" class="slide level2">
-<h2>Experimental design: treatments/groups</h2>
+<section id="experimental-design" class="slide level2">
+<h2>Experimental design</h2>
 <details>
 <summary>
 <em>With this experimental design,</em> <em>would it be appropriate to sequence 9 samples total?</em> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
@@ -466,8 +484,8 @@ No – see the next slide
 
 </div>
 </section>
-<section id="biological-replicates" class="slide level2">
-<h2>Biological replicates</h2>
+<section id="experimental-design-biological-replicates" class="slide level2">
+<h2>Experimental design: Biological replicates</h2>
 <p>To make statistically supported conclusions about expression differences,<br>
 we need <strong>biological replication</strong> (at least 3-5 samples per group):</p>
 <div class="quarto-figure quarto-figure-center">
@@ -493,9 +511,9 @@ we need <strong>biological replication</strong> (at least 3-5 samples per group)
 </div>
 <details>
 <summary>
-<strong>Which type of RNA do the red bars followed by <span style="color:red;">AAAAAAAA</span> represent?</strong> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
+<em>Which type of RNA do the red bars followed by <span style="color:red;">AAAAAAA</span> represent?</em> &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
 </summary>
-These are the mRNAs, which have poly-A tails (AAAA…)
+These are the mRNAs, which have poly-A tails (<code>AAAAAA...</code>)
 </details>
 </section>
 <section id="from-samples-to-reads-1" class="slide level2">
@@ -675,9 +693,10 @@ with the entries being the number of reads mapping to each gene in each sample:<
 
 </div>
 </section>
-<section id="from-reads-to-counts-overview" class="slide level2">
-<h2>From reads to counts: overview</h2>
-<p>This is what the Adobe Firefly AI came up with when I tried to get it to help me with producing the diagram on the previous slide 😵‍💫</p>
+<section id="a-genai-diagram-that-explains-rna-seq-analysis" class="slide level2">
+<h2>A genAI diagram that explains RNA-Seq analysis</h2>
+<p>I though I’d get some generative AI help with the diagram on the previous slide –<br>
+this is what Adobe Firefly came up with: 😵‍💫</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><a href="../img/firefly_diagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12"><img data-src="../img/firefly_diagram.png" class="quarto-figure quarto-figure-center" style="width:45.0%" alt="Adobe Firefly's image when asking it create a diagram of RNA-Seq analysis steps."></a></p>
@@ -687,7 +706,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 
 </div>
 </section>
-<section id="from-reads-to-counts-overview-1" class="slide level2">
+<section id="from-reads-to-counts-overview" class="slide level2">
 <h2>From reads to counts: overview</h2>
 <p>It specifically involves, at a minimum:</p>
 <ol type="1">
@@ -704,7 +723,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 </div>
 <div class="callout-content">
 <p>This part is “bioinformatics”-heavy, with large files, high computing needs, and using command-line tools ran in the Unix shell.</p>
-<p>If this is a problem: the process if fairly standardized and suitable to be outsourced.</p>
+<p>If this is a problem: the process is fairly standardized and suitable to be outsourced.</p>
 </div>
 </div>
 </div>
@@ -717,7 +736,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <ul>
 <li><strong>Checking the quantity and quality of your reads</strong> (e.g.&nbsp;with <code>FastQC</code>)</li>
 </ul>
-<hr style="height:1pt; visibility:hidden;">
+<div class="fragment">
 <ul>
 <li><strong>Removing unwanted sequences</strong>, such as:
 <ul>
@@ -726,6 +745,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <li>Contaminant sequences (<em>optional</em>)</li>
 </ul></li>
 </ul>
+</div>
 </section>
 <section id="read-alignment-to-a-reference-genome" class="slide level2">
 <h2>Read alignment to a reference genome</h2>
@@ -733,6 +753,7 @@ with the entries being the number of reads mapping to each gene in each sample:<
 <summary>
 Consider what you know about how mRNAs are produced. Does an RNA transcript always correspond to a contiguous stretch of the genome? If not, what implications does this have for read alignment? &nbsp; <span style="color:darkolivegreen;"><i class="fa-solid fa-comments" aria-label="comments"></i></span>
 </summary>
+No, it doesn’t, because of splicing. This means that a read can align partially to two different exons, skipping the intron in between. “Regular” genome alignment would not be able to handle this properly – see the next slides.
 </details>
 </section>
 <section id="side-note-splicing" class="slide level2">
@@ -801,7 +822,7 @@ If distinguishing between isoforms is important, performing RNA-Seq with a <stro
 </details>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/alignment_ed1.jpg" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+<p><img data-src="../img/alignment_ed1.jpg" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
 </figure>
 </div>
 <div class="legend2">
@@ -871,16 +892,59 @@ See whether certain gene function categories are overrepresented among DEGs</p><
 </section>
 <section id="principal-component-analysis-pca" class="slide level2">
 <h2>Principal Component Analysis (PCA)</h2>
-<p>PCA visualizes overall patterns of similarity among samples,<br>
+<p>PCA examines overall patterns of dissimilarity among samples,<br>
 such as whether groups of interest form distinct clusters:</p>
-<hr style="height:1pt; visibility:hidden;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../img/PCA.jpeg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="../img/PCA.jpeg" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
 </figure>
 </div>
 <div class="legend2">
 <p>Fig. 1 from <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#/references" role="doc-biblioref" onclick="">2025</a>)</span></p>
+</div>
+<div class="fragment">
+<hr style="height:1pt; visibility:hidden;">
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>We’ll talk more about the interpretation of this PCA plot in tomorrow’s lab</p>
+</div>
+</div>
+</div>
+<div class="footer">
+
+</div>
+</div>
+</section>
+<section id="principal-component-analysis-pca-1" class="slide level2">
+<h2>Principal Component Analysis (PCA)</h2>
+<p>PCA examines overall patterns of dissimilarity among samples,<br>
+such as whether groups of interest form distinct clusters:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="../img/PCA.jpeg" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+</figure>
+</div>
+<div class="legend2">
+<p>Fig. 1 from <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#/references" role="doc-biblioref" onclick="">2025</a>)</span></p>
+</div>
+<hr style="height:1pt; visibility:hidden;">
+<div class="callout callout-tip callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>PCA is a very useful technique, not just for RNA-Seq data.<br>
+To learn more about how it works, see <a href="https://www.youtube.com/watch?v=HMOI_lkzW08">this video</a> (short overview) and <a href="https://www.youtube.com/watch?v=FgakZw6K1QQ">this video</a> (more detailed).</p>
+</div>
+</div>
+</div>
+<div class="footer">
+
 </div>
 </section>
 <section id="differential-expression-de-analysis" class="slide level2">
@@ -928,16 +992,17 @@ such as whether groups of interest form distinct clusters:</p>
 </section>
 <section id="functional-enrichment-introduction" class="slide level2">
 <h2>Functional enrichment: introduction</h2>
-<p>Lists of DEGs can be long: not always easy to make biological sense of.<br>
-Functional <strong>enrichment analyses</strong> help with this.</p>
-<p>Functional enrichment analyses check whether certain functional <strong>categories</strong> of genes are <em>statistically overrepresented</em> among up- and/or downregulated genes.</p>
+<p>Lists of DEGs can be long and not always easy to make biological sense of.</p>
+<p>Functional <strong>enrichment analysis</strong> helps with this, asking whether certain <strong>functional categories</strong> of genes are statistically overrepresented among DEGs.</p>
 <p><br></p>
 <div class="fragment">
-<p>Several databases group genes into functional categories —<br>
+<p>Several databases group genes into such functional categories —<br>
 the two main ones used for enrichment analysis are:</p>
 <ul>
-<li><strong>Gene Ontology (GO)</strong></li>
-<li><strong>Kyoto Encyclopedia of Genes and Genomes (KEGG)</strong></li>
+<li><strong>Gene Ontology (GO)</strong><br>
+Have a hierarchical structure with more specific terms grouping into more general terms</li>
+<li><strong>Kyoto Encyclopedia of Genes and Genomes (KEGG)</strong><br>
+Less general than GO, has pathways whose genes can be drawn and connected in diagrams</li>
 </ul>
 </div>
 </section>
@@ -946,7 +1011,7 @@ the two main ones used for enrichment analysis are:</p>
 <p>A GO term called “<strong>photosynthesis</strong>” is associated with a set of genes involved in photosynthesis.</p>
 <ul>
 <li><p>Say that 300 genes out of 30,000 genes in the genome have been annotated to this term = 1%</p></li>
-<li><p>Say that among your 50 out of your 500 DEGs are annotated to this term = 5%</p></li>
+<li><p>Say that among your 50 out of your 500 DEGs are annotated to this term = 10%</p></li>
 </ul>
 <div class="fragment">
 <p>The larger the difference between these percentages, the stronger the indication that the function in question –here, photosynthesis– is overrepresented among your DEGs.</p>
@@ -962,24 +1027,12 @@ the two main ones used for enrichment analysis are:</p>
 <div class="legend2">
 <p>Fig. 4 from <span class="citation" data-cites="garrigós2025">Garrigós et al. (<a href="#/references" role="doc-biblioref" onclick="">2025</a>)</span></p>
 </div>
-<div class="callout callout-note callout-style-simple">
-<div class="callout-body">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-content">
-<p>GO terms have a <em>hierarchical</em> structure with more specific terms grouping into more general terms</p>
-</div>
-</div>
-</div>
 <div class="footer">
 
 </div>
 </section>
 <section id="functional-enrichment-kegg" class="slide level2 nostretch">
 <h2>Functional enrichment: KEGG</h2>
-<p>KEGG focuses on <strong>pathways</strong> for cellular and organismal functions whose genes can be drawn and connected in maps.</p>
-<div class="fragment">
 <p><br></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -992,15 +1045,14 @@ the two main ones used for enrichment analysis are:</p>
 <p><em>KEGG representation of up-regulated genes related to jasmonic acid (JA) signal</em> <em>transduction pathways (ko04075) in banana cv. Calcutta 4 after inoculation with</em> <em>Pseudocercospora fijiensis</em>. <em>Genes or chemicals up-regulated at any time point were highlighted in green.</em></p>
 </blockquote>
 </div>
-</div>
 </section></section>
 <section>
 <section id="questions" class="title-slide slide level1 center" data-background-color="silver">
 <h1>Questions?</h1>
 
 </section>
-<section id="read-alignment-qc" class="slide level2">
-<h2>Read alignment QC</h2>
+<section id="bonus-read-alignment-qc" class="slide level2">
+<h2>Bonus: Read alignment QC</h2>
 <ul>
 <li><strong>Alignment rates</strong><br>
 What percentage of reads was successfully aligned? <em>(Should be &gt;80%)</em></li>
@@ -1042,6 +1094,9 @@ Ewels, Philip A., Alexander Peltzer, Sven Fillinger, Harshil Patel, Johannes Aln
 </div>
 <div id="ref-garrigós2025" class="csl-entry" role="listitem">
 Garrigós, Marta, Guillem Ylla, Josué Martínez-de la Puente, Jordi Figuerola, and María José Ruiz-López. 2025. <span>“Two Avian <em>Plasmodium</em> Species Trigger Different Transcriptional Responses on Their Vector <em>Culex <span>p</span>ipiens</em>.”</span> <em>Molecular Ecology</em> 34 (15): e17240. <a href="https://doi.org/10.1111/mec.17240">https://doi.org/10.1111/mec.17240</a>.
+</div>
+<div id="ref-ponomarenko2023" class="csl-entry" role="listitem">
+Ponomarenko, Elena A., George S. Krasnov, Olga I. Kiseleva, Polina A. Kryukova, Viktoriia A. Arzumanian, Georgii V. Dolgalev, Ekaterina V. Ilgisonis, Andrey V. Lisitsa, and Ekaterina V. Poverennaya. 2023. <span>“Workability of <span class="nocase">mRNA</span> <span>Sequencing</span> for <span>Predicting</span> <span>Protein</span> <span>Abundance</span>.”</span> <em>Genes</em> 14 (11): 2065. <a href="https://doi.org/10.3390/genes14112065">https://doi.org/10.3390/genes14112065</a>.
 </div>
 <div id="ref-rodriguez2020" class="csl-entry" role="listitem">
 Rodriguez, Héctor Alejandro, William F. Hidalgo, J. Danilo Sanchez, Riya C. Menezes, Bernd Schneider, Rafael Eduardo Arango, and Juan Gonzalo Morales. 2020. <span>“Differential Regulation of Jasmonic Acid Pathways in Resistant (Calcutta 4) and Susceptible (Williams) Banana Genotypes During the Interaction with Pseudocercospora Fijiensis.”</span> <em>Plant Pathology</em> 69 (5): 872–82. https://doi.org/<a href="https://doi.org/10.1111/ppa.13165">https://doi.org/10.1111/ppa.13165</a>.
