@@ -1,0 +1,25 @@
+<details><summary>*Click to see the solution*</summary>
+
+- The `dpi` column has the number of Days Post Infection
+  (i.e., timepoints): either 1 or 10 days.
+  You may remember from the lecture or the paper that there was also a 21-day
+  timepoint, but I have removed those samples to keep things simpler.
+  
+- The `treatment` column contains the treatment:
+  infection which *Plasmodium* species, or "control" (not infected).
+
+- All in all, there are 3 treatments across each of 2 timepoints,
+  with **3-4 biological replicates** per treatment-timepoint combination.
+</details>
+
+
+We can directly count the number of rows (genes) and columns (samples) from this
+count matrix -- these numbers should correspond to what we saw above:
+
+```{r}
+# Number of rows (genes):
+nrow(counts(dds))
+
+# Number of columns (samples):
+ncol(counts(dds))
+```

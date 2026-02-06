@@ -51,10 +51,10 @@ you learned about the steps to generate a gene count table from this input data:
 ### Today's goals 
 
 I have performed the above steps for you already,
-and you will start with an R object that contains the output of step 3:
+and you will start with an R object that contains the output of step 3 above:
 a **gene count table**. Then, you will:
 
-- Explore the data
+- Explore the data a bit
 - Perform a Principal Component Analysis (PCA)
 - Run a Differential Expression (DE) analysis
 - Extract and visualize the DE results
@@ -78,9 +78,9 @@ week's homework:
    - Number of cores: **`2`**
 4. Click the big blue **`Launch`** button at the bottom
 5. Now, you should be sent to a new page with a box at the top for your
-   RStudio Server "job", which should initially be "Queued" (waiting to start).
+   RStudio Server "job", which should initially be "Queued" (waiting to start)
 6. Your job should start running very soon,
-   with the top bar of the box turning green and saying "Running".
+   with the top bar of the box turning green and saying "Running"
 7. Click **`Connect to RStudio Server`** at the bottom of the box,
    and an RStudio Server instance will open in a new browser tab.
    You're ready to go!
@@ -103,34 +103,21 @@ it directly in the R console, as explained in the [R homework](r_homework.qmd):
 
 ### Load the R packages you will use
 
-As part of your homework, you installed a few R packages with functionality
-you'll need in today's lab.
+As part of your homework,
+you installed a few R packages that have functionality you'll need in today's lab.
 
-Recall that R packages behave equivalently to other software/apps,
-in that installation is a one-time thing,
-but you need to lead them in any given session to use them.
-Let's start with that:
+Recall that R packages behave equivalently to other software/apps in the following way:
+while installation is a one-time thing,
+they need to be loaded in any given session to be used.
+So, let's start with loading these packages:
 
 ```{r, eval=FALSE}
-# Then, load the R packages:
-library(DESeq2)          # Differential expression analysis
-library(EnhancedVolcano) # Volcano plot
-library(tidyverse)       # Misc. data manipulation and plotting
+library(DESeq2)          # For differential expression analysis
+library(EnhancedVolcano) # For creating volcano plots
+library(tidyverse)       # For misc. data manipulation and plotting
 ```
 
-::: {.callout-important appearance="simple"}
-Here, and with all the code in this lab,
-type or copy it in your script, and send it to the console from there.
-Recall that you can send code to the console by pressing
-<kbd>**Ctrl**</kbd> **+** <kbd>**Enter**</kbd> on Windows,
-or <kbd>Cmd</kbd> + <kbd>Return</kbd> on a Mac.
-:::
-
-Running the code above will produce output in the R console, and some of it in orange,
-but all should be good unless you see explicit errors at the bottom.
-
 <details><summary>*Click to see expected output*</summary>
-
 <hr style="height:1pt; visibility:hidden;" />
 
 ```{r, message=TRUE, warning=TRUE}
@@ -138,8 +125,15 @@ library(tidyverse)
 library(DESeq2)
 library(EnhancedVolcano)
 ```
-
 </details>
+
+::: {.callout-important appearance="simple"}
+Here, and with all the code in this lab,
+type or copy it in your script, and send it to the console from there.
+Recall that you can send code to the console by pressing
+<kbd>Ctrl</kbd> + <kbd>Enter</kbd> (Windows) /
+<kbd>Cmd</kbd> + <kbd>Return</kbd> (Mac).
+:::
 
 ## Loading and exploring the data
 
@@ -150,8 +144,8 @@ An R package that makes this relatively straightforward is **DESeq2**
 [package website](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)),
 which you installed as part of your homework, and loaded just now.
 
-DESeq2 has its own "object type" (a specific R format type) and the first step
-when working with this package is to create a DESeq2 object.
+DESeq2 has its own "object type" (a specific R format type),
+and the first step when working with this package is to create a DESeq2 object.
 I already did this for you, so you can focus on the analysis itself.
 The object consists of two main parts:
 
@@ -189,9 +183,8 @@ That printed a summary of the object, with the following key items:
 - **`rownames`**: The row names of the count table (here, gene IDs)
 - **`colnames`**: The column names of the count table (here, sample IDs)
 - **`colData names`**: The column names of the sample metadata table
-
-_(`colData` is used as a shorthand for "column data", i.e. data associated with_
-_the columns/samples of the count table.)_
+  _(`colData` is used as a shorthand for "column data", i.e. data associated with_
+  _the columns of the count table, which are the samples)_
 
 ### The sample metadata
 
@@ -199,22 +192,22 @@ Last week, we looked at the TSV file with the sample metadata (`metadata/meta.ts
 but we'll take a closer look at this same sample metadata now.
    
 It can be accessed with the `colData()` function,
-where we pass the name of our DESeq2 object as its argument:
+with the name of your DESeq2 object as the function's argument:
 
 ```{r}
 colData(dds)
 ```
 
-This is collapsed, only showing the first 5 and last 5 rows with `...` in between.
-If we want to see the entire table more easily,
-we can first create a regular dataframe from it:
+This output only shows the first 5 and last 5 rows with `...` in between.
+To see the entire table more easily,
+you can first create a regular dataframe from it:
 
 ```{r}
 # This turns the colData() output into a regular data frame and stores it in 'meta':
 meta <- data.frame(colData(dds))
 ```
 
-And then take a look e.g. with the `View()` function:
+And then take a look -- e.g. with the `View()` function:
 
 ```{r, eval=FALSE}
 # View() will open the dataframe in a spreadsheet like view
@@ -232,20 +225,6 @@ meta
 Based on the information in the table, recap the study's experimental design.
 How many timepoints and treatments are there?
 How many biological replicates per group?
-
-<details><summary>*Click to see the solution*</summary>
-
-- The `dpi` column has the number of Days Post Infection
-  (i.e., timepoints): either 1 or 10 days.
-  You may remember from the lecture or the paper that there was also a 21-day
-  timepoint, but I have removed those samples to keep things simpler.
-  
-- The `treatment` column contains the treatment:
-  infection which *Plasmodium* species, or "control" (not infected).
-
-- All in all, there are 3 treatments across each of 2 timepoints,
-  with **3-4 biological replicates** per treatment-timepoint combination.
-</details>
 :::
 
 ### The count table
@@ -263,16 +242,18 @@ Only the first 6 rows (=genes) are printed, but because the table is quite wide,
 the output is "folded".
 Pay attention to the row (gene) names to understand it better.
 
-We can directly count the number of rows (genes) and columns (samples) from this
-count matrix -- these numbers should correspond to what we saw above:
+::: exercise
+#### {{< fa user-edit >}} Exercise: Number of genes and samples in the count table
 
-```{r}
-# Number of rows (genes):
-nrow(counts(dds))
+The `nrow()` and `ncol()` functions return the number of rows and columns,
+respectively, of data frames and similar rectangular data formats.
 
-# Number of columns (samples):
-ncol(counts(dds))
-```
+For example, if you had a data frame called `my_df`,
+then `nrow(my_df)` would return the number of rows in that data frame.
+
+Use these functions on the count table to double-check the number of genes and
+the number of samples in the count table.
+:::
 
 ### Library sizes
 
@@ -280,9 +261,9 @@ The total number of gene counts per sample is called the **library size**.
 This varies among samples for various reasons,
 but we don't consider these differences to be biologically meaningful.
 For example, if sample A has 10 million reads and sample B has 20 million reads,
-we could _not_ conclude that sample B had "more expression".
+we could _not_ conclude that sample B had "more expression" or anything like that.
 
-<details><summary>Does this make sense to you or is it counter-intuitive?
+<details><summary>Does this make sense to you, or is it counter-intuitive?
 &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
 </summary>
 </details>
@@ -325,15 +306,19 @@ In this dataset, how many genes have zero counts across all samples?
 
 To compute this, first note that you can use `rowSums()` to compute total
 counts per gene.
-
 Then, you can make use of the following type of construct to count how many
 times that sum is greater than a certain number, here 0:
 
 ```{r}
 my_vec <- c(5, 0, 9)
 my_vec > 0
+```
+
+```{r}
 sum(my_vec > 0)
 ```
+
+<hr style="height:1pt; visibility:hidden;" />
 
 So, the number of genes with non-zero total counts can be computed like so:
 
@@ -378,14 +363,20 @@ sum(rowSums(counts(dds)) / ncol(counts(dds)) > 9)
 ## Principal Component Analysis (PCA)
 
 You will now run a PCA to look for overall patterns of (dis)similarity among samples.
-This will help answer questions like:
+A PCA summarizes the variation in a high-dimensional dataset
+(here: gene expression levels across many genes)
+into a few "principal components" (PCs) that capture the most variation.
 
-- Do the samples cluster by treatment (infection status) and/or time point?
-- Which of these two variables has a greater effect on overall patterns of gene expression?
-- Is there an overall *interaction* between these two variables?
+Doing this can help answer questions like:
 
-First, you have to normalize the count data to account for differences in
-library size among samples and to "stabilize" the variance among genes[^4]:
+1. Do the samples cluster by treatment (infection status) and/or time point?
+   If they do, that suggests that these variables have a strong effect on gene expression.
+2. Which of these two variables has a greater effect on overall patterns of gene expression?
+3. Is there an overall *interaction* between these two variables?
+
+Before running the PCA,
+the count data should be normalized to account for differences in library size
+among samples and to "stabilize" the variance among genes[^4]:
 
 [^4]: Specifically, the point is to remove the correlation among genes between the
       mean expression level and the variance in expression.
@@ -398,7 +389,7 @@ The authors of the study did this as well:
 
 > *We carried out a Variance Stabilizing Transformation (VST) of the counts to represent the samples on a PCA plot.*
 
-Next, you can run and plot the PCA with a single function call,
+Next, you can run the PCA and plot the results with a single function call,
 `plotPCA()` from DESeq2:
 
 ```{r}
@@ -413,7 +404,7 @@ plotPCA(dds_vst, intgroup = c("dpi", "treatment"))
    beginning of this PCA section.
 
 2. How does the the PCA plot in the paper (Figure 1) compare?
-   Would you draw similar conclusions? Do you see obvious differences?
+   Would you draw similar conclusions or do you see obvious differences?
 
    <details><summary>*Click to see the paper's Figure 1*</summary>
    <hr style="height:1pt; visibility:hidden;" />
@@ -423,6 +414,10 @@ plotPCA(dds_vst, intgroup = c("dpi", "treatment"))
    <hr style="height:1pt; visibility:hidden;" />
    </details>
 :::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+If you have time, you can pick one of the following bonus exercises to do:
 
 ::: exercise
 #### {{< fa user-edit >}} Bonus exercise 1: Number of genes in the PCA
@@ -434,11 +429,11 @@ but it can be a good idea to check how robust the results are to this choice.
 
 The `plotPCA()` function has an argument to change the number of included genes.
 
-1. Figure out what the name of this argument is by check the help for the function.\
+1. Figure out what the name of this argument is by check the help for the function
    _(Hint: run `?plotPCA` in the R console)_
 
 2. Play around with different numbers of included genes
-   (e.g., 100, 1000, all genes) and see how this affects the PCA plot.
+   (e.g., 100, all genes) and see how this affects the plot
 :::
 
 ::: exercise
@@ -455,7 +450,7 @@ as was done in the paper's Fig. 1.
 To customize the plot, you'll first need to get the data in a format you can use
 to build the plot from scratch.
 Do this using the `returnData = TRUE` argument of the `plotPCA()` function
-(check the first solution below if needed).
+(check the partial solution below if needed).
 
 Then, the plot customization will require some knowledge of _ggplot2_.
 If you don't know how to do this yet, but still want to try,
@@ -523,7 +518,7 @@ ggplot(pca_df) +
 
 ### Figuring out how to do the analysis
 
-First, let's see how the DE analysis was done in the paper:
+First, let's check how the paper's authors did the DE analysis:
 
 > *Then, we used the DESeq2 package (Love et al., 2014) to perform the differential gene expression analysis comparing: (i) P. relictum-infected mosquitoes vs. controls, (ii) P. cathemerium-infected mosquitoes vs. controls, and (iii) P. relictum-infected mosquitoes vs. P. cathemerium-infected mosquitoes.*
 
@@ -538,7 +533,7 @@ i.e. using the design `~treatment`.
 <hr style="height:1pt; visibility:hidden;" />
 
 <details><summary>
-Given the PCA results, do you think we can ignore the `dpi` variable?
+Given the PCA results, do you think we can ignore the `dpi` variable? Why/why not?
 &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
 </summary></details>
 
@@ -553,26 +548,20 @@ it should become clearer how they did their analysis:
 ![](../img/paper_table1.png){fig-align="center" width="80%"}
 
 <details><summary>
-How do you interpret this: did they run pairwise comparisons or a two-factor model?
+How do you interpret this:
+did they run pairwise comparisons or a model with multiple variables?
 &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
 </summary></details>
 
-Pairwise comparisons with more than independent variable can (also!) be done
-in two ways:
-
-- After **subsetting** the dataset to each combination of `dpi` and `treatment`.
-- After creating a single, **combined independent variable** that is a
-  combination of `dpi` and `treatment.`
-
-It's not clear from the paper which they used,
-but the latter method is the more common one, so we'll use that below.
+Even pairwise comparisons with more than independent variable can be done in two
+ways, but we'll use the most common one, which is to create a single,
+combined independent variable that is a combination of `dpi` and `treatment`.
 
 ### Setting the statistical design
 
 You will now create a new variable that is a combination of `treatment` and `dpi`,
-and call it `group`:
-
-First, create a combined variable called `group` with the `paste()` function:
+and call it `group`.
+First, create a vector with these combinations using the `paste()` function:
 
 ```{r}
 group <- paste(dds$treatment, dds$dpi, sep = "_")
@@ -610,9 +599,9 @@ Phew, now you're finally ready to run the DE analysis!
 While you had to do a lot of prep to get here,
 actually running the DE analysis is very simple.
 It's done with the function `DESeq()`,
-which we _only_ need to provide with the DESeq2 object,
-since all the data and also the analysis options are specified in the object
-itself:
+which _only_ needs to be provided with the DESeq2 object
+(because all the data and also the analysis options are specified in
+the object itself):
 
 ```{r}
 # (Note that the output is assigned back to the same `dds` object -
@@ -702,23 +691,26 @@ head(res_rc1)
 What do the columns in this table contain?
 
 - **`baseMean`**: Mean expression level across all samples
-- **`log2FoldChange`**: The "log2-fold change" of gene counts between the compared levels
+- **`log2FoldChange`**: The "log~2~-fold change" of gene counts between the compared levels
 - **`lfcSE`**: The uncertainty in terms of the standard error (SE) of the log2-fold change estimate
 - **`stat`**: The value for the Wald test's test statistic
 - **`pvalue`**: The *uncorrected* p-value from the Wald test
 - **`padj`**: The multiple-testing corrected p-value (i.e., adjusted p-value)
 
-### Log2-fold changes (LFCs)
+<details><summary>Are any of the 6 genes shown above differentially expressed?
+&nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
+</summary></details>
+
+### Log~2~-Fold Changes (LFCs)
 
 In RNA-Seq analysis,
 log2-fold changes (LFCs) are the standard way of representing the
 **magnitude (*effect size*) of expression level differences**
 between two groups of interest.
-With A and B being the compared sample groups, the LFC is calculated as:
+With A and B being the compared sample groups, the LFC is calculated as
+the log~2~ transformed ratio of the mean expression levels in each group:
 
-``` bash-out-solo
-log2(mean of A / mean of B)
-```
+$$ \log_{2} \left( \frac{\bar{A}}{\bar{B}} \right) $$
 
 Due the log-transformation,
 the LFC also increase more slowly than a raw fold-change:
@@ -729,8 +721,8 @@ the LFC also increase more slowly than a raw fold-change:
 
 A nice property of LFC is that decreases and increases in expression are expressed symmetrically:
 
-- An LFC of **`1`** means that group A has a **two-fold higher** expression that group B
-- An LFC of **`-1`** means that group A has a **two-fold lower** expression that group B
+- An LFC of **`1`** means that group A has a **two-fold higher** expression than group B
+- An LFC of **`-1`** means that group A has a **two-fold lower** expression than group B
 
 ### Numbers of differentially expressed genes (DEGs)
 
@@ -824,7 +816,7 @@ and compare the results.
 
 ## DE result visualizations
 
-Finall, you'll create a few plots for the DE results you extracted above.
+Finally, you'll create a few plots for the DE results you extracted above.
 
 ### Volcano plot
 
@@ -996,6 +988,11 @@ but it can be rather useful to see the expression patterns across _all_ groups.
 Plot one or a few more of the top-DE genes.
 Do they have similar expression patterns across treatment and time points as
 the first one?
+
+<details><summary>*Click for a hint*</summary>
+You can get the gene IDs of, for example, the second most significant genes
+with `rownames(top_df)[2]`
+</details>
 :::
 
 ::: exercise
@@ -1037,7 +1034,7 @@ and need to visualize important genes!
 ::::
 
 ::: exercise
-#### {{< fa user-edit >}} Bonus exercise: Make a better gene expression plot
+#### {{< fa user-edit >}} Bonus exercise: Make a better-looking plot
 
 The default `plotCounts()` function creates a rather basic plot.
 Customize the plot with _ggplot2_ to make it better-looking and clearer.
@@ -1065,20 +1062,17 @@ head(focal_gene_counts)
 
 <details><summary>*Solution part 2: Making the plot*</summary>
 
-```{r, eval=FALSE}
+```{r}
 focal_gene_counts |>
   # Treatment along the x-axis, gene counts along the y, color by treatment:
   ggplot(aes(x = treatment, y = count, fill = treatment)) +
   # Plot separate "facets" with the different time points
   facet_wrap(vars(dpi)) +
-  # Add a boxplot with a partly transparaent (alpha) color:
+  # Add a boxplot with a partly transparent (alpha) color:
+  # (Don't show outliers because we'll plot _all_ points next)
   geom_boxplot(alpha = 0.5, outlier.shape = NA) +
-  # _And_ add individual points:
-  geom_point(
-    size = 4,
-    shape = 21,
-    position = position_jitter(width = 0.1, heigth = 0)
-    ) +
+  # _And_ add individual points (with shape=21 for filled circles):
+  geom_point(size = 4, shape = 21) +
   # Plot styling (e.g., we don't need a legend)
   theme_bw() +
   theme(legend.position = "none")
@@ -1101,10 +1095,8 @@ result from a typical RNA-Seq workflow. Specifically, you have:
 Typical next steps in such an analysis include:
 
 - Additional summaries and plots can be made, such as heatmaps (see the Appendix below)
-
 - Extracting, comparing, and synthesizing DE results across **all pairwise comparisons**
   (this would for example allow us to make the upset plot in *Figure 2 of the paper*)
-
 - **Functional enrichment analysis** with Gene Ontology (GO) terms,
   as done in the paper, and/or with KEGG pathways.
 
