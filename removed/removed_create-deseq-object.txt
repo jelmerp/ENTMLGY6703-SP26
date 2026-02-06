@@ -1,0 +1,157 @@
+
+### Create a DESeq2 object
+
+While I provided you with a ready-to-use DESeq2 object above,
+here is how you could do this yourself.
+You need to create a DESeq2 object from three components:
+
+1. **Sample metadata**\
+   This table should contain information on which samples belong to which groups
+   that should be compared (i.e., the experiment's "independent variables").
+2. **Count table**\
+   A table with one row per gene, and one column per sample.
+3. **A statistical design**\
+   A statistical design formula to tell DESEq2 which groups to compare
+
+```{r, echo=FALSE}
+count_table_file <- here::here("results/counts/salmon.merged.gene_counts_length_scaled.tsv")
+metadata_file <- here::here("data/meta/metadata.tsv")
+```
+
+#### Sample metadata
+
+First, you'll load the sample metadata from the same file you saw last week.
+To do so, use the `read_tsv()` function you also saw in the homework --
+this reads a TSV (Tab-Separated Values) file into a dataframe:
+
+```{r, eval=FALSE}
+meta_raw <- read_tsv("/fs/scratch/PAS2880/ENT6703/data/meta/metadata.tsv")
+```
+
+```{r, echo=FALSE}
+meta_raw <- read_tsv(metadata_file)
+```
+
+```{r, eval=FALSE}
+# Take a look at the first 6 rows:
+head(meta_raw)
+```
+
+You'll have to make some modifications to the metadata table
+so that it can be used in DESeq2:
+
+- The table should be sorted by sample ID:
+  you can use the `arrange()` function to do so
+- The sample IDs should be row names, not a separate column:
+  we can use the `column_to_rownames()` function for this
+
+```{r}
+# The input is the raw metadata dataframe ('meta_raw'),
+# and we'll store the output in a new, processed dataframe ('meta'):
+meta <- meta_raw |>
+  # By converting 'treatment' columns into a "factor",
+  # you can provide a custom order that will be respected in the plot -
+  # this, way 24h comes before 10d, and control before the two infections.
+  mutate(
+    dpi = factor(dpi, levels = c(1, 10)),
+    treatment = factor(treatment, levels = c("control", "cathemerium", "relictum"))
+  ) |>
+  # 1. Sort the table by 'sample_id' column:
+  arrange(sample_id) |>
+  # 2. Turn the 'sample_id' column into row names:
+  column_to_rownames("sample_id")
+```
+
+```{r}
+# Take a look at the first 6 rows
+head(meta)
+```
+
+In the two outputs above,
+note the difference between having the sample IDs as a separate column versus
+as row names.
+This is a minor and uninteresting technical difference,
+but DESeq2 simply expects the sample IDs to be row names.
+
+::: {.callout-note appearance="simple"}
+When analyzing data sets, such modifications ("data wrangling") are quite common
+and can take up more time and space than the actual analysis itself.
+Which is one reason we're including these steps in the lab.
+:::
+
+#### Count table
+
+I produced a gene count table for you by running the 
+[nf-core rnaseq pipeline](https://nf-co.re/rnaseq)
+on the input data you saw last week (FASTQ reads and reference genome files).
+Load this count table into R:
+
+```{r, eval=FALSE}
+count_df <- read_tsv("/fs/scratch/PAS2880/ENT6703/results/counts.tsv")
+```
+
+```{r, echo=FALSE}
+count_df <- read_tsv(count_table_file)
+```
+
+Take a look at the first 6 rows:
+
+```{r}
+head(count_df)
+```
+
+Here, too, we have to make several modifications --
+DESeq2 expects that the count table:
+
+- Has gene IDs as row names
+- Does not contain any non-numeric columns
+- Contains integer (whole-number, rounded) values
+- Is a "matrix", a slighly different object type from a dataframe
+
+```{r}
+count_mat <- count_df |>
+  # 1. Turn the 'gene_id' column into row names:
+  column_to_rownames("gene_id") |>
+  # 2. Remove a remaining non-numeric column (which has gene names):
+  select(-gene_name) |>
+  # 3. Round everything to whole numbers:
+  round() |>
+  # 4. Convert it to a formal 'matrix' format:
+  as.matrix()
+```
+
+Let's once again take a look at the first 6 rows:
+
+```{r}
+head(count_mat)
+```
+
+When creating the DESeq2 object,
+DESeq2 assumes that sample IDs in the metadata and count tables completely match
+(no extra/missing samples in either table), and are provided in the same order.
+Let's make sure this is indeed the case:
+
+```{r}
+all(rownames(meta) == colnames(count_mat))
+```
+
+#### Create the DESeq2 object
+
+You will create the DESeq2 object using the function `DESeqDataSetFromMatrix()`,
+which requires three arguments corresponding to the components discussed above:
+
+- The metadata with argument **`colData`**.
+- The count data with argument **`countData`**.
+- The statistical design for the DE analysis with argument **`design`**.
+  For now, you will specify **`~1`**,
+  which effectively means "no design" ---
+  you will change this before the actual DE analysis.
+
+```{r}
+# (`dds` is a name commonly used for DESeq2 objects, short for "DESeq Data Set")
+dds <- DESeqDataSetFromMatrix(
+  colData = meta,
+  countData = count_mat,
+  design = ~ 1
+  )
+```
