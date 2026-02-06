@@ -31,7 +31,7 @@ website:
           - text: "Lecture: RNA-seq"
             href: pages/rnaseq.qmd
           - text: "Lab: Differential expression analysis"
-            #href: pages/DE.qmd
+            href: pages/DE.qmd
     right:
       - text: About
         href: about.qmd

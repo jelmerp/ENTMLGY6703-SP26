@@ -16,10 +16,6 @@ number-sections: false
 | 3    | Jan 30^th^ | High-throughput sequencing (HTS) | Lab  | - [Part 1: Computing environment](pages/infrastructure.qmd)<br>- [Part 2: Working with genome and HTS data](pages/data.qmd) |
 | 4    |   | RNA-Seq                          | Homework | [R basics](pages/r_homework.qmd) |
 | 4    | Feb 5^th^  | RNA-Seq                          | Lecture| [RNA-Seq](pages/rnaseq.qmd) |
-| 4    | Feb 6^th^  | RNA-Seq                          | Lab | Differential expression analysis |
+| 4    | Feb 6^th^  | RNA-Seq                          | Lab | [Differential expression analysis](pages/DE.qmd) |
 
 : {.striped}
-
-<!--
-| 4    | Feb 6^th^  | RNA-Seq                          | Lab | [Differential expression analysis](pages/DE.qmd) |
--->

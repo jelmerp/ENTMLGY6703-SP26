@@ -35,8 +35,8 @@ bibliography: ../references.bib
 
 ## Gene expression is highly dynamic
 
-Unlike an organism's genome content, the expression of genes is highly dynamic,
-varying:
+Unlike an organism's genome content, the expression of genes is highly dynamic --
+it varies:
 
 - Across time and space
 
@@ -64,6 +64,15 @@ Considering:
 
 ... ***gene expression can be used as a proxy for protein expression***
 to make functional inferences
+
+. . .
+
+<br>
+
+::: {.callout-warning appearance="simple"}
+**Caveat:** the correlation between mRNA and protein levels is rather imperfect --\
+see e.g. @ponomarenko2023.
+:::
 
 ## Studying gene expression
 
@@ -126,7 +135,7 @@ pathogenicity, and yield.
 **How can we tell which gene each read originates from?**
 &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
 </summary>
-Most commonly by aligning them to a reference genome.
+Most commonly by aligning the reads to a reference genome.
 </details>
 
 :::footer
@@ -168,7 +177,7 @@ We'll focus on the most common type of RNA-Seq, which:
 <hr style="height:1pt; visibility:hidden;" />
 
 ::: {.callout-note appearance="simple"}
-_When I refer to RNA-Seq from now on, this kind of RNA-Seq is impled._
+_When I refer to RNA-Seq from now on, this specific type of RNA-Seq is implied._
 :::
 
 ## Side note: Types of RNA
@@ -193,7 +202,7 @@ the following projects aimed to identify genes & pathways differing between:
 - Soybean cultivars in response to *Phytophtora sojae* inoculation
   _(Dorrance lab, PlantPath)_
 
-- Response of maize to _Pantoea_ infection with and without an effector gene
+- Response of maize to infection with _Pantoea_  with and without an effector gene
   _(Mackey lab, HCS)_
 
 . . .
@@ -226,7 +235,7 @@ RNA-Seq typically compares groups of samples defined by differences in:
 
 - **Tissues**
 
-## The Garrigós et al. 2025 dataset
+## The Garrigós et al. experimental design
 
 ![](../img/garrigos_paper.png){.lightbox fig-align="center" width="75%" fig-alt="A screenshot of the paper's front matter."}
 
@@ -234,33 +243,35 @@ RNA-Seq typically compares groups of samples defined by differences in:
 @garrigós2025
 :::
 
-<br>
+<hr style="height:1pt; visibility:hidden;" />
 
-This paper used RNA-Seq data to study gene expression in *Culex pipiens*
-mosquitos infected with malaria-causing *Plasmodium* protozoans
+*Culex pipiens* mosquitos infected with malaria-causing *Plasmodium* protozoans:
 
-## Experimental design: treatments/groups
+- _Plasmodium relictum_ -- higher virulence, lower tranmission rate
+- _Plasmodium cathemerium_ -- lower virulence, higher tranmission rate
+
+## The Garrigós et al. experimental design
 
 ![](../img/exp-design_a.png){.lightbox fig-align="center" width="75%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
 
 :::footer
 :::
 
-## Experimental design: treatments/groups
+## The Garrigós et al. experimental design
 
 ![](../img/exp-design_b.png){.lightbox fig-align="center" width="75%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
 
 :::footer
 :::
 
-## Experimental design: treatments/groups
+## The Garrigós et al. experimental design
 
 ![](../img/exp-design_c.png){.lightbox fig-align="center" width="75%" fig-alt="A diagram showing the experimental design of the Garrigós et al. 2025 study."}
 
 :::footer
 :::
 
-## Experimental design: treatments/groups
+## Experimental design
 
 <details><summary>
 _With this experimental design,_
@@ -275,7 +286,7 @@ No -- see the next slide
 :::footer
 :::
 
-## Biological replicates
+## Experimental design: Biological replicates
 
 To make statistically supported conclusions about expression differences,\
 we need **biological replication** (at least 3-5 samples per group):
@@ -292,10 +303,10 @@ we need **biological replication** (at least 3-5 samples per group):
 ![](../img/samples2reads_a2.png){fig-align="center" width="80%"}
 
 <details><summary>
-**Which type of RNA do the red bars followed by [AAAAAAAA]{style="color:red;"} represent?**
+*Which type of RNA do the red bars followed by [AAAAAAA]{style="color:red;"} represent?*
 &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
 </summary>
-These are the mRNAs, which have poly-A tails (AAAA...)
+These are the mRNAs, which have poly-A tails (`AAAAAA...`)
 </details>
 
 ## From samples to reads
@@ -416,10 +427,10 @@ _samples (columns)_
 ::: footer
 :::
 
-## From reads to counts: overview
+## A genAI diagram that explains RNA-Seq analysis
 
-This is what the Adobe Firefly AI came up with when I tried to get
-it to help me with producing the diagram on the previous slide 😵‍💫
+I though I'd get some generative AI help with the diagram on the previous slide --\
+this is what Adobe Firefly came up with: 😵‍💫
 
 ![](../img/firefly_diagram.png){fig-align="center" width="45%" fig-alt="Adobe Firefly's image when asking it create a diagram of RNA-Seq analysis steps." .lightbox}
 
@@ -445,7 +456,7 @@ This part is "bioinformatics"-heavy, with large files, high computing needs,
 and using command-line tools ran in the Unix shell.
 
 If this is a problem:
-the process if fairly standardized and suitable to be outsourced. 
+the process is fairly standardized and suitable to be outsourced. 
 :::
 
 ## Read pre-processing
@@ -456,7 +467,7 @@ Read pre-processing includes:
 
 - **Checking the quantity and quality of your reads** (e.g. with `FastQC`)
 
-<hr style="height:1pt; visibility:hidden;" />
+. . .
 
 - **Removing unwanted sequences**, such as:
     - Adapters, low-quality bases, and very short reads
@@ -471,7 +482,11 @@ Does an RNA transcript always correspond to a contiguous stretch of the genome?
 If not, what implications does this have for read alignment?
 &nbsp; <span style="color:darkolivegreen;">{{< fa comments >}}</span>
 </summary>
-
+No, it doesn't, because of splicing.
+This means that a read can align partially to two different exons,
+skipping the intron in between.
+"Regular" genome alignment would not be able to handle this properly --
+see the next slides.
 </details>
 
 ## Side note: Splicing
@@ -534,7 +549,7 @@ If distinguishing between isoforms is important,
 performing RNA-Seq with a **long-read HTS** platform is a better option.
 </details>
 
-![](../img/alignment_ed1.jpg){fig-align="center" width="50%"}
+![](../img/alignment_ed1.jpg){fig-align="center" width="70%"}
 
 :::legend2
 @vandenberge2019
@@ -594,15 +609,47 @@ It is typically done with the R language, and common aspects include:
 
 ## Principal Component Analysis (PCA)
 
-PCA visualizes overall patterns of similarity among samples,\
+PCA examines overall patterns of dissimilarity among samples,\
 such as whether groups of interest form distinct clusters:
 
-<hr style="height:1pt; visibility:hidden;" />
-
-![](../img/PCA.jpeg){fig-align="center" width="100%"}
+![](../img/PCA.jpeg){fig-align="center" width="85%"}
 
 :::legend2
 Fig. 1 from @garrigós2025
+:::
+
+. . .
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: {.callout-note appearance="simple"}
+We'll talk more about the interpretation of this PCA plot in tomorrow's lab
+:::
+
+:::footer
+:::
+
+## Principal Component Analysis (PCA)
+
+PCA examines overall patterns of dissimilarity among samples,\
+such as whether groups of interest form distinct clusters:
+
+![](../img/PCA.jpeg){fig-align="center" width="85%"}
+
+:::legend2
+Fig. 1 from @garrigós2025
+:::
+
+<hr style="height:1pt; visibility:hidden;" />
+
+::: {.callout-tip appearance="simple"}
+PCA is a very useful technique, not just for RNA-Seq data.\
+To learn more about how it works,
+see [this video](https://www.youtube.com/watch?v=HMOI_lkzW08) (short overview)
+and [this video](https://www.youtube.com/watch?v=FgakZw6K1QQ) (more detailed).
+:::
+
+:::footer
 :::
 
 ## Differential expression (DE) analysis
@@ -658,23 +705,26 @@ specialized R packages like `DESeq2` take care of the details.
 
 ## Functional enrichment: introduction
 
-Lists of DEGs can be long: not always easy to make biological sense of.\
-Functional **enrichment analyses** help with this.
+Lists of DEGs can be long and not always easy to make biological sense of.
 
-Functional enrichment analyses check whether certain
-functional **categories** of genes are *statistically overrepresented*
-among up- and/or downregulated genes.
+Functional **enrichment analysis** helps with this, 
+asking whether certain **functional categories** of genes are
+statistically overrepresented among DEGs.
 
 <br>
 
 . . .
 
-Several databases group genes into functional categories ---\
+Several databases group genes into such functional categories ---\
 the two main ones used for enrichment analysis are:
 
-- **Gene Ontology (GO)**
-- **Kyoto Encyclopedia of Genes and Genomes (KEGG)**
-
+- **Gene Ontology (GO)**\
+  Have a hierarchical structure with more specific terms grouping into
+  more general terms
+- **Kyoto Encyclopedia of Genes and Genomes (KEGG)**\
+  Less general than GO, has pathways whose genes can be drawn and
+  connected in diagrams
+  
 ## Functional enrichment: conceptually
 
 A GO term called "**photosynthesis**" is
@@ -684,7 +734,7 @@ associated with a set of genes involved in photosynthesis.
   this term = 1%
 
 - Say that among your 50 out of your 500 DEGs
-  are annotated to this term = 5%
+  are annotated to this term = 10%
 
 . . .
 
@@ -700,19 +750,10 @@ is overrepresented among your DEGs.
 Fig. 4 from @garrigós2025
 :::
 
-::: {.callout-note appearance="simple"}
-GO terms have a *hierarchical* structure with more specific terms grouping into
-more general terms
-:::
-
 :::footer
 :::
 
 ## Functional enrichment: KEGG {.nostretch}
-
-KEGG focuses on **pathways** for cellular and organismal functions whose genes can be drawn and connected in maps.
-
-. . .
 
 <br>
 
@@ -730,7 +771,7 @@ KEGG focuses on **pathways** for cellular and organismal functions whose genes c
 
 # Questions? {background-color="silver"}
 
-## Read alignment QC
+## Bonus: Read alignment QC
 
 - **Alignment rates**\
   What percentage of reads was successfully aligned? _(Should be \>80%)_
